@@ -5,18 +5,30 @@
 {% block title %}{% trans "Submit URL" %}{% endblock %}
 
 {% block content %}
-<form action="" method="post" class="well">
-  {% csrf_token %}
-  
-  {{ form|bootstrap }}
 
-  <p>
-  Thanks for being generous and giving us more content! Make sure you join lists before posting to them. 
-  </p>
-  <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Post" %}</button>
-  or
-  <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Double Post" %}</button>
-</form>
+{% if user.id %}
+    <form action="" method="post" class="well">
+      {% csrf_token %}
+      
+      {{ form|bootstrap }}
+    
+      <p>
+      Thanks for being generous and giving us more content! Make sure you join lists before posting to them. 
+      </p>
+      
+      <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Post" %}</button>
+      or
+      <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Double Post" %}</button>
+    </form>
+{% else %}
+
+<h2>Submit Content</h2>
+    <p>Here you can easily submit content and vote for it! It is very easy and fast, but you have to <a href="/accounts/signin/?next=/content/submit/">sign in</a> first, or <a href="/account/signup/">sign up</a> if you don't have an Inta account yet.</p>
+ <p>After you sign in, you will be redirected to this page, to submit your content with a form like this:</p>
+<p><img src="{{ STATIC_URL }}img/submit_form.png" /></p>
+<p>So <a href="/accounts/signin/?next=/content/submit/">sign in</a> first and you will be redirected here to submit great content!</p>
+{% endif%}
+    
 {% endblock %}
 
 {% block side2 %}

@@ -99,73 +99,97 @@ def ig(request):
         return render_to_response('content/ig.html', template_data, context_instance=RequestContext(request))
             
     
-@login_required
 def ig_list(request, slug, method):
     user = request.user
-
     ig = get_object_or_404(InterestGroup, slug=slug)
 
+    if user.is_authenticated():
+        voted = user.voters.all()
+        double_voted = user.double_voters.all()
+        voter = []
+        double_voter = []
+        for post in voted:
+            voter.append(post.slug)
+        for post in double_voted:
+            double_voter.append(post.slug)     
+        
+        
+        if request.method == 'POST':
+            action = request.POST.get('action','')
+            post_slug = request.POST.get('post_slug','')
+            if post_slug not in voter and post_slug not in double_voter:
+                if action == 'vote':
+                    voter.append(post_slug)
+                    post_change = get_object_or_404(Entry, slug=post_slug)
+                    post_change.voted_by.add(user)
+                    post_change.posts = post_change.posts + 1
+                    post_change.decayed_score = post_change.decayed_score + 1
+                    post_change.save()
+                    if request.user.is_authenticated():
+                        messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
+                    
+                if action == 'double_vote':
+                    double_voter.append(post_slug) 
+                    post_change = get_object_or_404(Entry, slug=post_slug)
+                    post_change.double_voted_by.add(user)
+                    post_change.double_posts = post_change.double_posts + 1
+                    post_change.decayed_score = post_change.decayed_score + 2
+                    post_change.save()
+                    if request.user.is_authenticated():
+                        messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
     
-    voted = user.voters.all()
-    double_voted = user.double_voters.all()
-    voter = []
-    double_voter = []
-    for post in voted:
-        voter.append(post.slug)
-    for post in double_voted:
-        double_voter.append(post.slug)     
+        if method == 'votes':
+            posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
+        if method == 'growth':
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+            #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
+        if method == 'decay':
+            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added')  
+        if method == 'green':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
+        if method == 'orange':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
+        if method == 'red':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
+        if method == 'black':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
+     
+       
     
+        
+        template_data = {
+            'ig': ig,
+            'posts': posts,
+            'voter': voter,
+            'double_voter': double_voter,
+            'method': method
+        }
+    else:
+        if method == 'votes':
+            posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
+        if method == 'growth':
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+            #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
+        if method == 'decay':
+            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added')  
+        if method == 'green':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
+        if method == 'orange':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
+        if method == 'red':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
+        if method == 'black':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
+     
+       
     
-    if request.method == 'POST':
-        action = request.POST.get('action','')
-        post_slug = request.POST.get('post_slug','')
-        if post_slug not in voter and post_slug not in double_voter:
-            if action == 'vote':
-                voter.append(post_slug)
-                post_change = get_object_or_404(Entry, slug=post_slug)
-                post_change.voted_by.add(user)
-                post_change.posts = post_change.posts + 1
-                post_change.decayed_score = post_change.decayed_score + 1
-                post_change.save()
-                if request.user.is_authenticated():
-                    messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
-                
-            if action == 'double_vote':
-                double_voter.append(post_slug) 
-                post_change = get_object_or_404(Entry, slug=post_slug)
-                post_change.double_voted_by.add(user)
-                post_change.double_posts = post_change.double_posts + 1
-                post_change.decayed_score = post_change.decayed_score + 2
-                post_change.save()
-                if request.user.is_authenticated():
-                    messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
-
-    if method == 'votes':
-        posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
-    if method == 'growth':
-        posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
-        #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
-    if method == 'decay':
-        posts = ig.entry_set.all().order_by('-decayed_score', '-date_added')  
-    if method == 'green':
-        posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
-    if method == 'orange':
-        posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
-    if method == 'red':
-        posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
-    if method == 'black':
-        posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
- 
-   
-
-    
-    template_data = {
-        'ig': ig,
-        'posts': posts,
-        'voter': voter,
-        'double_voter': double_voter,
-        'method': method
-    }
+        
+        template_data = {
+            'ig': ig,
+            'posts': posts,
+            'method': method
+        }
+        
     return render_to_response('content/ig_list.html', template_data, context_instance=RequestContext(request))
 
 @login_required
@@ -190,35 +214,42 @@ def ig_proposal_done(request):
     }
     return render_to_response('content/ig_proposal_done.html', template_data, context_instance=RequestContext(request)) 
 
-@login_required
 def submit(request):
     user = request.user
-    if request.method == 'POST':
-        form = SubmitForm(user, request.POST.get('url',''), request.POST)
+    
+    if user.is_authenticated():
+    
+        if request.method == 'POST':
+            form = SubmitForm(user, request.POST.get('url',''), request.POST)
+            
+            if form.is_valid():
+                ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
+                entry = Entry.objects.filter(url__iexact = form.cleaned_data['url']).filter(ig=ig)
+                if entry:
+                    form.errors['url'] = ['This link has already been submitted in this Interest Group.']           
+                else:
+                    if '_post' in request.POST:
+                        request.session['action'] = 'post'
+                    if '_double_post' in request.POST:
+                        request.session['action'] = 'double_post'
+                        
+                    request.session['url']=form.cleaned_data['url']
+                    request.session['ig']=form.cleaned_data['ig']
+    
+                    redirect_to = reverse('content_submit_details')
+                    return redirect(redirect_to)
+        else:
+            bkmk = request.GET.get('bkmk','')
+            form = SubmitForm(user, bkmk)
+        template_data = {
+            'form': form
+        }
+        return render_to_response('content/submit.html', template_data, context_instance=RequestContext(request)) 
         
-        if form.is_valid():
-            ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
-            entry = Entry.objects.filter(url__iexact = form.cleaned_data['url']).filter(ig=ig)
-            if entry:
-                form.errors['url'] = ['This link has already been submitted in this Interest Group.']           
-            else:
-                if '_post' in request.POST:
-                    request.session['action'] = 'post'
-                if '_double_post' in request.POST:
-                    request.session['action'] = 'double_post'
-                    
-                request.session['url']=form.cleaned_data['url']
-                request.session['ig']=form.cleaned_data['ig']
-
-                redirect_to = reverse('content_submit_details')
-                return redirect(redirect_to)
     else:
-        bkmk = request.GET.get('bkmk','')
-        form = SubmitForm(user, bkmk)
-    template_data = {
-        'form': form
-    }
-    return render_to_response('content/submit.html', template_data, context_instance=RequestContext(request)) 
+        template_data = {
+        }
+        return render_to_response('content/submit.html', template_data, context_instance=RequestContext(request)) 
 
 @login_required
 def submit_plugin(request):
