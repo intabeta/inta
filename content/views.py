@@ -55,40 +55,49 @@ def myig(request):
     }
     return render_to_response('content/myig.html', template_data, context_instance=RequestContext(request))
     
-@login_required
+
 def ig(request):
     """
     The main page presenting IGs.
     """
     user = request.user
     
+    if user.is_authenticated():
     
+        if request.method == 'POST':
+            action = request.POST.get('action','')
+            ig_slug = request.POST.get('ig_slug','')
+            if action == 'join':
+                ig_change = get_object_or_404(InterestGroup, slug=ig_slug)
+                ig_change.subscribers.add(user)
+                ig_change.members = ig_change.members + 1
+            else:
+                ig_change = get_object_or_404(InterestGroup, slug=ig_slug)
+                ig_change.subscribers.remove(user)
+                ig_change.members = ig_change.members - 1        
+            ig_change.save()
+        
+        interest_groups = InterestGroup.objects.all().order_by('-members')
+        subscribed = user.interestgroup_set.all().order_by('-members')
+        member = []
+        for ig in subscribed:
+            member.append(ig.title)
+        
+        template_data = {
+            'interest_groups': interest_groups,
+            'subscribed': subscribed,
+            'member': member
+        }
+        return render_to_response('content/ig.html', template_data, context_instance=RequestContext(request))
+        
+    else:
     
-    if request.method == 'POST':
-        action = request.POST.get('action','')
-        ig_slug = request.POST.get('ig_slug','')
-        if action == 'join':
-            ig_change = get_object_or_404(InterestGroup, slug=ig_slug)
-            ig_change.subscribers.add(user)
-            ig_change.members = ig_change.members + 1
-        else:
-            ig_change = get_object_or_404(InterestGroup, slug=ig_slug)
-            ig_change.subscribers.remove(user)
-            ig_change.members = ig_change.members - 1        
-        ig_change.save()
-    
-    interest_groups = InterestGroup.objects.all().order_by('-members')
-    subscribed = user.interestgroup_set.all().order_by('-members')
-    member = []
-    for ig in subscribed:
-        member.append(ig.title)
-    
-    template_data = {
-        'interest_groups': interest_groups,
-        'subscribed': subscribed,
-        'member': member
-    }
-    return render_to_response('content/ig.html', template_data, context_instance=RequestContext(request))
+        interest_groups = InterestGroup.objects.all().order_by('-members')
+        template_data = {
+            'interest_groups': interest_groups,
+        }
+        return render_to_response('content/ig.html', template_data, context_instance=RequestContext(request))
+            
     
 @login_required
 def ig_list(request, slug, method):
