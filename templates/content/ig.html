@@ -1,0 +1,79 @@
+{% extends "content/base_content.html" %}
+
+{% block content_title %}<h2>Interest Groups</h2>{% endblock %}
+
+{% block content %}
+
+
+{% for ig in subscribed %}
+{% cycle '<div class="row-fluid show-grid">' '' '' %}
+    <div class="span4">
+    <h3>
+    
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
+        <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
+        <button class="btn {% if ig.title in member %}btn-success{% else %}btn-primary{% endif %} btn-mini const-width1" type="submit">
+            {% if ig.title in member %}Leave{% else %}Join{% endif %}
+        </button>
+    </form>
+    
+    <a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a>
+    </h3>
+    <p class="sub-ig">
+    <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
+    &nbsp;
+    <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
+    </p>
+    </div>
+
+{% if forloop.last %}
+</div><hr />
+{% else %} 
+{% cycle '' '' '</div><hr class="hidden-phone" />' %}
+{% endif %}
+
+{% endfor %}
+
+
+{% for ig in interest_groups %}
+{% if ig not in subscribed %}
+{% cycle '<div class="row-fluid show-grid">' '' '' %}
+    <div class="span4">
+    <h3>
+    
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
+        <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
+        <button class="btn {% if ig.title in member %}btn-success{% else %}btn-primary{% endif %} btn-mini const-width1" type="submit">
+            {% if ig.title in member %}Leave{% else %}Join{% endif %}
+        </button>
+    </form>
+    
+    <a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a>
+    </h3>
+    <p class="sub-ig">
+    <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
+    &nbsp;
+    <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
+    </p>
+    </div>
+
+{% if forloop.last %}
+</div><hr />
+{% else %} 
+{% cycle '' '' '</div><hr class="hidden-phone" />' %}
+{% endif %}
+
+{% endif %}
+{% endfor %}
+<p>Tell us your other <a href="/content/ig_proposal/">interests</a>! We'll use your recommendations as we expand.
+</p>
+{% endblock %}
+
+{% block side2 %}
+{% endblock %}
+{% block side3 %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'content/base_content.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Submit the details of the URL" %}{% endblock %}
+
+{% block content_title %}<h2>{{ url }}</h2>{% endblock %}
+
+{% block content %}
+<br><br>
+
+<p>Title: {{ results.title }}</p>
+<p>Description: {{ results.description }}</p>
+<p>Image: <img src="{{ results.image }}" /></p>
+
+
+
+{% comment %}
+{% for h in headings %}
+<p>Heading {{ forloop.counter }}: {{ h }}</p>
+{% endfor %}
+
+
+
+{% for string in text %}
+<p>String {{ forloop.counter }}: {{ string }}</p>
+{% endfor %}
+
+
+{% for p in paragraphs %}
+<p>Paragraph {{ forloop.counter }}: {{ p }}</p>
+{% endfor %}
+
+{% for h in paragraphs %}
+<p>Paragraph {{ forloop.counter }}:<br />
+    {% for s in h %}
+    {{ s }}<br />
+    {% endfor %}
+
+
+{% endfor %}
+
+
+{% endcomment %}
+
+
+<form action="" method="post" class="well">
+
+
+  {% csrf_token %}
+  
+  {{ form|bootstrap }}
+
+  <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'content/base_content.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Submit URL" %}{% endblock %}
+
+{% block content %}
+<form action="" method="post" class="well">
+  {% csrf_token %}
+  
+  {{ form|bootstrap }}
+
+  <p>
+  Thanks for being generous and giving us more content! Make sure you join lists before posting to them. 
+  </p>
+  <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Post" %}</button>
+  or
+  <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Double Post" %}</button>
+</form>
+{% endblock %}
+
+{% block side2 %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block side2 %}
+{% endblock %}
+{% block side3 %}
+{% if user.id %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list legend">
+              <li class="nav-header">Plugin</li> </ul>
+              <p style="padding: 3px 15px;">
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA plugin</a></p><p style="padding: 0px 15px;">Drag the INTA plugin into your browser's bookmark bar to create a submission shortcut, allowing you to quickly help the lists without changing pages</p>
+             
+
+
+           
+          </div><!--/.well -->
+{% endif %}
+{% endblock %}

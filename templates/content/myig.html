@@ -1,0 +1,30 @@
+{% extends "content/base_content.html" %}
+
+
+{% block side2 %}
+{% endblock %}
+
+{% block content_title %}<h2>My Interest Groups</h2>{% endblock %}
+
+{% block content %}
+
+{% for ig in subscribed %}
+{% cycle '<div class="row-fluid show-grid">' '' '' %}
+    <div class="span4"><h3><a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a></h3>
+    <p class="sub-ig">
+    <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
+    &nbsp;
+    <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
+    </p>
+    </div>
+
+{% if forloop.last %}
+</div><hr />
+{% else %} 
+{% cycle '' '' '</div><hr class="hidden-phone" />' %}
+{% endif %}
+
+{% endfor %}
+<p>Tell us your other <a href="/content/ig_proposal/">interests</a>! We'll use your recommendations as we expand.
+</p>
+{% endblock %}

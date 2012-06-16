@@ -1,0 +1,47 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign up" %}{% endblock %}
+
+{% block content %}
+<form action="" method="post" class="well">
+  {% csrf_token %}
+  <fieldset>
+    <legend>{% trans "Sign up" %}</legend>
+    <br />
+    
+    {% if form.non_field_errors %}
+    <div class="alert alert-error">
+    {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+            
+    {% for field in form %}
+    
+    {% if field.errors %}
+    <div class="alert alert-error">
+    {% endif %}
+
+    {{ field.errors }}
+    {% comment %} Displaying checkboxes differently {% endcomment %}
+    {% if field.name == 'tos' %}
+    <p class="checkbox">
+    <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+    </p>
+    {% else %}
+    <p>
+    {{ field.label_tag }} 
+    {{ field }}
+    </p>
+    {% endif %}
+    
+    {% if field.errors %}
+    </div>
+    {% endif %}
+    
+    {% endfor %}
+    
+  </fieldset>
+  <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+</form>
+{% endblock %}

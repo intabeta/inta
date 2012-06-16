@@ -1,0 +1,59 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign in" %}{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+
+    <div class="span12">
+
+        <form action="" method="post" class="well">
+          {% csrf_token %}
+          <fieldset>
+            <legend>{% trans "Sign in" %}</legend>
+            <br />
+            
+            {% if form.non_field_errors %}
+            <div class="alert alert-error">
+            {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            
+            {% for field in form %}
+            
+            {% if field.errors %}
+            <div class="alert alert-error">
+            {% endif %}
+            
+            {{ field.errors }}
+
+            
+            {% comment %} Displaying checkboxes differently {% endcomment %}
+            
+            {% if field.name == 'remember_me' %}
+            <p class="checkbox">
+            <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+            </p>
+            {% else %}
+            <p>
+            {{ field.label_tag }}
+            {{ field }}
+            </p>
+            {% endif %}
+            
+            {% if field.errors %}
+            </div>
+            {% endif %}
+            
+            {% endfor %}
+          </fieldset>
+          <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+          <br /><br />
+          <p><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
+          {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+        </form>
+        
+    </div><!--/span-->
+</div><!--/row-->
+{% endblock %}

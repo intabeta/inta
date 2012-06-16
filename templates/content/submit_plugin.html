@@ -1,0 +1,40 @@
+{% extends 'content/base_content.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Submit URL" %}{% endblock %}
+
+{% block navbar %}
+<br />
+{% endblock %}
+
+{% block side1 %}
+{% endblock %}
+{% block side2 %}
+{% endblock %}
+{% block side3 %}
+{% endblock %}
+
+{% block content %}
+<form action="" method="post" class="well">
+  {% csrf_token %}
+  
+ 
+
+    {{ form.non_field_errors }}
+
+        {{ form.url.errors }}
+
+        {{ form.url }}
+<br />
+
+        {{ form.ig.errors }}
+
+        {{ form.ig }}
+<br />
+
+  <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Post" %}</button>
+  or
+  <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Double Post" %}</button>
+</form>
+{% endblock %}

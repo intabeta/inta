@@ -1,0 +1,29 @@
+
+.button-form {
+    margin: 0px;
+    display: inline;
+    padding-right: 3px;
+}
+
+.sub-ig {
+    padding-top: 5px;
+}
+
+.const-width {
+    width: 20px;
+}
+.const-width1 {
+    width: 50px;
+}
+
+.main-link:visited {
+    color: #7d08b7;
+}
+
+.main-link {
+    font-size:  16px;
+}
+
+.legend > li {
+    padding: 3px 0px;
+}

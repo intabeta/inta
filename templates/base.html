@@ -1,0 +1,241 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Inta: No fancy algorithm, just participation in a community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
+    
+    {% block extrahead %}{% endblock %}
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32641734-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Inta</a>
+          {% if user.id %}
+          <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user"></i> {{ user }}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/accounts/{{ user }}/">Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="/accounts/signout/">Sign Out</a></li>
+            </ul>
+          </div>
+          {% else %}
+          <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user"></i> Guest
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/accounts/signup/">{% trans "Sign up" %}</a></li>
+              <li class="divider"></li>
+              <li><a href="/accounts/signin/">{% trans "Sign in" %}</a></li>
+            </ul>
+          </div>
+          {% endif %}
+          <div class="nav-collapse">
+            <ul class="nav">
+
+              <li{% ifequal request.path '/content/ig/' %} class="active"{% endifequal %}><a href="/content/ig/">Interest Groups</a></li>
+              
+              {% if user.id %}
+              <li{% ifequal request.path '/content/myig/' %} class="active"{% endifequal %}><a href="/content/myig/">My IGs</a></li>
+              {% endif %}
+              
+              <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+    <div class="container-fluid">
+    
+      <div class="row-fluid">
+
+        <div class="span9">
+        
+        {% block messages %}
+            {% if messages %}
+            
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                
+                {% endfor %}
+            
+            {% endif %}
+        {% endblock %}
+        
+        {% block content_title %}{% endblock %}
+        {% block content %}
+        
+          <div class="hero-unit">
+            <h1>Inta</h1>
+            <p>Know the best.</p>
+
+            {% if not user.id %}
+            <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
+            or 
+            <a href="/accounts/signin/">Sign in</a>.
+            </p>
+            <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
+     <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
+ <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
+
+            
+ <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
+            {% else %}
+            
+            <p><i class="icon-asterisk"></i> You can learn something really new in other lists, just one click away, while the different sorting options help make your experience more efficient</p>
+      
+ <p><i class="icon-asterisk"></i> Has voting and even submitting become a habit?  The more users that do it, the stronger the experience for everyone.  We believe each list will reach a tipping point and become truly great, you guys get it there.</p>
+
+            <p><i class="icon-asterisk"></i> Attracting more users give the lists more input, and even helps us add new ones, so tell your friends and family.</p>
+            <p><i class="icon-asterisk"></i> Lastly, we are still VERY young (notice the Beta).  As some of our first users, use the suggestions link to let us know your thoughts, good or bad.</p>
+ 
+            {% endif %}
+          </div>
+        {% endblock %}
+        </div><!--/span-->
+        <div class="span3">
+            {% block side1 %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Inta: Know the Best</li>
+              <li><a href="/"><i class="icon-home"></i>Home</a></li>
+              <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>
+              
+              
+              
+              
+              <li><a href="/content/myig/"><i class="icon-list"></i>My Groups</a></li>
+              <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li>
+              <li><a href="/howto/"><i class="icon-question-sign"></i>How To</a></li>
+              <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>
+            </ul>
+          </div><!--/.well -->
+          {% endblock %}
+          {% block side2 %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list legend">
+              <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>Legend</a></li>
+              
+              <div id="legend" class="collapse legend">
+              
+             <li><span class="badge">34</span> Posts</li>
+              <li><span class="badge">23.5</span>&nbsp;<span class="badge">34</span> Relevancy &amp; Posts</li>
+              <li><span class="badge">37%</span>&nbsp;<span class="badge">34</span> Growth &amp; Relevancy</li>
+{% comment %}
+              <li><span class="badge badge-success"></span>&nbsp;New posts</li>
+              <li><span class="badge badge-warning"></span>&nbsp;A couple days old</li>
+              <li><span class="badge badge-important"></span>&nbsp;Older posts</li>
+              <li><span class="badge badge-inverse"></span>&nbsp;A week or older</li>
+{% endcomment %}
+                            <li><i class="icon-chevron-down"></i> Expand content</li>
+<li><button class="btn btn-mini const-width">
+        1
+            
+        </button>&nbsp;Post</li>
+<li><button class="btn btn-mini const-width">
+        2    
+        </button>&nbsp;Double post</li>
+        
+              </div>
+
+            </ul>
+          </div><!--/.well -->
+          {% endblock %}
+          {% block side3 %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list legend">
+              <li class="nav-header">Plugin</li> </ul>
+              <p style="padding: 3px 15px;">
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA plugin</a></p><p style="padding: 0px 15px;">A submission shortcut that allows you to quickly submit, or vote after reading, without changing pages.  Just drag into your browser's bookmark bar to download and click to use</p>
+             
+
+
+           
+          </div><!--/.well -->
+
+{% endblock %}
+         
+        </div><!--/span-->
+        
+      </div><!--/row-->
+        
+      <hr>
+
+      <footer>
+        <p>&copy; Inta 2012
+        <span class="pull-right"><a href="/privacy/">Privacy</a>&nbsp;-&nbsp;<a href="mailto:info@intabeta.com">Suggestions</a></span></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,174 @@
+{% extends "content/base_content.html" %}
+{% load humanize %}
+{% load thumbnail %}
+{% load content_extras %}
+
+{% block extrahead %}
+<script>
+    $(".collapse").collapse()
+</script>
+{% endblock %}
+
+{% block content_title %}<h2>{{ ig.title }}</h2>
+
+{% endblock %}
+
+
+{% block side1 %}
+
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+
+
+
+<li class="nav-header">List Options</li>
+<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i>By Votes</a></li>
+<li {% if method == 'decay' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay/"><i class="icon-check"></i>By Relevancy</a></li>
+<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i>By Growth</a></li>
+<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New Posts</a></li>
+<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;1-2 days old</a></li>
+<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;3-5 days old</a></li>
+<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;A week+ old</a></li>
+
+              <li class="nav-header">Inta: Know the best</li>
+              <li><a href="/"><i class="icon-home"></i>Home</a></li>
+              <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>
+              
+              
+              
+              
+              <li><a href="/content/myig/"><i class="icon-list"></i>My Groups</a></li>
+              <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li>
+              <li><a href="/howto/"><i class="icon-question-sign"></i>How To</a></li>
+              <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>
+              
+            </ul>
+          </div><!--/.well -->
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<table class="table table-striped">
+<tbody>
+{% if posts %}
+{% for post in posts %}
+<tr>
+<td>
+
+<a href="http://{{ post.domain }}" target="_blank" >
+<img style="max-width: 100%; min-width: 25%;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="100" title="{{ post.domain }}" alt="{{ post.title }}" />
+</a>
+	
+</td>
+<td>
+
+{% if method == 'votes' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'growth' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+
+{% endif %}
+{% if method == 'decay' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+
+{% if method == 'green' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'orange' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'red' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'black' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+        <input type="hidden" name="action" value="vote" />
+        <button class="btn btn-mini const-width {% if post.slug in voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+        1
+            
+        </button>
+    </form>	
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+        <input type="hidden" name="action" value="double_vote" />
+        <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+        2
+            
+        </button>
+   </div> 
+   </form>	   
+
+<a href="{{ post.url }}" class="main-link" target="_blank">{{ post.title }}</a>
+&nbsp;{{ post.date_added|date:"M j" }}
+&nbsp;
+        <a  data-toggle="collapse" href="#intro-{{ forloop.counter }}">
+        <i class="icon-chevron-down"></i>
+        </a>
+        
+        {% comment %}
+<br />
+    Submitted {% comment %}by <a href="/accounts/{{ post.submitted_by }}/">{{ post.submitted_by }}</a>, {{ post.date_added|naturaltime }}, from <a href="http://{{ post.domain }}">{{ post.domain }}</a>.     
+    {% endcomment %}
+
+<div id="intro-{{ forloop.counter }}" class="collapse">
+{{ post.summary|default_if_none:"No summary available." }}...   
+    
+        
+
+
+
+<br />
+
+   </form>	     
+        {% comment %}
+    
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
+        <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
+        <button class="btn btn-mini const-width" type="submit">
+        <i class="icon-heart"></i>
+        </button>
+    </form>	
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
+        <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
+        <button class="btn btn-mini const-width" type="submit">
+        <i class="icon-envelope"></i>
+        </button>
+    </form>
+        {% endcomment %}
+
+</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<tr><td>There are no entries that match your search criteria</td></tr>
+{% endif %}
+</tbody>
+</table>
+<p>
+Tell us your other <a href="/content/ig_proposal/">interests</a>! We'll use your recommendations as we expand.
+</p>
+{% endblock %}
+
+
+{% block side3 %}
+{% endblock %}

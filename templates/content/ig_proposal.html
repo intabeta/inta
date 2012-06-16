@@ -1,0 +1,28 @@
+{% extends 'content/base_content.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Submit an Interest Group proposal" %}{% endblock %}
+
+{% block content %}
+
+
+<form action="" method="post" class="well">
+  <fieldset>
+    <legend>{% trans "Propose Interest Group" %}</legend>
+    <br />
+<p>We have a lot to learn about how lists are used so we started with only a few, but we are hungry to add!  
+From supporting your love of an obscure director and his movies to caring about a specific issue in the election, get creative. </p>
+<p>Even if you read about it only once every couple of weeks, your not alone so we can make it.</p>
+    <br />
+    {% csrf_token %}
+    {{ form|bootstrap }}
+  </fieldset>
+  <button type="submit" class="btn btn-primary">{% trans "Send proposal" %}</button>
+</form>
+{% endblock %}
+
+{% block side2 %}
+{% endblock %}
+{% block side3 %}
+{% endblock %}

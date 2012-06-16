@@ -1,0 +1,33 @@
+{% load i18n %}{% autoescape off %}
+{% if not without_usernames %}{% blocktrans with user.username as username %}Dear {{ username }},{% endblocktrans %}
+{% endif %}
+{% blocktrans with site.name as site %}Thank you for signing up at {{ site }}.{% endblocktrans %}
+
+Congrats on joining Inta, a new but promising way to surf the crowd
+rather than the web, consuming by topic rather than source.
+
+First come and join topics you are interested in. If you want more,
+simply tell us.
+
+Then get familiar with the basics of how we sort the lists.
+Everything, from gathering content to ranking it, is fueled by our
+users. Individually, we ask for little, but in the aggregate this results in our time saving, see everything at a glance lists!
+
+While you will now be ready to enjoy, remember, if you are generous to
+them, the lists will be far more generous in return. Hit post or
+double post if you find an article good or great, and when you find
+something away from the site, take a second to add it to the list.  To vote via post hit the black expand button alongside an article
+title, and to submit the plugin is extremely easy.
+
+Here's your verification link, go get started!
+
+{% comment %}
+{% trans "To activate your account you should click on the link below:" %}
+{% endcomment %}
+
+{{ protocol }}://{{ site.domain }}{% url userena_activate user.username activation_key %}
+
+Enjoy,
+
+The Inta Team.
+{% endautoescape %}
