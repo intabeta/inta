@@ -4,6 +4,10 @@
 
 {% block title %}{% trans "Submit URL" %}{% endblock %}
 
+{% block content_title %}<h2>Submit Content</h2>
+
+{% endblock %}
+
 {% block content %}
 
 {% if user.id %}
@@ -22,7 +26,7 @@
     </form>
 {% else %}
 
-<h2>Submit Content</h2>
+
     <p>Here you can easily submit content and vote for it! It is very easy and fast, but you have to <a href="/accounts/signin/?next=/content/submit/">sign in</a> first, or <a href="/account/signup/">sign up</a> if you don't have an Inta account yet.</p>
  <p>After you sign in, you will be redirected to this page, to submit your content with a form like this:</p>
 <p><img src="{{ STATIC_URL }}img/submit_form.png" /></p>

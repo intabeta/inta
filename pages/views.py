@@ -6,7 +6,7 @@ from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
 
 
 def homepage(request):
-    hot = Entry.objects.all().order_by('-date_added', '-decayed_score')[:10]
+    hot = Entry.objects.all().order_by('-decayed_score')[:5]
     return render_to_response('homepage.html', {'hot': hot}, context_instance=RequestContext(request))
     
 def autoclose(request):

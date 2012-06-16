@@ -62,7 +62,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Inta</a>
+          <a class="brand" href="/"><strong>inta</strong></a>
           {% if user.id %}
           <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -126,33 +126,42 @@
         
         {% block content_title %}{% endblock %}
         {% block content %}
-        
+
+          <div class="hero-unit">
+            <!-- <img style="float: left;"  height="150" src="{{ STATIC_URL }}img/sharing.png" /> -->
+            <h1>inta</h1>
+            <p>Share the best, know the best.</p>
+          </div>
+
+{% comment %}        
           <div class="hero-unit">
             <h1>Inta</h1>
             <p>Know the best.</p>
 
             {% if not user.id %}
-            <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
-            or 
-            <a href="/accounts/signin/">Sign in</a>.
-            </p>
-            <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
-     <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
- <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
-
-            
- <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
+                <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
+                or 
+                <a href="/accounts/signin/">Sign in</a>.
+                </p>
+                <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
+                 <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
+                 <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
+    
+                
+                 <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
+                 
             {% else %}
             
-            <p><i class="icon-asterisk"></i> You can learn something really new in other lists, just one click away, while the different sorting options help make your experience more efficient</p>
-      
- <p><i class="icon-asterisk"></i> Has voting and even submitting become a habit?  The more users that do it, the stronger the experience for everyone.  We believe each list will reach a tipping point and become truly great, you guys get it there.</p>
-
-            <p><i class="icon-asterisk"></i> Attracting more users give the lists more input, and even helps us add new ones, so tell your friends and family.</p>
-            <p><i class="icon-asterisk"></i> Lastly, we are still VERY young (notice the Beta).  As some of our first users, use the suggestions link to let us know your thoughts, good or bad.</p>
+                <p><i class="icon-asterisk"></i> You can learn something really new in other lists, just one click away, while the different sorting options help make your experience more efficient</p>
+          
+                <p><i class="icon-asterisk"></i> Has voting and even submitting become a habit?  The more users that do it, the stronger the experience for everyone.  We believe each list will reach a tipping point and become truly great, you guys get it there.</p>
+    
+                <p><i class="icon-asterisk"></i> Attracting more users give the lists more input, and even helps us add new ones, so tell your friends and family.</p>
+                <p><i class="icon-asterisk"></i> Lastly, we are still VERY young (notice the Beta).  As some of our first users, use the suggestions link to let us know your thoughts, good or bad.</p>
  
             {% endif %}
           </div>
+{% endcomment %} 
         {% endblock %}
         </div><!--/span-->
         <div class="span3">
