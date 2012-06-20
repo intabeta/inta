@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load thumbnail %}
+{% load content_extras %}
+
+{% block content %}
+    <h2>Search</h2>
+
+
+            <form class="well" action="/search/" method="post">{% csrf_token %}
+            
+              <input type="text" class="span3" name="freetext" {% if freetext %}value="{{ freetext }}"{% endif %}>
+
+                    <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+{% if empty == False %}
+
+<h3>Results</h3>
+{% if posts %}
+<table class="table table-striped">
+<tbody>
+
+
+{% for post in posts %}
+<tr>
+<td>
+
+<a href="http://{{ post.1.domain }}" target="_blank" >
+<img style="max-width: 100%; min-width: 25%;" src="{{ MEDIA_URL }}{{ post.1.logo|default:"site_logos/default.png" }}" width="100" title="{{ post.domain }}" alt="{{ post.1.title }}" />
+</a>
+	
+</td>
+<td>
+<span class="badge {{ post.1.date_added|bubble_color }}">{{ post.1.last_score }}</span>&nbsp;
+<a href="{{ post.url }}" class="main-link" target="_blank">{{ post.1.title }}</a>
+<br />
+{{ post.1.summary|default_if_none:"No summary available." }}...          
+
+<br />
+    Submitted {{ post.1.date_added|naturaltime }}, from <a href="http://{{ post.1.domain }}" target="_blank">{{ post.1.domain }}</a> to
+    our Interest Group <a href="/content/ig/{{ post.1.ig.slug }}/votes/">{{ post.1.ig }}</a>.    
+
+</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<tr><td>There are no entries that match your search criteria</td></tr>
+{% endif %}
+</tbody>
+</table>
+<hr />
+<p>You can find hundreds of other interesting submissions in our <a href="/content/ig/">Interest Groups</a>.</p>
+{% endif %}
+{% endblock %}

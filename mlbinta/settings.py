@@ -1,6 +1,8 @@
 # Django settings for mlbinta project.
 
-DEBUG = False
+import os
+
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -200,3 +202,17 @@ AUTH_PROFILE_MODULE = 'profiles.Profile'
 ANONYMOUS_USER_ID = -1
 
 INTERNAL_IPS = ('92.118.134.147',)
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+#     },
+# }
+#HAYSTACK_SITECONF = 'mlbinta.search_sites'
+#HAYSTACK_SEARCH_ENGINE = 'simple'

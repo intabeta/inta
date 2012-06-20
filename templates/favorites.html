@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load thumbnail %}
+{% load content_extras %}
+{% load bootstrap %}
+
+{% block content %}
+    <h2>My Favorites</h2>
+
+
+
+
+{% if posts %}
+<table class="table table-striped">
+<tbody>
+
+
+{% for post in posts %}
+<tr>
+<td>
+
+<a href="http://{{ post.domain }}" target="_blank" >
+<img style="max-width: 100%; min-width: 25%;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="100" title="{{ post.domain }}" alt="{{ post.title }}" />
+</a>
+	
+</td>
+<td>
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.last_score }}</span>&nbsp;
+<a href="{{ post.url }}" class="main-link" target="_blank">{{ post.title }}</a>
+<br />
+{{ post.summary|default_if_none:"No summary available." }}...          
+
+<br />
+    Submitted {{ post.date_added|naturaltime }}, from <a href="http://{{ post.domain }}" target="_blank">{{ post.domain }}</a> to
+    our Interest Group <a href="/content/ig/{{ post.ig.slug }}/votes/">{{ post.ig }}</a>.    
+
+</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<tr><td>There are no entries that match your search criteria</td></tr>
+{% endif %}
+</tbody>
+</table>
+<hr />
+<p>You can find hundreds of other interesting submissions in our <a href="/content/ig/">Interest Groups</a>.</p>
+
+
+{% endblock %}

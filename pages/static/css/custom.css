@@ -27,3 +27,12 @@
 .legend > li {
     padding: 3px 0px;
 }
+
+
+#controls {
+    display: block;
+}
+
+#contentbox:hover + #controls {
+    display: block;
+}

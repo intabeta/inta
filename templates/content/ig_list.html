@@ -4,8 +4,35 @@
 {% load content_extras %}
 
 {% block extrahead %}
-<script>
-    $(".collapse").collapse()
+<script type="text/javascript">
+$(".collapse").collapse()
+
+//fetching selected values / checked values
+function getSelectedFavs(){
+    $("input[name='phpqa[]']").each(function() {
+        if ($(this).attr('checked'))
+        {
+            // alert($(this).val());
+            $('#favoritesform').append('<input type="hidden" name="entries" value="' + $(this).val() + '" />');
+        }
+    });
+    $('#favoritesform').submit();
+}
+
+//fetching selected values / checked values
+function getSelectedVals(){
+    $("input[name='phpqa[]']").each(function() {
+        if ($(this).attr('checked'))
+        {
+            // alert($(this).val());
+            $('#emailform').append('<input type="hidden" name="entries" value="' + $(this).val() + '" />');
+        }
+    });
+    $('#emailform').submit();
+}
+
+
+
 </script>
 {% endblock %}
 
@@ -41,10 +68,34 @@
               <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li>
               <li><a href="/howto/"><i class="icon-question-sign"></i>How To</a></li>
               <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>
+
+              <li class="nav-header">With selected checkboxes</li>
+              <li><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i>Email to a friend</a></li>
+              <li><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star"></i>Save in favorites</a></li>
               
+            {% comment %}
+            <li>
+              <button type="submit" class="btn btn-primary"><i class="icon-envelope icon-white"></i> Email to a friend</button>
+              </li>
+              <br
+              <li>
+              <button type="submit" class="btn btn-primary"><i class="icon-star icon-white"></i>Save in favorites</button>
+             
+             </li>
+             {% endcomment %}  
+            
             </ul>
           </div><!--/.well -->
+<div>
+<form id="emailform" action="/email/" method="post">
+{% csrf_token %}
 
+</form>
+<form id="favoritesform" action="/favorites/" method="post">
+{% csrf_token %}
+
+</form>
+</div>
 
 
 {% endblock %}
@@ -93,7 +144,33 @@
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 
+
+<a href="{{ post.url }}" class="main-link" target="_blank">{{ post.title }}</a>
+&nbsp;{{ post.date_added|date:"M j" }}
+&nbsp;
+        <a  data-toggle="collapse" href="#intro-{{ forloop.counter }}">
+        <i class="icon-chevron-down"></i>
+        </a>
+<br />
+{{ post.summary|default_if_none:"No summary available." }}...           
+        
+        
+        
+        {% comment %}
+       
+        
+<br />
+    Submitted {% comment %}by <a href="/accounts/{{ post.submitted_by }}/">{{ post.submitted_by }}</a>, {{ post.date_added|naturaltime }}, from <a href="http://{{ post.domain }}" target="_blank">{{ post.domain }}</a>.     
+    {% endcomment %}
+
+
+
+
+
+<div id="intro-{{ forloop.counter }}" class="collapse"> 
+
 {% if user.id %}
+    <input name="phpqa[]" type="checkbox" value="{{ post.slug }}">
     <form action="" method="post" class="button-form">
     {% csrf_token %}
         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
@@ -112,31 +189,15 @@
             
         </button>
     
-   </form>	   
+   </form>
+   	   
 {% endif %}
-<a href="{{ post.url }}" class="main-link" target="_blank">{{ post.title }}</a>
-&nbsp;{{ post.date_added|date:"M j" }}
-&nbsp;
-        <a  data-toggle="collapse" href="#intro-{{ forloop.counter }}">
-        <i class="icon-chevron-down"></i>
-        </a>
-        
-        {% comment %}
-<br />
-    Submitted {% comment %}by <a href="/accounts/{{ post.submitted_by }}/">{{ post.submitted_by }}</a>, {{ post.date_added|naturaltime }}, from <a href="http://{{ post.domain }}" target="_blank">{{ post.domain }}</a>.     
-    {% endcomment %}
 
-<div id="intro-{{ forloop.counter }}" class="collapse">
+{% comment %}
 {{ post.summary|default_if_none:"No summary available." }}...   
-    
-        
-
-
-
 <br />
-
    </form>	     
-        {% comment %}
+        
     
     <form action="" method="post" class="button-form">
     {% csrf_token %}
@@ -165,6 +226,7 @@
 {% endif %}
 </tbody>
 </table>
+<hr />
 <p>
 Tell us your other <a href="/content/ig_proposal/">interests</a>! We'll use your recommendations as we expand.
 </p>
