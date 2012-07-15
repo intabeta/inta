@@ -60,6 +60,7 @@ class Entry(models.Model):
     date_added = models.DateTimeField(editable=False, auto_now_add=True)
     posts = models.IntegerField()
     double_posts = models.IntegerField()
+    favorites = models.IntegerField(default=0)
     
     ig = models.ForeignKey(InterestGroup)
     

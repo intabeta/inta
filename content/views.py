@@ -144,7 +144,9 @@ def ig_list(request, slug, method):
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added')  
+            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added') 
+        if method == 'favorites':
+            posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')  
         if method == 'green':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
         if method == 'orange':
@@ -171,7 +173,9 @@ def ig_list(request, slug, method):
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added')  
+            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added') 
+        if method == 'favorites':
+            posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')   
         if method == 'green':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
         if method == 'orange':

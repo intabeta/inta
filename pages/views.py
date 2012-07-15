@@ -1,5 +1,5 @@
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
@@ -10,6 +10,10 @@ from django.contrib import messages
 
 
 def homepage(request):
+    user = request.user
+    
+    if user.is_authenticated():
+        return redirect('/content/myig/')
     hot = Entry.objects.all().order_by('-decayed_score')[:5]
     return render_to_response('homepage.html', {'hot': hot}, context_instance=RequestContext(request))
     
@@ -25,6 +29,35 @@ def mission(request):
 def privacy(request):
     return render_to_response('privacy.html', {}, context_instance=RequestContext(request))
     
+# def search(request):
+#     #freetext = ''
+#     #posts = []
+#     if request.method == 'POST':
+#         freetext = request.POST.get('freetext','')
+#         if freetext != '':
+#             sqs = SearchQuerySet().filter(content=freetext).order_by('-title')
+#         
+#             p = []    
+#             if sqs:
+#                 for o in sqs:
+#                     p.append((o.object.last_score, o.object))
+#             posts = sorted(p, key=lambda a: -a[0])
+#             template_data = {
+#                 'freetext': freetext,
+#                 'posts': posts,
+#             }
+#         else:
+#             template_data = {
+#                 'freetext': '',
+#                 'empty': True,
+#             }           
+#     else:
+#         template_data = {
+#             'freetext': '',
+#             'empty': True,
+#         }            
+#     return render_to_response('search/search.html', template_data, context_instance=RequestContext(request))
+
 def search(request):
     #freetext = ''
     #posts = []
@@ -37,7 +70,8 @@ def search(request):
             if sqs:
                 for o in sqs:
                     p.append((o.object.last_score, o.object))
-            posts = sorted(p, key=lambda a: -a[0])
+            #posts = sorted(p, key=lambda a: -a[0])
+            posts = p
             template_data = {
                 'freetext': freetext,
                 'posts': posts,
@@ -95,7 +129,7 @@ def email(request):
                 
                 send_mail(subject, message, from_email, to_email, fail_silently=False)
                 if request.user.is_authenticated():
-                    messages.success(request, "Your email have been send. You may send to another friend if you want.", fail_silently=True)
+                    messages.success(request, "Your email have been sent. You may send to another friend if you want.", fail_silently=True)
                 form = EmailForm()
                  
                 #if 'posts_email' in request.session:
@@ -119,8 +153,10 @@ def favorites(request):
         for entry in entries:
             posts.append(get_object_or_404(Entry, slug=entry))
         for post in posts:
-            post.favorited_by.add(user)
-            post.save()
+            if not user in post.favorited_by.all():
+                post.favorited_by.add(user)
+                post.favorites = post.favorites + 1
+                post.save()
     
     posts = user.favorited.order_by('last_score')   
     template_data = {
