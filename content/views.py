@@ -124,7 +124,7 @@ def ig_list(request, slug, method):
                     post_change = get_object_or_404(Entry, slug=post_slug)
                     post_change.voted_by.add(user)
                     post_change.posts = post_change.posts + 1
-                    post_change.decayed_score = post_change.decayed_score + 1
+                    post_change.decayed_score_1 = post_change.decayed_score_1 + 1
                     post_change.save()
            #         if request.user.is_authenticated():
         #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
@@ -134,7 +134,7 @@ def ig_list(request, slug, method):
                     post_change = get_object_or_404(Entry, slug=post_slug)
                     post_change.double_voted_by.add(user)
                     post_change.double_posts = post_change.double_posts + 1
-                    post_change.decayed_score = post_change.decayed_score + 2
+                    post_change.decayed_score_1 = post_change.decayed_score_1 + 2
                     post_change.save()
          #           if request.user.is_authenticated():
         #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
@@ -142,10 +142,10 @@ def ig_list(request, slug, method):
         if method == 'votes':
             posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
         if method == 'growth':
-            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added') 
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added') 
         if method == 'favorites':
             posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')  
         if method == 'green':
@@ -169,13 +169,13 @@ def ig_list(request, slug, method):
         }
     else:
         if method == 'votes':
-        	posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+        	posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
            # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
         if method == 'growth':
-            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score', '-date_added') 
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added') 
         if method == 'favorites':
             posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')   
         if method == 'green':
@@ -354,7 +354,7 @@ def submit_details(request):
         if action == "post":
             entry.posts = 1
             entry.last_score = 1
-            entry.decayed_score =  1
+            entry.decayed_score_1 =  1
             entry.double_posts = 0
             entry.save()
             entry.voted_by.add(user)
@@ -362,7 +362,7 @@ def submit_details(request):
             entry.posts = 0
             entry.double_posts = 1
             entry.last_score = 2
-            entry.decayed_score =  2
+            entry.decayed_score_1 =  2
             entry.save()
             entry.double_voted_by.add(user)
         

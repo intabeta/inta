@@ -72,11 +72,11 @@
 {% endif %}
 {% if method == 'growth' %}
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 
 {% endif %}
 {% if method == 'decay' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 

@@ -74,7 +74,7 @@ class Entry(models.Model):
     last_growth = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
     
     # Decay
-    decayed_score = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_1 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
 
     
     class Meta:

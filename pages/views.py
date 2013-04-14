@@ -15,7 +15,7 @@ def homepage(request):
     
     if user.is_authenticated():
         return redirect('/content/myig/')
-    hot = Entry.objects.all().order_by('-decayed_score')[:5]
+    hot = Entry.objects.all().order_by('-decayed_score_1')[:5]
     return render_to_response('homepage.html', {'hot': hot}, context_instance=RequestContext(request))
     
 def autoclose(request):

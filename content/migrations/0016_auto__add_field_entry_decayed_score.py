@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Entry.decayed_score'
-        db.add_column('content_entry', 'decayed_score',
+        # Adding field 'Entry.decayed_score_1'
+        db.add_column('content_entry', 'decayed_score_1',
                       self.gf('django.db.models.fields.DecimalField')(default=1.0, max_digits=12, decimal_places=6),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Entry.decayed_score'
-        db.delete_column('content_entry', 'decayed_score')
+        # Deleting field 'Entry.decayed_score_1'
+        db.delete_column('content_entry', 'decayed_score_1')
 
 
     models = {
@@ -53,7 +53,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['date_added']", 'object_name': 'Entry'},
             'banned': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'date_added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'decayed_score': ('django.db.models.fields.DecimalField', [], {'default': '1.0', 'max_digits': '12', 'decimal_places': '6'}),
+            'decayed_score_1': ('django.db.models.fields.DecimalField', [], {'default': '1.0', 'max_digits': '12', 'decimal_places': '6'}),
             'domain': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'double_posts': ('django.db.models.fields.IntegerField', [], {}),
             'double_voted_by': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'double_voters'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['auth.User']"}),
