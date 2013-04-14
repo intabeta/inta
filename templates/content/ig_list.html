@@ -135,12 +135,32 @@ function getSelectedVals(){
 <!-- ***** If we do the decay slider, this is where we would add the actual different rankings.
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
-{% if method == 'decay' %}
+{% if method == 'decay1' %}
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
-<!-- Just showing the decay score, not the vote score...
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
- -->
 {% endif %}
+{% if method == 'decay2' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay3' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay4' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay5' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay6' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay7' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay8' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+{% endif %}
+
+
 
 
 {% if method == 'favorites' %}
