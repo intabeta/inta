@@ -247,10 +247,10 @@ def ig_proposal_done(request):
     }
     return render_to_response('content/ig_proposal_done.html', template_data, context_instance=RequestContext(request)) 
 
-def tag_list(request,slug,method):
-	user = request.user
+def tag_list(request, slug, method):
+    user = request.user
     ig = get_object_or_404(InterestGroup, slug=slug)
-	
+
     if user.is_authenticated():
         voted = user.voters.all()
         double_voted = user.double_voters.all()
@@ -301,12 +301,12 @@ def tag_list(request,slug,method):
         #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
     
         if method == 'votes':
-            posts = sorted(Entry.objects.filter(tags__name__in=["bin Laden"]), key=lambda a: -a.ranking)
+            posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
         if method == 'growth':
-            posts = ig.Entry.objects.filter(tags__name__in=["bin Laden"]).order_by('-last_growth', '-decayed_score_1')
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay1':
-            posts = ig.Entry.objects.filter(tags__name__in=["bin Laden"]).order_by('-decayed_score_1', '-date_added')
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added') 
         if method == 'decay3':
