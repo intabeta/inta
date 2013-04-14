@@ -125,6 +125,13 @@ def ig_list(request, slug, method):
                     post_change.voted_by.add(user)
                     post_change.posts = post_change.posts + 1
                     post_change.decayed_score_1 = post_change.decayed_score_1 + 1
+                    post_change.decayed_score_2 = post_change.decayed_score_2 + 1
+                    post_change.decayed_score_3 = post_change.decayed_score_3 + 1
+                    post_change.decayed_score_4 = post_change.decayed_score_4 + 1
+                    post_change.decayed_score_5 = post_change.decayed_score_5 + 1
+                    post_change.decayed_score_6 = post_change.decayed_score_6 + 1
+                    post_change.decayed_score_7 = post_change.decayed_score_7 + 1
+                    post_change.decayed_score_8 = post_change.decayed_score_8 + 1
                     post_change.save()
            #         if request.user.is_authenticated():
         #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
@@ -135,28 +142,50 @@ def ig_list(request, slug, method):
                     post_change.double_voted_by.add(user)
                     post_change.double_posts = post_change.double_posts + 1
                     post_change.decayed_score_1 = post_change.decayed_score_1 + 2
+                    post_change.decayed_score_2 = post_change.decayed_score_2 + 2
+                    post_change.decayed_score_3 = post_change.decayed_score_3 + 2
+                    post_change.decayed_score_4 = post_change.decayed_score_4 + 2
+                    post_change.decayed_score_5 = post_change.decayed_score_5 + 2
+                    post_change.decayed_score_6 = post_change.decayed_score_6 + 2
+                    post_change.decayed_score_7 = post_change.decayed_score_7 + 2
+                    post_change.decayed_score_8 = post_change.decayed_score_8 + 2
                     post_change.save()
          #           if request.user.is_authenticated():
         #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
     
         if method == 'votes':
             posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
-        if method == 'growth':
+        elif method == 'growth':
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
-        if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added') 
-        if method == 'favorites':
+        elif method == 'decay1':
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
+        elif method == 'decay2':
+            posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added') 
+        elif method == 'decay3':
+            posts = ig.entry_set.all().order_by('-decayed_score_3', '-date_added')
+        elif method == 'decay4':
+            posts = ig.entry_set.all().order_by('-decayed_score_4', '-date_added')
+        elif method == 'decay5':
+            posts = ig.entry_set.all().order_by('-decayed_score_5', '-date_added') 
+        elif method == 'decay6':
+            posts = ig.entry_set.all().order_by('-decayed_score_6', '-date_added') 
+        elif method == 'decay7':
+            posts = ig.entry_set.all().order_by('-decayed_score_7', '-date_added') 
+        elif method == 'decay8':
+            posts = ig.entry_set.all().order_by('-decayed_score_8', '-date_added') 
+        elif method == 'favorites':
             posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')  
-        if method == 'green':
+        elif method == 'green':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
-        if method == 'orange':
+        elif method == 'orange':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
-        if method == 'red':
+        elif method == 'red':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
-        if method == 'black':
+        elif method == 'black':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
-     
+     	else:
+     		return render_to_response('404.html')
        
     
         
