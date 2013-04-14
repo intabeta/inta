@@ -393,7 +393,7 @@ def tag_list(request, tags, method):
         if method == 'black':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        template_data = {'ig': ig, 'posts': posts, 'method': method}
+        template_data = {'tag': tag, 'posts': posts, 'method': method}
 
     return render_to_response('content/tag_list.html', template_data, context_instance=RequestContext(request))
 
