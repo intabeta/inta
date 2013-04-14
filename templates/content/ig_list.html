@@ -121,13 +121,13 @@ function getSelectedVals(){
 {% endif %}
 {% if method == 'growth' %}
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 
 <!-- ***** If we do the decay slider, this is where we would add the actual different rankings.
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
 {% if method == 'decay' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 <!-- Just showing the decay score, not the vote score...
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
  -->
