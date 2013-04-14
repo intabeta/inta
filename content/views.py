@@ -448,7 +448,8 @@ def submit_details(request):
     template_data = {
         'url': url,
         'ig': ig,
-        'results': results
+        'results': results,
+        'tags': tags
         #'title': title,
         #'intros': intros,
         #'headings': headings,
