@@ -103,7 +103,7 @@ def ig(request):
 def ig_list(request, slug, method):
     user = request.user
     ig = get_object_or_404(InterestGroup, slug=slug)
-    posts = None
+    posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added') #decay by default.
 
     if user.is_authenticated():
         voted = user.voters.all()
@@ -197,8 +197,8 @@ def ig_list(request, slug, method):
         }
     else:
         if method == 'votes':
-        	posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
-           # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
+            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
+            #posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
         elif method == 'growth':
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
