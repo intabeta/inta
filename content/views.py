@@ -314,7 +314,7 @@ def submit_plugin(request):
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
                     
-                    entry[0].tags.add('tags')
+                    entry[0].tags.add(form.cleaned_data['tags'])
                     entry[0].save()
                     ig.posts = ig.posts + 1
                     ig.save()
@@ -339,6 +339,7 @@ def submit_plugin(request):
                     
                 request.session['url']=form.cleaned_data['url']
                 request.session['ig']=form.cleaned_data['ig']
+                request.session['tags']=form.cleaned_data['tags']
 
                 redirect_to = reverse('content_submit_details')
                 return redirect(redirect_to)
