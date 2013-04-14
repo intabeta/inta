@@ -14,7 +14,15 @@ class Command(BaseCommand):
             then = entry.date_added.replace(tzinfo=None)
             lapsed = now - then
             print lapsed.total_seconds()
-            entry.decayed_score_1 = total * (1 / 1.15 ** (lapsed.total_seconds() / 28800))
+            base = 0.5
+            entry.decayed_score_1 = total * (base ** (lapsed.total_seconds() / 1800)) #
+            entry.decayed_score_2 = total * (base ** (lapsed.total_seconds() / 10800)) #
+            entry.decayed_score_3 = total * (base ** (lapsed.total_seconds() / 86400)) #
+            entry.decayed_score_4 = total * (base ** (lapsed.total_seconds() / 259200)) #
+            entry.decayed_score_5 = total * (base ** (lapsed.total_seconds() / 604800)) #
+            entry.decayed_score_6 = total * (base ** (lapsed.total_seconds() / 2592000)) #
+            entry.decayed_score_7 = total * (base ** (lapsed.total_seconds() / 7776000)) #
+            entry.decayed_score_8 = total * (base ** (lapsed.total_seconds() / 31536000)) #
             print total, entry.decayed_score_1
             entry.save()
         self.stdout.write('Success\n')
