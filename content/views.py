@@ -247,7 +247,7 @@ def ig_proposal_done(request):
     }
     return render_to_response('content/ig_proposal_done.html', template_data, context_instance=RequestContext(request)) 
 
-def tag_list(request):
+def tag_list(request,slug,method):
 	user = request.user
     ig = get_object_or_404(InterestGroup, slug=slug)
 	
