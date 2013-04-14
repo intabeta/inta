@@ -13,7 +13,7 @@ sqs = SearchQuerySet().order_by('title')
 
 urlpatterns = patterns('',
 #    (r'^$', 'pages.views.homepage'),
-    (r'^$', redirect_to, {'url': '/content/ig/misc/decay/'}),
+    (r'^$', redirect_to, {'url': '/content/ig/misc/decay1/'}),
     (r'^old/$', 'pages.views.homepage'),
     (r'^howto/$', 'pages.views.howto'),
     (r'^mission/$', 'pages.views.mission'),
