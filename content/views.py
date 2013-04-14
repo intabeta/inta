@@ -314,6 +314,7 @@ def submit_plugin(request):
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
                     
+                    entry[0].tags.add('tags')
                     entry[0].save()
                     ig.posts = ig.posts + 1
                     ig.save()

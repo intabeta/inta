@@ -38,6 +38,10 @@
 
         {{ form.ig }}
 <br />
+		{{ form.tags.errors }}
+
+        {{ form.tags }}
+<br />
   <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Good" %}</button>
   or
 <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Great" %}</button>
