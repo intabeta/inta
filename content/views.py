@@ -306,7 +306,7 @@ def tag_list(request, slug, method):
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
         if method == 'decay1':
-            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
+            posts = Entry.objects.filter(tags__name__in=["bin Laden"]).order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added') 
         if method == 'decay3':
