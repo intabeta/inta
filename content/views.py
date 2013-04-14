@@ -198,12 +198,17 @@ def ig_list(request, slug, method):
             }
     else:
         if method == 'votes':
+<<<<<<< HEAD
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
+=======
+            posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
+>>>>>>> updated views.py for unauthenticated users
         if method == 'growth':
 
             # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
 
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
+<<<<<<< HEAD
         if method == 'decay1':
 
             # posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
@@ -211,11 +216,19 @@ def ig_list(request, slug, method):
             posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added')
+=======
+            #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
+        if method == 'decay1':
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
+        if method == 'decay2':
+            posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added') 
+>>>>>>> updated views.py for unauthenticated users
         if method == 'decay3':
             posts = ig.entry_set.all().order_by('-decayed_score_3', '-date_added')
         if method == 'decay4':
             posts = ig.entry_set.all().order_by('-decayed_score_4', '-date_added')
         if method == 'decay5':
+<<<<<<< HEAD
             posts = ig.entry_set.all().order_by('-decayed_score_5', '-date_added')
         if method == 'decay6':
             posts = ig.entry_set.all().order_by('-decayed_score_6', '-date_added')
@@ -229,13 +242,41 @@ def ig_list(request, slug, method):
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
         if method == 'orange':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+=======
+            posts = ig.entry_set.all().order_by('-decayed_score_5', '-date_added') 
+        if method == 'decay6':
+            posts = ig.entry_set.all().order_by('-decayed_score_6', '-date_added') 
+        if method == 'decay7':
+            posts = ig.entry_set.all().order_by('-decayed_score_7', '-date_added') 
+        if method == 'decay8':
+            posts = ig.entry_set.all().order_by('-decayed_score_8', '-date_added') 
+        if method == 'favorites':
+            posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')  
+        if method == 'green':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
+    	if method == 'orange':
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
+>>>>>>> updated views.py for unauthenticated users
         if method == 'red':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
         if method == 'black':
+<<<<<<< HEAD
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         template_data = {'ig': ig, 'posts': posts, 'method': method}
 
+=======
+            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)            
+       
+    
+        
+        template_data = {
+            'ig': ig,
+            'posts': posts,
+            'method': method
+        }
+        
+>>>>>>> updated views.py for unauthenticated users
     return render_to_response('content/ig_list.html', template_data, context_instance=RequestContext(request))
 
 
@@ -357,6 +398,7 @@ def tag_list(request, tags, method):
             }
     else:
         if method == 'votes':
+<<<<<<< HEAD
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
 
            # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
@@ -370,11 +412,22 @@ def tag_list(request, tags, method):
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_2', '-date_added')
+=======
+            posts = sorted(Entry.objects.filter(tags__name__in=[tag]), key=lambda a: -a.ranking)
+        if method == 'growth':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-last_growth', '-decayed_score_1')
+            #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
+        if method == 'decay1':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_1', '-date_added')
+        if method == 'decay2':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_2', '-date_added') 
+>>>>>>> updated views.py for unauthenticated users
         if method == 'decay3':
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_3', '-date_added')
         if method == 'decay4':
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_4', '-date_added')
         if method == 'decay5':
+<<<<<<< HEAD
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_5', '-date_added')
         if method == 'decay6':
             posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_6', '-date_added')
@@ -395,6 +448,35 @@ def tag_list(request, tags, method):
 
         template_data = {'ig': ig, 'posts': posts, 'method': method}
 
+=======
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_5', '-date_added') 
+        if method == 'decay6':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_6', '-date_added') 
+        if method == 'decay7':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_7', '-date_added') 
+        if method == 'decay8':
+            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_8', '-date_added') 
+        if method == 'favorites':
+            posts = Entry.objects.filter(tags__name__in=[tag]).filter(favorites__gt=0).order_by('-favorites', '-date_added')  
+        if method == 'green':
+            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
+    	if method == 'orange':
+            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
+        if method == 'red':
+            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
+        if method == 'black':
+            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
+     
+       
+    
+        
+        template_data = {
+            'tag': tag,
+            'posts': posts,
+            'method': method
+        }
+        
+>>>>>>> updated views.py for unauthenticated users
     return render_to_response('content/tag_list.html', template_data, context_instance=RequestContext(request))
 
 
