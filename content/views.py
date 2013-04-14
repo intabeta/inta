@@ -289,14 +289,19 @@ def submit(request):
 @login_required
 def submit_plugin(request):
     user = request.user
+    form = None
+    extra = 'Entered.'
     if request.method == 'POST':
         form = SubmitFormPlugin(user, request.POST.get('url',''), request.POST)
+        extra += ' Getting form...'
         
         if form.is_valid():
+            extra += ' Form is valid.'
             ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
             entry = Entry.objects.filter(url__iexact = form.cleaned_data['url']).filter(ig=ig)
             if entry:
                 form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
+                extra += ' Entry exists.'
                 
                 if entry[0] not in user.voters.all() and entry[0] not in user.double_voters.all():
                     if request.user.is_authenticated():
@@ -314,6 +319,8 @@ def submit_plugin(request):
                     entry[0].save()
                     ig.posts = ig.posts + 1
                     ig.save()
+                    
+                    extra += ' Entry has been updated.'
     
                     if 'url' in request.session:
                         del request.session['url']
@@ -325,6 +332,7 @@ def submit_plugin(request):
     		#    Nikos 		 return redirect('/content/ig/%s/decay/' % ig.slug)
    		                
             else:
+                extra += ' Entry does not exist.'
                 if '_post' in request.POST:
                     request.session['action'] = 'post'
                 if '_double_post' in request.POST:
@@ -336,10 +344,12 @@ def submit_plugin(request):
                 redirect_to = reverse('content_submit_details')
                 return redirect(redirect_to)
     else:
+        extra += ' First open.'
         bkmk = request.GET.get('bkmk','')
         form = SubmitFormPlugin(user, bkmk)
     template_data = {
-        'form': form
+        'form': form,
+        'extra': extra
     }
     return render_to_response('content/submit_plugin.html', template_data, context_instance=RequestContext(request)) 
     
