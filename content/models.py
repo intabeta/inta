@@ -75,6 +75,14 @@ class Entry(models.Model):
     
     # Decay
     decayed_score_1 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_2 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_3 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_4 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_5 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_6 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_7 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_8 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+
 
     
     class Meta:
