@@ -3,7 +3,8 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
-from content.forms import EmailForm
+from content.models import InterestEmail
+from content.forms import EmailForm, SignUpForm
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -164,6 +165,53 @@ def favorites(request):
         #'form': form,
     }        
     return render_to_response('favorites.html', template_data, context_instance=RequestContext(request))
+
+def splash(request):
+	if request.method == 'POST':
+		form = SignUpForm(request.POST)
+		if form.is_valid():
+			email = form.cleaned_data['email']
+			if InterestEmail.objects.filter(email__iexact = email):
+				form = SignUpForm()
+				template_data = {
+					'form': form,
+					'failed': True,
+					'reason': 'exists',
+					'email': email
+				}
+				return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
+			else:
+				new = InterestEmail()
+				new.email = email
+				new.save()
+				template_data = {
+					'email': email
+				}
+				return render_to_response('splash_thanks.html', template_data, context_instance=RequestContext(request))
+		else:
+			email = request.POST.get('email','')
+			form = SignUpForm()
+			template_data = {
+				'form': form,
+				'failed': True,
+				'reason': 'invalid',
+				'email': email
+			}
+			return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
+	else:
+		form = SignUpForm()
+		template_data = {
+			'form': form,
+			'failed': False
+		}
+		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
+	
+def brian(request):
+	form = SignUpForm()
+	template_data = {
+		'form': form
+	}
+	return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
     
     

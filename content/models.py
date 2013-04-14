@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 class InterestGroup(models.Model):
     title = models.CharField(max_length=200)
@@ -73,7 +74,7 @@ class Entry(models.Model):
     last_growth = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
     
     # Decay
-    decayed_score = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
+    decayed_score = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
 
     
     class Meta:
@@ -94,3 +95,6 @@ class Entry(models.Model):
         else:
             return domain.logo
     logo = property(_get_logo)
+
+class InterestEmail(models.Model):
+	email = models.EmailField(max_length=1000)

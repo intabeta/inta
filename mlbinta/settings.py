@@ -2,12 +2,15 @@
 
 import os
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Nikos Delimpaltadakis', 'delinikos@gmail.com'),
+    ('Brian Loeb', 'bwloeb5@gmail.com'),
+    ('Alex Reinking', 'alex.reinking@gmail.com'),
+    ('Christopher Shriver', 'christopher.shriver@yale.edu'),
 )
 
 MANAGERS = ADMINS
@@ -150,6 +153,7 @@ INSTALLED_APPS = (
     'profiles',
     'debug_toolbar',
     'bootstrapform',
+    'taggit',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -195,6 +199,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/content/myig/'
 USERENA_SIGNIN_REDIRECT_URL = '/content/myig/'
+USERENA_ACTIVATION_REQUIRED = False
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
 AUTH_PROFILE_MODULE = 'profiles.Profile'

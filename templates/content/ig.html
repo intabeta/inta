@@ -1,6 +1,8 @@
 {% extends "content/base_content.html" %}
 
-{% block content_title %}<h2>Interest Groups</h2>{% endblock %}
+{% block content_title %}<p><h2>Interest Groups </h2> 
+{% comment %}  <button> <a href="/content/ig_proposal/">Recommend More</a></button> {% endcomment %}	
+{% endblock %}
 
 {% block content %}
 
@@ -22,11 +24,14 @@
         
         <a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a>
         </h3>
+        
+         {% comment %} 
         <p class="sub-ig">
         <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
         &nbsp;
         <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
         </p>
+         {% endcomment %} 
         </div>
     
     {% if forloop.last %}
@@ -55,11 +60,13 @@
         
         <a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a>
         </h3>
+         {% comment %} 
         <p class="sub-ig">
         <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
         &nbsp;
         <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
         </p>
+         {% endcomment %} 
         </div>
     
     {% if forloop.last %}
@@ -84,11 +91,14 @@
         
         <a href="/content/ig/{{ ig.slug }}/votes/">{{ ig }}</a>
         </h3>
+                 {% comment %} 
         <p class="sub-ig">
         <span class="badge">{{ ig.posts }}</span> post{{ ig.posts|pluralize }}
         &nbsp;
         <span class="badge">{{ ig.members }}</span> member{{ ig.members|pluralize }}
         </p>
+                 {% endcomment %} 
+
         </div>
     
     {% if forloop.last %}
@@ -103,11 +113,13 @@
 
 {% endif %}
 
-    <p>Tell us your other <a href="/content/ig_proposal/">interests</a>! We'll use your recommendations as we expand.
-    </p>    
+    <p>Add your <button> <a href="/content/ig_proposal/">topic recommendations</a></button> 
+
 {% endblock %}
 
 {% block side2 %}
+<p> <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">Shortcut</a> Drag into your bookmark bar, then vote or favorite from anywhere</p>
+
 {% endblock %}
 {% block side3 %}
 {% endblock %}

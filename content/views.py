@@ -54,7 +54,8 @@ def myig(request):
         'subscribed': subscribed,
     }
     return render_to_response('content/myig.html', template_data, context_instance=RequestContext(request))
-    
+	# return render_to_response('/content/ig/misc/votes.html', template_data, context_instance=RequestContext(request))
+
 
 def ig(request):
     """
@@ -125,8 +126,8 @@ def ig_list(request, slug, method):
                     post_change.posts = post_change.posts + 1
                     post_change.decayed_score = post_change.decayed_score + 1
                     post_change.save()
-                    if request.user.is_authenticated():
-                        messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
+           #         if request.user.is_authenticated():
+        #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
                     
                 if action == 'double_vote':
                     double_voter.append(post_slug) 
@@ -135,8 +136,8 @@ def ig_list(request, slug, method):
                     post_change.double_posts = post_change.double_posts + 1
                     post_change.decayed_score = post_change.decayed_score + 2
                     post_change.save()
-                    if request.user.is_authenticated():
-                        messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
+         #           if request.user.is_authenticated():
+        #                messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
     
         if method == 'votes':
             posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
@@ -168,7 +169,8 @@ def ig_list(request, slug, method):
         }
     else:
         if method == 'votes':
-            posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
+        	posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
+           # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
         if method == 'growth':
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
@@ -290,8 +292,9 @@ def submit_plugin(request):
                         del request.session['ig']
                     if 'action' in request.session:
                         del request.session['action']
-                    return redirect('/content/ig/%s/votes/' % ig.slug)
-                   
+                return redirect('/content/ig/%s/votes/' % ig.slug)
+    		#    Nikos 		 return redirect('/content/ig/%s/decay/' % ig.slug)
+   		                
             else:
                 if '_post' in request.POST:
                     request.session['action'] = 'post'
@@ -377,9 +380,11 @@ def submit_details(request):
             del request.session['ig']
         if 'action' in request.session:
             del request.session['action']
-
-        if request.user.is_authenticated():
-            messages.success(request, "Keep it up! You are making the lists stronger.", fail_silently=True)
+ 
+ 
+#   Getting rid of the green part
+#     if request.user.is_authenticated():
+#            messages.success(request, "Keep it up! You are making the lists stronger.", fail_silently=True)
         
         if from_site != -1:            
             redirect_to = reverse('content_myig')

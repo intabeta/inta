@@ -5,7 +5,7 @@
 {% block title %}{% trans "Submit URL" %}{% endblock %}
 
 {% block content_title %}<h2>Submit Content</h2>
-
+<p> The <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a> lets you submit from any page, in just a moment so you can share more of your opinions</p>
 {% endblock %}
 
 {% block content %}
@@ -17,21 +17,21 @@
       {{ form|bootstrap }}
     
       <p>
-      Thanks for being generous and giving us more content! Make sure you join lists before posting to them. 
+      Thanks for the generosity, it's Intelligentsia like you that make our communities great!  
       </p>
       
-      <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Post" %}</button>
+      <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Good" %}</button>
       or
-      <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Double Post" %}</button>
+      <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Great" %}</button>
     </form>
 {% else %}
 
 
-    <p>Here you can easily submit content and vote for it! It is very easy and fast, but you have to <a href="/accounts/signin/?next=/content/submit/">sign in</a> first, or <a href="/account/signup/">sign up</a> if you don't have an Inta account yet.</p>
- <p>After you sign in, you will be redirected to this page, to submit your content with a form like this:</p>
+   {% comment %} <p>Here you can easily submit content and vote for it! It is very easy and fast, but you have to <a href="/accounts/signin/?next=/content/submit/">sign in</a> first, or <a href="/account/signup/">sign up</a> if you don't have an Inta account yet.</p> {% endcomment %}
 <p><img src="{{ STATIC_URL }}img/submit_form.png" /></p>
-<p>So <a href="/accounts/signin/?next=/content/submit/">sign in</a> first and you will be redirected here to submit great content!</p>
-{% endif%}
+<p><img src="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" width="30" height="30" /></p>
+<p> You can submit links the old school way by copy pasting them here, or you can vote on quality from any webpage with our shortcut. Seamless voting also happens within a list, so we can get the consensus of the community without burdening you! <p>
+<p> <a href="/account/signup/">Sign Up</a> (it's free) to become one of our Intelligentsia <p> {% endif%}
     
 {% endblock %}
 

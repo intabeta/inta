@@ -30,21 +30,21 @@
 <br />
 {{ post.summary|default_if_none:"No summary available." }}...          
 
+{% comment %} Nikos' layout. Looking for uniformity but could be the better one.
 <br />
     Submitted {{ post.date_added|naturaltime }}, from <a href="http://{{ post.domain }}" target="_blank">{{ post.domain }}</a> to
     our Interest Group <a href="/content/ig/{{ post.ig.slug }}/votes/">{{ post.ig }}</a>.    
-
+{% endcomment %}
 </td>
 
 </tr>
 {% endfor %}
 {% else %}
-<tr><td>There are no entries that match your search criteria</td></tr>
+<tr><td>You haven't favorited anything yet! Use the selectbox in the shortcut or in the lists to hold onto what you think is the very best!</td></tr>
 {% endif %}
 </tbody>
 </table>
 <hr />
-<p>You can find hundreds of other interesting submissions in our <a href="/content/ig/">Interest Groups</a>.</p>
-
+<p> If you've got <button> <a href="mailto:brian@intabeta.com" target="_blank>">Suggestions</a></button> for more features like Favorites, send them our way
 
 {% endblock %}

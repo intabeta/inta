@@ -1,28 +1,41 @@
 {% extends "content/base_content.html" %}
 
-{% block content_title %}<h2>How To</h2>{% endblock %}
+{% block content_title %}<h2>Help</h2>{% endblock %}
 
 {% block content %}
 
+<p> This is about using the lists and site. For questions that are not answered below, we'll happily answer any email you send to brian@intabeta.com <p>
 <h3>The List</h3>
-<p>In the list, clicking on the black button beside the date makes an article’s description appear, along with the ability to post or double post.  Links bring you to the article, and change colors after you have clicked them so you can keep track of what you have read.</p>
-
+<p>Titles are links, click on them to bring you to the content, while an image will bring you to the source site (example: ESPN.com). 
+Good and Great add votes of 1 and 2, respectively, which get added to the vote display bubbles. The checkbox lets you email multiple articles at once or save your favorites. 
+To the right are filters which make finding new and interesting stuff easier, so give them a try if you haven’t. 
+<p>
 <h3>The Sorting</h3>
 <h4>By Votes</h4>
-<p>This one is basic.  It ranks the content from most votes to fewest.  Use it to see the best content, regardless of when it was posted.</p>
-
+<p>This one is basic. Your consensus ranks content from most votes to fewest, showing worthwhile content regardless of when it was posted. See colors for more. </p>
 <h4>By Relevancy</h4>
-<p>Most to fewest, but now we take into account that older articles are probably not as relevant.  We discount their post value according to their age so it shows more of today's great stuff than all-time’s.</>
+<p>Again most to fewest by your consensus, but now we take into account that older content is probably not as relevant. We discount post value according to age so it shows more of today's great stuff than all-time’s.</p>
 <h4>By Growth</h4>
-<p>Helps newer articles stand out even if others are already popular that day.  We rank from most to least with growth being its increase in posts over the last 45 minutes, compared to its previous post count.  There is also a minimum post count to qualify so only good growth appears.</p>
+<p>Helps you explore less-read links, especially new posts, while still having a sense of quality. We rank from greatest % to least, with growth calculated by its increase in posts over the last 45 minutes, compared to its previous post count. There is also a minimum post count so only legitimate growth appears.</p>
+<h4>By Favorites</h4>
+<p>While each person may favorite those content they personally think are amazing, this filter puts together everyone’s favorites to get an idea of what resonates strongest with the community. Think about using this filter first when you explore other lists and communities.<p>
 <h4>By Color</h4>
-<p>Choose one or more colors to narrow what we show you within any of the three ranking types.  If you covered the list a few days ago, for example, have only Green and Yellow appear.</p>
-
-<h3>Submitting Content</h3><p>You can only submit to lists that are in your My Groups so we know you care about the topic.  The plugin acts as a shortcut so you can submit while staying on your page, it does not track you or do anything that should make you feel uncomfortable.  You can also copy paste links to our site directly.  Remember that for blogs, rather than submitting from the main page, you need to click on the post’s title to get to its unique page.</p>
-  
+<p>Colors give you a quick idea of how old a link is, but you can also combine them with the Votes sorting to ignore older things you may have already seen, or find older articles faster. </p>
+<h4>+ Search</h4>
+<p>Find the search bar up top to look for a specific player or keyword among the articles posted. It’s a little slow as of now but if you keep using it, we will know to make it better! <p>
+<h3>Submitting Content</h3><p>You can submit links or vote externally for lists once you have joined them, and we hope you make a habit of doing so as you will be adding value for everyone, just as they do for you. The bookmarklet (purple on the right of most pages) is easiest, connecting you to Inta without having you leave your page. You can also copy paste links in the Submission page. </p>
+<p> Remember that for blogs, rather than submitting from the main page, you need to click on the post’s title to get to its unique page. <p>
 <h3>Giving Us Feedback</h3>
-<p>On most pages we have both a Recommendations link for more lists, and a Suggestions link for features.  For lists just put in the name, and a description if we won’t understand.  Suggestions can come in any form, but they are easier to read when they are shorter!</p>
+<p>Inta is all about giving you a more worthwhile experience online and making your time more fruitful. If you want topics that we don’t have, let us know so we can get Intelligentsia on the job. Same goes for any ideas you have about features to make your experience better. Hearing from you is one of the best parts of our day, so look at the bottom of most pages to reach out!</p>
 
+<h3>Our Video on how you can be a true Intelligentsia!</h3>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/NHc1SqKdWWg?rel=0" frameborder="0" allowfullscreen></iframe>
+<h3>Shortcut Help</h3> 
+<p> Within the video you see us install the shortcut and then use it to submit / vote from two different pages. To do the same make sure your browser's bookmark bar is showing (you can usually find "View or Hide" options within "View") and then just drag and drop the purple shortcut button among the other bookmarks. Rather than bringing you to a new page like the others you might have, it just opens up a voting window which closes after use. The giff below gives a little visual aid to both the drag and drop, and how the shortcut works from another page. <p>
+<img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+<p> send us an <button> <a href="mailto:brian@intabeta.com" target="_blank>">email if you need anymore help</a></button> with using the shortcut, or if you need tips on using features. Hearing suggestions also makes us proud in what we've built and hope to build! <p>
+<p>Or connect via Twitter <a href="//twitter.com/Inta_beta">@inta_beta</a>
 
 {% endblock %}
 

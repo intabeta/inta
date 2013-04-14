@@ -17,6 +17,10 @@ class Command(BaseCommand):
             entry.decayed_score = total * (1 / 1.15 ** (lapsed.total_seconds() / 28800))
             print total, entry.decayed_score
             entry.save()
+            
+            
+            
+            
 #             total = entry.posts + entry.double_posts * 2
 #             if entry.last_score == 0:
 #                 entry.last_score=1

@@ -11,15 +11,15 @@
   <fieldset>
     <legend>{% trans "Propose Interest Group" %}</legend>
     <br />
-<p>We have a lot to learn about how lists are used so we started with only a few, but we are hungry to add!  
-From supporting your love of an obscure director and his movies to caring about a specific issue in the election, get creative. </p>
-<p>Even if you read about it only once every couple of weeks, your not alone so we can make it.</p>
+<p>We’ve been collecting your suggestions, whether for another team or a political issue or an obscure director, even a city. Vent about everything you tend to read (and want to read better) or the things you don’t know well but are interested in. Even if you would read about it only every couple of weeks, you’re not alone in your interest so other Intelligentsia can make the experience better!<p>
     <br />
     {% csrf_token %}
     {{ form|bootstrap }}
   </fieldset>
-  <button type="submit" class="btn btn-primary">{% trans "Send proposal" %}</button>
+  <button type="submit" class="btn btn-primary">{% trans "Send Proposal" %}</button>
 </form>
+
+<p> We'll take feature <button> <a href="mailto:brian@intabeta.com" target="_blank>">Suggestions</a></button>, or any other comments too! <p>
 {% endblock %}
 
 {% block side2 %}

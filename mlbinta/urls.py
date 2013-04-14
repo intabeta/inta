@@ -1,3 +1,4 @@
+from django.views.generic.simple import redirect_to
 from django.conf.urls import patterns, include, url
 from haystack.views import SearchView  
 from haystack.query import SearchQuerySet  
@@ -11,7 +12,9 @@ sqs = SearchQuerySet().order_by('title')
 
 
 urlpatterns = patterns('',
-    (r'^$', 'pages.views.homepage'),
+#    (r'^$', 'pages.views.homepage'),
+    (r'^$', redirect_to, {'url': '/content/ig/misc/decay/'}),
+    (r'^old/$', 'pages.views.homepage'),
     (r'^howto/$', 'pages.views.howto'),
     (r'^mission/$', 'pages.views.mission'),
     (r'^privacy/$', 'pages.views.privacy'),
@@ -19,6 +22,8 @@ urlpatterns = patterns('',
     (r'^email/$', 'pages.views.email'),
     (r'^favorites/$', 'pages.views.favorites'),
     (r'^autoclose/$', 'pages.views.autoclose'),
+    (r'^splash/$', 'pages.views.splash'),
+    (r'^brianplays/$', 'pages.views.brian'),
     
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),

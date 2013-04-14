@@ -3,18 +3,19 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Inta: No fancy algorithm, just participation in a community</title>
+    <title>Inta: Know the Best</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" type="image/x-icon" />
 
     <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 60px;
-        padding-bottom: 40px;
+        padding-top: 50px;
+        padding-bottom: 20px;
       }
       .sidebar-nav {
         padding: 9px 0;
@@ -36,19 +37,6 @@
     
     {% block extrahead %}{% endblock %}
     
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-32641734-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
   </head>
 
   <body>
@@ -72,7 +60,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/accounts/{{ user }}/">Profile</a></li>
+              <li><a href="/accounts/{{ user }}/">Settings</a></li>
               <li class="divider"></li>
               <li><a href="/accounts/signout/">Sign Out</a></li>
             </ul>
@@ -85,9 +73,9 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="/accounts/signup/">{% trans "Sign up" %}</a></li>
+              <li><a href="/accounts/signup/">{% trans "Sign Up" %}</a></li>
               <li class="divider"></li>
-              <li><a href="/accounts/signin/">{% trans "Sign in" %}</a></li>
+              <li><a href="/accounts/signin/">{% trans "Sign In" %}</a></li>
             </ul>
           </div>  
             
@@ -95,7 +83,7 @@
 
          
 
-          <div class="nav-collapse">
+        <div class="nav-collapse">  {% comment %} COMMENTING THAT OUT TURNS IT OFF, BOTH FOR PHONE AND COMPUTER. CAN WE JUST SET AN ENGAGEMENT WIDTH???{% endcomment %}
             <ul class="nav">
 
               <li{% ifequal request.path '/content/ig/' %} class="active"{% endifequal %}><a href="/content/ig/">Interest Groups</a></li>
@@ -106,8 +94,12 @@
               
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
             </ul>
-
-
+            
+            {% comment %} CAN WE GET THIS IN THERE NORMALLY? TO BRING YOU TO MY FAVORITES
+            {% if user.id %}
+             <li{% ifequal request.path '/favorites/' %} class="active"{% endifequal %}><a href="/favorites/">My </i><i class="icon-star"></i></a></li>
+			{% endif %}
+			 {% endcomment %}
             <form class="navbar-search pull-left" action="/search/" method="post">
             {% csrf_token %}
               <input type="text" class="search-query" name="freetext" placeholder="Search">
@@ -138,41 +130,45 @@
             
             {% endif %}
         {% endblock %}
-        
         {% block content_title %}{% endblock %}
         {% block content %}
 
           <div class="hero-unit">
             <!-- <img style="float: left;"  height="150" src="{{ STATIC_URL }}img/sharing.png" /> -->
             <h1>inta</h1>
-            <p>Share the best, know the best.</p>
+            <p>Know the Best.</p>
             {% if not user.id %}
 
-                <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
-                or 
-                <a href="/accounts/signin/">Sign in</a>.
+                <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign Up</a>
+                (it's free) or 
+                <a href="/accounts/signin/">Sign In</a>.
                 </p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/y1wOr3hsDZ4?rel=0" frameborder="0" allowfullscreen></iframe>                
+<p> inta orders content by topic and popularity as the consensus of your peers determines the most worthwhile of today, and the best of days past. It's surfing the crowd, not the web. </p>
+
+{% comment %} OLDER
                 <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
                  <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
                  <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
     
                 
                  <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
+                 {% endcomment %}
 
 
             {% endif %}
           </div>
 
-{% comment %}        
+{% comment %}        OLDER
           <div class="hero-unit">
             <h1>Inta</h1>
-            <p>Know the best.</p>
+            <p>Know the Best.</p>
             
 
             {% if not user.id %}
                 <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
                 or 
-                <a href="/accounts/signin/">Sign in</a>.
+                <a href="/accounts/signin/">Sign In</a>.
                 </p>
                 <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
                  <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
@@ -193,14 +189,16 @@
             {% endif %}
           </div>
 {% endcomment %} 
+
         {% endblock %}
-        </div><!--/span-->
+                  {% block side %}
+
+      </div><!--/span-->
         <div class="span3">
-            {% block side1 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Inta: Know the Best</li>
-              <li><a href="/"><i class="icon-home"></i>Home</a></li>
+              <li class="nav-header">Inta: Know the Best</li>  
+             {% comment %}  <li><a href="/"><i class="icon-home"></i>Home</a></li> {% endcomment %} 
               <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>
               
               
@@ -208,12 +206,11 @@
               
               <li><a href="/content/myig/"><i class="icon-list"></i>My Groups</a></li>
               <li><a href="/favorites/"><i class="icon-star"></i>My Favorites</a></li>
-              <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li>
-              <li><a href="/howto/"><i class="icon-question-sign"></i>How To</a></li>
-              <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>
-            </ul>
-          </div><!--/.well -->
-          {% endblock %}
+              <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li> 
+          {% comment %}      <li><a href="/howto/"><i class="icon-question-sign"></i>Help</a></li>  {% endcomment %}
+           {% comment %}     <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>  {% endcomment %}
+          </div><!--/.well --> 
+               {% endblock %}
           {% block side2 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
@@ -223,8 +220,8 @@
               
              <li><span class="badge">34</span> Posts</li>
               <li><span class="badge">23.5</span>&nbsp;<span class="badge">34</span> Relevancy &amp; Posts</li>
-              <li><span class="badge">37%</span>&nbsp;<span class="badge">34</span> Growth &amp; Relevancy</li>
-              <li><span class="badge">* 12</span> Times favorited</li>
+              <li><span class="badge">37%</span>&nbsp;<span class="badge">23.5</span> Growth &amp; Relevancy</li>
+              <li><span class="badge">* 12</span> A Favorite of 12 Intelligentsia</li>
 
 {% comment %}
               <li><span class="badge badge-success"></span>&nbsp;New posts</li>
@@ -232,14 +229,14 @@
               <li><span class="badge badge-important"></span>&nbsp;Older posts</li>
               <li><span class="badge badge-inverse"></span>&nbsp;A week or older</li>
 {% endcomment %}
-                            <li><i class="icon-chevron-down"></i> Expand content</li>
+                    {% comment %}        <li><i class="icon-chevron-down"></i> Expand content</li> {% endcomment %}
 <li><button class="btn btn-mini const-width">
-        1
+       Good
             
-        </button>&nbsp;Post</li>
+        </button>&nbsp;+ 1 </li>
 <li><button class="btn btn-mini const-width">
-        2    
-        </button>&nbsp;Double post</li>
+       Great 
+        </button>&nbsp;+ 2 </li>
         
               </div>
 
@@ -249,9 +246,9 @@
           {% block side3 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
-              <li class="nav-header">Plugin</li> </ul>
+        {% comment %}      <li class="nav-header">Inta Shortcut</li> </ul> {% endcomment %}
               <p style="padding: 3px 15px;">
-             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA plugin</a></p><p style="padding: 0px 15px;">A submission shortcut that allows you to quickly submit, or vote after reading, without changing pages.  Just drag into your browser's bookmark bar to download and click to use</p>
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Drag into your bookmark bar, then vote or favorite from anywhere </p>
              
 
 
@@ -267,11 +264,15 @@
       <hr>
 
       <footer>
-        <p>&copy; Inta 2012
-        <span class="pull-right"><a href="/privacy/">Privacy</a>&nbsp;-&nbsp;<a href="mailto:brian@intabeta.com" target="_blank>">Suggestions</a></span></p>
+        
+      <div style="text-align:center;"> <a href="/privacy/">Privacy</a>&nbsp;-&nbsp;<a href="mailto:brian@intabeta.com" target="_blank>">Suggestions</a>&nbsp;-&nbsp;<a href="/howto/">How To</a>&nbsp;-&nbsp;<a href="/mission/">Mission</a>&nbsp;-&nbsp;<a href="//twitter.com/Inta_beta">@inta_beta</a><p>&copy; Inta 2012</p></div>
+        
       </footer>
 
     </div><!--/.fluid-container-->
+    
+    {% comment %}         <span class="pull-right">    </span> is how Nikos had it for the bottom right      {% endcomment %} 
+
 
     <!-- Le javascript
     ================================================== -->
@@ -281,6 +282,75 @@
 
     {% block  extrascript %}
     {% endblock %}
+   
+   
+<!--Crazy Egg, Ethnio, Mixpanel, and Google Analytics....
+{% comment %} Crazy Egg tracking code 
+    <script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0013/1814.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+{% endcomment %}
+
+{% comment %} wait till a couple days after we have our first users en masse 
+<!-- Ethnio Activation Code -->
+<script type="text/javascript" language="javascript" src="//ethn.io/remotes/77092" async="true" charset="utf-8">
+ </script>
+{% endcomment %}
+
+{% comment %} 
+Probably going to use Google Analytics instead
+<script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+    b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+    '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
+    d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+    var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+    Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+    f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+    'track_forms','register','register_once','unregister','identify','name_tag',
+    'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+    a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
+    mixpanel.init("dca1c37321bbd7a206532cd3bba4f276");
+</script>
+
+
+<script type="text/javascript">
+    mixpanel.track("Landing Page Loaded")
+</script>
+
+<script type="text/javascript">
+<a href="/favorites/" onclick="_gaq.push(['_trackEvent', '+ Interaction', 'My Favorites', 'Fav']);" class="main-link" target="_blank"></a>
+</script>
+
+<script type="text/javascript">
+<a href="/search/" onclick="_gaq.push(['_trackEvent', '+ Interaction', 'Search', 'Search']);" class="main-link" target="_blank"></a>
+</script>
+
+<script type="text/javascript">
+<a href="/content/ig_proposal/" onclick="_gaq.push(['_trackEvent', 'Interest', 'Proposal', 'Proposal']);" class="main-link" target="_blank"></a>
+</script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32641734-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{% endcomment %} 
+-->
+
+
+
   </body>
 </html>
 

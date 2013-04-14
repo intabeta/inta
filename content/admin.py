@@ -1,5 +1,6 @@
 from django.contrib import admin
-from content.models import InterestGroup, IgProposal, Entry, Logo
+from content.models import InterestGroup, IgProposal, Entry, Logo, InterestEmail
+from django.contrib.admin import DateFieldListFilter
 
 class InterestGroupAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
@@ -12,8 +13,17 @@ class LogoAdmin(admin.ModelAdmin):
 
 class EntryAdmin(admin.ModelAdmin):
     list_display = ('title', 'ig', 'domain', 'date_added')
+    search_fields = ['title']
+    list_filter = (
+        ('date_added', DateFieldListFilter),
+        ('ig'),
+    )
+
+class InterestEmailAdmin(admin.ModelAdmin):
+	list_display = ('id','email')
    
 admin.site.register(InterestGroup, InterestGroupAdmin)
 admin.site.register(IgProposal, IgProposalAdmin)
 admin.site.register(Entry, EntryAdmin)
 admin.site.register(Logo, LogoAdmin)
+admin.site.register(InterestEmail, InterestEmailAdmin)

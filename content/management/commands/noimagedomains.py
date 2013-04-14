@@ -18,11 +18,11 @@ class Command(BaseCommand):
                 if not d in noimage:
                     noimage.append(d)
                 
-        message= "Daily report for domains without logos:\n\n"
+        message= "Domains without logos:\n\n"
         for domain in noimage:
             message  = message + "%s\n" % domain
         message = message + "\nTotal %d domains" % len(noimage)
-        send_mail('No image domains', message, 'info@intabeta.com', ('delinikos@gmail.com', 'bwloeb5@gmail.com',), fail_silently=False)
+        send_mail('No image domains', message, 'info@intabeta.com', ('bwloeb5@gmail.com',), fail_silently=False)
             
             
             

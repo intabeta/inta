@@ -3,10 +3,8 @@
 
 {% block title %}{% trans "Signup almost done!" %}{% endblock %}
 
-{% block content_title %}<h2>{% trans "Signup" %}</h2>{% endblock %}
-
+{% block content_title %}<h2>{% trans "You now have an account!" %}</h2>{% endblock %}
 {% block content %}
-<p>{% trans "Thank you for signing up with us!" %}</p>
 
 {% if userena_activation_required %}
 <p style="color: red; font-size:1.6em;">{% blocktrans %}You will receive an email with an activation link and 
@@ -16,6 +14,70 @@ link before you can sign in.{% endblocktrans %}</p>
 <p>{% blocktrans %}We will store your signup information for {{ userena_activation_days }} days on our server. {% endblocktrans %}</p>
 {% endcomment %}
 {% else  %}
-<p>{% blocktrans %}You can now use the supplied credentials to signin.{% endblocktrans %}</p>
+{% comment %} I'm taking this out because I wish we didn't have that step, and I want to show you my aesthetics
+<p>{% blocktrans %}You can now use the supplied credentials to <a href="/accounts/signin/">signin</a>.{% endblocktrans %}</p>
+{% endcomment %}
+<p> But before you Sign In below, spend a few minutes on this page to get past our small learning curve (the equivalent of learning to Tweet!) </p>
+<p> First things first. This video (80s) helps make you into a true Intelligentsia, one who adds to the community's collective valuing of content </p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/NHc1SqKdWWg?rel=0" frameborder="0" allowfullscreen></iframe>
 {% endif %}
+
+<p> So voting, on the site and with the shortcut, establishes a consensus among you and your peers in order to rank content by quality. {% comment %} So with each Intelligentsia contributing, the lists can then help you spend more time enjoying, and less time finding. {% endcomment%} <p/>
+<p> The bigger the sample size, the better the results! That's why we have the "Inta Shortcut," so you can add your opinion from anywhere.  <p/>
+<p>
+
+              <p>
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+
+<img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
+<p> Just as we do in the Giff (we know it's annoying, but also a useful demonstration), drag the "Inta Shortcut" into your bookmark bar. If you’re unfamiliar with this type of thing and concerned, we promise it does not track you or do anything malicious! </p>
+
+<p> Finally, a tip on starting. After Signing In, go straight to Interest Groups, then join one you like. Click on the name to see the list, and even use the Green bubble on the righthand sidebar to filter down only links from today. <p>
+<p> Now your one and only homework assignment! If you see something you’ve already read, vote on it. If you’ve read something today that isn’t there, take a moment to go back to that article or video and test out the shortcut. The more opinions, the merrier!<p>
+<p> And remember, this is your community. Help us build it with topic suggestions or any ideas you have for a better experience. </p>
+<p> Sincerely, </p>
+<p> The Inta Team </p>
+<p>{% blocktrans %} <a href="/accounts/signin/">Sign In</a> then head over to Interest Groups. Welcome!{% endblocktrans %}</p>
+<p> EXTRA CREDIT: If you want to spend 10 minutes seeing how powerful it can be to put small tools in the hands of many, watch this video (hint: you've already seen parts): <a href="http://www.ted.com/talks/luis_von_ahn_massive_scale_online_collaboration.html">ReCaptcha TED talk: 750 Million Helpers and Counting</a> </p>
 {% endblock %}
+
+{% block side3 %}
+<p>1) <a href="/accounts/signin/">Sign In</a>, then go to Interest Groups and Join one you like
+<p>2) Use the Today's Post filter, then vote on a few articles within the list
+<p>3) Leave intabeta.com but use the Shortcut to add your opinion even when you're away
+<p>Once you have a handle on those basics, explore things like Email and send us recommendations for new both topics and features.
+<p>This is all about making the internet a better place for you. Let's see what we can build with simple tools!
+{% endblock %}
+
+<?php
+    function getQuarter() {
+      $monthNumber = intval(date("m"));
+      return floor(($monthNumber - 1) / 3) + 1;
+    }
+    function buildWeek() {
+   	 if (date('l') == "Sunday") {
+   		 $sundayTime = time();
+   	 }
+   	 else {
+   		 $sundayTime = strtotime('last sunday');
+   	 }
+   	 $WY = date("Y", $sundayTime);
+   	 $WM = date("m", $sundayTime);
+   	 $WD = date("d", $sundayTime);
+   	 return sprintf("WY:%s;WM:%s;WD:%s;", $WY, $WM, $WD);
+    }
+
+    function getTimeString() {
+   	 return sprintf("Y:%s;Q:%s;M:%s;%sD:%s;H:%s", date("Y"), getQuarter(), date("m"), buildWeek(), date("d"), date("H"));
+    }
+?>
+
+<script type="text/javascript">
+ _gaq.push(['_setCustomVar', 1, 'cohort_data', '{{cohortString}}', 1]);
+ </script>
+ 
+
+ 
+ 
+ 
+ 
