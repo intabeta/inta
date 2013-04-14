@@ -103,6 +103,7 @@ def ig(request):
 def ig_list(request, slug, method):
     user = request.user
     ig = get_object_or_404(InterestGroup, slug=slug)
+    posts = None
 
     if user.is_authenticated():
         voted = user.voters.all()
@@ -198,25 +199,36 @@ def ig_list(request, slug, method):
         if method == 'votes':
         	posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
            # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
-        if method == 'growth':
+        elif method == 'growth':
             posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
             #posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
-        if method == 'decay':
-            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added') 
-        if method == 'favorites':
+        elif method == 'decay1':
+            posts = ig.entry_set.all().order_by('-decayed_score_1', '-date_added')
+        elif method == 'decay2':
+            posts = ig.entry_set.all().order_by('-decayed_score_2', '-date_added') 
+        elif method == 'decay3':
+            posts = ig.entry_set.all().order_by('-decayed_score_3', '-date_added')
+        elif method == 'decay4':
+            posts = ig.entry_set.all().order_by('-decayed_score_4', '-date_added')
+        elif method == 'decay5':
+            posts = ig.entry_set.all().order_by('-decayed_score_5', '-date_added') 
+        elif method == 'decay6':
+            posts = ig.entry_set.all().order_by('-decayed_score_6', '-date_added') 
+        elif method == 'decay7':
+            posts = ig.entry_set.all().order_by('-decayed_score_7', '-date_added') 
+        elif method == 'decay8':
+            posts = ig.entry_set.all().order_by('-decayed_score_8', '-date_added') 
+        elif method == 'favorites':
             posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')   
-        if method == 'green':
+        elif method == 'green':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=1),datetime.now())), key=lambda a: -a.ranking)              
-        if method == 'orange':
+        elif method == 'orange':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=3),datetime.now()-timedelta(days=1))), key=lambda a: -a.ranking)              
-        if method == 'red':
+        elif method == 'red':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=6),datetime.now()-timedelta(days=3))), key=lambda a: -a.ranking)              
-        if method == 'black':
+        elif method == 'black':
             posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now()-timedelta(days=365),datetime.now()-timedelta(days=6))), key=lambda a: -a.ranking)              
-     
-       
-    
-        
+
         template_data = {
             'ig': ig,
             'posts': posts,
