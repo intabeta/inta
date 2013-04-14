@@ -368,6 +368,7 @@ def submit_details(request):
     user = request.user
     url = request.session.get('url','')
     ig_slug = request.session.get('ig','')
+    tags = request.session.get('tags','')
     action = request.session.get('action','')
     
     
@@ -389,6 +390,8 @@ def submit_details(request):
         
         ig = get_object_or_404(InterestGroup, slug=ig_slug)
         entry.ig = ig
+        
+        entry.tags = tags
         
         if action == "post":
             entry.posts = 1
