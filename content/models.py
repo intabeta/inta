@@ -65,6 +65,8 @@ class Entry(models.Model):
     
     ig = models.ForeignKey(InterestGroup)
     
+    tags = TaggableManager()
+    
     #Banned and flagged
     banned = models.BooleanField(default=False)
     flagged = models.BooleanField(default=False)
