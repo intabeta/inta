@@ -391,8 +391,6 @@ def submit_details(request):
         ig = get_object_or_404(InterestGroup, slug=ig_slug)
         entry.ig = ig
         
-        entry.tags.add(tags)
-        
         if action == "post":
             entry.posts = 1
             entry.last_score = 1
@@ -409,6 +407,7 @@ def submit_details(request):
             entry.double_voted_by.add(user)
         
         entry.save()
+        entry.tags.add(tags)
         entry.slug = "%s-%s" % (slugify(entry.title), str(entry.id))
         entry.save()
         ig.posts = ig.posts + 1
