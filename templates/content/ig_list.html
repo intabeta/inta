@@ -157,7 +157,7 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 &nbsp;{{ post.date_added|date:"M j" }}
 
 <br />
-{{ post.summary|default_if_none:"No summary available." }}..   
+{{ post.summary|default_if_none:post.url }}..   
         
         
 <!-- ***** This shows the date, source, and user of the post... **** 
