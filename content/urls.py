@@ -13,11 +13,15 @@ urlpatterns = patterns('',
        name='content_myig'),
        
     url(r'^ig/(?P<slug>[-\w]+)/(?P<method>[-\w]+)/$',
-       content_views.tag_list,
-       name='content_tag_list'),
+       content_views.ig_list,
+       name='content_ig_list'),
     url(r'^ig/$',
        content_views.ig,
        name='content_ig'),
+       
+    url(r'^tags/(?P<method>[-\w]+)/(?P<tags>[-w]+)/$',
+    	content_views.tag_list,
+    	name='content_tag_list'),
        
        
     url(r'^ig_proposal/$',
