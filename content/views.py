@@ -250,7 +250,7 @@ def ig_proposal_done(request):
 def tag_list(request):
 	user = request.user
     ig = get_object_or_404(InterestGroup, slug=slug)
-
+	
     if user.is_authenticated():
         voted = user.voters.all()
         double_voted = user.double_voters.all()
