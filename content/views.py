@@ -391,7 +391,7 @@ def submit_details(request):
         ig = get_object_or_404(InterestGroup, slug=ig_slug)
         entry.ig = ig
         
-        entry.tags = tags
+        entry.tags.add(tags)
         
         if action == "post":
             entry.posts = 1
