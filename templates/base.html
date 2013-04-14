@@ -211,7 +211,7 @@
            {% comment %}     <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>  {% endcomment %}
           </div><!--/.well --> 
                {% endblock %}
-          {% block side2 %}
+{% block side2 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
               <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>Legend</a></li>
@@ -242,14 +242,20 @@
 
             </ul>
           </div><!--/.well -->
-          {% endblock %}
-          {% block side3 %}
+{% endblock %}
+{% block side3 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
         {% comment %}      <li class="nav-header">Inta Shortcut</li> </ul> {% endcomment %}
               <p style="padding: 3px 15px;">
              <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Drag into your bookmark bar, then vote or favorite from anywhere </p>
-             
+             <ul class="nav nav-list legend">
+              <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>How to Use</a></li>
+            <div id="legend" class="collapse legend">
+              <img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
+				</div>
+              </ul>
+
 
 
            
