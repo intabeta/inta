@@ -314,10 +314,10 @@ def tag_list(request, tags, method):
                     # if request.user.is_authenticated():
                     #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
 
-		taglist = tags.split('|')
-		entries = Entry.objects.all()
-		for tag in taglist:
-			entries = entries.filter(tags__name__in=[tag])
+        taglist = tags.split('|')
+        entries = Entry.objects.all()
+        for tag in taglist:
+            entries = entries.filter(tags__name__in=[tag])
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -a.ranking)
