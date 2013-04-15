@@ -555,7 +555,7 @@ def submit_details(request):
 
         entry.save()
         entry.summary = newtags.split(', ')[0]
-        for tag in newtags.split(', '):
+        for tag in str(newtags).split(', '):
         	entry.tags.add(tag)
         
         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
