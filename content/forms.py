@@ -20,14 +20,14 @@ class SubmitFormPlugin(forms.Form):
     ig = forms.ChoiceField()
     tags = forms.CharField(max_length=100)
     
-    def __init__(self, user, bkmk, *args, **kwargs):
+    def __init__(self, user, bkmk, tags, *args, **kwargs):
         super(SubmitFormPlugin, self).__init__(*args, **kwargs)
         subscribed = []
         for ig in user.interestgroup_set.all():
             subscribed.append((ig.slug, ig.title))
         self.fields['ig'].choices = subscribed
         self.fields['url'].initial = bkmk
-        self.fields['tags'].initial = ''
+        self.fields['tags'].initial = tags
 
 class EmailForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=1000)

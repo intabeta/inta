@@ -439,7 +439,7 @@ def submit_plugin(request):
     form = None
     extra = 'Entered.'
     if request.method == 'POST':
-        form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST)
+        form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POTST.get('tags',''), request.POST)
         extra += ' Getting form...'
 
         if form.is_valid():
@@ -499,8 +499,9 @@ def submit_plugin(request):
     else:
         extra += ' First open.'
         bkmk = request.GET.get('bkmk', '')
-        form = SubmitFormPlugin(user, bkmk)
-    template_data = {'form': form, 'extra': extra}
+        tags = request.GET.get('tags', '')
+        form = SubmitFormPlugin(user, bkmk, tags)
+    template_data = {'form': form, 'extra': extra, 'tags':tags}
     return render_to_response('content/submit_plugin.html', template_data, context_instance=RequestContext(request))
 
 
