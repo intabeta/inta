@@ -553,7 +553,7 @@ def submit_details(request):
             entry.double_voted_by.add(user)
 
         entry.save()
-        entry.tags.add(newtags.split(', ')[0])
+        entry.summary = newtags.split(', ')[0]
         for tag in newtags.split(', '):
         	entry.tags.add(tag)
         
