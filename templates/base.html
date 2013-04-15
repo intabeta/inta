@@ -199,10 +199,10 @@
             <ul class="nav nav-list">
               <li class="nav-header">Inta: Know the Best</li>  
               
-              <!-- HELP, hoping to have all the tags show 
+              <!-- Help, hoping to have all the tags show 
               <p> {% for othertag in post.tags.all %}
 	<span class="label"><a href="/content/tags/decay1/{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
-				{% endfor %} </p> 
+				{% endfor %} </p> -->
 				
 <table class="table table-striped">
 <tbody>
@@ -212,7 +212,6 @@
 {% endif %}
 <tr>
 <td>
--->
               
              {% comment %}  <li><a href="/"><i class="icon-home"></i>Home</a></li>
               <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>          
@@ -222,7 +221,7 @@
           {% comment %}      <li><a href="/howto/"><i class="icon-question-sign"></i>Help</a></li>  {% endcomment %}
            {% comment %}     <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>  {% endcomment %}
           </div><!--/.well --> 
-{% endblock %}
+               {% endblock %}
 {% block side2 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
