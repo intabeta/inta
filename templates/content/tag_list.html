@@ -35,10 +35,10 @@ function getSelectedVals(){
 </script>
 {% endblock %}
 
-{% block content_title %}<h2>Inta - {{ tag }}</h2>
+{% block content_title %}<h2>Inta - {{ ' - '.join(tags.split('|')) }}</h2>
 <!--If we want Twitter here...-->
  {% comment %}  <p> <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">Shortcut</a>
-  <a href="//twitter.com/Inta_beta">{{ tag }}@inta_beta</a>    {% endcomment %} 
+  <a href="//twitter.com/Inta_beta">{{ tags.split('|')[0] }}@inta_beta</a>    {% endcomment %} 
 
 
 
@@ -51,23 +51,23 @@ function getSelectedVals(){
 <div class="well sidebar-nav">
 <ul class="nav nav-list"> 
   <li class="nav-header">List Options</li>
-  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/tags/decay1/{{ tag }}/"><i class="icon-time"></i>30 mins</a></li>
-  <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/tags/decay2/{{ tag }}/"><i class="icon-time"></i>3 hours</a></li>
-  <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/tags/decay3/{{ tag }}/"><i class="icon-time"></i>1 day</a></li>
-  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/tags/decay4/{{ tag }}/"><i class="icon-time"></i>3 days</a></li>
-  <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/tags/decay5/{{ tag }}/"><i class="icon-time"></i>1 week</a></li>
-  <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/tags/decay6/{{ tag }}/"><i class="icon-time"></i>1 month</a></li>
-  <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/tags/decay7/{{ tag }}/"><i class="icon-time"></i>3 months</a></li>
-  <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/tags/decay8/{{ tag }}/"><i class="icon-time"></i>1 year</a></li>
+  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/tags/decay1/{{ tags }}/"><i class="icon-time"></i>30 mins</a></li>
+  <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/tags/decay2/{{ tags }}/"><i class="icon-time"></i>3 hours</a></li>
+  <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/tags/decay3/{{ tags }}/"><i class="icon-time"></i>1 day</a></li>
+  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/tags/decay4/{{ tags }}/"><i class="icon-time"></i>3 days</a></li>
+  <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/tags/decay5/{{ tags }}/"><i class="icon-time"></i>1 week</a></li>
+  <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/tags/decay6/{{ tags }}/"><i class="icon-time"></i>1 month</a></li>
+  <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/tags/decay7/{{ tags }}/"><i class="icon-time"></i>3 months</a></li>
+  <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/tags/decay8/{{ tags }}/"><i class="icon-time"></i>1 year</a></li>
 
   
-  <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/tags/favorites/{{ tag }}/"><i class="icon-star"></i>By Favorites</a></li>
-  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/tags/votes/{{ tag }}/"><i class="icon-ok"></i>By Votes</a></li>
-  <li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/tags/growth/{{ tag }}/"><i class="icon-signal"></i>By Growth</a></li> 
-  <li {% if method == 'green' %}class="active"{% endif %}><a href="/content/tags/green/{{ tag }}/"><span class="badge badge-success"></span>&nbsp;New</a></li>
-  <li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/tags/orange/{{ tag }}/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
-  <li {% if method == 'red' %}class="active"{% endif %}><a href="/content/tags/red/{{ tag }}/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
-  <li {% if method == 'black' %}class="active"{% endif %}><a href="/content/tags/black/{{ tag }}/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
+  <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/tags/favorites/{{ tags }}/"><i class="icon-star"></i>By Favorites</a></li>
+  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/tags/votes/{{ tags }}/"><i class="icon-ok"></i>By Votes</a></li>
+  <li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/tags/growth/{{ tags }}/"><i class="icon-signal"></i>By Growth</a></li> 
+  <li {% if method == 'green' %}class="active"{% endif %}><a href="/content/tags/green/{{ tags }}/"><span class="badge badge-success"></span>&nbsp;New</a></li>
+  <li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/tags/orange/{{ tags }}/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
+  <li {% if method == 'red' %}class="active"{% endif %}><a href="/content/tags/red/{{ tags }}/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
+  <li {% if method == 'black' %}class="active"{% endif %}><a href="/content/tags/black/{{ tags }}/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
 
   <li class="nav-header">For checked items </li>
   <li>
