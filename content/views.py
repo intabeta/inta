@@ -356,7 +356,7 @@ def tag_list(request, tags, method):
             'voter': voter,
             'double_voter': double_voter,
             'method': method,
-            'formattedtags': ' - '.join(taglist),
+            'taglist': taglist,
             }
     else:
         taglist = tags.split('|')
@@ -396,7 +396,7 @@ def tag_list(request, tags, method):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        template_data = {'tags': tags, 'posts': posts, 'method': method, 'formattedtags': ' - '.join(taglist),}
+        template_data = {'tags': tags, 'posts': posts, 'method': method, 'taglist': taglist,}
 
     return render_to_response('content/tag_list.html', template_data, context_instance=RequestContext(request))
 
