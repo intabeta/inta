@@ -30,7 +30,7 @@
 				width:100px;
 				background-color:blue;
 			}
-			#mid {
+			#middle {
 				display:inline;
 				margin:auto;
 				height:100px;
@@ -43,6 +43,9 @@
 				height:100px;	
 				width:100px;	
 				background-color:green;
+			}
+			#emails {
+				float:clear;
 			}
 	</style>
 </head>
@@ -77,7 +80,7 @@
 	</div>
 	
 	<div class="row-fluid">
-		<div class="span3">
+		<div class="span3" id="emails">
 			<form action="" method="post" class="well">
 				{% if failed %}
 					{% if reason == 'invalid' %}
