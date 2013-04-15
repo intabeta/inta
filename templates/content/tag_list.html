@@ -35,7 +35,7 @@ function getSelectedVals(){
 </script>
 {% endblock %}
 
-{% block content_title %}<h2>Inta - {% for tag in taglist %} <a href="/content/tags/decay1/{{ taglist|slice:":forloop.counter0"|join:"|" }}/">{{ tag }}</a> - {% endfor %}</h2>
+{% block content_title %}<h2>Inta - {% for tag in taglist %} <a href="/content/tags/decay1/{{ breadcrumburls.forloop.counter0 }}/">{{ tag }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}</h2>
 <!--If we want Twitter here...-->
  {% comment %}  <p> <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">Shortcut</a>
   <a href="//twitter.com/Inta_beta">{{ tags }}@inta_beta</a>    {% endcomment %} 
