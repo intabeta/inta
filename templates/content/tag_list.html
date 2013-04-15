@@ -48,8 +48,8 @@ function getSelectedVals(){
 
 {% block side2 %}
 
-  <div class="well sidebar-nav">
-  <ul class="nav nav-list"> 
+<div class="well sidebar-nav">
+<ul class="nav nav-list"> 
   <li class="nav-header">List Options</li>
   <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/tags/decay1/{{ tag }}/"><i class="icon-time"></i>30 mins</a></li>
   <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/tags/decay2/{{ tag }}/"><i class="icon-time"></i>3 hours</a></li>
@@ -69,38 +69,35 @@ function getSelectedVals(){
   <li {% if method == 'red' %}class="active"{% endif %}><a href="/content/tags/red/{{ tag }}/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
   <li {% if method == 'black' %}class="active"{% endif %}><a href="/content/tags/black/{{ tag }}/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
 
-              <li class="nav-header">For checked items </li>
-             <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-              </li>
-              <br
-              <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
+  <li class="nav-header">For checked items </li>
+  <li>
+  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
+  </li>
+  <br />
+  <li>
+  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
              
-             </li>
+  </li>
 
               
-            {% comment %}
-            <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-              </li>
-              <br
-              <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
-             
-             </li>
-             {% endcomment %}  
-            
-            </ul>
-          </div><!--/.well -->
+  {% comment %}
+  <li>
+  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
+  </li>
+  <br
+  <li>
+  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>           
+  </li>
+  {% endcomment %}        
+</ul>
+</div><!--/.well -->
+
 <div>
 <form id="emailform" action="/email/" method="post">
 {% csrf_token %}
-
 </form>
 <form id="favoritesform" action="/favorites/" method="post">
 {% csrf_token %}
-
 </form>
 </div>
 
@@ -161,8 +158,6 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 {% endif %}
 
 
-
-
 {% if method == 'favorites' %}
 <span class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
 {% endif %}
@@ -190,7 +185,9 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 {% endif %}
 </a>
 &nbsp;{{ post.date_added|date:"M j" }}
+<br />
 
+<span class="label"><a href="/content/tags/decay1/Tag/">Tag</a></span>
 <br />
 {{ post.summary|default_if_none:"" }}
 
