@@ -463,6 +463,7 @@ def submit_plugin(request):
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
 					newtags = form.cleaned_data['tags']
+					entry.summary = newtags.split(', ')[0]
 					for tag in newtags.split(', '):
                     	entry[0].tags.add(tag)
                     entry[0].save()
