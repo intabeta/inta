@@ -199,9 +199,9 @@
             <ul class="nav nav-list">
               <li class="nav-header">Inta: Know the Best</li>  
               
-              <ul> {% if tag %} {% for othertag in post.tags.all %}
+              <ul> {% for othertag in post.tags.all %}
 	<span class="label"><li><a href="/content/tags/decay1/{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></li></span>
-{% endfor %}{% endif %}  </ul>
+{% endfor %} </ul>
               
              {% comment %}  <li><a href="/"><i class="icon-home"></i>Home</a></li>
               <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>          
