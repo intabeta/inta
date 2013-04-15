@@ -465,6 +465,7 @@ def submit_plugin(request):
                         
 					newtags = form.cleaned_data['tags']
 					entry[0].summary = 'n'
+					return render_to_response('404.html')
 					for tag in newtags.split(', '):
                     	entry[0].tags.add(tag)
                     entry[0].save()
