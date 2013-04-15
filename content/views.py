@@ -446,7 +446,6 @@ def submit_plugin(request):
             extra += ' Form is valid.'
             ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
             entry = Entry.objects.filter(url__iexact=form.cleaned_data['url']).filter(ig=ig)
-            return render_to_response('404.html')
             if entry:
                 form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
                 extra += ' Entry exists.'
@@ -465,8 +464,6 @@ def submit_plugin(request):
                         entry[0].double_voted_by.add(user)
                         
 					newtags = form.cleaned_data['tags']
-					entry[0].summary = 'n'
-					return render_to_response('404.html')
 					for tag in newtags.split(', '):
                     	entry[0].tags.add(tag)
                     entry[0].save()
@@ -558,11 +555,9 @@ def submit_details(request):
             entry.double_voted_by.add(user)
 
         entry.save()
-        entry.summary = ''
-        entry.save()
-        for tag in str(newtags).split(', '):
-        	entry.tags.add('no')
-        	entry.save()
+        for tag in newtags.split(', '):
+        	entry.tags.add('tag')
+    	entry.save()
         
         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
         entry.save()
