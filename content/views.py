@@ -262,7 +262,7 @@ def ig_proposal_done(request):
 
 def tag_list(request, tags, method):
     user = request.user
-    tag = tags
+    tags = tags
 
     if user.is_authenticated():
         voted = user.voters.all()
@@ -314,86 +314,87 @@ def tag_list(request, tags, method):
                     # if request.user.is_authenticated():
                     #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
 
+		taglist = tags.split('|')
+		entries = Entry.objects.all()
+		for tag in taglist:
+			entries = entries.filter(tags__name__in=[tag])
+			
         if method == 'votes':
-            posts = sorted(Entry.objects.filter(tags__name__in=[tag]), key=lambda a: -a.ranking)
+            posts = sorted(entries, key=lambda a: -a.ranking)
         if method == 'growth':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-last_growth', '-decayed_score_1')
-
-            # posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
-
+            posts = entries.order_by('-last_growth', '-decayed_score_1')
         if method == 'decay1':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_1', '-date_added')
+            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_2', '-date_added')
+            posts = entries.order_by('-decayed_score_2', '-date_added')
         if method == 'decay3':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_3', '-date_added')
+            posts = entries.order_by('-decayed_score_3', '-date_added')
         if method == 'decay4':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_4', '-date_added')
+            posts = entries.order_by('-decayed_score_4', '-date_added')
         if method == 'decay5':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_5', '-date_added')
+            posts = entries.order_by('-decayed_score_5', '-date_added')
         if method == 'decay6':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_6', '-date_added')
+            posts = entries.order_by('-decayed_score_6', '-date_added')
         if method == 'decay7':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_7', '-date_added')
+            posts = entries.order_by('-decayed_score_7', '-date_added')
         if method == 'decay8':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_8', '-date_added')
+            posts = entries.order_by('-decayed_score_8', '-date_added')
         if method == 'favorites':
-            posts = Entry.objects.filter(tags__name__in=[tag]).filter(favorites__gt=0).order_by('-favorites', '-date_added')
+            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
         if method == 'green':
-            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
         if method == 'orange':
-            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
         if method == 'red':
-            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
         if method == 'black':
-            posts = sorted(Entry.objects.filter(tags__name__in=[tag]).filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         template_data = {
-            'tag': tag,
+            'tags': tags,
             'posts': posts,
             'voter': voter,
             'double_voter': double_voter,
             'method': method,
             }
     else:
+        taglist = tags.split('|')
+		entries = Entry.objects.all()
+		for tag in taglist:
+			entries = entries.filter(tags__name__in=[tag])
+			
         if method == 'votes':
-            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
-
-           # posts = sorted(ig.entry_set.all(), key=lambda a: -a.ranking)
-
+            posts = sorted(entries, key=lambda a: -a.ranking)
         if method == 'growth':
-            posts = ig.entry_set.all().order_by('-last_growth', '-decayed_score_1')
-
-            # posts = sorted(ig.entry_set.all().order_by('-last_growth'), key=lambda a: -a.ranking)
-
+            posts = entries.order_by('-last_growth', '-decayed_score_1')
         if method == 'decay1':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_1', '-date_added')
+            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_2', '-date_added')
+            posts = entries.order_by('-decayed_score_2', '-date_added')
         if method == 'decay3':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_3', '-date_added')
+            posts = entries.order_by('-decayed_score_3', '-date_added')
         if method == 'decay4':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_4', '-date_added')
+            posts = entries.order_by('-decayed_score_4', '-date_added')
         if method == 'decay5':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_5', '-date_added')
+            posts = entries.order_by('-decayed_score_5', '-date_added')
         if method == 'decay6':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_6', '-date_added')
+            posts = entries.order_by('-decayed_score_6', '-date_added')
         if method == 'decay7':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_7', '-date_added')
+            posts = entries.order_by('-decayed_score_7', '-date_added')
         if method == 'decay8':
-            posts = Entry.objects.filter(tags__name__in=[tag]).order_by('-decayed_score_8', '-date_added')
+            posts = entries.order_by('-decayed_score_8', '-date_added')
         if method == 'favorites':
-            posts = ig.entry_set.filter(favorites__gt=0).order_by('-favorites', '-date_added')
+            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
         if method == 'green':
-            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
         if method == 'orange':
-            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
         if method == 'red':
-            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
         if method == 'black':
-            posts = sorted(ig.entry_set.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        template_data = {'tag': tag, 'posts': posts, 'method': method}
+        template_data = {'tags': tags, 'posts': posts, 'method': method}
 
     return render_to_response('content/tag_list.html', template_data, context_instance=RequestContext(request))
 

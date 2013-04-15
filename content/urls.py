@@ -19,7 +19,7 @@ urlpatterns = patterns('',
        content_views.ig,
        name='content_ig'),
        
-    url(r'^tags/(?P<method>[-\w]+)/(?P<tags>[- \w]+)/$',
+    url(r'^tags/(?P<method>[-\w]+)/(?P<tags>[- |\w]+)/$',
     	content_views.tag_list,
     	name='content_tag_list'),
        
