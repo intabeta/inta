@@ -439,7 +439,7 @@ def submit_plugin(request):
     form = None
     extra = 'Entered.'
     if request.method == 'POST':
-        form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POTST.get('tags',''), request.POST)
+        form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
         extra += ' Getting form...'
 
         if form.is_valid():
