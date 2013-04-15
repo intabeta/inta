@@ -446,6 +446,7 @@ def submit_plugin(request):
             extra += ' Form is valid.'
             ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
             entry = Entry.objects.filter(url__iexact=form.cleaned_data['url']).filter(ig=ig)
+            return render_to_response('404.html')
             if entry:
                 form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
                 extra += ' Entry exists.'
