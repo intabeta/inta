@@ -359,9 +359,10 @@ def tag_list(request, tags, method):
             }
     else:
         taglist = tags.split('|')
-		entries = Entry.objects.all()
-		for tag in taglist:
-			entries = entries.filter(tags__name__in=[tag])
+	entries = Entry.objects.all()
+		
+	for tag in taglist:
+	    entries = entries.filter(tags__name__in=[tag])
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -a.ranking)
