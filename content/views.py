@@ -462,8 +462,9 @@ def submit_plugin(request):
                         entry[0].double_posts = entry[0].double_posts + 1
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
-
-                    entry[0].tags.add(form.cleaned_data['tags'])
+					tags = form.cleaned_data['tags']
+					for tag in tags.split(', '):
+                    	entry[0].tags.add(tag)
                     entry[0].save()
                     ig.posts = ig.posts + 1
                     ig.save()
@@ -552,7 +553,9 @@ def submit_details(request):
             entry.double_voted_by.add(user)
 
         entry.save()
-        entry.tags.add(tags)
+        for tag in tags.split(', '):
+        	entry.tags.add(tag)
+        
         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
         entry.save()
         ig.posts = ig.posts + 1
