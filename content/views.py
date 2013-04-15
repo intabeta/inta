@@ -462,9 +462,8 @@ def submit_plugin(request):
                         entry[0].double_posts = entry[0].double_posts + 1
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
-                        
-					newtags = form.cleaned_data['tags']
-					for tag in newtags.split(', '):
+
+		    for tag in form.cleaned_data['tags'].split(', '):
                     	entry[0].tags.add(tag)
                     entry[0].save()
                     ig.posts = ig.posts + 1
