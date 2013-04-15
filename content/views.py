@@ -462,8 +462,8 @@ def submit_plugin(request):
                         entry[0].double_posts = entry[0].double_posts + 1
                         entry[0].save()
                         entry[0].double_voted_by.add(user)
-					tags = form.cleaned_data['tags']
-					for tag in tags.split(', '):
+					newtags = form.cleaned_data['tags']
+					for tag in newtags.split(', '):
                     	entry[0].tags.add(tag)
                     entry[0].save()
                     ig.posts = ig.posts + 1
@@ -515,7 +515,7 @@ def submit_details(request):
     user = request.user
     url = request.session.get('url', '')
     ig_slug = request.session.get('ig', '')
-    tags = request.session.get('tags', '')
+    newtags = request.session.get('tags', '')
     action = request.session.get('action', '')
 
     if request.method == 'POST':
@@ -553,7 +553,7 @@ def submit_details(request):
             entry.double_voted_by.add(user)
 
         entry.save()
-        for tag in tags.split(', '):
+        for tag in newtags.split(', '):
         	entry.tags.add(tag)
         
         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
