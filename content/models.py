@@ -71,11 +71,11 @@ class Entry(models.Model):
     # user related fields
     submitted_by = models.ForeignKey(User, related_name='submitter', editable=False)
     favorited_by = models.ManyToManyField(User, related_name='favorited', editable=False, blank=True, null=True) #could use a ForeignKey to Dict of Voters if you want to keep track of under what tag it was favorited
-    voted_by = models.ForeignKey(Dict, editable=False, blank=True, null=True) #reference a Dict of Voters
+    voted_by = models.ForeignKey(Dict, related_name='+', editable=False, blank=True, null=True) #reference a Dict of Voters
     date_added = models.DateTimeField(editable=False, auto_now_add=True)
-    posts = models.ForeignKey(Dict) #reference a Dict containing tags and associated post counts
-    double_posts = models.ForeignKey(Dict)
-    favorites = models.ForeignKey(Dict)
+    posts = models.ForeignKey(Dict, related_name='+') #reference a Dict containing tags and associated post counts
+    double_posts = models.ForeignKey(Dict, related_name='+')
+    favorites = models.ForeignKey(Dict, related_name='+')
     
     ig = models.ForeignKey(InterestGroup)
     
@@ -90,14 +90,14 @@ class Entry(models.Model):
     last_growth = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
     
     # Decay
-    decayed_score_1 = models.ForeignKey(Dict) #each of these references a Dict which keeps track of decayed scores for each tag
-    decayed_score_2 = models.ForeignKey(Dict)
-    decayed_score_3 = models.ForeignKey(Dict)
-    decayed_score_4 = models.ForeignKey(Dict)
-    decayed_score_5 = models.ForeignKey(Dict)
-    decayed_score_6 = models.ForeignKey(Dict)
-    decayed_score_7 = models.ForeignKey(Dict)
-    decayed_score_8 = models.ForeignKey(Dict)
+    decayed_score_1 = models.ForeignKey(Dict, related_name='+') #each of these references a Dict which keeps track of decayed scores for each tag
+    decayed_score_2 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_3 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_4 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_5 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_6 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_7 = models.ForeignKey(Dict, related_name='+')
+    decayed_score_8 = models.ForeignKey(Dict, related_name='+')
 
 
     
