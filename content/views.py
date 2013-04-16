@@ -345,7 +345,7 @@ def tag_list(request, tags, method):
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
 ##        if method == 'red':
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
-##        if method == 'black':
+##        if method == 'black': 
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         template_data = {
