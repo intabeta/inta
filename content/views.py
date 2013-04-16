@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
 from content.forms import SubmitForm, SubmitFormPlugin
+from taggit.models import Tag
 from bs4 import BeautifulSoup
 from urllib import urlopen, quote_plus
 import tldextract
@@ -265,14 +266,10 @@ def tag_list(request, tags, method):
     tags = tags
 
     if user.is_authenticated():
-        voted = user.voters.all()
-        double_voted = user.double_voters.all()
-        voter = []
-        double_voter = []
-        for post in voted:
-            voter.append(post.slug)
-        for post in double_voted:
-            double_voter.append(post.slug)
+        taglist = tags.split('|')
+        voted = user.voter_set.filter(tag__name__in=[taglist[0]]) #only deal with votes on the primary tag
+        voter = [ i.slug for i in voted.filter(val__exact=1) ]
+        double_voter = [ i.slug for i in voted.filter(val__exact=2) ]
 
         if request.method == 'POST':
             action = request.POST.get('action', '')
@@ -281,17 +278,18 @@ def tag_list(request, tags, method):
                 if action == 'vote':
                     voter.append(post_slug)
                     post_change = get_object_or_404(Entry, slug=post_slug)
-                    post_change.voted_by.add(user)
-                    post_change.posts = post_change.posts + 1
-                    post_change.decayed_score_1 = post_change.decayed_score_1 + 1
-                    post_change.decayed_score_2 = post_change.decayed_score_2 + 1
-                    post_change.decayed_score_3 = post_change.decayed_score_3 + 1
-                    post_change.decayed_score_4 = post_change.decayed_score_4 + 1
-                    post_change.decayed_score_5 = post_change.decayed_score_5 + 1
-                    post_change.decayed_score_6 = post_change.decayed_score_6 + 1
-                    post_change.decayed_score_7 = post_change.decayed_score_7 + 1
-                    post_change.decayed_score_8 = post_change.decayed_score_8 + 1
-                    post_change.save()
+                    for tag in post_change.tags.all()
+                        post_change.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=post_slug)
+                        post_change.posts.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_1.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_2.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_3.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_4.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_5.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_6.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_7.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_8.tagval_set.get(tag=tag).val += 1
+                        post_change.save()
 
                     # if request.user.is_authenticated():
                     #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
@@ -299,56 +297,56 @@ def tag_list(request, tags, method):
                 if action == 'double_vote':
                     double_voter.append(post_slug)
                     post_change = get_object_or_404(Entry, slug=post_slug)
-                    post_change.double_voted_by.add(user)
-                    post_change.double_posts = post_change.double_posts + 1
-                    post_change.decayed_score_1 = post_change.decayed_score_1 + 2
-                    post_change.decayed_score_2 = post_change.decayed_score_2 + 2
-                    post_change.decayed_score_3 = post_change.decayed_score_3 + 2
-                    post_change.decayed_score_4 = post_change.decayed_score_4 + 2
-                    post_change.decayed_score_5 = post_change.decayed_score_5 + 2
-                    post_change.decayed_score_6 = post_change.decayed_score_6 + 2
-                    post_change.decayed_score_7 = post_change.decayed_score_7 + 2
-                    post_change.decayed_score_8 = post_change.decayed_score_8 + 2
-                    post_change.save()
+                    for tag in post_change.tags.all():
+                        post_change.double_voted_by.voter_set.create(tag=tag, user=user, val=1, slug=post_slug)
+                        post_change.double_posts.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_1.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_2.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_3.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_4.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_5.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_6.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_7.tagval_set.get(tag=tag).val += 2
+                        post_change.decayed_score_8.tagval_set.get(tag=tag).val += 2
+                        post_change.save()
 
                     # if request.user.is_authenticated():
                     #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
 
-        taglist = tags.split('|')
         entries = Entry.objects.all()
         for tag in taglist:
             entries = entries.filter(tags__name__in=[tag])
 			
-        if method == 'votes':
-            posts = sorted(entries, key=lambda a: -a.ranking)
-        if method == 'growth':
-            posts = entries.order_by('-last_growth', '-decayed_score_1')
-        if method == 'decay1':
-            posts = entries.order_by('-decayed_score_1', '-date_added')
-        if method == 'decay2':
-            posts = entries.order_by('-decayed_score_2', '-date_added')
-        if method == 'decay3':
-            posts = entries.order_by('-decayed_score_3', '-date_added')
-        if method == 'decay4':
-            posts = entries.order_by('-decayed_score_4', '-date_added')
-        if method == 'decay5':
-            posts = entries.order_by('-decayed_score_5', '-date_added')
-        if method == 'decay6':
-            posts = entries.order_by('-decayed_score_6', '-date_added')
-        if method == 'decay7':
-            posts = entries.order_by('-decayed_score_7', '-date_added')
-        if method == 'decay8':
-            posts = entries.order_by('-decayed_score_8', '-date_added')
-        if method == 'favorites':
-            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        if method == 'green':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
-        if method == 'orange':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
-        if method == 'red':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
-        if method == 'black':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
+        #if method == 'votes':
+        posts = sorted(entries, key=lambda a: -a.ranking) #sorting just got more complicated; don't worry about it for now
+##        if method == 'growth':
+##            posts = entries.order_by('-last_growth', '-decayed_score_1')
+##        if method == 'decay1':
+##            posts = entries.order_by('-decayed_score_1', '-date_added')
+##        if method == 'decay2':
+##            posts = entries.order_by('-decayed_score_2', '-date_added')
+##        if method == 'decay3':
+##            posts = entries.order_by('-decayed_score_3', '-date_added')
+##        if method == 'decay4':
+##            posts = entries.order_by('-decayed_score_4', '-date_added')
+##        if method == 'decay5':
+##            posts = entries.order_by('-decayed_score_5', '-date_added')
+##        if method == 'decay6':
+##            posts = entries.order_by('-decayed_score_6', '-date_added')
+##        if method == 'decay7':
+##            posts = entries.order_by('-decayed_score_7', '-date_added')
+##        if method == 'decay8':
+##            posts = entries.order_by('-decayed_score_8', '-date_added')
+##        if method == 'favorites':
+##            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
+##        if method == 'green':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
+##        if method == 'orange':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+##        if method == 'red':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
+##        if method == 'black':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         template_data = {
             'tags': tags,
@@ -366,36 +364,36 @@ def tag_list(request, tags, method):
 	for tag in taglist:
 	    entries = entries.filter(tags__name__in=[tag])
 			
-        if method == 'votes':
-            posts = sorted(entries, key=lambda a: -a.ranking)
-        if method == 'growth':
-            posts = entries.order_by('-last_growth', '-decayed_score_1')
-        if method == 'decay1':
-            posts = entries.order_by('-decayed_score_1', '-date_added')
-        if method == 'decay2':
-            posts = entries.order_by('-decayed_score_2', '-date_added')
-        if method == 'decay3':
-            posts = entries.order_by('-decayed_score_3', '-date_added')
-        if method == 'decay4':
-            posts = entries.order_by('-decayed_score_4', '-date_added')
-        if method == 'decay5':
-            posts = entries.order_by('-decayed_score_5', '-date_added')
-        if method == 'decay6':
-            posts = entries.order_by('-decayed_score_6', '-date_added')
-        if method == 'decay7':
-            posts = entries.order_by('-decayed_score_7', '-date_added')
-        if method == 'decay8':
-            posts = entries.order_by('-decayed_score_8', '-date_added')
-        if method == 'favorites':
-            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        if method == 'green':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
-        if method == 'orange':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
-        if method == 'red':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
-        if method == 'black':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
+##        if method == 'votes':
+        posts = sorted(entries, key=lambda a: -a.ranking)
+##        if method == 'growth':
+##            posts = entries.order_by('-last_growth', '-decayed_score_1')
+##        if method == 'decay1':
+##            posts = entries.order_by('-decayed_score_1', '-date_added')
+##        if method == 'decay2':
+##            posts = entries.order_by('-decayed_score_2', '-date_added')
+##        if method == 'decay3':
+##            posts = entries.order_by('-decayed_score_3', '-date_added')
+##        if method == 'decay4':
+##            posts = entries.order_by('-decayed_score_4', '-date_added')
+##        if method == 'decay5':
+##            posts = entries.order_by('-decayed_score_5', '-date_added')
+##        if method == 'decay6':
+##            posts = entries.order_by('-decayed_score_6', '-date_added')
+##        if method == 'decay7':
+##            posts = entries.order_by('-decayed_score_7', '-date_added')
+##        if method == 'decay8':
+##            posts = entries.order_by('-decayed_score_8', '-date_added')
+##        if method == 'favorites':
+##            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
+##        if method == 'green':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
+##        if method == 'orange':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+##        if method == 'red':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
+##        if method == 'black':
+##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         template_data = {'tags': tags, 'posts': posts, 'method': method, 'taglist': taglist, 'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]), }
 
@@ -445,59 +443,102 @@ def submit_plugin(request):
     if request.method == 'POST':
         form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
         extra += ' Getting form...'
-
+        
         if form.is_valid():
             extra += ' Form is valid.'
-            ig = get_object_or_404(InterestGroup, slug=form.cleaned_data['ig'])
-            entry = Entry.objects.filter(url__iexact=form.cleaned_data['url']).filter(ig=ig)
-            if entry:
-                form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
-                extra += ' Entry exists.'
+            url = form.cleaned.data['url']
+            withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
+            if withurl:
+                for tag in form.cleaned_data['tags'].split(', '): #consider each of the users' tags individually
+                    entry = withurl.filter(tags__name__in=[tag]) #find out if it already has the given tag
+                    if entry:
+                        form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
+                        extra += ' Entry exists.'
+                        voters = [ i.user for i in entry[0].voter_set.filter(tag__exact=tag) ] #check to see if the user has already voted under this tag. change to __iexact if we want case-insensitive
+                        if user not in voters:
+                            if request.user.is_authenticated():
+                                messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
+                            action = request.session.get('action', '')
+                            if action == 'post':
+                                entry[0].posts.tagval_set.get(tag=Tag(name=tag)).val += 1 #tagval pairs require an actual tag item, but the variable tag is a string
+                                entry[0].save()
+                                entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug) #here the model wants a string
+                            else:
+                                entry[0].double_posts.tagval_set.get(tag=Tag(name=tag)).val += 1
+                                entry[0].save()
+                                entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
 
-                if entry[0] not in user.voters.all() and entry[0] not in user.double_voters.all():
-                    if request.user.is_authenticated():
-                        messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
-                    action = request.session.get('action', '')
+                            entry[0].save()
+
+                            extra += ' Entry has been updated.'
+
+                    else: #add tag
+                        action = request.session.get('action', '')
+                        if action == 'post':
+                            entry[0].posts.tagval_set.create(tag=Tag(name=tag), val=1)
+                            entry[0].save()
+                            entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
+                        else:
+                            entry[0].double_posts.tagval_set.create(tag=Tag(name=tag), val=2)
+                            entry[0].save()
+                            entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
+
+                        entry[0].save()
+
+                        extra += ' Entry has been updated.'
+            else: #add entry and tags
+                results = linter(url)
+                ext = tldextract.extract(url)
+
+                entry = Entry()
+                entry.url = url
+                entry.title = results.get('title', 'Untitled')
+                if results.get('description'):
+                    entry.summary = results.get('description')
+                if results.get('image'):
+                    entry.photo = results.get('image')
+                entry.domain = '%s.%s' % (ext.domain, ext.tld)
+                entry.submitted_by = user
+                entry.save()
+
+                entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
+                entry.save()
+
+                for tag in form.cleaned_data['tags'].split(', '):
+                    entry.tags.add(tag)
                     if action == 'post':
-                        entry[0].posts = entry[0].posts + 1
-                        entry[0].save()
-                        entry[0].voted_by.add(user)
+                        entry.posts.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.decayed_score_1.tagval_set.create(tag=Tag(name=tag), val=1) #these should be created here so we don't have
+                        entry.decayed_score_2.tagval_set.create(tag=Tag(name=tag), val=1) #to deal with that in content.management, but
+                        entry.decayed_score_3.tagval_set.create(tag=Tag(name=tag), val=1) #for now they're not updated every time a vote happens
+                        entry.decayed_score_4.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.decayed_score_5.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.decayed_score_6.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.decayed_score_7.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.decayed_score_8.tagval_set.create(tag=Tag(name=tag), val=1)
+                        entry.save()
+                        entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
                     else:
-                        entry[0].double_posts = entry[0].double_posts + 1
-                        entry[0].save()
-                        entry[0].double_voted_by.add(user)
+                        entry.double_posts.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_1.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_2.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_3.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_4.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_5.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_6.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_7.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.decayed_score_8.tagval_set.create(tag=Tag(name=tag), val=2)
+                        entry.save()
+                        entry.voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
 
-		    for tag in form.cleaned_data['tags'].split(', '):
-                    	entry[0].tags.add(tag)
-                    entry[0].save()
-                    ig.posts = ig.posts + 1
-                    ig.save()
-
-                    extra += ' Entry has been updated.'
-
-                    if 'url' in request.session:
-                        del request.session['url']
-                    if 'ig' in request.session:
-                        del request.session['ig']
-                    if 'action' in request.session:
-                        del request.session['action']
-                return redirect('/content/ig/%s/votes/' % ig.slug)
-            else:
-
-            #    Nikos ........ return redirect('/content/ig/%s/decay/' % ig.slug)
-
-                extra += ' Entry does not exist.'
-                if '_post' in request.POST:
-                    request.session['action'] = 'post'
-                if '_double_post' in request.POST:
-                    request.session['action'] = 'double_post'
-
-                request.session['url'] = form.cleaned_data['url']
-                request.session['ig'] = form.cleaned_data['ig']
-                request.session['tags'] = form.cleaned_data['tags']
-
-                redirect_to = reverse('content_submit_details')
-                return redirect(redirect_to)
+                    entry.save()
+        
+        if 'url' in request.session:
+            del request.session['url']
+        if 'action' in request.session:
+            del request.session['action']
+        if 'tags' in request.session:
+            del request.session['tags']
     else:
         extra += ' First open.'
         bkmk = request.GET.get('bkmk', '')
@@ -562,8 +603,7 @@ def submit_details(request):
         	entry.tags.add(tag)
     	entry.save()
         
-        entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
-        entry.save()
+        
         ig.posts = ig.posts + 1
         ig.save()
 

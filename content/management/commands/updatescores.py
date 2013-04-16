@@ -9,15 +9,19 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         entries = Entry.objects.all()
         for entry in entries:
-            total = entry.posts + entry.double_posts * 2
+            tags = entry.tags.all()
+            if tags:
+                total = entry._get_ranking(tags[0])
 
-            entry.last_growth = ((total - entry.last_score)/entry.last_score) * 100
-            if entry.last_growth > 0.0:
-                print entry, total, entry.last_growth
-            entry.last_score = total
-            entry.save()
-            
-            
+                entry.last_growth = ((total - entry.last_score)/entry.last_score) * 100
+                if entry.last_growth > 0.0:
+                    print entry, total, entry.last_growth
+                entry.last_score = total
+                entry.save()
+            else:
+                entry.last_growth = 0
+                entry.last_score = 0
+                entry.save
             
     
 

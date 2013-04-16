@@ -3,6 +3,21 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
+class Dict(models.Model): #collection of TagVals or Voters (associated by ForeignKeys)
+    name = models.CharField(max_length=30)
+
+class TagVal(models.Model): #holds a tag and associated value, like posts, double posts, favorites, etc.
+    container = models.ForeignKey(Dict, db_index=True)
+    tag = models.CharField(max_length=100, db_index=True)
+    val = models.IntegerField(default=0, db_index=True)
+
+class Voter(models.Model): #used to keep track of who has voted for which posts under which tags
+    container = models.ForeignKey(Dict, db_index=True)
+    tag = models.CharField(max_length=100, db_index=True)
+    user = models.ForeignKey(User, db_index=True)
+    val = models.IntegerField() #1 or 2 for post/double post
+    slug = models.SlugField(max_length=200)
+
 class InterestGroup(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
@@ -55,13 +70,12 @@ class Entry(models.Model):
 
     # user related fields
     submitted_by = models.ForeignKey(User, related_name='submitter', editable=False)
-    favorited_by = models.ManyToManyField(User, related_name='favorited', editable=False, blank=True, null=True)
-    voted_by = models.ManyToManyField(User, related_name='voters', editable=False, blank=True, null=True)
-    double_voted_by = models.ManyToManyField(User, related_name='double_voters', editable=False, blank=True, null=True)
+    favorited_by = models.ManyToManyField(User, related_name='favorited', editable=False, blank=True, null=True) #could use a ForeignKey to Dict of Voters if you want to keep track of under what tag it was favorited
+    voted_by = models.ForeignKey(Dict, editable=False, blank=True, null=True) #reference a Dict of Voters
     date_added = models.DateTimeField(editable=False, auto_now_add=True)
-    posts = models.IntegerField()
-    double_posts = models.IntegerField()
-    favorites = models.IntegerField(default=0)
+    posts = models.ForeignKey(Dict) #reference a Dict containing tags and associated post counts
+    double_posts = models.ForeignKey(Dict)
+    favorites = models.ForeignKey(Dict)
     
     ig = models.ForeignKey(InterestGroup)
     
@@ -72,18 +86,18 @@ class Entry(models.Model):
     flagged = models.BooleanField(default=False)
     
     #Growth
-    last_score = models.IntegerField(editable=False, default=1)
+    last_score = models.IntegerField(editable=False, default=1) #still need to be updated for tags
     last_growth = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
     
     # Decay
-    decayed_score_1 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_2 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_3 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_4 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_5 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_6 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_7 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
-    decayed_score_8 = models.DecimalField(max_digits=12, decimal_places=6,  default=0.0)
+    decayed_score_1 = models.ForeignKey(Dict) #each of these references a Dict which keeps track of decayed scores for each tag
+    decayed_score_2 = models.ForeignKey(Dict)
+    decayed_score_3 = models.ForeignKey(Dict)
+    decayed_score_4 = models.ForeignKey(Dict)
+    decayed_score_5 = models.ForeignKey(Dict)
+    decayed_score_6 = models.ForeignKey(Dict)
+    decayed_score_7 = models.ForeignKey(Dict)
+    decayed_score_8 = models.ForeignKey(Dict)
 
 
     
@@ -94,8 +108,16 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title     
         
-    def _get_ranking(self):
-        return self.posts + ( self.double_posts * 2 )
+    def _get_ranking(self, tag):
+        try: #these try-except clauses are to deal with errors arising if a post has either no posts or no double posts
+            posts = self.posts.tagval_set.get(tag=tag).val
+        except:
+            posts = 0
+        try:
+            dbposts = self.double_posts.tagval_set.get(tag=tag).val
+        except:
+            dbposts = 0
+        return posts + ( dbposts * 2 )
     ranking = property(_get_ranking)
     
     def _get_logo(self):
