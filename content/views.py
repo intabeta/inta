@@ -447,6 +447,7 @@ def submit_plugin(request):
         if form.is_valid():
             extra += ' Form is valid.'
             url = form.cleaned_data['url']
+            tags = form.cleaned_data['tags']
             withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
             if withurl:
                 for tag in form.cleaned_data['tags'].split(', '): #consider each of the users' tags individually
@@ -554,7 +555,7 @@ def submit_plugin(request):
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                 
                 action = request.session.get('action','')
-                for tag in form.cleaned_data['tags'].split(', '):
+                for tag in tags.split(', '):
                     tagcheck = Tag.objects.filter(name__iexact=tag)
                     if tagcheck:
                         newtag = tagcheck[0]
