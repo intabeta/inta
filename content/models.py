@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 
 class Dict(models.Model): #collection of TagVals or Voters (associated by ForeignKeys)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=500)
 
 class TagVal(models.Model): #holds a tag and associated value, like posts, double posts, favorites, etc.
     container = models.ForeignKey(Dict, db_index=True)
