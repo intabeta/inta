@@ -11,18 +11,26 @@
     <!-- Styles -->
     <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
-    <style type="text/css">
-      .sidebar-nav {
-        padding: 9 px;
-        margin-bottom: 40px;
-      }
-    </style>
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
     
     <style type="text/css">
-body {
-    margin:0;
-    padding:0;
+.container {
+	margin-top: 15px;
+}
+.hero-unit {
+	background:#ddf;
+}
+h3 {
+	color:black;
+}
+h2 {
+	color:black;
+}
+p {
+	font-size: 12px;
+}
+#bigger {
+	font-size: 14px;
 }
 
 	</style>
@@ -30,18 +38,8 @@ body {
 
 <body>
 
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-	<div class="container-fluid">
-	  <a class="brand" href="/splash/"><strong>inta</strong></a>
-	</div>
-  </div>
-</div>
-
-
 <div class="container">
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h1>Inta <small> beta <small></h1>
         <dl class="dl-horizontal">
@@ -52,9 +50,10 @@ body {
   			<dt>and</dt>
   			<dd>Alex Reinking</dd>
 		</dl>
+		<p> Excited to launch with the Yale community in the coming weeks! Leave your email to be among our first users</p>
        	<div class="row-fluid">
 			<div class="span4">
-			<form action="" method="post" class="well" class="input-large">
+			<form action="" method="post" class="input-large" class="span4">
 				{% if failed %}
 					{% if reason == 'invalid' %}
 						{% if email == '' %}
@@ -77,31 +76,36 @@ body {
     </div>
 
       <!-- Example row of columns -->
+      <div class="container">
+      <h2> What we do </h2>
+      <p id="bigger"> We each have found inspiring articles, essays, and videos online, whether on our favorite blog or the NY Times. </p>
+      <p id="bigger">Inta uses your contributions - your votes - to bring together the countless links we each find excellent </p>
+      <br>
+      <h2> How we do it </h2>
+      </div>
+      <p></p>
       <div class="row">
         <div class="span4">
-          <h2>Ranked by quality</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="span4">
-          <h2>Topics by tags</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h3>Tags</h3>
+          <p>Combine tags to explore topics - familiar and new - in more depth </p>
        </div>
         <div class="span4">
-          <h2>Time periods to break from the 24/7 cycle</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h3>Votes</h3>
+          <p>We rank links from most votes to least, so every click leads to quality</p>
+        </div>
+        <div class="span4">
+          <h3>Time periods</h3>
+          <p>Choose time periods, from minutes to months, to escape the 24/7 cycle</p>
         </div>
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; Inta 2013</p>
       </footer>
 
-    </div> <!-- /container -->
+</div>
 
 </div>
 </body>
