@@ -517,7 +517,6 @@ def submit_plugin(request):
                 #entry.save()
 
                 for tag in form.cleaned_data['tags'].split(', '):
-                    entry.tags.add(tag)
                     if action == 'post':
                         newtag = Tag(name=tag)
                         newtag.save()
@@ -544,7 +543,7 @@ def submit_plugin(request):
                         entry.decayed_score_8.tagval_set.create(tag=Tag(name=tag), val=2)
                         entry.save()
                         entry.voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
-
+                    entry.tags.add(tag)
                     entry.save()
         
         if 'url' in request.session:
