@@ -481,6 +481,7 @@ def submit_plugin(request):
                         else:
                             newtag = Tag(name=tag)
                             newtag.save()
+                        withurl[0].tags.add(tag)
                         if action == 'post':
                             withurl[0].posts.tagval_set.create(tag=newtag, val=1)
                             withurl[0].save()

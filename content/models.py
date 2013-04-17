@@ -6,6 +6,9 @@ from taggit.managers import TaggableManager
 class Dict(models.Model): #collection of TagVals or Voters (associated by ForeignKeys)
     name = models.CharField(max_length=500)
 
+    def __unicode__(self):
+        return self.name
+
 class TagVal(models.Model): #holds a tag and associated value, like posts, double posts, favorites, etc.
     container = models.ForeignKey(Dict, db_index=True)
     tag = models.CharField(max_length=100, db_index=True)
