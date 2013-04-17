@@ -33,6 +33,13 @@ function getSelectedVals(){
 
 
 </script>
+
+<style type="text/css">
+.Brian_color {
+
+}
+
+</style> 
 {% endblock %}
 
 {% block content_title %}<h2>Inta - {{ ig.title }}</h2>
@@ -69,17 +76,26 @@ function getSelectedVals(){
   			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
   			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
  		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
- 			<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
- 			<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
-  			<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
-  			<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
-  		</ul>
+<!--
+ 		 	<div class="dropdown">
+  				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Age</a>
+  				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+  					<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
+ 					<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
+  					<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
+  					<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
+  				</ul>
+			</div>
+-->
+	</div>
+ 		 	<span class="badge">1</span>
+ 			
 	</div>
 	<div class="nav nav-list">
   		<ul class="nav nav-list">
         	<li class="nav-header">For checked items </li>
-            <li><button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i> Email to a friend</button></li>
-        	<li><button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star-empty"></i>Save in favorites</button></li>
+            <li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i> Email to a friend</button></li>
+        	<li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star-empty"></i>Save in favorites</button></li>
         </ul>
     </div>
   <div>
@@ -116,38 +132,38 @@ function getSelectedVals(){
 <td>
 
 {% if method == 'votes' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'growth' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 
 <!-- ***** If we do the decay slider, this is where we would add the actual different rankings.
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
 {% if method == 'decay1' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay2' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay3' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay4' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay5' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay6' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay7' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay8' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
 {% endif %}
 
 
@@ -264,7 +280,7 @@ KUDOS
     {% csrf_token %}
         <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
         <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
-        <button class="btn btn-mini const-width" type="submit">
+        <button class="btn btn-mini const-width" class="Brian_color" type="submit">
         
         <i class="icon-heart"></i>
         </button>
@@ -273,7 +289,7 @@ KUDOS
     {% csrf_token %}
         <input type="hidden" name="ig_slug" value="{{ ig.slug }}" />
         <input type="hidden" name="action" value="{% if ig.title in member %}leave{% else %}join{% endif %}" />
-        <button class="btn btn-mini const-width" type="submit">
+        <button class="btn btn-mini const-width" class="Brian_color" type="submit">
         <i class="icon-envelope"></i>
         </button>
     </form>
@@ -303,6 +319,7 @@ So WITHOUT THESE COMMENTS, SINCE HE CALLS THE BLOCK WITHOUT ANYTHING THERE HE IS
 
 {% block extrascript %}
 <script>
+	// IF WE WANT THE AGE BUBBLES $('.dropdown-toggle').dropdown() 
     !function ($) {
         //caching all the "tr" objects so that gain a better performance.
 
