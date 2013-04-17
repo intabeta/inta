@@ -267,7 +267,7 @@ def tag_list(request, tags, method):
 
     if user.is_authenticated():
         taglist = tags.split('|')
-        voted = user.voter_set.filter(tag__name__in=[taglist[0]]) #only deal with votes on the primary tag
+        voted = user.voter_set.filter(tag__in=[taglist[0]]) #only deal with votes on the primary tag
         voter = [ i.slug for i in voted.filter(val__exact=1) ]
         double_voter = [ i.slug for i in voted.filter(val__exact=2) ]
 
