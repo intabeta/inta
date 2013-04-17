@@ -515,7 +515,8 @@ def submit_plugin(request):
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                 #entry.save()
-
+                
+                action = request.session.get('action','')
                 for tag in form.cleaned_data['tags'].split(', '):
                     if action == 'post':
                         newtag = Tag(name=tag)
