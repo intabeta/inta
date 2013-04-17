@@ -518,9 +518,13 @@ def submit_plugin(request):
                 
                 action = request.session.get('action','')
                 for tag in form.cleaned_data['tags'].split(', '):
-                    if action == 'post':
+                    tagcheck = Tag.objects.filter(name__iexact=tag)
+                    if tagcheck:
+                        newtag = tagcheck[0]
+                    else:
                         newtag = Tag(name=tag)
                         newtag.save()
+                    if action == 'post':
                         entry.posts.tagval_set.create(tag=newtag, val=1)
                         entry.decayed_score_1.tagval_set.create(tag=newtag, val=1) #these should be created here so we don't have
                         entry.decayed_score_2.tagval_set.create(tag=newtag, val=1) #to deal with that in content.management, but
@@ -533,8 +537,6 @@ def submit_plugin(request):
                         entry.save()
                         entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
                     else:
-                        newtag = Tag(name=tag)
-                        newtag.save()
                         entry.double_posts.tagval_set.create(tag=newtag, val=2)
                         entry.decayed_score_1.tagval_set.create(tag=newtag, val=2)
                         entry.decayed_score_2.tagval_set.create(tag=newtag, val=2)
