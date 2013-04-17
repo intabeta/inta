@@ -508,10 +508,13 @@ def submit_plugin(request):
                 favdict = Dict(name=entry.url)
                 favdict.save()
                 entry.favorites = favdict
-                entry.save()
+                voterdict = Dict(name=entry.url)
+                voterdict.save()
+                entry.voted_by = voterdict
+                #entry.save()
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
-                entry.save()
+                #entry.save()
 
                 for tag in form.cleaned_data['tags'].split(', '):
                     entry.tags.add(tag)
