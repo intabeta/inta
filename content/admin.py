@@ -12,11 +12,10 @@ class LogoAdmin(admin.ModelAdmin):
     pass
 
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'ig', 'domain', 'date_added')
+    list_display = ('title', 'domain', 'date_added')
     search_fields = ['title']
     list_filter = (
         ('date_added', DateFieldListFilter),
-        ('ig'),
     )
 
 class InterestEmailAdmin(admin.ModelAdmin):
