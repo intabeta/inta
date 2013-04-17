@@ -49,51 +49,41 @@ function getSelectedVals(){
 {% block side2 %}
 
   <div class="well sidebar-nav">
-  <ul class="nav nav-list"> 
-  <li class="nav-header">List Options</li>
-  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay1/"><i class="icon-time"></i>30 mins</a></li>
-  <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay2/"><i class="icon-time"></i>3 hours</a></li>
-  <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay3/"><i class="icon-time"></i>1 day</a></li>
-  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay4/"><i class="icon-time"></i>3 days</a></li>
-  <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay5/"><i class="icon-time"></i>1 week</a></li>
-  <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay6/"><i class="icon-time"></i>1 month</a></li>
-  <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay7/"><i class="icon-time"></i>3 months</a></li>
-  <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay8/"><i class="icon-time"></i>1 year</a></li>
-
+  	<div class="nav nav-list">
+  		<ul class="nav nav-list">
+  			<li class="nav-header">List Options</li>
+  			<li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay1/"><i class="icon-time"></i>30 mins</a></li>
+  			<li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay2/"><i class="icon-time"></i>3 hours</a></li>
+  			<li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay3/"><i class="icon-time"></i>1 day</a></li>
+  			<li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay4/"><i class="icon-time"></i>3 days</a></li>
+  			<li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay5/"><i class="icon-time"></i>1 week</a></li>
+  			<li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay6/"><i class="icon-time"></i>1 month</a></li>
+  			<li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay7/"><i class="icon-time"></i>3 months</a></li>
+  			<li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay8/"><i class="icon-time"></i>1 year</a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i>Timeless</a></li>
+		</ul>
+	</div>
+	<div class="nav nav-list">
+		<ul class="inline" class="unstyled" class="nav nav-list">
+			<li class="nav-header">Smaller View</li>
+  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
+ 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+ 			<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
+ 			<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
+  			<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
+  			<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
+  		</ul>
+	</div>
+	<div class="nav nav-list">
+  		<ul class="nav nav-list">
+        	<li class="nav-header">For checked items </li>
+            <li><button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i> Email to a friend</button></li>
+        	<li><button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star-empty"></i>Save in favorites</button></li>
+        </ul>
+    </div>
+  <div>
   
-  <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star"></i>By Favorites</a></li>
-  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i>By Votes</a></li>
-  <li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i>By Growth</a></li> 
-  <li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
-  <li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
-  <li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
-  <li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
-
-              <li class="nav-header">For checked items </li>
-             <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-              </li>
-              <br
-              <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
-             
-             </li>
-
-              
-            {% comment %}
-            <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-              </li>
-              <br
-              <li>
-              <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
-             
-             </li>
-             {% endcomment %}  
-            
-            </ul>
-          </div><!--/.well -->
-<div>
 <form id="emailform" action="/email/" method="post">
 {% csrf_token %}
 
@@ -111,7 +101,7 @@ function getSelectedVals(){
 
 {% block content %}
 
-<table class="table table-striped">
+<table class="table table-condensed">
 <tbody>
 {% if posts %}
 {% for post in posts %}
