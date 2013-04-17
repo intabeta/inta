@@ -39,7 +39,6 @@ function getSelectedVals(){
  body {
  	background:#ddf;
  }
- */
  </style>
 
 {% endblock %}
@@ -73,9 +72,9 @@ function getSelectedVals(){
 		</ul>
 	</div>
 	<div class="nav nav-list">
-		<ul class="nav nav-list">
+		<ul class="inline">
 			<li class="nav-header">Smaller View</li>
-  			<li class="inline" class="unstyled" {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a>{% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a>{% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li>
+  			<li class="inline" class="unstyled" {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
   			<li class="inline" class="unstyled" {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
  		 	<li class="inline" class="unstyled" {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
 <!--
