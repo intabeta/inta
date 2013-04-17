@@ -490,6 +490,7 @@ def submit_plugin(request):
                 results = linter(url)
                 ext = tldextract.extract(url)
 
+                #create entry
                 entry = Entry()
                 entry.url = url
                 entry.title = results.get('title', 'Untitled')
@@ -499,22 +500,58 @@ def submit_plugin(request):
                     entry.photo = results.get('image')
                 entry.domain = '%s.%s' % (ext.domain, ext.tld)
                 entry.submitted_by = user
+
+                #initialize dictionaries for entry
                 postsdict = Dict(name=entry.url)
                 postsdict.save()
                 entry.posts=postsdict
+                
                 dblpostsdict = Dict(name=entry.url)
                 dblpostsdict.save()
                 entry.double_posts = dblpostsdict
+                
                 favdict = Dict(name=entry.url)
                 favdict.save()
                 entry.favorites = favdict
+                
                 voterdict = Dict(name=entry.url)
                 voterdict.save()
                 entry.voted_by = voterdict
-                #entry.save()
 
+                dcy1dict = Dict(name=entry.url)
+                dcy1dict.save()
+                entry.decayed_score_1 = dcy1dict
+
+                dcy2dict = Dict(name=entry.url)
+                dcy2dict.save()
+                entry.decayed_score_2 = dcy1dict
+
+                dcy3dict = Dict(name=entry.url)
+                dcy3dict.save()
+                entry.decayed_score_3 = dcy1dict
+
+                dcy4dict = Dict(name=entry.url)
+                dcy4dict.save()
+                entry.decayed_score_4 = dcy1dict
+
+                dcy5dict = Dict(name=entry.url)
+                dcy5dict.save()
+                entry.decayed_score_5 = dcy1dict
+
+                dcy6dict = Dict(name=entry.url)
+                dcy6dict.save()
+                entry.decayed_score_6 = dcy1dict
+
+                dcy7dict = Dict(name=entry.url)
+                dcy7dict.save()
+                entry.decayed_score_7 = dcy1dict
+
+                dcy8dict = Dict(name=entry.url)
+                dcy8dict.save()
+                entry.decayed_score_8 = dcy1dict
+
+                #slugify
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
-                #entry.save()
                 
                 action = request.session.get('action','')
                 for tag in form.cleaned_data['tags'].split(', '):
