@@ -475,16 +475,22 @@ def submit_plugin(request):
 
                     else: #add tag
                         action = request.session.get('action', '')
-                        if action == 'post':
-                            entry[0].posts.tagval_set.create(tag=Tag(name=tag), val=1)
-                            entry[0].save()
-                            entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
+                        tagcheck = Tag.objects.filter(name__iexact=tag)
+                        if tagcheck:
+                            newtag = tagcheck[0]
                         else:
-                            entry[0].double_posts.tagval_set.create(tag=Tag(name=tag), val=2)
-                            entry[0].save()
-                            entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
+                            newtag = Tag(name=tag)
+                            newtag.save()
+                        if action == 'post':
+                            withurl[0].posts.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].save()
+                            withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
+                        else:
+                            withurl[0].double_posts.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].save()
+                            withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
 
-                        entry[0].save()
+                        withurl[0].save()
 
                         extra += ' Entry has been updated.'
             else: #add entry and tags
@@ -595,6 +601,7 @@ def submit_plugin(request):
             del request.session['action']
         if 'tags' in request.session:
             del request.session['tags']
+        return render_to_response('autoclose.html')
     else:
         extra += ' First open.'
         bkmk = request.GET.get('bkmk', '')
