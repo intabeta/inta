@@ -499,7 +499,7 @@ def submit_plugin(request):
                     entry.photo = results.get('image')
                 entry.domain = '%s.%s' % (ext.domain, ext.tld)
                 entry.submitted_by = user
-                entry.posts.add(Dict(name=entry.url))
+                entry.posts=Dict(name=entry.url)
                 entry.save()
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
