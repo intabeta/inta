@@ -499,6 +499,7 @@ def submit_plugin(request):
                     entry.photo = results.get('image')
                 entry.domain = '%s.%s' % (ext.domain, ext.tld)
                 entry.submitted_by = user
+                entry.posts = Dict()
                 entry.save()
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
@@ -549,7 +550,7 @@ def submit_plugin(request):
 
 
 @login_required
-def submit_details(request):
+def submit_details(request): #no longer used
     referer = get_referer_view(request)
 
     from_site = referer.find('/content/submit/')
