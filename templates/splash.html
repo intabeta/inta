@@ -13,12 +13,13 @@
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
     
-    <style type="text/css">
+<style type="text/css">
 .container {
 	margin-top: 15px;
 }
 .hero-unit {
 	background:#ddf;
+	height:250px;
 }
 h3 {
 	color:black;
@@ -27,13 +28,24 @@ h2 {
 	color:black;
 }
 p {
-	font-size: 12px;
+	font-size: 12.25px;
 }
 #bigger {
 	font-size: 14px;
 }
+.action {
+	margin: 1px;
+}
+blockquote {
+	margin:2px;
+	padding:5px;
+}
+.span4 {
+	margin-bottom:0px;
+	padding:0px;
+}
+</style>
 
-	</style>
 </head>
 
 <body>
@@ -41,7 +53,7 @@ p {
 <div class="container">
 
       <div class="hero-unit">
-        <h1>Inta <small> beta <small></h1>
+        <h1>Inta <small> beta - Know the Best <small></h1>
         <dl class="dl-horizontal">
   			<dt>Founded by</dt>
   			<dd>Brian Loeb</dd>
@@ -50,19 +62,20 @@ p {
   			<dt>and</dt>
   			<dd>Alex Reinking</dd>
 		</dl>
-		<p> Excited to launch with the Yale community in the coming weeks! Leave your email to be among our first users</p>
+		<p class="action"> We are excited to launch with the Yale community in the coming weeks!</p>
+		<p class="action">Leave your email to be among our first users</p>
        	<div class="row-fluid">
 			<div class="span4">
 			<form action="" method="post" class="input-large" class="span4">
 				{% if failed %}
 					{% if reason == 'invalid' %}
 						{% if email == '' %}
-							Please enter an email address: <br />
+							Please enter your email address: <br />
 						{% else %}
-							It appears that email you entered ({{ email }}) was invalid. <br />
+							It appears {{ email }} is invalid. <br />
 						{% endif %}
 					{% else %}
-						The email you entered ({{ email }}) has already been entered into our database. <br />
+						The email you entered - {{ email }} - has already been entered <br />
 					{% endif %}
 				{% endif %}
 				{% csrf_token %}
@@ -75,15 +88,11 @@ p {
 		</div>
     </div>
 
-      <!-- Example row of columns -->
       <div class="container">
-      <h2> What we do </h2>
-      <p id="bigger"> We each have found inspiring articles, essays, and videos online, whether on our favorite blog or the NY Times. </p>
-      <p id="bigger">Inta uses your contributions - your votes - to bring together the countless links we each find excellent </p>
-      <br>
-      <h2> How we do it </h2>
+      <blockquote><h2> What</h2></blockquote>
+      <p id="bigger">Inta uses votes to bring together links - articles, essays, and videos - we each find excellent, whether from your favorite blog or the NY Times</p>
+      <blockquote><h2>How</h2></blockquote>
       </div>
-      <p></p>
       <div class="row">
         <div class="span4">
           <h3>Tags</h3>
@@ -95,9 +104,18 @@ p {
         </div>
         <div class="span4">
           <h3>Time periods</h3>
-          <p>Choose time periods, from minutes to months, to escape the 24/7 cycle</p>
+          <p>Weight votes by minutes, hours, days, weeks, and even months to find the best, not just the recent</p>
         </div>
+        </div>
+      <div class="container">
+      <blockquote><h2> Why</h2></blockquote>
+      <p id="bigger">So what you find online matters more</p>
       </div>
+<!-- 
+<p>Explore topics - familiar and new - in more depth by combining tags </p>
+<p>Every click leads to quality as we rank links from most votes to least</p>
+<p>Find the best, not just the recent. Weight votes by minutes, hours, days, weeks, and even months</p>
+-->
 
       <hr>
 
