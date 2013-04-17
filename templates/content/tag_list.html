@@ -48,56 +48,58 @@ function getSelectedVals(){
 
 {% block side2 %}
 
-<div class="well sidebar-nav">
-<ul class="nav nav-list"> 
-  <li class="nav-header">List Options</li>
-  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/tags/decay1/{{ tags }}/"><i class="icon-time"></i>30 mins</a></li>
-  <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/tags/decay2/{{ tags }}/"><i class="icon-time"></i>3 hours</a></li>
-  <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/tags/decay3/{{ tags }}/"><i class="icon-time"></i>1 day</a></li>
-  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/tags/decay4/{{ tags }}/"><i class="icon-time"></i>3 days</a></li>
-  <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/tags/decay5/{{ tags }}/"><i class="icon-time"></i>1 week</a></li>
-  <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/tags/decay6/{{ tags }}/"><i class="icon-time"></i>1 month</a></li>
-  <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/tags/decay7/{{ tags }}/"><i class="icon-time"></i>3 months</a></li>
-  <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/tags/decay8/{{ tags }}/"><i class="icon-time"></i>1 year</a></li>
-
+  <div class="well sidebar-nav">
+  	<div class="nav nav-list">
+  		<ul class="nav nav-list">
+  			<li class="nav-header">List Options</li>
+  			<li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay1/"><i class="icon-time"></i>30 mins</a></li>
+  			<li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay2/"><i class="icon-time"></i>3 hours</a></li>
+  			<li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay3/"><i class="icon-time"></i>1 day</a></li>
+  			<li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay4/"><i class="icon-time"></i>3 days</a></li>
+  			<li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay5/"><i class="icon-time"></i>1 week</a></li>
+  			<li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay6/"><i class="icon-time"></i>1 month</a></li>
+  			<li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay7/"><i class="icon-time"></i>3 months</a></li>
+  			<li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay8/"><i class="icon-time"></i>1 year</a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i>Timeless</a></li>
+		</ul>
+	</div>
+	<div class="nav nav-list">
+		<ul class="inline" class="unstyled" class="nav nav-list">
+			<li class="nav-header">Smaller View</li>
+  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
+ 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+<!--
+ 		 	<div class="dropdown">
+  				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Age</a>
+  				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+  					<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
+ 					<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
+  					<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
+  					<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
+  				</ul>
+			</div>
+-->
+	</div>
+ 		 	<span class="badge">1</span>
+ 			
+	</div>
+	<div class="nav nav-list">
+  		<ul class="nav nav-list">
+        	<li class="nav-header">For checked items </li>
+            <li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i> Email to a friend</button></li>
+        	<li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star-empty"></i>Save in favorites</button></li>
+        </ul>
+    </div>
+  <div>
   
-  <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/tags/favorites/{{ tags }}/"><i class="icon-star"></i>By Favorites</a></li>
-  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/tags/votes/{{ tags }}/"><i class="icon-ok"></i>By Votes</a></li>
-  <li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/tags/growth/{{ tags }}/"><i class="icon-signal"></i>By Growth</a></li> 
-  <li {% if method == 'green' %}class="active"{% endif %}><a href="/content/tags/green/{{ tags }}/"><span class="badge badge-success"></span>&nbsp;New</a></li>
-  <li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/tags/orange/{{ tags }}/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
-  <li {% if method == 'red' %}class="active"{% endif %}><a href="/content/tags/red/{{ tags }}/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
-  <li {% if method == 'black' %}class="active"{% endif %}><a href="/content/tags/black/{{ tags }}/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
-
-  <li class="nav-header">For checked items </li>
-  <li>
-  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-  </li>
-  <br />
-  <li>
-  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>
-             
-  </li>
-
-              
-  {% comment %}
-  <li>
-  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope icon-white"></i> Email to a friend</button>
-  </li>
-  <br
-  <li>
-  <button type="submit" class="btn btn-primary"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star icon-white"></i>Save in favorites</button>           
-  </li>
-  {% endcomment %}        
-</ul>
-</div><!--/.well -->
-
-<div>
 <form id="emailform" action="/email/" method="post">
 {% csrf_token %}
+
 </form>
 <form id="favoritesform" action="/favorites/" method="post">
 {% csrf_token %}
+
 </form>
 </div>
 
@@ -108,7 +110,7 @@ function getSelectedVals(){
 
 {% block content %}
 
-<table class="table table-striped">
+<table class="table table-condensed">
 <tbody>
 {% if posts %}
 {% for post in posts %}
@@ -123,56 +125,56 @@ function getSelectedVals(){
 <td>
 
 {% if method == 'votes' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'growth' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 
 <!-- ***** If we do the decay slider, this is where we would add the actual different rankings.
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
 {% if method == 'decay1' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay2' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay3' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay4' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay5' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay6' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay7' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay8' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
 {% endif %}
 
 
 {% if method == 'favorites' %}
-<span class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
 {% endif %}
 
 {% if method == 'green' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'orange' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'red' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'black' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 
 
