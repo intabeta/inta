@@ -30,11 +30,21 @@ body {
 }
 #header {
     padding:10px;
+    background:#ddf;
+    margin-top:80px;
+    height: 100px;
+    display:inline-block;
 
 }
+h1 {
+	display:inline-block;
+	}
+h4 {
+	display:inline-block;
+	}
 #content-1 {
 	margin-top:40px;
-    background:#bfb;
+    background:#ddf;
     float:left;
     width:120px;
     padding:10px;
@@ -53,12 +63,12 @@ body {
     background:#dff;
     float:right;
     width:120px;
-    background:#dff;
+    background:#ddf;
     padding:10px;
 
 }
 #footer {
-    background:#ff9;
+    border: 1px dashed blue;
 	clear:both;
     padding:10px;
 
@@ -73,6 +83,11 @@ body {
 	clear:both;
 	margin-top: 50px;
 			}
+
+.hero-unit {
+	height=300px;
+}
+
 	</style>
 </head>
 
@@ -86,20 +101,30 @@ body {
   </div>
 </div>
 
-<div class="container-fluid">
 
 <div id="body">
-    <div id="header"></div>
+    <div class="hero-unit" id="header">
+    	<h1> Inta </h1> 
+    	<h4> beta</h4>
+    	<dl class="dl-horizontal">
+  			<dt>Founded by</dt>
+  			<dd>Brian Loeb</dd>
+  			<dt>with</dt>
+  			<dd>Christopher Shriver</dd>
+  			<dt>and</dt>
+  			<dd>Alex Reinking</dd>
+</dl>
+    </div>
     <div id="main">
-        <div id="content-1"><p>Ranked by quality</p></div>
+        <div id="content-1"><blockquote><p>Ranked by quality</p></blockquote></div>
         <div id="content-2">
-            <div id="content-2-1"><p>Topics by tags</p></div>
-            <div id="content-2-2"><p>Time periods to break from the 24/7 cycle</p></div>
+            <div id="content-2-1"><blockquote><p>Topics by tags</p></blockquote></div>
+            <div id="content-2-2"><blockquote><p>Time periods to break from the 24/7 cycle</p></blockquote></div>
         </div>
     </div>
     	<div class="row-fluid">
-		<div class="span3" id="emails">
-			<form action="" method="post" class="well">
+		<div class="span4" id="emails">
+			<form action="" method="post" class="well" class="input-large">
 				{% if failed %}
 					{% if reason == 'invalid' %}
 						{% if email == '' %}
