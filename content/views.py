@@ -499,7 +499,9 @@ def submit_plugin(request):
                     entry.photo = results.get('image')
                 entry.domain = '%s.%s' % (ext.domain, ext.tld)
                 entry.submitted_by = user
-                entry.posts=Dict(name=entry.url)
+                postsdict = Dict(name=entry.url)
+                postsdict.save()
+                entry.posts=postsdict
                 entry.save()
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
@@ -508,15 +510,17 @@ def submit_plugin(request):
                 for tag in form.cleaned_data['tags'].split(', '):
                     entry.tags.add(tag)
                     if action == 'post':
-                        entry.posts.tagval_set.create(tag=Tag(name=tag), val=1)
-                        entry.decayed_score_1.tagval_set.create(tag=Tag(name=tag), val=1) #these should be created here so we don't have
-                        entry.decayed_score_2.tagval_set.create(tag=Tag(name=tag), val=1) #to deal with that in content.management, but
-                        entry.decayed_score_3.tagval_set.create(tag=Tag(name=tag), val=1) #for now they're not updated every time a vote happens
-                        entry.decayed_score_4.tagval_set.create(tag=Tag(name=tag), val=1)
-                        entry.decayed_score_5.tagval_set.create(tag=Tag(name=tag), val=1)
-                        entry.decayed_score_6.tagval_set.create(tag=Tag(name=tag), val=1)
-                        entry.decayed_score_7.tagval_set.create(tag=Tag(name=tag), val=1)
-                        entry.decayed_score_8.tagval_set.create(tag=Tag(name=tag), val=1)
+                        newtag = Tag(name=tag)
+                        newtag.save()
+                        entry.posts.tagval_set.create(tag=newtag, val=1)
+                        entry.decayed_score_1.tagval_set.create(tag=newtag, val=1) #these should be created here so we don't have
+                        entry.decayed_score_2.tagval_set.create(tag=newtag, val=1) #to deal with that in content.management, but
+                        entry.decayed_score_3.tagval_set.create(tag=newtag, val=1) #for now they're not updated every time a vote happens
+                        entry.decayed_score_4.tagval_set.create(tag=newtag, val=1)
+                        entry.decayed_score_5.tagval_set.create(tag=newtag, val=1)
+                        entry.decayed_score_6.tagval_set.create(tag=newtag, val=1)
+                        entry.decayed_score_7.tagval_set.create(tag=newtag, val=1)
+                        entry.decayed_score_8.tagval_set.create(tag=newtag, val=1)
                         entry.save()
                         entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
                     else:
