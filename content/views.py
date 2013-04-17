@@ -502,6 +502,9 @@ def submit_plugin(request):
                 postsdict = Dict(name=entry.url)
                 postsdict.save()
                 entry.posts=postsdict
+                dblpostsdict = Dict(name=entry.url)
+                dblpostsdict.save()
+                entry.double_posts = dblpostsdict
                 entry.save()
 
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
