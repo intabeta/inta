@@ -74,10 +74,13 @@ function getSelectedVals(){
 	<div class="nav nav-list">
 		<ul class="inline">
 			<li class="nav-header">Smaller View</li>
-  			<li class="inline" class="unstyled" {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
-  			<li class="inline" class="unstyled" {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
- 		 	<li class="inline" class="unstyled" {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
+ 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+ 		</ul>
+ 	</div>
 <!--
+			<span class="badge">1</span>
  		 	<div class="dropdown">
   				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Age</a>
   				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -87,11 +90,8 @@ function getSelectedVals(){
   					<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
   				</ul>
 			</div>
--->
-	</div>
- 		 	<span class="badge">1</span>
- 			
-	</div>
+			
+
 	<div class="nav nav-list">
   		<ul class="nav nav-list">
         	<li class="nav-header">For checked items </li>
@@ -109,6 +109,8 @@ function getSelectedVals(){
 {% csrf_token %}
 
 </form>
+-->
+
 </div>
 
 
@@ -196,9 +198,11 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 </a>
 &nbsp;{{ post.date_added|date:"M j" }}
 <br />
-{% for othertag in post.tags.all %}
+
+{% if tag %}
 	<span class="label"><a href="/content/tags/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
-{% endfor %}
+{% endif %}
+
 <br />
 {{ post.summary|default_if_none:"" }}
 
@@ -281,15 +285,11 @@ KUDOS
 </tbody>
 </table>
 <hr />
-{% comment %}
-<p>
-Want more topics for our Intelligentsia to improve? Add your <a href="/content/ig_proposal/">recommendations</a> so we can see community trends! </p> {% endcomment %}
 {% endblock %}
 
 {% comment %}
-So WITHOUT THESE COMMENTS, SINCE HE CALLS THE BLOCK WITHOUT ANYTHING THERE HE IS DE-ACTIVATING IT
-{% block side3 %}
-{% endblock %}
+	{% block side3 %}
+	{% endblock %}
 {% endcomment %}
 
 {% block extrascript %}
@@ -311,11 +311,6 @@ So WITHOUT THESE COMMENTS, SINCE HE CALLS THE BLOCK WITHOUT ANYTHING THERE HE IS
         });
     }(window.jQuery);
 
-{% comment %} BRIAN CREATING SOME EVENT TRACKING FOR LIST LINK AND FILTER ACTIONS {% endcomment %}
 </script>
-
-<input type="hidden" name="action" value="double_vote" onclick="_gaq.push(['_trackEvent', 'Button Clicks', 'Double Vote', 'IG list']);" Double Vote </a> 
-<input type="hidden" name="action" value="vote" onclick="_gaq.push(['_trackEvent', 'Button Clicks', ' Vote', 'IG list']);"  Vote </a>  
-
 
 {% endblock %}
