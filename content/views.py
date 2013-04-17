@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
+from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict
 from content.forms import SubmitForm, SubmitFormPlugin
 from taggit.models import Tag
 from bs4 import BeautifulSoup
