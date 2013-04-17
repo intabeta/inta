@@ -29,10 +29,16 @@ function getSelectedVals(){
     });
     $('#emailform').submit();
 }
-
-
-
 </script>
+ <style type="text/css">
+ .table table-condensced {
+ background-color: white;
+ }
+ body {
+ 	background:#ddf;
+ }
+ </style>
+
 {% endblock %}
 
 {% block content_title %}<h2>Inta - {% for tag, slug in breadcrumbdata %} <a href="/content/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}</h2>
@@ -64,11 +70,11 @@ function getSelectedVals(){
 		</ul>
 	</div>
 	<div class="nav nav-list">
-		<ul class="inline" class="unstyled" class="nav nav-list">
+		<ul class="nav nav-list">
 			<li class="nav-header">Smaller View</li>
-  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
-  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
- 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+  			<li class="inline" class="unstyled" {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+  			<li class="inline" class="unstyled" {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
+ 		 	<li class="inline" class="unstyled" {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
 <!--
  		 	<div class="dropdown">
   				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Age</a>
@@ -125,56 +131,56 @@ function getSelectedVals(){
 <td>
 
 {% if method == 'votes' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'growth' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 
 <!-- ***** If we do the decay slider, this is where we would add the actual different rankings.
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
 {% if method == 'decay1' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay2' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay3' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay4' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay5' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay6' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay7' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay8' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
 {% endif %}
 
 
 {% if method == 'favorites' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
 {% endif %}
 
 {% if method == 'green' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'orange' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'red' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 {% if method == 'black' %}
-<span class="pull-right" class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
 {% endif %}
 
 
