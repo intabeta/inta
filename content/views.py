@@ -318,7 +318,7 @@ def tag_list(request, tags, method):
             entries = entries.filter(tags__name__in=[tag])
 			
         #if method == 'votes':
-        posts = sorted(entries, key=lambda a: -a.ranking) #sorting just got more complicated; don't worry about it for now
+        posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0])) #sorting just got more complicated; don't worry about it for now
 ##        if method == 'growth':
 ##            posts = entries.order_by('-last_growth', '-decayed_score_1')
 ##        if method == 'decay1':
@@ -455,7 +455,7 @@ def submit_plugin(request):
                     if entry:
                         form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
                         extra += ' Entry exists.'
-                        voters = [ i.user for i in entry[0].voter_set.filter(tag__exact=tag) ] #check to see if the user has already voted under this tag. change to __iexact if we want case-insensitive
+                        voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__exact=tag) ] #check to see if the user has already voted under this tag. change to __iexact if we want case-insensitive
                         if user not in voters:
                             if request.user.is_authenticated():
                                 messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
