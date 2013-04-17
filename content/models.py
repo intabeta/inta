@@ -77,7 +77,7 @@ class Entry(models.Model):
     double_posts = models.ForeignKey(Dict, related_name='+')
     favorites = models.ForeignKey(Dict, related_name='+')
     
-    ig = models.ForeignKey(InterestGroup)
+    #ig = models.ForeignKey(InterestGroup)
     
     tags = TaggableManager()
     
