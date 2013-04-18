@@ -611,7 +611,7 @@ def submit_plugin(request):
 
                 #slugify
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
-                
+                entry.save()
                 action = request.session.get('action','')
                 for tag in tags.split(', '):
                     tagcheck = Tag.objects.filter(name__iexact=tag)
