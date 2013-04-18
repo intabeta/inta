@@ -351,7 +351,7 @@ def tag_list(request, tags, method):
         votecounts = [a._get_ranking(taglist[0]) for a in posts]
         template_data = {
             'tags': tags,
-            'postdata': zip(posts,votecounts)
+            'postdata': zip(posts,votecounts),
             'voter': voter,
             'double_voter': double_voter,
             'method': method,
