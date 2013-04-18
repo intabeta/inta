@@ -280,6 +280,7 @@ def tag_list(request, tags, method):
                     post_change = get_object_or_404(Entry, slug=post_slug)
 ##                    for tag in post_change.tags.all():
                     tagnew = Tag.objects.get(name=taglist[0])
+                    tagnew_name = tagnew.name
                     post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
                     post_change.posts.tagval_set.get(tag_name=tagnew_name).val += 1
                     post_change.decayed_score_1.tagval_set.get(tag_name=tagnew_name).val += 1
