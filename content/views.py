@@ -275,44 +275,70 @@ def tag_list(request, tags, method):
             action = request.POST.get('action', '')
             post_slug = request.POST.get('post_slug', '')
             if post_slug not in voter and post_slug not in double_voter:
+                tagnew = Tag.objects.get(name=taglist[0])
+                post_change = get_object_or_404(Entry, slug=post_slug)
                 if action == 'vote':
                     voter.append(post_slug)
-                    post_change = get_object_or_404(Entry, slug=post_slug)
-##                    for tag in post_change.tags.all():
-                    tagnew = Tag.objects.get(name=taglist[0])
                     post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
-                    post_change.posts.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_1.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_2.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_3.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_4.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_5.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_6.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_7.tagval_set.get(tag=tagnew).val += 1
-                    post_change.decayed_score_8.tagval_set.get(tag=tagnew).val += 1
-                    post_change.save()
-
-                    # if request.user.is_authenticated():
-                    #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
+                    p=post_change.posts.tagval_set.get(tag=tagnew)
+                    p.val += 1
+                    p.save()
+                    tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
+                    tval1.val += 1
+                    tval1.save()
+                    tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
+                    tval2.val += 1
+                    tval2.save()
+                    tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
+                    tval3.val += 1
+                    tval3.save()
+                    tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
+                    tval4.val += 1
+                    tval4.save()
+                    tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
+                    tval5.val += 1
+                    tval5.save()
+                    tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
+                    tval6.val += 1
+                    tval6.save()
+                    tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
+                    tval7.val += 1
+                    tval7.save()
+                    tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
+                    tval8.val += 1
+                    tval8.save()
 
                 if action == 'double_vote':
                     double_voter.append(post_slug)
-                    post_change = get_object_or_404(Entry, slug=post_slug)
-                    for tag in post_change.tags.all():
-                        post_change.double_voted_by.voter_set.create(tag=tag, user=user, val=1, slug=post_slug)
-                        post_change.double_posts.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_1.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_2.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_3.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_4.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_5.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_6.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_7.tagval_set.get(tag=tag).val += 2
-                        post_change.decayed_score_8.tagval_set.get(tag=tag).val += 2
-                        post_change.save()
+                    post_change.double_voted_by.voter_set.create(tag=taglist[0], user=user, val=1, slug=post_slug)
+                    dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
+                    dbp.val += 1
+                    dbp.save()
+                    tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
+                    tval1.val += 2
+                    tval1.save()
+                    tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
+                    tval2.val += 2
+                    tval2.save()
+                    tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
+                    tval3.val += 2
+                    tval3.save()
+                    tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
+                    tval4.val += 2
+                    tval4.save()
+                    tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
+                    tval5.val += 2
+                    tval5.save()
+                    tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
+                    tval6.val += 2
+                    tval6.save()
+                    tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
+                    tval7.val += 2
+                    tval7.save()
+                    tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
+                    tval8.val += 2
+                    tval8.save()
 
-                    # if request.user.is_authenticated():
-                    #   messages.success(request, "Thanks for contributing! Enjoy.", fail_silently=True)
 
         entries = Entry.objects.all()
         for tag in taglist:
@@ -459,9 +485,9 @@ def submit_plugin(request):
             tags = form.cleaned_data['tags']
             withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
             if withurl:
-                for tag in form.cleaned_data['tags'].split(', '): #consider each of the users' tags individually
+                for tag in form.cleaned_data['tags'].split(', '): #consider each of the specified tags individually
                     entry = withurl.filter(tags__name__in=[tag]) #find out if it already has the given tag
-                    if entry:
+                    if entry: #update the posts/double_posts
                         form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
                         extra += ' Entry exists.'
                         voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__exact=tag) ] #check to see if the user has already voted under this tag. change to __iexact if we want case-insensitive
@@ -470,12 +496,14 @@ def submit_plugin(request):
                                 messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
                             action = request.session.get('action', '')
                             if action == 'post':
-                                entry[0].posts.tagval_set.get(tag=Tag(name=tag)).val += 1 #tagval pairs require an actual tag item, but the variable tag is a string
-                                entry[0].save()
-                                entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug) #here the model wants a string
+                                tagval=entry[0].posts.tagval_set.get(tag__name=tag)
+                                tagval.val += 1
+                                tagval.save()
+                                entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
                             else:
-                                entry[0].double_posts.tagval_set.get(tag=Tag(name=tag)).val += 1
-                                entry[0].save()
+                                tagval=entry[0].double_posts.tagval_set.get(tag__name=tag)
+                                tagval.val += 1
+                                tagval.save()
                                 entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
 
                             entry[0].save()
@@ -490,19 +518,33 @@ def submit_plugin(request):
                         else:
                             newtag = Tag(name=tag)
                             newtag.save()
-                        withurl[0].tags.add(tag)
+                        withurl[0].tags.add(newtag)
                         if action == 'post':
                             withurl[0].posts.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].save()
+                            withurl[0].decay_score_1.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_2.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_3.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_4.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_5.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_6.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_7.tagval_set.create(tag=newtag, val=1)
+                            withurl[0].decay_score_8.tagval_set.create(tag=newtag, val=1)
                             withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
                         else:
                             withurl[0].double_posts.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].save()
+                            withurl[0].decay_score_1.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_2.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_3.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_4.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_5.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_6.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_7.tagval_set.create(tag=newtag, val=2)
+                            withurl[0].decay_score_8.tagval_set.create(tag=newtag, val=2)
                             withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=withurl[0].slug)
 
                         withurl[0].save()
 
-                        extra += ' Entry has been updated.'
+                        extra += ' Added tag'+tag
             else: #add entry and tags
                 results = linter(url)
                 ext = tldextract.extract(url)
@@ -541,31 +583,31 @@ def submit_plugin(request):
 
                 dcy2dict = Dict(name=entry.url)
                 dcy2dict.save()
-                entry.decayed_score_2 = dcy1dict
+                entry.decayed_score_2 = dcy2dict
 
                 dcy3dict = Dict(name=entry.url)
                 dcy3dict.save()
-                entry.decayed_score_3 = dcy1dict
+                entry.decayed_score_3 = dcy3dict
 
                 dcy4dict = Dict(name=entry.url)
                 dcy4dict.save()
-                entry.decayed_score_4 = dcy1dict
+                entry.decayed_score_4 = dcy4dict
 
                 dcy5dict = Dict(name=entry.url)
                 dcy5dict.save()
-                entry.decayed_score_5 = dcy1dict
+                entry.decayed_score_5 = dcy5dict
 
                 dcy6dict = Dict(name=entry.url)
                 dcy6dict.save()
-                entry.decayed_score_6 = dcy1dict
+                entry.decayed_score_6 = dcy6dict
 
                 dcy7dict = Dict(name=entry.url)
                 dcy7dict.save()
-                entry.decayed_score_7 = dcy1dict
+                entry.decayed_score_7 = dcy7dict
 
                 dcy8dict = Dict(name=entry.url)
                 dcy8dict.save()
-                entry.decayed_score_8 = dcy1dict
+                entry.decayed_score_8 = dcy8dict
 
                 #slugify
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
@@ -579,30 +621,28 @@ def submit_plugin(request):
                         newtag = Tag(name=tag)
                         newtag.save()
                     if action == 'post':
-                        entry.posts.tagval_set.create(tag=newtag, val=1)
-                        entry.decayed_score_1.tagval_set.create(tag=newtag, val=1) #these should be created here so we don't have
-                        entry.decayed_score_2.tagval_set.create(tag=newtag, val=1) #to deal with that in content.management, but
-                        entry.decayed_score_3.tagval_set.create(tag=newtag, val=1) #for now they're not updated every time a vote happens
-                        entry.decayed_score_4.tagval_set.create(tag=newtag, val=1)
-                        entry.decayed_score_5.tagval_set.create(tag=newtag, val=1)
-                        entry.decayed_score_6.tagval_set.create(tag=newtag, val=1)
-                        entry.decayed_score_7.tagval_set.create(tag=newtag, val=1)
-                        entry.decayed_score_8.tagval_set.create(tag=newtag, val=1)
-                        entry.save()
-                        entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
+                        postsdict.tagval_set.create(tag=newtag, val=1)
+                        dcy1dict.tagval_set.create(tag=newtag, val=1)
+                        dcy2dict.tagval_set.create(tag=newtag, val=1)
+                        dcy3dict.tagval_set.create(tag=newtag, val=1)
+                        dcy4dict.tagval_set.create(tag=newtag, val=1)
+                        dcy5dict.tagval_set.create(tag=newtag, val=1)
+                        dcy6dict.tagval_set.create(tag=newtag, val=1)
+                        dcy7dict.tagval_set.create(tag=newtag, val=1)
+                        dcy8dict.tagval_set.create(tag=newtag, val=1)
+                        voterdict.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
                     else:
-                        entry.double_posts.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_1.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_2.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_3.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_4.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_5.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_6.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_7.tagval_set.create(tag=newtag, val=2)
-                        entry.decayed_score_8.tagval_set.create(tag=newtag, val=2)
-                        entry.save()
-                        entry.voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
-                    entry.tags.add(tag)
+                        dblpostsdict.tagval_set.create(tag=newtag, val=2)
+                        dcy1dict.tagval_set.create(tag=newtag, val=2)
+                        dcy2dict.tagval_set.create(tag=newtag, val=2)
+                        dcy3dict.tagval_set.create(tag=newtag, val=2)
+                        dcy4dict.tagval_set.create(tag=newtag, val=2)
+                        dcy5dict.tagval_set.create(tag=newtag, val=2)
+                        dcy6dict.tagval_set.create(tag=newtag, val=2)
+                        dcy7dict.tagval_set.create(tag=newtag, val=2)
+                        dcy8dict.tagval_set.create(tag=newtag, val=2)
+                        voterdict.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
+                    entry.tags.add(newtag)
                     entry.save()
         
         if 'url' in request.session:
