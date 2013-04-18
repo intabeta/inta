@@ -281,14 +281,14 @@ def tag_list(request, tags, method):
                     for tag in post_change.tags.all():
                         post_change.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=post_slug)
                         post_change.posts.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_1.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_2.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_3.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_4.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_5.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_6.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_7.tagval_set.get(tag=tag).val += 1
-                        post_change.decayed_score_8.tagval_set.get(tag=tag).val += 1
+                        post_change.decayed_score_1.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_2.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_3.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_4.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_5.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_6.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_7.tagval_set.get(tag.name=tag.name).val += 1
+                        post_change.decayed_score_8.tagval_set.get(tag.name=tag.name).val += 1
                         post_change.save()
 
                     # if request.user.is_authenticated():
