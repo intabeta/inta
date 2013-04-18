@@ -348,9 +348,10 @@ def tag_list(request, tags, method):
 ##        if method == 'black': 
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
+        votecounts = [a._get_ranking(taglist[0]) for a in posts]
         template_data = {
             'tags': tags,
-            'posts': posts,
+            'postdata': zip(posts,votecounts)
             'voter': voter,
             'double_voter': double_voter,
             'method': method,
@@ -365,7 +366,7 @@ def tag_list(request, tags, method):
 	    entries = entries.filter(tags__name__in=[tag])
 			
 ##        if method == 'votes':
-        posts = sorted(entries, key=lambda a: -a.ranking)
+        posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0])
 ##        if method == 'growth':
 ##            posts = entries.order_by('-last_growth', '-decayed_score_1')
 ##        if method == 'decay1':

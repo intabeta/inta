@@ -122,8 +122,8 @@ function getSelectedVals(){
 
 <table class="table table-condensed">
 <tbody>
-{% if posts %}
-{% for post in posts %}
+{% if postdata %}
+{% for post, score in postdata %}
 <tr>
 <td>
 
@@ -145,10 +145,10 @@ function getSelectedVals(){
 would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'black' ****  -->
 {% endif %}
 {% if method == 'decay1' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_1|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay2' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_2|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay3' %}
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
