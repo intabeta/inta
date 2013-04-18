@@ -1,8 +1,32 @@
-<!-- Playing around with Twitter Bootstrap, and Inta -->
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
-	<head></head>
-	<body>
-<p> Hello World </p>
-	</body>
-</html>
+  <head>
+    <meta charset="utf-8">
+    <title>Inta: Know the Best</title>
+<!-- Learn META -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" type="image/x-icon" />
+
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <style type="text/css">
+
+    </style>
+
+<!-- Learn APPLE touch, and STATIC URL -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
+
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+  </body>
+  </html>

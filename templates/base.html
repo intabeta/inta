@@ -69,7 +69,7 @@
           {% else %}
           <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user"></i> Guest
+              <i class="icon-user"></i> Sign Up
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -83,26 +83,21 @@
 
          
 
-        <div class="nav-collapse">  {% comment %} COMMENTING THAT OUT TURNS IT OFF, BOTH FOR PHONE AND COMPUTER. CAN WE JUST SET AN ENGAGEMENT WIDTH???{% endcomment %}
+        <div class="nav-collapse">  
             <ul class="nav">
 
               <li{% ifequal request.path '/content/ig/' %} class="active"{% endifequal %}><a href="/content/ig/">Interest Groups</a></li>
               
               {% if user.id %}
               <li{% ifequal request.path '/content/myig/' %} class="active"{% endifequal %}><a href="/content/myig/">My IGs</a></li>
+               <li{% ifequal request.path '/favorites/' %} class="active"{% endifequal %}><a href="/favorites/">My Favorites</a></li>
               {% endif %}
               
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
             </ul>
-            
-            {% comment %} CAN WE GET THIS IN THERE NORMALLY? TO BRING YOU TO MY FAVORITES
-            {% if user.id %}
-             <li{% ifequal request.path '/favorites/' %} class="active"{% endifequal %}><a href="/favorites/">My </i><i class="icon-star"></i></a></li>
-			{% endif %}
-			 {% endcomment %}
             <form class="navbar-search pull-left" action="/search/" method="post">
             {% csrf_token %}
-              <input type="text" class="search-query" name="freetext" placeholder="Search">
+              <input type="text" class="search-query" name="freetext" placeholder="Search tags or text">
             </form>
 
 
@@ -131,67 +126,8 @@
             {% endif %}
         {% endblock %}
         {% block content_title %}{% endblock %}
-        {% block content %}
 
-          <div class="hero-unit">
-            <!-- <img style="float: left;"  height="150" src="{{ STATIC_URL }}img/sharing.png" /> -->
-            <h1>inta</h1>
-            <p>Know the Best.</p>
-            {% if not user.id %}
-
-                <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign Up</a>
-                (it's free) or 
-                <a href="/accounts/signin/">Sign In</a>.
-                </p>
-<iframe width="560" height="315" src="http://www.youtube.com/embed/y1wOr3hsDZ4?rel=0" frameborder="0" allowfullscreen></iframe>                
-<p> inta orders content by topic and popularity as the consensus of your peers determines the most worthwhile of today, and the best of days past. It's surfing the crowd, not the web. </p>
-
-{% comment %} OLDER
-                <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
-                 <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
-                 <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
-    
-                
-                 <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
-                 {% endcomment %}
-
-
-            {% endif %}
-          </div>
-
-{% comment %}        OLDER
-          <div class="hero-unit">
-            <h1>Inta</h1>
-            <p>Know the Best.</p>
-            
-
-            {% if not user.id %}
-                <p><a class="btn btn-primary btn-large" href="/accounts/signup/">Sign up</a>
-                or 
-                <a href="/accounts/signin/">Sign In</a>.
-                </p>
-                <p><i class="icon-asterisk"></i> We empower readers interested in a topic to gather and rank content from all corners of the web.</p>
-                 <p><i class="icon-asterisk"></i> Presented by topic in simple lists, like Tweets of online headlines.</p>
-                 <p><i class="icon-asterisk"></i> Constantly updating yet easy to navigate so you spend more time reading, less time finding.</p>
-    
-                
-                 <p><i class="icon-asterisk"></i> Also find the best material about new topics with the help of their communities.</p>
-                 
-            {% else %}
-            
-                <p><i class="icon-asterisk"></i> You can learn something really new in other lists, just one click away, while the different sorting options help make your experience more efficient</p>
-          
-                <p><i class="icon-asterisk"></i> Has voting and even submitting become a habit?  The more users that do it, the stronger the experience for everyone.  We believe each list will reach a tipping point and become truly great, you guys get it there.</p>
-    
-                <p><i class="icon-asterisk"></i> Attracting more users give the lists more input, and even helps us add new ones, so tell your friends and family.</p>
-                <p><i class="icon-asterisk"></i> Lastly, we are still VERY young (notice the Beta).  As some of our first users, use the suggestions link to let us know your thoughts, good or bad.</p>
- 
-            {% endif %}
-          </div>
-{% endcomment %} 
-
-        {% endblock %}
-                  {% block side %}
+        {% block side %}
 
       </div><!--/span-->
         <div class="span3">
@@ -213,47 +149,13 @@
 <tr>
 <td>
 -->
-              
-             {% comment %}  <li><a href="/"><i class="icon-home"></i>Home</a></li>
-              <li><a href="/content/ig/"><i class="icon-align-justify"></i>Interest Groups</a></li>          
-             <li><a href="/content/myig/"><i class="icon-list"></i>My Groups</a></li>
-              <li><a href="/favorites/"><i class="icon-star"></i>My Favorites</a></li>
-              <li><a href="/content/submit/"><i class="icon-plus"></i>Submit Content</a></li>  {% endcomment %} 
-          {% comment %}      <li><a href="/howto/"><i class="icon-question-sign"></i>Help</a></li>  {% endcomment %}
-           {% comment %}     <li><a href="/mission/"><i class="icon-bullhorn"></i>Mission</a></li>  {% endcomment %}
           </div><!--/.well --> 
 {% endblock %}
 {% block side2 %}
           <div class="well sidebar-nav">
             <ul class="nav nav-list legend">
-              <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>Legend</a></li>
-              
-              <div id="legend" class="collapse legend">
-              
-             <li><span class="badge">34</span> Posts</li>
-              <li><span class="badge">23.5</span>&nbsp;<span class="badge">34</span> Relevancy &amp; Posts</li>
-              <li><span class="badge">37%</span>&nbsp;<span class="badge">23.5</span> Growth &amp; Relevancy</li>
-              <li><span class="badge">* 12</span> A Favorite of 12 Intelligentsia</li>
-
-{% comment %}
-              <li><span class="badge badge-success"></span>&nbsp;New posts</li>
-              <li><span class="badge badge-warning"></span>&nbsp;A couple days old</li>
-              <li><span class="badge badge-important"></span>&nbsp;Older posts</li>
-              <li><span class="badge badge-inverse"></span>&nbsp;A week or older</li>
-{% endcomment %}
-                    {% comment %}        <li><i class="icon-chevron-down"></i> Expand content</li> {% endcomment %}
-<li><button class="btn btn-mini const-width">
-       Good
-            
-        </button>&nbsp;+ 1 </li>
-<li><button class="btn btn-mini const-width">
-       Great 
-        </button>&nbsp;+ 2 </li>
-        
-              </div>
-
-            </ul>
-          </div><!--/.well -->
+             </ul>
+          </div>
 {% endblock %}
 {% block side3 %}
           <div class="well sidebar-nav">
