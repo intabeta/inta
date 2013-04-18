@@ -396,7 +396,14 @@ def tag_list(request, tags, method):
 ##        if method == 'black':
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        template_data = {'tags': tags, 'posts': posts, 'method': method, 'taglist': taglist, 'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]), }
+        votecounts = [a._get_ranking(taglist[0]) for a in posts]
+        template_data = {
+            'tags': tags,
+            'postdata': zip(posts,votecounts),
+            'method': method,
+            'taglist': taglist,
+            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
+        }
 
     return render_to_response('content/tag_list.html', template_data, context_instance=RequestContext(request))
 
