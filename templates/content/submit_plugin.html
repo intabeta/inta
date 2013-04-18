@@ -39,9 +39,9 @@
 
         {{ form.tags }}
 <br />
-  <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Good" %}</button>
+  <button type="submit" name="action" value="post" class="btn btn-primary">{% trans "Good" %}</button>
   or
-<button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Great" %}</button>
+<button type="submit" name="action" value="double_post" class="btn btn-primary">{% trans "Great" %}</button>
   <input name="submit name" type="checkbox" value="{{ post.slug }}"><i class="icon-star"></i>
 </form>
 <div style="display: none">{{ extra }}</div>
