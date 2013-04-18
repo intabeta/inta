@@ -120,7 +120,7 @@ class Entry(models.Model):
             dbposts = self.double_posts.tagval_set.get(tag=tag).val
         except:
             dbposts = 0
-        return posts + ( dbposts * 2 )
+        return posts + dbposts
     ranking = property(_get_ranking)
     
     def _get_logo(self):
