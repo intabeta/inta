@@ -366,7 +366,7 @@ def tag_list(request, tags, method):
 	    entries = entries.filter(tags__name__in=[tag])
 			
 ##        if method == 'votes':
-        posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0])
+        posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0]))
 ##        if method == 'growth':
 ##            posts = entries.order_by('-last_growth', '-decayed_score_1')
 ##        if method == 'decay1':
