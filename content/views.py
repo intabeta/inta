@@ -612,7 +612,7 @@ def submit_plugin(request):
                 #slugify
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                 entry.save()
-                action = request.session.get('action','')
+##                action = request.session.get('action','')
                 for tag in tags.split(', '):
                     tagcheck = Tag.objects.filter(name__iexact=tag)
                     if tagcheck:
@@ -620,7 +620,7 @@ def submit_plugin(request):
                     else:
                         newtag = Tag(name=tag)
                         newtag.save()
-                    if action == 'post':
+                    if 'post' in request.POST:
                         postsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=1)
                         dcy2dict.tagval_set.create(tag=newtag, val=1)
