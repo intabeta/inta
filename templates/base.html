@@ -124,10 +124,16 @@
                 {% endfor %}
             
             {% endif %}
-        {% endblock %}
-        {% block content_title %}{% endblock %}
+{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+<div class="row-fluid">
+  <div class="span6">
+  </div>
+</div>
+{% endblock %}
 
-        {% block side %}
+{% block side %}
 
       </div><!--/span-->
         <div class="span3">
@@ -191,7 +197,6 @@
 
     </div><!--/.fluid-container-->
     
-    {% comment %}         <span class="pull-right">    </span> is how Nikos had it for the bottom right      {% endcomment %} 
 
 
     <!-- Le javascript
@@ -213,7 +218,7 @@ a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0
 a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
 </script>
 {% endcomment %}
-
+-->
 {% comment %} wait till a couple days after we have our first users en masse 
 <!-- Ethnio Activation Code -->
 <script type="text/javascript" language="javascript" src="//ethn.io/remotes/77092" async="true" charset="utf-8">
