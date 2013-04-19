@@ -53,6 +53,16 @@ function getSelectedVals(){
 
 {% endblock %}
 
+{% block side1 %}
+<div class="well sidebar-nav">
+	<div class="nav nav-list">
+		<ul class="nav nav-list">
+			<li class="nav-header">Top Tags</li>
+			{% for tag in toptags %}<li><a href="/content/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a></li>{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}
 
 {% block side2 %}
 
