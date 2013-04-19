@@ -620,6 +620,7 @@ def submit_plugin(request):
                     else:
                         newtag = Tag(name=tag)
                         newtag.save()
+                    newtag.notamethod()
                     if 'post' in request.POST:
                         postsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=1)
