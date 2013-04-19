@@ -645,7 +645,7 @@ def submit_plugin(request):
                         dcy8dict.tagval_set.create(tag=newtag, val=2)
                         voterdict.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
                         check='doublepost'
-                    entry. syntaxerror (}
+                    entry.notamethod()
                     entry.tags.add(newtag)
                     entry.save()
         
