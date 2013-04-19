@@ -533,7 +533,7 @@ def submit_plugin(request):
                             withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=1)
                             withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=1)
                             withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].voteded_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
+                            withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
                         else:
                             withurl[0].double_posts.tagval_set.create(tag=newtag, val=2)
                             withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=2)
