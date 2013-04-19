@@ -14,12 +14,18 @@ class TagVal(models.Model): #holds a tag and associated value, like posts, doubl
     tag = models.CharField(max_length=100, db_index=True)
     val = models.IntegerField(default=0, db_index=True)
 
+    def __unicode__(self):
+        return self.tag+', '+str(self.val)
+
 class Voter(models.Model): #used to keep track of who has voted for which posts under which tags
     container = models.ForeignKey(Dict, db_index=True)
     tag = models.CharField(max_length=100, db_index=True)
     user = models.ForeignKey(User, db_index=True)
     val = models.IntegerField() #1 or 2 for post/double post
     slug = models.SlugField(max_length=200)
+
+    def __unicode__(self):
+        return str(self.val)+' votes on '+str(self.slug)
 
 class InterestGroup(models.Model):
     title = models.CharField(max_length=200)
