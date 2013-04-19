@@ -495,7 +495,7 @@ def submit_plugin(request):
                             if request.user.is_authenticated():
                                 messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
                             action = request.session.get('action', '')
-                            if action == 'vote':
+                            if '_post' in request.POST:
                                 tagval=entry[0].posts.tagval_set.get(tag__name=tag)
                                 tagval.val += 1
                                 tagval.save()
@@ -519,7 +519,7 @@ def submit_plugin(request):
                             newtag = Tag(name=tag)
                             newtag.save()
                         withurl[0].tags.add(newtag)
-                        if action == 'post':
+                        if '_post' in request.POST:
                             withurl[0].posts.tagval_set.create(tag=newtag, val=1)
                             withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=1)
                             withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=1)
