@@ -632,6 +632,7 @@ def submit_plugin(request):
                         dcy7dict.tagval_set.create(tag=newtag, val=1)
                         dcy8dict.tagval_set.create(tag=newtag, val=1)
                         voterdict.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
+                        check='post'
                     else:
                         dblpostsdict.tagval_set.create(tag=newtag, val=2)
                         dcy1dict.tagval_set.create(tag=newtag, val=2)
@@ -643,6 +644,8 @@ def submit_plugin(request):
                         dcy7dict.tagval_set.create(tag=newtag, val=2)
                         dcy8dict.tagval_set.create(tag=newtag, val=2)
                         voterdict.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
+                        check='doublepost'
+                    entry. syntaxerror (}
                     entry.tags.add(newtag)
                     entry.save()
         
