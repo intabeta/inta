@@ -4,6 +4,8 @@
 {% load content_extras %}
 
 {% block extrahead %}
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript">
 
 //fetching selected values / checked values
@@ -29,7 +31,100 @@ function getSelectedVals(){
     });
     $('#emailform').submit();
 }
+
+
+$(function() {
+    $( "#accordion" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+$(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  });
+$(function() {
+    $( "#accordion2" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+$(function() {
+    $( "#accordion2" ).accordion({
+      collapsible: true
+    });
+  });
+$.event.special.hoverintent = {
+    setup: function() {
+      $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
+    },
+    teardown: function() {
+      $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
+    },
+    handler: function( event ) {
+      var currentX, currentY, timeout,
+        args = arguments,
+        target = $( event.target ),
+        previousX = event.pageX,
+        previousY = event.pageY;
+ 
+      function track( event ) {
+        currentX = event.pageX;
+        currentY = event.pageY;
+      };
+ 
+      function clear() {
+        target
+          .unbind( "mousemove", track )
+          .unbind( "mouseout", clear );
+        clearTimeout( timeout );
+      }
+ 
+      function handler() {
+        var prop,
+          orig = event;
+ 
+        if ( ( Math.abs( previousX - currentX ) +
+            Math.abs( previousY - currentY ) ) < 7 ) {
+          clear();
+ 
+          event = $.Event( "hoverintent" );
+          for ( prop in orig ) {
+            if ( !( prop in event ) ) {
+              event[ prop ] = orig[ prop ];
+            }
+          }
+          // Prevent accessing the original event since the new event
+          // is fired asynchronously and the old event is no longer
+          // usable (#6028)
+          delete event.originalEvent;
+ 
+          target.trigger( event );
+        } else {
+          previousX = currentX;
+          previousY = currentY;
+          timeout = setTimeout( handler, 25 );
+        }
+      }
+ 
+      timeout = setTimeout( handler, 25 );
+      target.bind({
+        mousemove: track,
+        mouseout: clear
+      });
+    }
+  };
+
+
+
+$(function() {
+    $( "#draggable" ).draggable();
+  });
+$(function() {
+    $( "#draggable2" ).draggable();
+  });
+
 </script>
+
  <style type="text/css">
  .table table-condensced {
  background-color: white;
@@ -45,6 +140,7 @@ function getSelectedVals(){
 {% endblock %}
 
 {% block side %}
+<div class="span3 pull-right">
 <div id="accordion" class="well">
           <h4>  Top Tags   </h4>
           <ul class="nav nav-pills">
@@ -66,6 +162,7 @@ function getSelectedVals(){
         <div class="nav">
         <p style="border:1px dashed blue"> nav </p>
         </div>
+</div>
 {% endblock %}
 
 
