@@ -224,7 +224,7 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 <br />
 
 {% for tag in tagscores %}
-	<span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">{{ tag.0 }} - {{ tag.1 }}</a></span>
+	<span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
 {% endfor %}
 
 <br />
