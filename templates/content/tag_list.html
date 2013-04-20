@@ -45,19 +45,27 @@ function getSelectedVals(){
 {% endblock %}
 
 {% block side %}
-<div class="well sidebar-nav">
-    <ul class="nav nav-pills">
-      <li class="nav-header">Relevant Tags</li>
-      {% for tag in toprelevant %}<li><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</li>{% endfor %}
-    </ul>
-</div>
-<div class="well sidebar-nav">
-    <ul class="nav nav-pills">
-      <li class="nav-header">Top Tags</li>
-      {% for tag in toptags %}<li><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</li>{% endfor %}
-    </ul>
-</div>
-
+<div id="accordion" class="well">
+          <h4>  Top Tags   </h4>
+          <ul class="nav nav-pills">
+            {% for tag in toptags %}<li id="draggable"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
+          </div>
+          <div id="accordion2" class="well">
+        <h4>Relevant Tags</h4>
+        <ul class="nav nav-pills">
+              {% for tag in toprelevant %}<li id="draggable2"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+          </ul>
+        </div>
+        <ul class="nav nav-pills">
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
+          <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
+          <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
+          <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
+        </ul>
+        <div class="nav">
+        <p style="border:1px dashed blue"> nav </p>
+        </div>
 {% endblock %}
 
 
