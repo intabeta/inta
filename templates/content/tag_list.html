@@ -151,7 +151,7 @@ EMAIL and FAVORITE buttons taken out for now
 <table class="table table-condensed">
 <tbody>
 {% if postdata %}
-{% for post, score in postdata %}
+{% for post, score, tagscores in postdata %}
 <tr>
 <td>
 
@@ -227,8 +227,8 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 &nbsp;{{ post.date_added|date:"M j" }}
 <br />
 
-{% for othertag in post.tags.all %}
-	<span class="label"><a href="/content/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+{% for tag in tagscores %}
+	<span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">{{ tag.0 }} - {{ tag.1 }}</a></span>
 {% endfor %}
 
 <br />
