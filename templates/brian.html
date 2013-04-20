@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load thumbnail %}
 {% load content_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,9 +18,8 @@
     <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
-    <style type="text/css">
-
-    </style>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <!-- Learn APPLE touch, and STATIC URL -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
@@ -28,10 +28,152 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
 
+<script type="text/javascript">
+
+$(function() {
+    $( "#accordion" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+$(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  });
+$(function() {
+    $( "#accordion2" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+$(function() {
+    $( "#accordion2" ).accordion({
+      collapsible: true
+    });
+  });
+$.event.special.hoverintent = {
+    setup: function() {
+      $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
+    },
+    teardown: function() {
+      $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
+    },
+    handler: function( event ) {
+      var currentX, currentY, timeout,
+        args = arguments,
+        target = $( event.target ),
+        previousX = event.pageX,
+        previousY = event.pageY;
+ 
+      function track( event ) {
+        currentX = event.pageX;
+        currentY = event.pageY;
+      };
+ 
+      function clear() {
+        target
+          .unbind( "mousemove", track )
+          .unbind( "mouseout", clear );
+        clearTimeout( timeout );
+      }
+ 
+      function handler() {
+        var prop,
+          orig = event;
+ 
+        if ( ( Math.abs( previousX - currentX ) +
+            Math.abs( previousY - currentY ) ) < 7 ) {
+          clear();
+ 
+          event = $.Event( "hoverintent" );
+          for ( prop in orig ) {
+            if ( !( prop in event ) ) {
+              event[ prop ] = orig[ prop ];
+            }
+          }
+          // Prevent accessing the original event since the new event
+          // is fired asynchronously and the old event is no longer
+          // usable (#6028)
+          delete event.originalEvent;
+ 
+          target.trigger( event );
+        } else {
+          previousX = currentX;
+          previousY = currentY;
+          timeout = setTimeout( handler, 25 );
+        }
+      }
+ 
+      timeout = setTimeout( handler, 25 );
+      target.bind({
+        mousemove: track,
+        mouseout: clear
+      });
+    }
+  };
+
+
+
+$(function() {
+    $( "#draggable" ).draggable();
+  });
+$(function() {
+    $( "#draggable2" ).draggable();
+  });
+
+
+</script>    
+
+<!-- TB accordian
+
+$.each($('#tag-collapse a.accordion-toggle'), function(i, link){
+    
+        $('#collapse' + 1).collapse({
+            toggle : true,
+            parent : '#tag-collapse'
+        });
+$(link).on('click', 
+    function(){
+        $('#collapse' + 1).collapse('toggle');
+    }
+)
+});
+
+
+
+<div class="accordion" id="tag-collapse">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#tag-collapse" href="#collapseOne">
+                Top Tags
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                  1, 2, 3, ...
+                </div>
+            </div>
+          </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#tag-collapse" href="#collapseTne">
+                Relevant Tags
+                </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                Anim pariatur cliche...
+                </div>
+            </div>
+          </div>
+      </div>
+-->
+
+
+
     {% block extrahead %}{% endblock %}
     <style type="text/css">
 .well {
-  background:#6DBCE3;
+  background:#FFFFFF;
   opacity:0.9;
   }
 #rb {
@@ -42,13 +184,27 @@
   margin-right:-25px;
   margin-left:10px;
 } 
+h4 {
+  color:black;
+}
+#draggable { width: 150px; height: 150px; padding: 0.5em; }
+
     </style>
+    
   </head>
-  <body style="background:#FFDD80">
+  <body style="background:#ddf">
   <br>
     <div class="row-fluid">
       <div class="span3 well" id="lb">
-        <p>test well in div</p>
+        <div id="accordion" class="well">
+            <h4>  Top Tags   </h4>
+              <p id="draggable"> Here they are </p>
+          </div>
+          <div id="accordion2" class="well">
+              <h4>  Relevant Tags   </h4>
+              <p id="draggable2"> Even more </p>
+      </div>
+  
         <div class="nav">
         <p style="border:1px dashed blue"> nav </p>
         </div>
@@ -59,8 +215,8 @@
         <p style="border:1px dashed blue"> nav </p>
         </div>
         <ul class="nav nav-pills">
-        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/">Boo hoo slider space<i class="icon-ok"></i></a></li>
-        <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+        <li {% if method == 'votes' %}  class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/">Boo hoo slider space<i class="icon-ok"></i></a></li>
+        <li {% if method == 'favorites' %} class="active" {% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
         </ul>
       </div>
       <div class="span6 well">
@@ -71,7 +227,6 @@
         </div>
       </div>
       <div class="span3 well" id="rb">
-        <p>get off the right wall...</p>
         <div class="well">
             <ul class="nav">
               <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="border:1px dashed blue">Quick vote from any page</p> </p>
@@ -97,19 +252,6 @@
   </div>
   </body>
   </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
