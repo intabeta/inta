@@ -280,9 +280,12 @@ def tag_list(request, tags, method):
                 if action == 'vote':
                     voter.append(post_slug)
                     post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
-                    p=post_change.posts.tagval_set.get(tag=tagnew)
-                    p.val += 1
-                    p.save()
+                    try:
+                        p=post_change.posts.tagval_set.get(tag=tagnew)
+                        p.val += 1
+                        p.save()
+                    except:
+                        post_change.posts.tagval_set.create(tag=tagnew,val=1)
                     tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
                     tval1.val += 1
                     tval1.save()
@@ -311,9 +314,12 @@ def tag_list(request, tags, method):
                 if action == 'double_vote':
                     double_voter.append(post_slug)
                     post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
-                    dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
-                    dbp.val += 1
-                    dbp.save()
+                    try:
+                        dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
+                        dbp.val += 1
+                        dbp.save()
+                    except:
+                        post_change.double_posts.tagval_set.create(tag=tagnew,val=1)
                     tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
                     tval1.val += 2
                     tval1.save()
