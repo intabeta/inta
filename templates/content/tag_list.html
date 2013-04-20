@@ -40,7 +40,7 @@ function getSelectedVals(){
 
 {% block content_title %}
 
-<h2>Inta - {% for tag, slug in breadcrumbdata %} <a href="/content/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}</h2>
+<h2>Inta - {% for tag, slug in breadcrumbdata %} <a href="/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}</h2>
 
 {% endblock %}
 
@@ -49,7 +49,7 @@ function getSelectedVals(){
   <div class="nav nav-list">
     <ul class="nav nav-list">
       <li class="nav-header">Relevant Tags</li>
-      {% for tag in toprelevant %}<li><a href="/content/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> - {{ tag.1 }}</li>{% endfor %}
+      {% for tag in toprelevant %}<li><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }}</a> - {{ tag.1 }}</li>{% endfor %}
     </ul>
   </div>
 </div>
@@ -57,7 +57,7 @@ function getSelectedVals(){
   <div class="nav nav-list">
     <ul class="nav nav-list">
       <li class="nav-header">Top Tags</li>
-      {% for tag in toptags %}<li><a href="/content/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> - {{ tag.1 }}</li>{% endfor %}
+      {% for tag in toptags %}<li><a href="/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> - {{ tag.1 }}</li>{% endfor %}
     </ul>
   </div>
 </div>
@@ -73,7 +73,7 @@ function getSelectedVals(){
   <h1>Top Tags</h1>
   <ul class="inline">
       {% for tag in toptags %}
-      <li><a href="/content/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> {{ tag.1 }}</li>
+      <li><a href="/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> {{ tag.1 }}</li>
       {% endfor %}
     </ul>
 </div>
@@ -85,23 +85,23 @@ function getSelectedVals(){
   	<div class="nav nav-list">
   		<ul class="nav nav-list">
   			<li class="nav-header">List Options</li>
-  			<li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay1/"><i class="icon-time"></i>30 mins</a></li>
-  			<li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay2/"><i class="icon-time"></i>3 hours</a></li>
-  			<li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay3/"><i class="icon-time"></i>1 day</a></li>
-  			<li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay4/"><i class="icon-time"></i>3 days</a></li>
-  			<li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay5/"><i class="icon-time"></i>1 week</a></li>
-  			<li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay6/"><i class="icon-time"></i>1 month</a></li>
-  			<li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay7/"><i class="icon-time"></i>3 months</a></li>
-  			<li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/decay8/"><i class="icon-time"></i>1 year</a></li>
-  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i>Timeless</a></li>
+  			<li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
+  			<li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
+  			<li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/decay3/{{ tags }}"><i class="icon-time"></i>1 day</a></li>
+  			<li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/decay4/{{ tags }}"><i class="icon-time"></i>3 days</a></li>
+  			<li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/decay5/{{ tags }}"><i class="icon-time"></i>1 week</a></li>
+  			<li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/decay6/{{ tags }}"><i class="icon-time"></i>1 month</a></li>
+  			<li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/decay7/{{ tags }}"><i class="icon-time"></i>3 months</a></li>
+  			<li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/decay8/{{ tags }}"><i class="icon-time"></i>1 year</a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i>Timeless</a></li>
 		</ul>
 	</div>
 	<div class="nav nav-list">
 		<ul class="inline">
 			<li class="nav-header">Smaller View</li>
-  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
-  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/"><i class="icon-ok"></i></a></li>
- 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
+  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
+  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
+ 		 	<!--<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> -->
  		</ul>
  	</div>
 
@@ -228,7 +228,7 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 <br />
 
 {% for othertag in post.tags.all %}
-	<span class="label"><a href="/content/tags/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+	<span class="label"><a href="/tags/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
 {% endfor %}
 
 <br />
