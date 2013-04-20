@@ -382,7 +382,7 @@ def tag_list(request, tags, method):
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         votecounts = [a._get_ranking(taglist[0]) for a in posts]
-        tagscores = [ sorted([ tag.name, post._get_ranking(tag) for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
+        tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])]for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         template_data = {
