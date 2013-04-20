@@ -437,7 +437,7 @@ def tag_list(request, tags, method):
         votecounts = [a._get_ranking(taglist[0]) for a in posts]
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
-        tagscores = [ sorted([ tag.name, post._get_ranking(tag) for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
+        tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
