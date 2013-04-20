@@ -382,8 +382,8 @@ def tag_list(request, tags, method):
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         votecounts = [a._get_ranking(taglist[0]) for a in posts]
-        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
-##        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])]for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
+        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
+        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])]for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts),
@@ -392,6 +392,7 @@ def tag_list(request, tags, method):
             'method': method,
             'taglist': taglist,
             'toptags': toptags,
+            'toprelevant': toprelevant,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
             }
     else:
@@ -433,14 +434,15 @@ def tag_list(request, tags, method):
 ##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
         votecounts = [a._get_ranking(taglist[0]) for a in posts]
-##        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
-        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
+        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
+        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts),
             'method': method,
             'taglist': taglist,
             'toptags': toptags,
+            'toprelevant': toprelevant,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
         }
 
