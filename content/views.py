@@ -267,7 +267,7 @@ def tag_list(request, tags, method):
 
     if user.is_authenticated():
         taglist = tags.split('|')
-        voted = user.voter_set.filter(tag__in=[taglist[0]]) #only deal with votes on the primary tag
+        voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
         voter = [ i.slug for i in voted.filter(val__exact=1) ]
         double_voter = [ i.slug for i in voted.filter(val__exact=2) ]
 
@@ -310,7 +310,7 @@ def tag_list(request, tags, method):
 
                 if action == 'double_vote':
                     double_voter.append(post_slug)
-                    post_change.double_voted_by.voter_set.create(tag=taglist[0], user=user, val=1, slug=post_slug)
+                    post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
                     dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
                     dbp.val += 1
                     dbp.save()
