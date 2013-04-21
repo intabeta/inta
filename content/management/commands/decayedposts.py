@@ -42,5 +42,4 @@ class Command(BaseCommand):
                 tval8.save()
                 #print total
                 #print(entry.title+'; '+tagnew.name)
-                entry.save()
         self.stdout.write('Success\n')
