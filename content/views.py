@@ -356,8 +356,8 @@ def tag_list(request, tags, method):
         if method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
         if method == 'decay1':
-            posts = sorted(entries, key=lambda a: -a.decayed_score_1.tagval_set.get(tag.name=taglist[0]).val)
-            votecounts = [ a.decayed_score_1.tagval_set.get(tag.name=taglist[0]).val for a in posts ]
+            posts = sorted(entries, key=lambda a: -a.decayed_score_1.tagval_set.filter(tags__name__in=[taglist[0]])[0].val)
+            votecounts = [ a.decayed_score_1.tagval_set.filter(tags__name__in=[taglist[0]])[0].val for a in posts ]
 ##            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = entries.order_by('-decayed_score_2', '-date_added')
