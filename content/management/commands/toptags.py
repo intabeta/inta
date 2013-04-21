@@ -17,4 +17,6 @@ class Command(BaseCommand):
         for tagval in newtoptags:
             toptags.tagval_set.create(tag=tagval[0], val=tagval[1])
 
-        print('New top tags:\n'+sum([ a[0]+': '+str(a[1])+'\n'] for a in newtoptags))
+        print('New top tags:')
+        for tagval in newtoptags:
+            print(tagval[0]+': '+str(tagval[1]))
