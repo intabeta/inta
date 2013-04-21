@@ -350,38 +350,40 @@ def tag_list(request, tags, method):
         for tag in taglist:
             entries = entries.filter(tags__name__in=[tag])
 			
-        #if method == 'votes':
-        posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0])) #sorting just got more complicated; don't worry about it for now
-##        if method == 'growth':
-##            posts = entries.order_by('-last_growth', '-decayed_score_1')
-##        if method == 'decay1':
+        if method == 'votes':
+            posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0]))
+            votecounts = [a._get_ranking(taglist[0]) for a in posts]
+        if method == 'growth':
+            posts = entries.order_by('-last_growth', '-date_added')
+        if method == 'decay1':
+            posts = sorted(entries, key=lambda a: -a.decayed_score_1.tagval_set.get(tag__name=taglist[0]).val)
+            votecounts = [ a.decayed_score_1.tagval_set.get(tag__name=taglist[0]).val for a in posts ]
 ##            posts = entries.order_by('-decayed_score_1', '-date_added')
-##        if method == 'decay2':
-##            posts = entries.order_by('-decayed_score_2', '-date_added')
-##        if method == 'decay3':
-##            posts = entries.order_by('-decayed_score_3', '-date_added')
-##        if method == 'decay4':
-##            posts = entries.order_by('-decayed_score_4', '-date_added')
-##        if method == 'decay5':
-##            posts = entries.order_by('-decayed_score_5', '-date_added')
-##        if method == 'decay6':
-##            posts = entries.order_by('-decayed_score_6', '-date_added')
-##        if method == 'decay7':
-##            posts = entries.order_by('-decayed_score_7', '-date_added')
-##        if method == 'decay8':
-##            posts = entries.order_by('-decayed_score_8', '-date_added')
-##        if method == 'favorites':
-##            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-##        if method == 'green':
-##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
-##        if method == 'orange':
-##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
-##        if method == 'red':
-##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
-##        if method == 'black': 
-##            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
+        if method == 'decay2':
+            posts = entries.order_by('-decayed_score_2', '-date_added')
+        if method == 'decay3':
+            posts = entries.order_by('-decayed_score_3', '-date_added')
+        if method == 'decay4':
+            posts = entries.order_by('-decayed_score_4', '-date_added')
+        if method == 'decay5':
+            posts = entries.order_by('-decayed_score_5', '-date_added')
+        if method == 'decay6':
+            posts = entries.order_by('-decayed_score_6', '-date_added')
+        if method == 'decay7':
+            posts = entries.order_by('-decayed_score_7', '-date_added')
+        if method == 'decay8':
+            posts = entries.order_by('-decayed_score_8', '-date_added')
+        if method == 'favorites':
+            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
+        if method == 'green':
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a.ranking)
+        if method == 'orange':
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a.ranking)
+        if method == 'red':
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a.ranking)
+        if method == 'black': 
+            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        votecounts = [a._get_ranking(taglist[0]) for a in posts]
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])]for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
