@@ -211,10 +211,12 @@ def brian(request):
 	form = SignUpForm()
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
+        mytags = [ favtag.tags for favtag in user.favoritetag_set.all() ]
 	template_data = {
 		'form': form,
                 'toprelevant': toprelevant,
                 'toptags': toptags,
+                'mytags': mytags,
 	}
 	return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
