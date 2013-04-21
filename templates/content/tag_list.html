@@ -165,89 +165,8 @@ $(function() {
 </div>
 {% endblock %}
 
-
-
-
-
-<!-- Different format
-<div class="well span3 pull-right">
-  <h1>Top Tags</h1>
-  <ul class="inline">
-      {% for tag in toptags %}
-      <li><a href="/tags/decay1/{{ tag.0 }}">{{ tag.0 }}</a> {{ tag.1 }}</li>
-      {% endfor %}
-    </ul>
-</div>
--->
-
-<!-- 
 {% block side2 %}
-
-  <div class="well sidebar-nav">
-  	<div class="nav nav-list">
-  		<ul class="nav nav-list">
-  			<li class="nav-header">List Options</li>
-  			<li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
-  			<li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
-  			<li {% if method == 'decay3' %}class="active"{% endif %}><a href="/content/decay3/{{ tags }}"><i class="icon-time"></i>1 day</a></li>
-  			<li {% if method == 'decay4' %}class="active"{% endif %}><a href="/content/decay4/{{ tags }}"><i class="icon-time"></i>3 days</a></li>
-  			<li {% if method == 'decay5' %}class="active"{% endif %}><a href="/content/decay5/{{ tags }}"><i class="icon-time"></i>1 week</a></li>
-  			<li {% if method == 'decay6' %}class="active"{% endif %}><a href="/content/decay6/{{ tags }}"><i class="icon-time"></i>1 month</a></li>
-  			<li {% if method == 'decay7' %}class="active"{% endif %}><a href="/content/decay7/{{ tags }}"><i class="icon-time"></i>3 months</a></li>
-  			<li {% if method == 'decay8' %}class="active"{% endif %}><a href="/content/decay8/{{ tags }}"><i class="icon-time"></i>1 year</a></li>
-  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i>Timeless </a></li>
-		</ul>
-	</div>
-	<div class="nav nav-list">
-		<ul class="inline">
-			<li class="nav-header">Smaller View</li>
-  			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
-  			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
- 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
- 		</ul>
- 	</div>
-
-COLORS taken out for now. 
-
-			<span class="badge">1</span>
- 		 	<div class="dropdown">
-  				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Age</a>
-  				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-  					<li {% if method == 'green' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/green/"><span class="badge badge-success"></span>&nbsp;New</a></li>
- 					<li {% if method == 'orange' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/orange/"><span class="badge badge-warning"></span>&nbsp;Recent</a></li>
-  					<li {% if method == 'red' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/red/"><span class="badge badge-important"></span>&nbsp;Old</a></li>
-  					<li {% if method == 'black' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/black/"><span class="badge badge-inverse"></span>&nbsp;Older</a></li> 
-  				</ul>
-			</div>
-			
-EMAIL and FAVORITE buttons taken out for now
-
-	<div class="nav nav-list">
-  		<ul class="nav nav-list">
-        	<li class="nav-header">For checked items </li>
-            <li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedVals()"><i class="icon-envelope"></i> Email to a friend</button></li>
-        	<li><button type="submit" class="btn btn-primary" class="Brian_color"><a href="javascript:void();" onclick="getSelectedFavs()"><i class="icon-star-empty"></i>Save in favorites</button></li>
-        </ul>
-    </div>
-  <div>
-  
-<form id="emailform" action="/email/" method="post">
-{% csrf_token %}
-
-</form>
-<form id="favoritesform" action="/favorites/" method="post">
-{% csrf_token %}
-
-</form>
-
-
-</div>
-
-
 {% endblock %}
--->
-
-
 
 {% block content %}
 
