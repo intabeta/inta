@@ -14,7 +14,7 @@ class Command(BaseCommand):
                 now = datetime.utcnow()
                 then = entry.date_added.replace(tzinfo=None)
                 lapsed = now - then
-                print lapsed.total_seconds()
+                #print lapsed.total_seconds()
                 base = 0.5
                 tval1=entry.decayed_score_1.tagval_set.get(tag=tagnew)
                 tval1.val = total * (base ** (lapsed.total_seconds() / 1800))
@@ -40,6 +40,7 @@ class Command(BaseCommand):
                 tval8=entry.decayed_score_8.tagval_set.get(tag=tagnew)
                 tval8.val = total * (base ** (lapsed.total_seconds() / 31536000))
                 tval8.save()
-                print total
+                #print total
+                print(entry.title+'; '+tagnew.name)
                 entry.save()
         self.stdout.write('Success\n')
