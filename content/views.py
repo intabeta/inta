@@ -374,8 +374,8 @@ def tag_list(request, tags, method):
             posts = sorted(entries, key=lambda a: -a.decayed_score_4.tagval_set.get(tag__iexact=taglist[0]).val)
             votecounts = [ round(a.decayed_score_4.tagval_set.get(tag__iexact=taglist[0]).val,1) for a in posts ]
         if method == 'decay5':
-            posts = sorted(entries, key=lambda a: -a.decayed_score_5.tagval_set.get(tag__iexact=taglist[0]).val)
-            votecounts = [ round(a.decayed_score_5.tagval_set.get(tag__iexact=taglist[0]).val,1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
+            votecounts = [ round(sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
         if method == 'decay6':
             posts = sorted(entries, key=lambda a: -a.decayed_score_6.tagval_set.get(tag__iexact=taglist[0]).val)
             votecounts = [ round(a.decayed_score_6.tagval_set.get(tag__iexact=taglist[0]).val,1) for a in posts ]
