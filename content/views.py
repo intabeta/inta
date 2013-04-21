@@ -355,8 +355,8 @@ def tag_list(request, tags, method):
             entries = entries.filter(tags__name__in=[tag])
 			
         if method == 'votes':
-            posts = sorted(entries, key=lambda a: -sum([ a.get_ranking(tag) for tag in taglist]))
-            votecounts = [sum([ a.get_ranking(tag) for tag in taglist]) for a in posts]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
+            votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
         if method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
@@ -420,8 +420,8 @@ def tag_list(request, tags, method):
 	    entries = entries.filter(tags__name__in=[tag])
 			
         if method == 'votes':
-            posts = sorted(entries, key=lambda a: -sum([ a.get_ranking(tag) for tag in taglist]))
-            votecounts = [sum([ a.get_ranking(tag) for tag in taglist]) for a in posts]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
+            votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
         if method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
