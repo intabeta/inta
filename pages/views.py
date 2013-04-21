@@ -207,7 +207,7 @@ def splash(request):
 		}
 		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
 	
-def brian(request, tags, method):
+def brian(request, tags='', method='decay3'):
     user = request.user
     tags = tags
 
@@ -420,7 +420,7 @@ def brian(request, tags, method):
             'toprelevant': toprelevant,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
         }
-	return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
+    return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
     
     
