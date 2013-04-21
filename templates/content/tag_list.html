@@ -154,7 +154,7 @@ $(function() {
         <ul class="nav nav-pills">
         <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
           <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
-          <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
+          <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/favorites/{{ tags }}"><i class="icon-star-empty"></i></a></li>
           <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
         </ul>
         <div class="nav">
