@@ -180,6 +180,7 @@ $(function() {
 </div>
 -->
 
+<!-- 
 {% block side2 %}
 
   <div class="well sidebar-nav">
@@ -202,11 +203,11 @@ $(function() {
 			<li class="nav-header">Smaller View</li>
   			<li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
   			<li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
- 		 	<!--<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> -->
+ 		 	<li {% if method == 'growth' %}class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/growth/"><i class="icon-signal"></i></a></li> 
  		</ul>
  	</div>
 
-<!--  COLORS taken out for now. 
+COLORS taken out for now. 
 
 			<span class="badge">1</span>
  		 	<div class="dropdown">
@@ -238,12 +239,13 @@ EMAIL and FAVORITE buttons taken out for now
 {% csrf_token %}
 
 </form>
--->
+
 
 </div>
 
 
 {% endblock %}
+-->
 
 
 
