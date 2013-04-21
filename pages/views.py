@@ -1,6 +1,6 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from content.models import InterestGroup, IgProposal, IgProposalForm, Entry
+from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
