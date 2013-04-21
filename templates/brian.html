@@ -193,37 +193,150 @@ h4 {
     
   </head>
   <body style="background:#ddf">
+  
   <br>
     <div class="row-fluid">
       <div class="span3 well" id="lb">
         <div id="accordion" class="well">
-            <h4>  Top Tags   </h4>
-              <p id="draggable"> Here they are </p>
+          <h4>  Top Tags   </h4>
+          <ul class="nav nav-pills">
+            {% for tag in toptags %}<li id="draggable"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
           </div>
           <div id="accordion2" class="well">
-              <h4>  Relevant Tags   </h4>
-              <p id="draggable2"> Even more </p>
-      </div>
-  
-        <div class="nav">
-        <p style="border:1px dashed blue"> nav </p>
-        </div>
-        <div class="nav">
-        <p style="border:1px dashed blue"> nav </p>
-        </div>
-        <div class="nav">
-        <p style="border:1px dashed blue"> nav </p>
+        <h4>Relevant Tags</h4>
+        <ul class="nav nav-pills">
+              {% for tag in toprelevant %}<li id="draggable2"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+          </ul>
         </div>
         <ul class="nav nav-pills">
-        <li {% if method == 'votes' %}  class="active"{% endif %}><a href="/content/ig/{{ ig.slug }}/votes/">Boo hoo slider space<i class="icon-ok"></i></a></li>
-        <li {% if method == 'favorites' %} class="active" {% endif %}><a href="/content/ig/{{ ig.slug }}/favorites/"><i class="icon-star-empty"></i></a></li>
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
+          <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
+          <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
+          <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
         </ul>
+        <div class="nav">
+        <p style="border:1px dashed blue"> nav </p>
+        </div>
       </div>
       <div class="span6 well">
         <div class="well">
-          <div class="span3 well">
+          <div class="span3">
             <p style="border:1px dashed blue">primary of tag header</p>
           </div>
+        </div>
+      
+      <table class="table table-condensed">
+        <tbody>
+          {% if postdata %}
+          {% for post, score in postdata %}
+        <tr>
+        <td>
+          <a href="http://{{ post.domain }}" target="_blank" >
+          <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
+          </a>
+          </td>
+<td>
+
+{% if method == 'votes' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay1' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay2' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
+{% endif %}
+{% if method == 'favorites' %}
+<span class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
+{% endif %}
+
+
+<!-- For now, pre-slider, saving visual space...
+{% if method == 'decay3' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay4' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay5' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay6' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay7' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+{% endif %}
+{% if method == 'decay8' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+{% endif %}
+
+{% if method == 'green' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'orange' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'red' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+{% if method == 'black' %}
+<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+{% endif %}
+-->
+
+<a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+{% if post.title == "Untitled" %}
+{{ post.url }}
+{% else %}
+{{ post.title }}
+{% endif %}
+</a>
+&nbsp;{{ post.date_added|date:"M j" }}
+<br />
+
+{% for othertag in post.tags.all %}
+  <span class="label"><a href="/content/tags/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+{% endfor %}
+
+<br />
+{{ post.summary|default_if_none:"" }}
+
+<div style="margin-top: 6px;"> 
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+        <input type="hidden" name="action" value="vote" />
+        <button class="btn btn-mini const-width {% if post.slug in voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+        Good
+            
+        </button>
+    </form> 
+    <form action="" method="post" class="button-form">
+    {% csrf_token %}
+        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+        <input type="hidden" name="action" value="double_vote" />
+        <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+        Great
+            
+        </button>
+        &nbsp;
+       <i class="icon-envelope"></i><i class="icon-star"></i> <input name="phpqa[]" type="checkbox" value="{{ post.slug }}">
+    
+   </form>
+</div>
+</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<tr><td>We've got no URLs for that Tag. Want to make the first?</td></tr>
+{% endif %}
+</tbody>
+</table>
+<hr />
+
         </div>
       </div>
       <div class="span3 well" id="rb">
