@@ -183,7 +183,7 @@ $(function() {
 <td>
 
 {% if method == 'votes' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'growth' %}
 <span class="badge {{ post.date_added|bubble_color }}">{{ post.last_growth|floatformat }}%</span>&nbsp;
@@ -199,22 +199,22 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay3' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay4' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay5' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay6' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay7' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'decay8' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 
 
@@ -223,16 +223,16 @@ would take out 'votes' and 'growth', maybe(?) even 'green' 'orange' 'red' and 'b
 {% endif %}
 
 {% if method == 'green' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'orange' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'red' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 {% if method == 'black' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
+<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 {% endif %}
 
 
