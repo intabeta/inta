@@ -15,10 +15,9 @@
     <link rel="shortcut icon" href="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" type="image/x-icon" />
 
 
-    <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <!-- Learn APPLE touch, and STATIC URL -->
@@ -29,6 +28,24 @@
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
 
 <script type="text/javascript">
+
+    !function ($) {
+        //caching all the "tr" objects so that gain a better performance.
+
+        var $tableRows = $('table>tbody>tr');
+        //hide all the all the select & vote lines
+        $tableRows.find("td>div").css('visibility','hidden');
+        $(function () {
+            $tableRows.hover(function () {
+                //when mouse is on, animate it via 'fadeout'
+                $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},500);
+            }, function () {
+                //by the same token, fade it out when mouse is out.
+                $(this).find("td>div").css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0},500);
+            });
+        });
+    }(window.jQuery);
+
 
 $(function() {
     $( "#accordion" ).accordion({
@@ -47,6 +64,21 @@ $(function() {
   });
 $(function() {
     $( "#accordion2" ).accordion({
+      collapsible: true
+    });
+  });
+  $(function() {
+    $( "#accordion3" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+    $(function() {
+    $( "#accordion4" ).accordion({
+      event: "click hoverintent"
+    });
+  });
+$(function() {
+    $( "#accordion3" ).accordion({
       collapsible: true
     });
   });
@@ -123,181 +155,162 @@ $(function() {
 
 </script>    
 
-<!-- TB accordian
-
-$.each($('#tag-collapse a.accordion-toggle'), function(i, link){
-    
-        $('#collapse' + 1).collapse({
-            toggle : true,
-            parent : '#tag-collapse'
-        });
-$(link).on('click', 
-    function(){
-        $('#collapse' + 1).collapse('toggle');
-    }
-)
-});
-
-
-
-<div class="accordion" id="tag-collapse">
-          <div class="accordion-group">
-            <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#tag-collapse" href="#collapseOne">
-                Top Tags
-                </a>
-            </div>
-            <div id="collapseOne" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                  1, 2, 3, ...
-                </div>
-            </div>
-          </div>
-          <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#tag-collapse" href="#collapseTne">
-                Relevant Tags
-                </a>
-            </div>
-            <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner">
-                Anim pariatur cliche...
-                </div>
-            </div>
-          </div>
-      </div>
--->
-
-
-
-    {% block extrahead %}{% endblock %}
-    <style type="text/css">
+<style type="text/css">
 .well {
   background:#FFFFFF;
   opacity:0.9;
   }
 #rb {
-  margin-right:-5px;
-  margin-left:10px;
+  margin-top: 40px;
 }
 #lb {
-  margin-right:-25px;
-  margin-left:10px;
+  margin-top: 40px;
 } 
 h4 {
   color:black;
 }
-#draggable { width: 150px; height: 150px; padding: 0.5em; }
+#draggable { 
+  width: 150px; height: 150px; padding: 0.5em; 
+}
+#brand { 
+  margin-left:8px;
+}
+.side {
+  margin: 4px;
+}
 
-    </style>
+</style>
     
-  </head>
-  <body style="background:#ddf">
+</head>
   
-  <br>
-    <div class="row-fluid">
-      <div class="span3 well" id="lb">
-        <div id="accordion" class="well">
-          <h4>  Top Tags   </h4>
-          <ul class="nav nav-pills">
-            {% for tag in toptags %}<li id="draggable"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+<body style="background:#ddf"> 
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inverse">
+      <div class="navbar-inner">    
+          <a class="brand" id="brand" href="/"><strong>inta</strong></a>
+          <form class="navbar-search pull-left">
+              {% csrf_token %}
+          <input type="text" class="search-query" placeholder="Search tags or text">
+      </form>
+          {% if user.id %}
+              <div class="btn-group pull-right">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="icon-user"></i> {{ user }}
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/accounts/signout/">Sign Out</a></li>
+                </ul>   
+              </div>
+          {% else %}
+          <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user"></i> Sign Up
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/accounts/signup/">{% trans "Sign Up" %}</a></li>
+              <li class="divider"></li>
+              <li><a href="/accounts/signin/">{% trans "Sign In" %}</a></li>
             </ul>
-          </div>
-          <div id="accordion2" class="well">
-        <h4>Relevant Tags</h4>
-        <ul class="nav nav-pills">
-              {% for tag in toprelevant %}<li id="draggable2"><a href="/content/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-          </ul>
-        </div>
-        <ul class="nav nav-pills">
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/content/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
-          <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/content/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
-          <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
-          <li {% if method == 'votes' %}class="active"{% endif %}><a href="/content/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
-        </ul>
-        <div class="nav">
-        <p style="border:1px dashed blue"> nav </p>
+          </div>  
+            
+          {% endif %}
+
+        <div class="nav-collapse">  
+            <ul class="nav">          
+              <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
         </div>
       </div>
-      <div class="span6 well">
+    </div>
+  
+  <br>
+    <div class="row">
+      <div class="span3 offset1" id="lb">
         <div class="well">
+          <div id="accordion">
+            <h4 class="side">  Top Tags   </h4>
+            <ul class="nav nav-pills">
+                {% for tag in toptags %}<li id="draggable"><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
+            </div>
+          <div id="accordion2">
+            <h4 class="side">Relevant Tags</h4>
+            <ul class="nav nav-pills">
+                {% for tag in toprelevant %}<li id="draggable2"><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
+           </div>
+           <div id="accordion3">
+              <h4 class="side">  My Tags  </h4>
+            <ul class="nav nav-pills">
+                  {% for tag in mytags %}<li id="draggable2"><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a></li>{% endfor %}
+              </ul>
+           </div>
+           <div id="accordion4">
+            <h4 class="side">Filters</h4>
+            <ul class="nav nav-pills">
+            <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
+              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}"><i class="icon-time"></i>3 hours</a></li>
+              <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
+              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
+            </ul>
+           </div>
+      </div>
+   </div>
+   
+   
+     <div class="span8 well" id="rb">
+      <!--       <div class="well">
           <div class="span3">
             <p style="border:1px dashed blue">primary of tag header</p>
           </div>
         </div>
+        -->
+      <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+    <form action="" method="post" class="button-form">
+      {% csrf_token %}
+      <input type="hidden" name="tags" value="{{ tags }}" />
+      <input type="hidden" name="action" value="addfavtag" />
+      <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
+    </form>
       
       <table class="table table-condensed">
         <tbody>
           {% if postdata %}
-          {% for post, score in postdata %}
+          {% for post, score, tagscores in postdata %}
         <tr>
         <td>
           <a href="http://{{ post.domain }}" target="_blank" >
           <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
           </a>
-          </td>
-<td>
+        </td>
+    <td>
+      <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
 
-{% if method == 'votes' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay1' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay2' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-{% endif %}
-{% if method == 'favorites' %}
-<span class="badge {{ post.date_added|bubble_color }}">* {{ post.favorites }}</span>&nbsp;
-{% endif %}
+      <a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+      {% if post.title == "Untitled" %}
+        {{ post.url }}
+      {% else %}
+        {{ post.title }}
+      {% endif %}
+      </a>
+      &nbsp;{{ post.date_added|date:"M j" }}
+      <br />
 
-
-<!-- For now, pre-slider, saving visual space...
-{% if method == 'decay3' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_3|floatformat }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay4' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_4|floatformat }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay5' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_5|floatformat }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay6' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_6|floatformat }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay7' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_7|floatformat }}</span>&nbsp;
-{% endif %}
-{% if method == 'decay8' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.decayed_score_8|floatformat }}</span>&nbsp;
-{% endif %}
-
-{% if method == 'green' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
-{% endif %}
-{% if method == 'orange' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
-{% endif %}
-{% if method == 'red' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
-{% endif %}
-{% if method == 'black' %}
-<span class="badge {{ post.date_added|bubble_color }}">{{ post.ranking }}</span>&nbsp;
-{% endif %}
--->
-
-<a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
-{% if post.title == "Untitled" %}
-{{ post.url }}
-{% else %}
-{{ post.title }}
-{% endif %}
-</a>
-&nbsp;{{ post.date_added|date:"M j" }}
-<br />
-
-{% for othertag in post.tags.all %}
-  <span class="label"><a href="/content/tags/decay1/{{ tags}}|{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+{% for tag in tagscores %}
+  <span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
 {% endfor %}
 
 <br />
@@ -338,29 +351,6 @@ h4 {
 <hr />
 
         </div>
-      </div>
-      <div class="span3 well" id="rb">
-        <div class="well">
-            <ul class="nav">
-              <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="border:1px dashed blue">Quick vote from any page</p> </p>
-                <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down" style="border:1px dashed blue"></i>How to Use</a></li>
-            <div id="legend" class="collapse legend">
-              <img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
-        </div>
-              </ul>
-            </div>
-           <div class="well">
-          <p style="border:1px dashed blue">Content description</p>
-            </div>
-            <div class="well">
-            <p style="border:1px dashed blue">Relevant Tags</p>
-            </div>
-            <div class="well">
-            <p style="border:1px dashed blue">Top Tags</p>
-            </div>
-            <div class="well">
-            <p style="border:1px dashed blue">Sharing and Submitting functionality</p>
-            </div>
       </div>
   </div>
   </body>
