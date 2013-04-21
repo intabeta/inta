@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         entries = Entry.objects.all()
         for entry in entries:
-            for tagnew in entry.tags.all()
+            for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
                 now = datetime.utcnow()
                 then = entry.date_added.replace(tzinfo=None)
