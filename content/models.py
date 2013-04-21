@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
+from decimal import Decimal
 
 class Dict(models.Model): #collection of TagVals or Voters (associated by ForeignKeys)
     name = models.CharField(max_length=500)
@@ -13,7 +14,7 @@ class TagVal(models.Model): #holds a tag and associated value, like posts, doubl
     container = models.ForeignKey(Dict, db_index=True)
     tag = models.CharField(max_length=100, db_index=True)
     val = models.IntegerField(default=0, db_index=True)
-    dval = models.DecimalField(max_digits=8, decimal_places=3, default=0, db_index=True)
+    dval = models.DecimalField(max_digits=8, decimal_places=3, default=Decimal(0), db_index=True)
 
     def __unicode__(self):
         return self.tag+', '+str(self.val)
