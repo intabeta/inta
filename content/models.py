@@ -137,5 +137,12 @@ class Entry(models.Model):
             return domain.logo
     logo = property(_get_logo)
 
+class FavoriteTag(models.Model):
+    user = models.ForeignKey(User)
+    tags = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.tags
+
 class InterestEmail(models.Model):
-	email = models.EmailField(max_length=1000)
+    email = models.EmailField(max_length=1000)

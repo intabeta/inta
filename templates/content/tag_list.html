@@ -134,7 +134,12 @@ $(function() {
 {% block content_title %}
 
 <h2>Inta - {% for tag, slug in breadcrumbdata %} <a href="/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %} - {% endif %}{% endfor %}</h2>
-
+<form action="" method="post" class="button-form">
+	{% csrf_token %}
+	<input type="hidden" name="tags" value="{{ tags }}" />
+	<input type="hidden" name="action" value="addfavtag" />
+	<button class="btn btn-success" type="button"><i class="icon-plus icon-white"></i></button>
+</form>
 {% endblock %}
 
 {% block side %}

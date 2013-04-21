@@ -273,77 +273,81 @@ def tag_list(request, tags, method):
 
         if request.method == 'POST':
             action = request.POST.get('action', '')
-            post_slug = request.POST.get('post_slug', '')
-            if post_slug not in voter and post_slug not in double_voter:
-                tagnew = Tag.objects.get(name=taglist[0])
-                post_change = get_object_or_404(Entry, slug=post_slug)
-                if action == 'vote':
-                    voter.append(post_slug)
-                    post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
-                    try:
-                        p=post_change.posts.tagval_set.get(tag=tagnew)
-                        p.val += 1
-                        p.save()
-                    except:
-                        post_change.posts.tagval_set.create(tag=tagnew,val=1)
-                    tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
-                    tval1.val += 1
-                    tval1.save()
-                    tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
-                    tval2.val += 1
-                    tval2.save()
-                    tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
-                    tval3.val += 1
-                    tval3.save()
-                    tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
-                    tval4.val += 1
-                    tval4.save()
-                    tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
-                    tval5.val += 1
-                    tval5.save()
-                    tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
-                    tval6.val += 1
-                    tval6.save()
-                    tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
-                    tval7.val += 1
-                    tval7.save()
-                    tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
-                    tval8.val += 1
-                    tval8.save()
+            if action == 'addfavtag':
+                favtags = request.POST.get('tags','')
+                user.favoritetag_set.create(tags=favtags)
+            else:
+                post_slug = request.POST.get('post_slug', '')
+                if post_slug not in voter and post_slug not in double_voter:
+                    tagnew = Tag.objects.get(name=taglist[0])
+                    post_change = get_object_or_404(Entry, slug=post_slug)
+                    if action == 'vote':
+                        voter.append(post_slug)
+                        post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
+                        try:
+                            p=post_change.posts.tagval_set.get(tag=tagnew)
+                            p.val += 1
+                            p.save()
+                        except:
+                            post_change.posts.tagval_set.create(tag=tagnew,val=1)
+                        tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
+                        tval1.val += 1
+                        tval1.save()
+                        tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
+                        tval2.val += 1
+                        tval2.save()
+                        tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
+                        tval3.val += 1
+                        tval3.save()
+                        tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
+                        tval4.val += 1
+                        tval4.save()
+                        tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
+                        tval5.val += 1
+                        tval5.save()
+                        tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
+                        tval6.val += 1
+                        tval6.save()
+                        tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
+                        tval7.val += 1
+                        tval7.save()
+                        tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
+                        tval8.val += 1
+                        tval8.save()
 
-                if action == 'double_vote':
-                    double_voter.append(post_slug)
-                    post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
-                    try:
-                        dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
-                        dbp.val += 1
-                        dbp.save()
-                    except:
-                        post_change.double_posts.tagval_set.create(tag=tagnew,val=1)
-                    tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
-                    tval1.val += 2
-                    tval1.save()
-                    tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
-                    tval2.val += 2
-                    tval2.save()
-                    tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
-                    tval3.val += 2
-                    tval3.save()
-                    tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
-                    tval4.val += 2
-                    tval4.save()
-                    tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
-                    tval5.val += 2
-                    tval5.save()
-                    tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
-                    tval6.val += 2
-                    tval6.save()
-                    tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
-                    tval7.val += 2
-                    tval7.save()
-                    tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
-                    tval8.val += 2
-                    tval8.save()
+                    if action == 'double_vote':
+                        double_voter.append(post_slug)
+                        post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
+                        try:
+                            dbp=post_change.double_posts.tagval_set.get(tag=tagnew)
+                            dbp.val += 1
+                            dbp.save()
+                        except:
+                            post_change.double_posts.tagval_set.create(tag=tagnew,val=1)
+                        tval1=post_change.decayed_score_1.tagval_set.get(tag=tagnew)
+                        tval1.val += 2
+                        tval1.save()
+                        tval2=post_change.decayed_score_2.tagval_set.get(tag=tagnew)
+                        tval2.val += 2
+                        tval2.save()
+                        tval3=post_change.decayed_score_3.tagval_set.get(tag=tagnew)
+                        tval3.val += 2
+                        tval3.save()
+                        tval4=post_change.decayed_score_4.tagval_set.get(tag=tagnew)
+                        tval4.val += 2
+                        tval4.save()
+                        tval5=post_change.decayed_score_5.tagval_set.get(tag=tagnew)
+                        tval5.val += 2
+                        tval5.save()
+                        tval6=post_change.decayed_score_6.tagval_set.get(tag=tagnew)
+                        tval6.val += 2
+                        tval6.save()
+                        tval7=post_change.decayed_score_7.tagval_set.get(tag=tagnew)
+                        tval7.val += 2
+                        tval7.save()
+                        tval8=post_change.decayed_score_8.tagval_set.get(tag=tagnew)
+                        tval8.val += 2
+                        tval8.save()
 
 
         entries = Entry.objects.all()
