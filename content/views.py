@@ -275,7 +275,10 @@ def tag_list(request, tags, method):
             action = request.POST.get('action', '')
             if action == 'addfavtag':
                 favtags = request.POST.get('tags','')
-                user.favoritetag_set.create(tags=favtags)
+                if user.favoritetag_set.filter(tags=favtags):
+                    pass
+                else:
+                    user.favoritetag_set.create(tags=favtags)
             else:
                 post_slug = request.POST.get('post_slug', '')
                 if post_slug not in voter and post_slug not in double_voter:
