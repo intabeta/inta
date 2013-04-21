@@ -221,10 +221,16 @@ def brian(request, tags='', method='decay3'):
             action = request.POST.get('action', '')
             if action == 'addfavtag':
                 favtags = request.POST.get('tags','')
-                user.favoritetag_set.create(tags=favtags)
+                if user.favoritetag_set.filter(tags=favtags):
+                    pass
+                else:
+                    user.favoritetag_set.create(tags=favtags)
             elif action == 'delete_mytag':
                 mytag = request.POST.get('mytag_x','')
-                user.favoritetag_set.get(tags=mytag).delete()
+                if user.favoritetag_set.filter(tags=mytag):
+                    user.favoritetag_set.get(tags=mytag).delete()
+                else:
+                    pass
             else:
                 post_slug = request.POST.get('post_slug', '')
                 if post_slug not in voter and post_slug not in double_voter:
