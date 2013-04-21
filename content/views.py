@@ -405,10 +405,12 @@ def tag_list(request, tags, method):
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -a._get_ranking(taglist[0]))
+            votecounts = [a._get_ranking(taglist[0]) for a in posts]
         if method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
         if method == 'decay1':
             posts = sorted(entries, key=lambda a: -a.decayed_score_1.tagval_set.get(tag__name=taglist[0]).val)
+            votecounts = [ a.decayed_score_1.tagval_set.get(tag__name=taglist[0]).val for a in posts ]
 ##            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = entries.order_by('-decayed_score_2', '-date_added')
@@ -435,7 +437,7 @@ def tag_list(request, tags, method):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a.ranking)
 
-        votecounts = [a._get_ranking(taglist[0]) for a in posts]
+        
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
