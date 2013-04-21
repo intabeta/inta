@@ -358,14 +358,14 @@ def tag_list(request, tags, method):
             votecounts = [ a.last_growth for a in posts ]
         if method == 'decay1':
             posts = sorted(entries, key=lambda a: -a.decayed_score_1.tagval_set.get(tag__iexact=taglist[0]).val)
-            votecounts = [ a.decayed_score_1.tagval_set.get(tag__iexact=taglist[0]).val for a in posts ]
+            votecounts = [ round(a.decayed_score_1.tagval_set.get(tag__iexact=taglist[0]).val,1) for a in posts ]
 ##            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
             posts = sorted(entries, key=lambda a: -a.decayed_score_2.tagval_set.get(tag__iexact=taglist[0]).val)
             votecounts = [ a.decayed_score_2.tagval_set.get(tag__iexact=taglist[0]).val for a in posts ]
         if method == 'decay3':
             posts = sorted(entries, key=lambda a: -a.decayed_score_3.tagval_set.get(tag__iexact=taglist[0]).val)
-            votecounts = [ a.decayed_score_3.tagval_set.get(tag__iexact=taglist[0]).val for a in posts ]
+            votecounts = [ round(a.decayed_score_3.tagval_set.get(tag__iexact=taglist[0]).val,1) for a in posts ]
         if method == 'decay4':
             posts = sorted(entries, key=lambda a: -a.decayed_score_4.tagval_set.get(tag__iexact=taglist[0]).val)
             votecounts = [ a.decayed_score_4.tagval_set.get(tag__iexact=taglist[0]).val for a in posts ]
