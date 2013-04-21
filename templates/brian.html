@@ -178,6 +178,9 @@ h4 {
 .side {
   margin: 4px;
 }
+.delete_tag {
+  display:inline;
+}
 
 </style>
     
@@ -241,21 +244,30 @@ h4 {
       <div class="span3 offset1" id="lb">
         <div class="well">
           <div id="accordion">
-            <h4 class="side">  Top Tags   </h4>
+<!--  id="draggable"  id="draggable2"  id="draggable3" -->
+            <h4 class="side">Top Tags</h4>
             <ul class="nav nav-pills">
-                {% for tag in toptags %}<li id="draggable"><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
           <div id="accordion2">
             <h4 class="side">Relevant Tags</h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li id="draggable2"><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3">
               <h4 class="side">  My Tags  </h4>
             <ul class="nav nav-pills">
-                  {% for tag in mytags %}<li id="draggable2"><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a></li>{% endfor %}
+                  {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
+                    <form action="" method="post" class="button-form">
+                      {% csrf_token %}
+                      <input type="hidden" name="mytag_x" value="{{ tag }}" />
+                      <input type="hidden" name="action" value="delete_mytag" />
+            <button type="submit" class="close delete_tag">&times;</button></li>
+          </form>
+          
+          {% endfor %}
               </ul>
            </div>
            <div id="accordion4">
