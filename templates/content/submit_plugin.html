@@ -3,7 +3,6 @@
 {% load bootstrap %}
 
 {% block extrahead %}
-
 {% endblock %}
 
 {% block title %}{% trans "Submit URL" %}{% endblock %}
@@ -22,6 +21,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="pull-left">
 <form action="" method="post" class="well">
   {% csrf_token %}
   
@@ -33,17 +33,28 @@
 
         {{ form.url }}
 <br />
+<h5> Add tags </h5>
 
 
 		{{ form.tags.errors }}
 
         {{ form.tags }}
 <br />
-  <button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Good" %}</button>
-  or
+<button type="submit" name="_post" value="post" class="btn btn-primary">{% trans "Good" %}</button>
 <button type="submit" name="_double_post" value="double_post" class="btn btn-primary">{% trans "Great" %}</button>
-  <input name="submit name" type="checkbox" value="{{ post.slug }}"><i class="icon-star"></i>
+<button type="submit" name="_favorite" value="favorite" class="btn btn-primary">{% trans "Favorite" %}</button>
 </form>
-<div style="display: none">{{ extra }}</div>
+</div>
+<div class="pull-right well">
+<h5> My Tags </h5>
+<ul class="nav nav-pills">
+{% for tag in mytags %}<li>{{ tag }}</li> 
+<li> Hello </li>
+ {% endfor %}
+</ul>
+<br>
+<h5> Suggested Tags </h5>
+</div>
 {% endblock %}
+
 

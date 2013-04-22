@@ -144,9 +144,9 @@
               <li class="nav-header">Inta: Know the Best</li>  
               
               <p> {% for othertag in post.tags.all %}
-	<span class="label"><a href="/content/tags/decay1/{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
-				{% endfor %} </p> 
-				
+  <span class="label"><a href="/content/tags/decay1/{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+        {% endfor %} </p> 
+        
 <!-- HELP, hoping to have all the tags show 
 <table class="table table-striped">
 <tbody>
@@ -175,7 +175,7 @@
               <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>How to Use</a></li>
             <div id="legend" class="collapse legend">
               <img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
-				</div>
+        </div>
               </ul>
 
 
@@ -274,10 +274,11 @@ Probably going to use Google Analytics instead
 
 </script>
 {% endcomment %} 
--->
+
 
 
 
   </body>
 </html>
+
 

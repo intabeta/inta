@@ -19,6 +19,8 @@
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 <!-- Learn APPLE touch, and STATIC URL -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
@@ -29,24 +31,7 @@
 
 <script type="text/javascript">
 
-    !function ($) {
-        //caching all the "tr" objects so that gain a better performance.
-
-        var $tableRows = $('table>tbody>tr');
-        //hide all the all the select & vote lines
-        $tableRows.find("td>div").css('visibility','hidden');
-        $(function () {
-            $tableRows.hover(function () {
-                //when mouse is on, animate it via 'fadeout'
-                $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},500);
-            }, function () {
-                //by the same token, fade it out when mouse is out.
-                $(this).find("td>div").css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0},500);
-            });
-        });
-    }(window.jQuery);
-
-
+// jQuery UI
 $(function() {
     $( "#accordion" ).accordion({
       event: "click hoverintent"
@@ -181,6 +166,14 @@ h4 {
 .delete_tag {
   display:inline;
 }
+#contentbox:hover + #controls {
+    display: block;
+}
+.button-form {
+    margin: 0px;
+    display: inline;
+    padding-right: 3px;
+}
 
 </style>
     
@@ -235,11 +228,12 @@ h4 {
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
             </ul>
         </div><!--/.nav-collapse -->
-        </div>
       </div>
     </div>
-  
+  </div>
+
   <br>
+  
     <div class="row">
       <div class="span3 offset1" id="lb">
         <div class="well">
@@ -250,123 +244,168 @@ h4 {
                 {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
-          <div id="accordion2">
+          <div id="accordion2"  class="clearfix">
             <h4 class="side">Relevant Tags</h4>
             <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
-           <div id="accordion3">
+           <div id="accordion3"  class="clearfix">
               <h4 class="side">  My Tags  </h4>
-            <ul class="nav nav-pills">
+              <ul class="nav nav-pills">
                   {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
-                    <form action="" method="post" class="button-form">
+                  <form action="" method="post" class="button-form">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tag }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
-            <button type="submit" class="close delete_tag">&times;</button></li>
-          </form>
-          
-          {% endfor %}
+                      <button type="submit" class="close">&times;</button></li>
+                  </form>
+                  {% endfor %}
               </ul>
            </div>
-           <div id="accordion4">
-            <h4 class="side">Filters</h4>
-            <ul class="nav nav-pills">
+           <ul class="nav nav-pills">
             <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
               <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
               <li {% if method == 'favorites' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-star-empty"></i></a></li>
               <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
-            </ul>
-           </div>
-      </div>
-   </div>
+           </ul>
+        </div>
+     </div>
    
    
-     <div class="span8 well" id="rb">
-      <!--       <div class="well">
+         <!--       <div class="well">
           <div class="span3">
             <p style="border:1px dashed blue">primary of tag header</p>
           </div>
         </div>
         -->
-      <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
-    <form action="" method="post" class="button-form">
-      {% csrf_token %}
-      <input type="hidden" name="tags" value="{{ tags }}" />
-      <input type="hidden" name="action" value="addfavtag" />
-      <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
-    </form>
-      
-      <table class="table table-condensed">
-        <tbody>
-          {% if postdata %}
-          {% for post, score, tagscores in postdata %}
-        <tr>
-        <td>
-          <a href="http://{{ post.domain }}" target="_blank" >
-          <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
-          </a>
-        </td>
-    <td>
-      <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-
-      <a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
-      {% if post.title == "Untitled" %}
-        {{ post.url }}
-      {% else %}
-        {{ post.title }}
-      {% endif %}
-      </a>
-      &nbsp;{{ post.date_added|date:"M j" }}
-      <br />
-
-{% for tag in tagscores %}
-  <span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
-{% endfor %}
-
-<br />
-{{ post.summary|default_if_none:"" }}
-
-<div style="margin-top: 6px;"> 
-    <form action="" method="post" class="button-form">
-    {% csrf_token %}
-        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-        <input type="hidden" name="action" value="vote" />
-        <button class="btn btn-mini const-width {% if post.slug in voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-        Good
-            
-        </button>
-    </form> 
-    <form action="" method="post" class="button-form">
-    {% csrf_token %}
-        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-        <input type="hidden" name="action" value="double_vote" />
-        <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-        Great
-            
-        </button>
-        &nbsp;
-       <i class="icon-envelope"></i><i class="icon-star"></i> <input name="phpqa[]" type="checkbox" value="{{ post.slug }}">
-    
-   </form>
-</div>
-</td>
-
-</tr>
-{% endfor %}
-{% else %}
-<tr><td>We've got no URLs for that Tag. Want to make the first?</td></tr>
-{% endif %}
-</tbody>
-</table>
-<hr />
-
+     <div class="span7 well" id="rb">
+       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/tags/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+        <form action="" method="post" class="button-form">
+            {% csrf_token %}
+            <input type="hidden" name="tags" value="{{ tags }}" />
+            <input type="hidden" name="action" value="addfavtag" />
+            <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
+          </form>
+          <table class="table table-condensed">
+            <tbody>
+              {% if postdata %}
+              {% for post, score, tagscores in postdata %}
+              <tr>
+              <td>
+                <a href="http://{{ post.domain }}" target="_blank" >
+                <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
+                </a>
+              </td>
+              <td>
+                <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
+                  <a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+                  {% if post.title == "Untitled" %}
+                    {{ post.url }}
+                  {% else %}
+                    {{ post.title }}
+                  {% endif %}
+                  </a>
+                  &nbsp;{{ post.date_added|date:"M j" }}
+                  <br />
+                  {% for tag in tagscores %}
+                    <span class="label"><a href="/content/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                  {% endfor %}
+                  <br />
+                  <div style="margin-top: 6px;"> 
+                    <div class="URL_description">
+                      {{ post.summary|default_if_none:"" }}
+                    </div>
+              <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                        <input type="hidden" name="action" value="vote" />
+                        <button class="btn btn-mini const-width {% if post.slug in voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                          Good
+                        </button>
+                    </form>                   
+            <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="double_vote" />
+                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Great    
+                  </button>
+              </form>
+              <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="favorite" />
+                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Favorite    
+                  </button>
+              </form>
+              <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="share" />
+                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Share    
+                  </button>
+              </form>
         </div>
+       </td>
+       </tr>
+       {% endfor %}
+             {% else %}
+          <tr>
+          <td>
+          We've got no URLs for that Tag. Want to make the first?
+          </td>
+          </tr>
+            {% endif %}
+          </tbody>
+        </table>
+        <hr />
       </div>
-  </div>
-  </body>
-  </html>
+    </div>
+
+
+<script>
+
+// NIKOS
+!function ($) {
+        //caching all the "tr" objects so that gain a better performance.
+
+        var $tableRows = $('table>tbody>tr');
+        //hide all the all the select & vote lines
+        $tableRows.find("td>div").css('visibility','hidden');
+        $(function () {
+            $tableRows.hover(function () {
+                //when mouse is on, animate it via 'fadeout'
+                $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},300);
+            }, function () {
+                //by the same token, fade it out when mouse is out.
+                $(this).find("td>div").css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0},500);
+            });
+        });
+    }(window.jQuery);
+    
+!function ($) {
+        var $tableRows = $('table>tbody>tr>.URL_description');
+        $tableRows.find("td>div").css('visibility','visible');
+        $(function () {
+            $tableRows.hover(function () {
+                //when mouse is on, animate it via 'fadeout'
+                $(this).find("td>div").css({opacity: 0.0, visibility: "hidden"}).animate({opacity: 1.0},300);
+            }, function () {
+                //by the same token, fade it out when mouse is out.
+                $(this).find("td>div").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0.0},500);
+            });
+        });
+    }(window.jQuery);
+
+</script>
+
+</body>
+</html>
+
+
 
 
 
