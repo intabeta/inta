@@ -268,7 +268,40 @@ h4 {
               <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
               <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
            </ul>
+           <div>
+            <h4> To Share </h4>
+            <ul>
+                {% for URL in URL_share %}<li>{{ URL_share }}</li>{% endfor %}
+                <li> Sharing List, buttons to modals </li>
+                <li> { for URL in URL_share } </li>
+            </ul>
+             <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="email_modal" />
+                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Email    
+                  </button>
+              </form>
+               <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="FB_modal" />
+                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Facebook    
+                  </button>
+              </form>
+               <form action="" method="post" class="button-form">
+              {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="action" value="Tw_modal" />
+                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                  Twitter    
+                  </button>
+              </form>
+            </div>
         </div>
+        
      </div>
    
    
@@ -335,7 +368,7 @@ h4 {
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="favorite" />
-                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                <button class="btn btn-mini const-width {% if post.slug in favorite %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
                   Favorite    
                   </button>
               </form>
@@ -343,7 +376,7 @@ h4 {
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
-                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
+                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
                   Share    
                   </button>
               </form>
