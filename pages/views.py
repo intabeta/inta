@@ -380,6 +380,8 @@ def brian(request, tags='', method='decay3', domain=''):
         mytags = [ favtag.tags for favtag in user.favoritetag_set.all() ]
         if tags == '': #show 'all' instead of a list of every single tag
             taglist=['all']
+        if domain != '':
+            taglist=['site: '+domain]
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
