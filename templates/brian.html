@@ -234,7 +234,7 @@ h4 {
           <div id="accordion2"  class="clearfix">
             <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3"  class="clearfix">
