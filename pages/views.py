@@ -207,7 +207,7 @@ def splash(request):
 		}
 		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
 	
-def brian(request, tags='', method='decay3'):
+def brian(request, tags='', method='decay3', domain=''):
     user = request.user
     tags = tags
     if tags == '':
@@ -312,6 +312,8 @@ def brian(request, tags='', method='decay3'):
         if tags != '':
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
+        if domain != '':
+            entries = entries.filter(domain__iexact=domain)
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
