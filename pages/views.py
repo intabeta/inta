@@ -395,11 +395,12 @@ def brian(request, tags='', method='decay3', domain=''):
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             }
     else:
-        taglist = tags.split('|')
-	entries = Entry.objects.all()
-		
-	for tag in taglist:
-	    entries = entries.filter(tags__name__in=[tag])
+        entries = Entry.objects.all()
+        if tags != '':
+            for tag in taglist:
+                entries = entries.filter(tags__name__in=[tag])
+        if domain != '':
+            entries = entries.filter(domain__iexact=domain)
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
@@ -408,30 +409,30 @@ def brian(request, tags='', method='decay3', domain=''):
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
         if method == 'decay1':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_1.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
 ##            posts = entries.order_by('-decayed_score_1', '-date_added')
         if method == 'decay2':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_2.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_2.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
         if method == 'decay3':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_3.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_3.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
         if method == 'decay4':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_4.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_4.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
         if method == 'decay5':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
         if method == 'decay6':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_6.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_6.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
         if method == 'decay7':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_7.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_7.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
         if method == 'decay8':
-            posts = sorted(entries, key=lambda a: -sum([ a.decayed_score_8.tagval_set.get(tag__iexact=tag).val for tag in taglist]))
-            votecounts = [ round(sum([ a.decayed_score_8.tagval_set.get(tag__iexact=tag).val for tag in taglist]),1) for a in posts ]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
         if method == 'favorites':
             posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
         if method == 'green':
@@ -443,9 +444,30 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
 
-        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]        
-        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
+        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
+        if method=='votes':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay1':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=194).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay2':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=195).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay3':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=196).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay4':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=197).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay5':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=198).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay6':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=199).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay7':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])[:10]
+        elif method=='decay8':
+            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
+        if tags == '': #show 'all' instead of a list of every single tag
+            taglist=['all']
+        if domain != '':
+            taglist=['site: '+domain]
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
