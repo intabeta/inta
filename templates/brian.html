@@ -318,7 +318,7 @@ h4 {
               </td>
               <td>
                 <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+                  <strong><a class="float-left" href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
                   {% if post.title == "Untitled" %}
                     {{ post.url }}
                   {% else %}
