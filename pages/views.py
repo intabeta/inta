@@ -376,6 +376,8 @@ def brian(request, tags='', method='decay3'):
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
         mytags = [ favtag.tags for favtag in user.favoritetag_set.all() ]
+        if tags == '': #show 'all' instead of a list of every single tag
+            taglist=['all']
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
