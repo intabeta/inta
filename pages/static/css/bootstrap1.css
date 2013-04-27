@@ -32,6 +32,7 @@ audio:not([controls]) {
 }
 html {
   font-size: 100%;
+  font-family: 'Open Sans' !important;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
@@ -3806,6 +3807,8 @@ a.thumbnail:hover {
   -moz-border-radius: 3px;
   border-radius: 3px;
   opacity: 0.5;
+  margin-top: 5px;
+  display: inline-block;
 }
 .badge {
   padding: 1px 9px 2px;
