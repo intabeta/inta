@@ -205,19 +205,19 @@ h4 {
               <input type="text" class="search-query" placeholder="Search tags or text">
             </form>
           </div>
-          <div id="accordion4">
+          <div id="accordion4" style="border: 1px solid gray">
             <h4> Top Sites <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
                 {% for site in topsites %}<li><a href="/brianplays/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
           </div>
-          <div id="accordion">
+          <div id="accordion" style="border: 1px solid gray">
             <h4> Top Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
                 {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
-          <div id="accordion2"  class="clearfix">
+          <div id="accordion2"  class="clearfix" style="border: 1px solid gray">
             <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
@@ -236,7 +236,7 @@ h4 {
         {% endif %}
            </ul>
     </div>
-    <div class="well">
+    <div class="well" style="border: 1px solid gray">
           <div>
           {% if user.id %}
               <div>
@@ -260,8 +260,8 @@ h4 {
               </div>
           {% endif %}
           </div>
-          <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <span class="caret"></span></h4>
+          <div id="accordion3"  class="clearfix" style="border: 1px solid gray">
+              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
               <ul class="nav nav-pills">
                   {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form">
