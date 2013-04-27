@@ -103,6 +103,17 @@ h4 {
     display: inline;
     padding-right: 3px;
 }
+.tag_label {
+  font-size: 10.998px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #003366;
+  opacity: 0.5;
+}
 
 </style>
     
@@ -318,7 +329,7 @@ h4 {
               </td>
               <td>
                 <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-                  <strong><a class="float-left" href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
                   {% if post.title == "Untitled" %}
                     {{ post.url }}
                   {% else %}
@@ -328,7 +339,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="tag_label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
