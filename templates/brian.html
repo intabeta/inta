@@ -227,6 +227,12 @@ h4 {
               <input type="text" class="search-query" placeholder="Search tags or text">
             </form>
           </div>
+          <div id="accordion4">
+            <h4> Top Sites <i class="icon-chevron-down"></i></h4>
+            <ul class="nav nav-pills">
+                {% for site in topsites %}<li><a href="/brianplays/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
+          </div>
           <div id="accordion">
             <h4> Top Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
@@ -238,19 +244,6 @@ h4 {
             <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
-           </div>
-           <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
-              <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
-                  <form action="" method="post" class="button-form">
-                      {% csrf_token %}
-                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
-                      <input type="hidden" name="action" value="delete_mytag" />
-                      <button type="submit" class="close">&times;</button></li>
-                  </form>
-                  {% endfor %}
-              </ul>
            </div>
            <ul class="nav nav-pills">
               {% if domain == '' %}
@@ -287,13 +280,19 @@ h4 {
               </div>
           {% endif %}
           </div>
-          <div id="accordion4">
-            <h4> Top Sites <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for site in topsites %}<li><a href="/brianplays/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-          </div>
-          <br>
+          <div id="accordion3"  class="clearfix">
+              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
+              <ul class="nav nav-pills">
+                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  <form action="" method="post" class="button-form">
+                      {% csrf_token %}
+                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
+                      <input type="hidden" name="action" value="delete_mytag" />
+                      <button type="submit" class="close">&times;</button></li>
+                  </form>
+                  {% endfor %}
+              </ul>
+           </div>
           <a href="#submit" role="button" class="btn" data-toggle="modal">Submit</a>
             <div id="submit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-header">
