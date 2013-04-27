@@ -60,10 +60,12 @@ $(function() {
   
 $(function() {
   $('#sign_up').modal({
-      keyboard: false
+      keyboard: false;
+      $('#sign_up').modal('toggle');
+      $('#sign_up').modal('show');
+      $('#sign_up').modal('hide');
   });
-  $('#sign_up').modal('toggle');
-  });
+});
 
 
 </script>    
@@ -74,10 +76,10 @@ $(function() {
   opacity:0.9;
   }
 #rb {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 #lb {
-  margin-top: 40px;
+  margin-top: 20px;
 } 
 h4 {
   color:black;
