@@ -32,103 +32,24 @@
 <script type="text/javascript">
 
 // jQuery UI
-$(function() {
-    $( "#accordion" ).accordion({
-      event: "click hoverintent"
-    });
-  });
-$(function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  });
-$(function() {
-    $( "#accordion2" ).accordion({
-      event: "click hoverintent"
-    });
-  });
-$(function() {
-    $( "#accordion2" ).accordion({
-      collapsible: true
-    });
-  });
   $(function() {
-    $( "#accordion3" ).accordion({
-      event: "click hoverintent"
+    $( "#accordion" ).accordion({
+      collapsible: true
     });
   });
     $(function() {
-    $( "#accordion4" ).accordion({
-      event: "click hoverintent"
+    $( "#accordion2" ).accordion({
+      collapsible: true
     });
-  });
-$(function() {
+  });  $(function() {
     $( "#accordion3" ).accordion({
       collapsible: true
     });
+  });  $(function() {
+    $( "#accordion4" ).accordion({
+      collapsible: true
+    });
   });
-$.event.special.hoverintent = {
-    setup: function() {
-      $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
-    },
-    teardown: function() {
-      $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
-    },
-    handler: function( event ) {
-      var currentX, currentY, timeout,
-        args = arguments,
-        target = $( event.target ),
-        previousX = event.pageX,
-        previousY = event.pageY;
- 
-      function track( event ) {
-        currentX = event.pageX;
-        currentY = event.pageY;
-      };
- 
-      function clear() {
-        target
-          .unbind( "mousemove", track )
-          .unbind( "mouseout", clear );
-        clearTimeout( timeout );
-      }
- 
-      function handler() {
-        var prop,
-          orig = event;
- 
-        if ( ( Math.abs( previousX - currentX ) +
-            Math.abs( previousY - currentY ) ) < 7 ) {
-          clear();
- 
-          event = $.Event( "hoverintent" );
-          for ( prop in orig ) {
-            if ( !( prop in event ) ) {
-              event[ prop ] = orig[ prop ];
-            }
-          }
-          // Prevent accessing the original event since the new event
-          // is fired asynchronously and the old event is no longer
-          // usable (#6028)
-          delete event.originalEvent;
- 
-          target.trigger( event );
-        } else {
-          previousX = currentX;
-          previousY = currentY;
-          timeout = setTimeout( handler, 25 );
-        }
-      }
- 
-      timeout = setTimeout( handler, 25 );
-      target.bind({
-        mousemove: track,
-        mouseout: clear
-      });
-    }
-  };
-
-
 
 $(function() {
     $( "#draggable" ).draggable();
@@ -210,7 +131,12 @@ h4 {
               </div>
           {% else %}
           <div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <button type="button" data-toggle="modal" data-target="#sign_up">Sign Up</button>    
+      <button type="button" data-toggle="modal" data-target="#log_in">Log In</button>       
+          </div>  
+          
+          <!-- MODAL 
+               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user"></i> Sign Up
               <span class="caret"></span>
             </a>
@@ -219,7 +145,22 @@ h4 {
               <li class="divider"></li>
               <li><a href="/accounts/signin/">{% trans "Sign In" %}</a></li>
             </ul>
-          </div>  
+            
+                      <div class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
+            -->
+
             
           {% endif %}
 
@@ -247,7 +188,7 @@ h4 {
           <div id="accordion2"  class="clearfix">
             <h4> Relevant Tags <i class="icon-circle-arrow-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3"  class="clearfix">
@@ -312,7 +253,7 @@ h4 {
         </div>
         -->
      <div class="span7 well" id="rb">
-       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
         <form action="" method="post" class="button-form">
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
@@ -341,7 +282,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
@@ -409,6 +350,8 @@ h4 {
         $tableRows.find("td>div").css('visibility','hidden');
         $(function () {
             $tableRows.hover(function () {
+                //Copy html from td>div to the well
+                //Show the well
                 //when mouse is on, animate it via 'fadeout'
                 $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},300);
             }, function () {
@@ -436,6 +379,13 @@ h4 {
 
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
