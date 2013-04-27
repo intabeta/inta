@@ -560,7 +560,6 @@ def submit_plugin(request):
                             entry[0].save()
 
                             extra += ' Entry has been updated.'
-
                     else: #add tag
                         action = request.session.get('action', '')
                         tagcheck = Tag.objects.filter(name__iexact=tag)
@@ -596,6 +595,7 @@ def submit_plugin(request):
                         withurl[0].save()
 
                         extra += ' Added tag'+tag
+                    entry = entry[0]
             else: #add entry and tags
                 results = linter(url)
                 ext = tldextract.extract(url)
