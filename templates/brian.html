@@ -236,8 +236,8 @@ h4 {
           <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}"><i class="icon-ok"></i></a></li>
         {% endif %}
            </ul>
-    </div>
-    <div class="well clear" style="border: 1px solid gray">
+      </div>
+      <div class="well clear" style="border: 1px solid gray">
           <div>
           {% if user.id %}
               <div>
@@ -420,6 +420,11 @@ h4 {
         </table>
         <hr />
       </div>
+      <div class="span1 well pull-right" style="border: 1px solid gray">
+        <div class="URL_description">
+          {{ post.summary|default_if_none:"" }}
+        </div>
+      </div>5
     </div>
 
 
