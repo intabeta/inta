@@ -242,10 +242,10 @@ h4 {
            <div id="accordion3"  class="clearfix">
               <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
               <ul class="nav nav-pills">
-                  {% for tag in mytags %}<li><a href="/brianplays/{{ method }}/{{ tag }}">{{ tag }}</a>    
+                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form">
                       {% csrf_token %}
-                      <input type="hidden" name="mytag_x" value="{{ tag }}" />
+                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
                       <button type="submit" class="close">&times;</button></li>
                   </form>

@@ -227,7 +227,10 @@ def brian(request, tags='', method='decay3', domain=''):
                 if user.favoritetag_set.filter(tags=favtags):
                     pass
                 else:
-                    user.favoritetag_set.create(tags=favtags)
+                    if favtags == '':
+                        user.favoritetag_set.create(tags=favtags,name='All Tags')
+                    else:
+                        user.favoritetag_set.create(tags=favtags,name=', '.join(favtags.split('|')))
             elif action == 'delete_mytag':
                 mytag = request.POST.get('mytag_x','')
                 if user.favoritetag_set.filter(tags=mytag):
@@ -377,7 +380,7 @@ def brian(request, tags='', method='decay3', domain=''):
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
-        mytags = [ favtag.tags for favtag in user.favoritetag_set.all() ]
+        mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
         if tags == '': #show 'all' instead of a list of every single tag
             taglist=['all']
         if domain != '':
@@ -391,7 +394,7 @@ def brian(request, tags='', method='decay3', domain=''):
             'taglist': taglist,
             'toptags': toptags,
             'toprelevant': toprelevant,
-            'mytags': mytags,
+            'mytags': mytags
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             }
