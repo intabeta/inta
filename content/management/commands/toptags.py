@@ -54,17 +54,17 @@ class Command(BaseCommand):
         for tagval in newtoptags_d1:
             toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d2:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d2.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d3:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d3.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d4:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d4.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d5:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d5.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d6:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d6.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d7:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d7.tagval_set.create(tag=tagval[0], val=tagval[1])
         for tagval in newtoptags_d8:
-            toptags_d1.tagval_set.create(tag=tagval[0], val=tagval[1])
+            toptags_d8.tagval_set.create(tag=tagval[0], val=tagval[1])
 
