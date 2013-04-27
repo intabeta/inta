@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Telex);
+@import url(https://fonts.googleapis.com/css?family=Open Sans);
 /*!
  * Bootstrap v2.0.4
  *
@@ -362,7 +362,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: 'Telex', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   color: #317eac;
   text-rendering: optimizelegibility;
@@ -4200,7 +4200,7 @@ a.badge:hover {
   visibility: hidden;
 }
 .navbar {
-  font-family: 'Telex', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .navbar .navbar-inner {
   background-color: #3f9fd9;
@@ -4236,7 +4236,7 @@ a.badge:hover {
   background-color: #cccccc;
 }
 div.subnav {
-  font-family: 'Telex', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 .btn {
   background-color: #ffffff;
