@@ -17,6 +17,7 @@ class Command(BaseCommand):
         toptags_d6 = Dict.objects.get(id=199)
         toptags_d7 = Dict.objects.get(id=200)
         toptags_d8 = Dict.objects.get(id=201)
+        top_sites = Dict.objects.get(id=322)
 
         #calculate new top tags, empty old ones, and put in the new
         newtoptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
