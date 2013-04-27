@@ -231,19 +231,19 @@ h4 {
         <div class="well">
           <div id="accordion">
 <!--  id="draggable"  id="draggable2"  id="draggable3" -->
-            <h4> Top Tags <i class="icon-chevron-down"></i></h4>
+            <h4> Top Tags <i class="icon-circle-arrow-down"></i></h4>
             <ul class="nav nav-pills">
                 {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
           <div id="accordion2"  class="clearfix">
-            <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
+            <h4> Relevant Tags <i class="icon-circle-arrow-down"></i></h4>
             <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
+              <h4>  My Tags  <i class="icon-circle-arrow-down"></i></h4>
               <ul class="nav nav-pills">
                   {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
                   <form action="" method="post" class="button-form">
@@ -337,9 +337,11 @@ h4 {
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
+                  <!--
                     <div class="URL_description">
                       {{ post.summary|default_if_none:"" }}
                     </div>
+                -->
               <form action="" method="post" class="button-form">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
@@ -430,6 +432,8 @@ h4 {
 
 </body>
 </html>
+
+
 
 
 
