@@ -253,16 +253,16 @@ h4 {
               </ul>
            </div>
            <ul class="nav nav-pills">
-           		{% if domain == '' %}
-				  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
-				  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
-				  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
-				{% endif %}
-				{% if domain != '' %}
-				  <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}"><i class="icon-time"></i>30 mins</a></li>
-				  <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}"><i class="icon-time"></i>3 Days</a></li>
-				  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}"><i class="icon-ok"></i></a></li>
-				{% endif %}
+              {% if domain == '' %}
+          <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
+          <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
+          <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
+        {% endif %}
+        {% if domain != '' %}
+          <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}"><i class="icon-time"></i>30 mins</a></li>
+          <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}"><i class="icon-time"></i>3 Days</a></li>
+          <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}"><i class="icon-ok"></i></a></li>
+        {% endif %}
            </ul>
           <div>
             <form>
@@ -270,6 +270,7 @@ h4 {
               <input type="text" class="search-query" placeholder="Search tags or text">
             </form>
           </div>
+          <div>
           {% if user.id %}
               <div class="btn-group pull-right">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -290,48 +291,9 @@ h4 {
                   <li><a href="/accounts/signout/">Sign Out</a></li>
                 </ul>   
               </div>
-          {% else %}
-          <div class="btn-group pull-right">
-          <a href="#sign_up" role="button" class="btn" data-toggle="modal">Sign Up</a>
-      <div id="sign_up" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <h3 id="myModalLabel">Sign Up</h3>
-        </div>
-        <form action="" method="post" class="well">
-          {% csrf_token %}
-          <fieldset>
-          <legend>{% trans "Sign up" %}</legend>
-          <br />
-          {% if form.non_field_errors %}
-            <div class="alert alert-error">
-              {{ form.non_field_errors }}
-            </div>
           {% endif %}
-          {% for field in form %}
-            {% if field.errors %}
-              <div class="alert alert-error">
-            {% endif %}
-          {{ field.errors }}
-            {% if field.name == 'tos' %}
-              <p class="checkbox">
-              <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-              </p>
-            {% else %}
-              <p>
-              {{ field.label_tag }} 
-              {{ field }}
-              </p>
-            {% endif %}
-            {% if field.errors %}
-              </div>
-            {% endif %}
-          {% endfor %}
-          </fieldset>
-          <button type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">{% trans "Sign up" %}</button>
-      </form>
-      </div>
-      {% endif %}
-
+          </div>
+          
           <a href="#log_in" role="button" class="btn" data-toggle="modal">Log In</a>
           </div>  
 
@@ -524,6 +486,9 @@ h4 {
 
 </body>
 </html>
+
+
+
 
 
 
