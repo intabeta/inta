@@ -335,7 +335,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="tag_label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="tag_label"><a href="/brianplays/decay1/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
