@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     (r'^splash/$', 'pages.views.splash'),
     (r'^brianplays/$', 'pages.views.brian'),
     (r'^brianplays/(?P<method>[-\w]+)/(?P<tags>[- |\w]+)/$', 'pages.views.brian'),
+    (r'^brianplays/(?P<method>[-\w]+)/$', 'pages.views.brian'),
     
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),

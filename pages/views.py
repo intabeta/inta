@@ -210,9 +210,12 @@ def splash(request):
 def brian(request, tags='', method='decay3'):
     user = request.user
     tags = tags
+    if tags == '':
+        taglist = [ tag.name for tag in Tag.objects.all() ]
+    else:
+        taglist = tags.split('|')
 
     if user.is_authenticated():
-        taglist = tags.split('|')
         voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
         voter = [ i.slug for i in voted.filter(val__exact=1) ]
         double_voter = [ i.slug for i in voted.filter(val__exact=2) ]
@@ -306,8 +309,9 @@ def brian(request, tags='', method='decay3'):
 
 
         entries = Entry.objects.all()
-        for tag in taglist:
-            entries = entries.filter(tags__name__in=[tag])
+        if tags != '':
+            for tag in taglist:
+                entries = entries.filter(tags__name__in=[tag])
 			
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
