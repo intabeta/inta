@@ -182,19 +182,19 @@ h4 {
 <!--  id="draggable"  id="draggable2"  id="draggable3" -->
             <h4> Top Tags <i class="icon-circle-arrow-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toptags %}<li><a href="/brianplays/decay3/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
           <div id="accordion2"  class="clearfix">
             <h4> Relevant Tags <i class="icon-circle-arrow-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3"  class="clearfix">
               <h4>  My Tags  <i class="icon-circle-arrow-down"></i></h4>
               <ul class="nav nav-pills">
-                  {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
+                  {% for tag in mytags %}<li><a href="/brianplays/decay3/{{ tag }}">{{ tag }}</a>    
                   <form action="" method="post" class="button-form">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tag }}" />
@@ -208,7 +208,7 @@ h4 {
             <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
               <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
               <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
-           </ul> 
+           </ul>
            <div>
             <h4> To Share </h4>
             <ul>
@@ -253,7 +253,7 @@ h4 {
         </div>
         -->
      <div class="span7 well" id="rb">
-       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
         <form action="" method="post" class="button-form">
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
@@ -282,7 +282,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
