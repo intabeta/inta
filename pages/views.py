@@ -366,7 +366,7 @@ def brian(request, tags='', method='decay3'):
             'toptags': toptags,
             'toprelevant': toprelevant,
             'mytags': mytags,
-            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
+            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i-1])+'|'+'|'.join(taglist[i:]) for i in range(1,len(taglist+1))]),
             }
     else:
         taglist = tags.split('|')
@@ -417,8 +417,7 @@ def brian(request, tags='', method='decay3'):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
 
-        
-        toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]        
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         template_data = {
@@ -428,7 +427,7 @@ def brian(request, tags='', method='decay3'):
             'taglist': taglist,
             'toptags': toptags,
             'toprelevant': toprelevant,
-            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]) for i in range(1,len(taglist)+1)]),
+            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i-1])+'|'+'|'.join(taglist[i:]) for i in range(1,len(taglist+1))]),
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
