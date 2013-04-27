@@ -240,9 +240,8 @@ h4 {
           <div>
           {% if user.id %}
               <div>
-                <h4> {{ user }}
+                <h4> {{ user }} </h4>
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-chevron-down"></i>
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -262,7 +261,7 @@ h4 {
           {% endif %}
           </div>
           <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
+              <h4>  My Tags  <span class="caret"></span></h4>
               <ul class="nav nav-pills">
                   {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form">
