@@ -21,6 +21,8 @@
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
 
 <!-- Learn APPLE touch, and STATIC URL -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
@@ -57,6 +59,15 @@ $(function() {
 $(function() {
     $( "#draggable2" ).draggable();
   });
+  
+$(function() {
+  $('#sign_in').modal({
+      keyboard: false
+  });
+  $('#sign_in').modal('toggle');
+  $('#sign_in').modal('show');
+  $('#sign_in').modal('hide');
+});
 
 
 </script>    
@@ -105,10 +116,6 @@ h4 {
     <div class="navbar-inverse">
       <div class="navbar-inner">    
           <a class="brand" id="brand" href="/"><strong>inta</strong></a>
-          <form class="navbar-search pull-left">
-              {% csrf_token %}
-          <input type="text" class="search-query" placeholder="Search tags or text">
-      </form>
           {% if user.id %}
               <div class="btn-group pull-right">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -131,7 +138,45 @@ h4 {
               </div>
           {% else %}
           <div class="btn-group pull-right">
-      <button type="button" data-toggle="modal" data-target="#sign_up">Sign Up</button>    
+          <a href="#sign_up" role="button" class="btn" data-toggle="modal">Sign Up</a>
+      <div id="sign_up" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <h3 id="myModalLabel">Sign Up</h3>
+        </div>
+        <form action="" method="post" class="well">
+          {% csrf_token %}
+          <fieldset>
+          <legend>{% trans "Sign up" %}</legend>
+          <br />
+          {% if form.non_field_errors %}
+            <div class="alert alert-error">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+          {% for field in form %}
+            {% if field.errors %}
+              <div class="alert alert-error">
+            {% endif %}
+          {{ field.errors }}
+            {% if field.name == 'tos' %}
+              <p class="checkbox">
+              <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+              </p>
+            {% else %}
+              <p>
+              {{ field.label_tag }} 
+              {{ field }}
+              </p>
+            {% endif %}
+            {% if field.errors %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          </fieldset>
+          <button type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">{% trans "Sign up" %}</button>
+      </form>
+      </div>
+      
       <button type="button" data-toggle="modal" data-target="#log_in">Log In</button>       
           </div>  
           
@@ -167,6 +212,10 @@ h4 {
         <div class="nav-collapse">  
             <ul class="nav">          
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
+                   <form class="navbar-search pull-left">
+              {% csrf_token %}
+          <input type="text" class="search-query" placeholder="Search tags or text">
+      </form>
             </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -379,8 +428,6 @@ h4 {
 
 </body>
 </html>
-
-
 
 
 
