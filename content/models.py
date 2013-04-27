@@ -64,7 +64,7 @@ class Logo(models.Model):
     logo = models.ImageField(upload_to='site_logos')
 
     def __unicode__(self):
-        return self.site       
+        return self.site
 
 class Entry(models.Model):
     url = models.URLField(max_length=1000)

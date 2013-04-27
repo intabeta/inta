@@ -23,10 +23,5 @@ class Command(BaseCommand):
             message  = message + "%s\n" % domain
         message = message + "\nTotal %d domains" % len(noimage)
         send_mail('No image domains', message, 'info@intabeta.com', ('bwloeb5@gmail.com',), fail_silently=False)
-            
-            
-            
-            
-    
 
         self.stdout.write('Success\n')
