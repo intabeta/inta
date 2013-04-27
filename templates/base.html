@@ -1,185 +1,76 @@
 {% load i18n %}
-{% load humanize %}
-{% load thumbnail %}
-{% load content_extras %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Inta: Know the Best</title>
-<!-- Learn META -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" type="image/x-icon" />
 
-
+    <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap1.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
 
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<!-- Learn APPLE touch, and STATIC URL -->
+    <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
-
-<script type="text/javascript">
-
-// jQuery UI
-  $(function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  });
-    $(function() {
-    $( "#accordion2" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion3" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion4" ).accordion({
-      collapsible: true
-    });
-  });
-
-$(function() {
-    $( "#draggable" ).draggable();
-  });
-$(function() {
-    $( "#draggable2" ).draggable();
-  });
-  
-$(function() {
-  $('#sign_up').modal({
-      keyboard: false
-  });
-  $('#sign_up').modal('toggle');
-  $('#sign_up').modal('show');
-  $('#sign_up').modal('hide');
-  });
-
-
-</script>    
-
-<style type="text/css">
-.well {
-  background:#FFFFFF;
-  opacity:0.9;
-  }
-#rb {
-  margin-top: 40px;
-}
-#lb {
-  margin-top: 40px;
-} 
-h4 {
-  color:black;
-}
-#draggable { 
-  width: 150px; height: 150px; padding: 0.5em; 
-}
-#brand { 
-  margin-left:8px;
-}
-.side {
-  margin: 4px;
-}
-.delete_tag {
-  display:inline;
-}
-#contentbox:hover + #controls {
-    display: block;
-}
-.button-form {
-    margin: 0px;
-    display: inline;
-    padding-right: 3px;
-}
-
-</style>
     
-</head>
-  
-<body style="background:#ddf"> 
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inverse">
-      <div class="navbar-inner">    
-          <a class="brand" id="brand" href="/"><strong>inta</strong></a>
+    {% block extrahead %}{% endblock %}
+    
+  </head>
+
+  <body>
+
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+        
+          <a class="brand" href="/"><strong>inta</strong></a>
           {% if user.id %}
-              <div class="btn-group pull-right">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i> {{ user }}
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/signout/">Sign Out</a></li>
-                </ul>   
-              </div>
+          <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user"></i> {{ user }}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/accounts/{{ user }}/">Settings</a></li>
+              <li class="divider"></li>
+              <li><a href="/accounts/signout/">Sign Out</a></li>
+            </ul>
+            
+          </div>
           {% else %}
           <div class="btn-group pull-right">
-          <a href="#sign_up" role="button" class="btn" data-toggle="modal">Sign Up</a>
-      <div id="sign_up" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <h3 id="myModalLabel">Sign Up</h3>
-        </div>
-        <form action="" method="post" class="well">
-          {% csrf_token %}
-          <fieldset>
-          <legend>{% trans "Sign up" %}</legend>
-          <br />
-          {% if form.non_field_errors %}
-            <div class="alert alert-error">
-              {{ form.non_field_errors }}
-            </div>
-          {% endif %}
-          {% for field in form %}
-            {% if field.errors %}
-              <div class="alert alert-error">
-            {% endif %}
-          {{ field.errors }}
-            {% if field.name == 'tos' %}
-              <p class="checkbox">
-              <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-              </p>
-            {% else %}
-              <p>
-              {{ field.label_tag }} 
-              {{ field }}
-              </p>
-            {% endif %}
-            {% if field.errors %}
-              </div>
-            {% endif %}
-          {% endfor %}
-          </fieldset>
-          <button type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">{% trans "Sign up" %}</button>
-      </form>
-      </div>
-      
-          <a href="#log_in" role="button" class="btn" data-toggle="modal">Log In</a>
-          </div>  
-          
-          <!-- MODAL 
-               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user"></i> Sign Up
               <span class="caret"></span>
             </a>
@@ -188,252 +79,206 @@ h4 {
               <li class="divider"></li>
               <li><a href="/accounts/signin/">{% trans "Sign In" %}</a></li>
             </ul>
-            
-                      <div class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
-  </div>
-</div>
-            -->
-
+          </div>  
             
           {% endif %}
 
+         
+
         <div class="nav-collapse">  
-            <ul class="nav">          
+            <ul class="nav">
+
+              <li{% ifequal request.path '/content/ig/' %} class="active"{% endifequal %}><a href="/content/ig/">Interest Groups</a></li>
+              
+              {% if user.id %}
+              <li{% ifequal request.path '/content/myig/' %} class="active"{% endifequal %}><a href="/content/myig/">My IGs</a></li>
+               <li{% ifequal request.path '/favorites/' %} class="active"{% endifequal %}><a href="/favorites/">My Favorites</a></li>
+              {% endif %}
+              
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
-                   <form class="navbar-search pull-left">
-              {% csrf_token %}
-          <input type="text" class="search-query" placeholder="Search tags or text">
-      </form>
             </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-
-  <br>
-  
-    <div class="row">
-      <div class="span3 offset1" id="lb">
-        <div class="well">
-          <div id="accordion">
-<!--  id="draggable"  id="draggable2"  id="draggable3" -->
-            <h4> Top Tags <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-            </div>
-          <div id="accordion2"  class="clearfix">
-            <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-           </div>
-           <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
-              <ul class="nav nav-pills">
-                  {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
-                  <form action="" method="post" class="button-form">
-                      {% csrf_token %}
-                      <input type="hidden" name="mytag_x" value="{{ tag }}" />
-                      <input type="hidden" name="action" value="delete_mytag" />
-                      <button type="submit" class="close">&times;</button></li>
-                  </form>
-                  {% endfor %}
-              </ul>
-           </div>
-           <ul class="nav nav-pills">
-            <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}"><i class="icon-time"></i>30 mins</a></li>
-              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}"><i class="icon-time"></i>3 Days</a></li>
-              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}"><i class="icon-ok"></i></a></li>
-           </ul>
-           <div>
-            <h4> To Share </h4>
-            <ul>
-                {% for URL in URL_share %}<li>{{ URL_share }}</li>{% endfor %}
-                <li> Sharing List, buttons to modals </li>
-                <li> { for URL in URL_share } </li>
-            </ul>
-             <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="email_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Email    
-                  </button>
-              </form>
-               <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="FB_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Facebook    
-                  </button>
-              </form>
-               <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="Tw_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Twitter    
-                  </button>
-              </form>
-            </div>
-        </div>
-        
-     </div>
-   
-   
-         <!--       <div class="well">
-          <div class="span3">
-            <p style="border:1px dashed blue">primary of tag header</p>
-          </div>
-        </div>
-        -->
-     <div class="span7 well" id="rb">
-       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
-        <form action="" method="post" class="button-form">
+            <form class="navbar-search pull-left" action="/search/" method="post">
             {% csrf_token %}
-            <input type="hidden" name="tags" value="{{ tags }}" />
-            <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
-          </form>
-          <table class="table table-condensed">
-            <tbody>
-              {% if postdata %}
-              {% for post, score, tagscores in postdata %}
-              <tr>
-              <td>
-                <a href="http://{{ post.domain }}" target="_blank" >
-                <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
-                </a>
-              </td>
-              <td>
-                <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-                  <a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
-                  {% if post.title == "Untitled" %}
-                    {{ post.url }}
-                  {% else %}
-                    {{ post.title }}
-                  {% endif %}
-                  </a>
-                  &nbsp;{{ post.date_added|date:"M j" }}
-                  <br />
-                  {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
-                  {% endfor %}
-                  <br />
-                  <div style="margin-top: 6px;"> 
-                  <!--
-                    <div class="URL_description">
-                      {{ post.summary|default_if_none:"" }}
-                    </div>
-                -->
-              <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                        <input type="hidden" name="action" value="vote" />
-                        <button class="btn btn-mini const-width {% if post.slug in voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                          Good
-                        </button>
-                    </form>                   
-            <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="double_vote" />
-                <button class="btn btn-mini const-width {% if post.slug in double_voter %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Great    
-                  </button>
-              </form>
-              <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="favorite" />
-                <button class="btn btn-mini const-width {% if post.slug in favorite %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Favorite    
-                  </button>
-              </form>
-              <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="share" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Share    
-                  </button>
-              </form>
+              <input type="text" class="search-query" name="freetext" placeholder="Search tags or text">
+            </form>
+
+
+          </div><!--/.nav-collapse -->
         </div>
-       </td>
-       </tr>
-       {% endfor %}
-             {% else %}
-          <tr>
-          <td>
-          We've got no URLs for that Tag. Want to make the first?
-          </td>
-          </tr>
-            {% endif %}
-          </tbody>
-        </table>
-        <hr />
       </div>
     </div>
+{% endblock %}
 
-<script src="{{ STATIC_URL }}js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-
-<script>
-// NIKOS
-!function ($) {
-        //caching all the "tr" objects so that gain a better performance.
-
-        var $tableRows = $('table>tbody>tr');
-        //hide all the all the select & vote lines
-        $tableRows.find("td>div").css('visibility','hidden');
-        $(function () {
-            $tableRows.hover(function () {
-                //Copy html from td>div to the well
-                //Show the well
-                //when mouse is on, animate it via 'fadeout'
-                $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},300);
-            }, function () {
-                //by the same token, fade it out when mouse is out.
-                $(this).find("td>div").css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0},500);
-            });
-        });
-    }(window.jQuery);
+    <div class="container-fluid">
     
-!function ($) {
-        var $tableRows = $('table>tbody>tr>.URL_description');
-        $tableRows.find("td>div").css('visibility','visible');
-        $(function () {
-            $tableRows.hover(function () {
-                //when mouse is on, animate it via 'fadeout'
-                $(this).find("td>div").css({opacity: 0.0, visibility: "hidden"}).animate({opacity: 1.0},300);
-            }, function () {
-                //by the same token, fade it out when mouse is out.
-                $(this).find("td>div").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0.0},500);
-            });
-        });
-    }(window.jQuery);
+      <div class="row-fluid">
 
+        <div class="span9">
+        
+        {% block messages %}
+            {% if messages %}
+            
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                
+                {% endfor %}
+            
+            {% endif %}
+{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+<div class="row-fluid">
+  <div class="span6">
+  </div>
+</div>
+{% endblock %}
+
+{% block side %}
+
+      </div><!--/span-->
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Inta: Know the Best</li>  
+              
+              <p> {% for othertag in post.tags.all %}
+  <span class="label"><a href="/content/tags/decay1/{{ othertag }}/" style="color:#FFFFFF;text-decoration:none">{{ othertag }}</a></span>
+        {% endfor %} </p> 
+        
+<!-- HELP, hoping to have all the tags show 
+<table class="table table-striped">
+<tbody>
+{% if tag %}
+{% for tags in post.tags.all %}
+{% endfor %}
+{% endif %}
+<tr>
+<td>
+-->
+          </div><!--/.well --> 
+{% endblock %}
+{% block side2 %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list legend">
+             </ul>
+          </div>
+{% endblock %}
+{% block side3 %}
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list legend">
+        {% comment %}      <li class="nav-header">Inta Shortcut</li> </ul> {% endcomment %}
+              <p style="padding: 3px 15px;">
+             <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Drag into your bookmark bar, then vote or favorite from anywhere </p>
+             <ul class="nav nav-list legend">
+              <li class="nav-header"><a href="#legend" data-toggle="collapse"><i class="icon-chevron-down"></i>How to Use</a></li>
+            <div id="legend" class="collapse legend">
+              <img style="margin: 30px;" src="{{ STATIC_URL }}img/2038754.gif" />
+        </div>
+              </ul>
+
+
+
+           
+          </div><!--/.well -->
+
+{% endblock %}
+         
+        </div><!--/span-->
+        
+      </div><!--/row-->
+        
+      <hr>
+
+      <footer>
+        
+      <div style="text-align:center;"> <a href="/privacy/">Privacy</a>&nbsp;-&nbsp;<a href="mailto:brian@intabeta.com" target="_blank>">Suggestions</a>&nbsp;-&nbsp;<a href="/howto/">How To</a>&nbsp;-&nbsp;<a href="/mission/">Mission</a>&nbsp;-&nbsp;<a href="//twitter.com/Inta_beta">@inta_beta</a><p>&copy; Inta 2012</p></div>
+        
+      </footer>
+
+    </div><!--/.fluid-container-->
+    
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
+    {% block  extrascript %}
+    {% endblock %}
+   
+   
+<!--Crazy Egg, Ethnio, Mixpanel, and Google Analytics....
+{% comment %} Crazy Egg tracking code 
+    <script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0013/1814.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+{% endcomment %}
+-->
+{% comment %} wait till a couple days after we have our first users en masse 
+<!-- Ethnio Activation Code -->
+<script type="text/javascript" language="javascript" src="//ethn.io/remotes/77092" async="true" charset="utf-8">
+ </script>
+{% endcomment %}
+
+{% comment %} 
+Probably going to use Google Analytics instead
+<script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+    b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+    '//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];
+    d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+    var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+    Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+    f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+    'track_forms','register','register_once','unregister','identify','name_tag',
+    'set_config','people.identify','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+    a._i.push([b,c,f])};a.__SV=1.1;})(document,window.mixpanel||[]);
+    mixpanel.init("dca1c37321bbd7a206532cd3bba4f276");
 </script>
 
-</body>
+
+<script type="text/javascript">
+    mixpanel.track("Landing Page Loaded")
+</script>
+
+<script type="text/javascript">
+<a href="/favorites/" onclick="_gaq.push(['_trackEvent', '+ Interaction', 'My Favorites', 'Fav']);" class="main-link" target="_blank"></a>
+</script>
+
+<script type="text/javascript">
+<a href="/search/" onclick="_gaq.push(['_trackEvent', '+ Interaction', 'Search', 'Search']);" class="main-link" target="_blank"></a>
+</script>
+
+<script type="text/javascript">
+<a href="/content/ig_proposal/" onclick="_gaq.push(['_trackEvent', 'Interest', 'Proposal', 'Proposal']);" class="main-link" target="_blank"></a>
+</script>
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32641734-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{% endcomment %} 
+
+
+
+
+  </body>
 </html>
-
-
-
 
 
