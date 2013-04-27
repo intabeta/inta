@@ -230,7 +230,7 @@ def brian(request, tags='', method='decay3', domain=''):
                     if favtags == '':
                         user.favoritetag_set.create(tags=favtags,name='All Tags')
                     else:
-                        user.favoritetag_set.create(tags=favtags,name=', '.join(favtags.split('|')))
+                        user.favoritetag_set.create(tags=favtags,name=' + '.join(favtags.split('|')))
             elif action == 'delete_mytag':
                 mytag = request.POST.get('mytag_x','')
                 if user.favoritetag_set.filter(tags=mytag):
