@@ -210,10 +210,6 @@ h4 {
         <div class="nav-collapse">  
             <ul class="nav">          
               <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
-                   <form class="navbar-search pull-left">
-              {% csrf_token %}
-          <input type="text" class="search-query" placeholder="Search tags or text">
-      </form>
             </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -268,6 +264,12 @@ h4 {
 				  <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}"><i class="icon-ok"></i></a></li>
 				{% endif %}
            </ul>
+          <div>
+            <form class="navbar-search pull-left">
+              {% csrf_token %}
+              <input type="text" class="search-query" placeholder="Search tags or text">
+            </form>
+          </div>
           <!--
            <div>
             <h4> To Share </h4>
