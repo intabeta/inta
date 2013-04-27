@@ -117,16 +117,58 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title     
         
-    def _get_ranking(self, tag):
-        try: #these try-except clauses are to deal with errors arising if a post has either no posts or no double posts
-            posts = self.posts.tagval_set.get(tag=tag).val
-        except:
-            posts = 0
-        try:
-            dbposts = self.double_posts.tagval_set.get(tag=tag).val
-        except:
-            dbposts = 0
-        return posts + dbposts
+    def _get_ranking(self, tag, method='votes'):
+        if method=='votes':
+            try: #these try-except clauses are to deal with errors arising if a post has either no posts or no double posts
+                posts = self.posts.tagval_set.get(tag=tag).val
+            except:
+                posts = 0
+            try:
+                dbposts = self.double_posts.tagval_set.get(tag=tag).val
+            except:
+                dbposts = 0
+            return posts + dbposts
+        if method=='decay1':
+            try:
+                return self.decayed_score_1.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay2':
+            try:
+                return self.decayed_score_2.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay3':
+            try:
+                return self.decayed_score_3.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay4':
+            try:
+                return self.decayed_score_4.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay5':
+            try:
+                return self.decayed_score_5.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay6':
+            try:
+                return self.decayed_score_6.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay7':
+            try:
+                return self.decayed_score_7.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        if method=='decay8':
+            try:
+                return self.decayed_score_8.tagval_set.get(tag=tag).val
+            except:
+                return 0
+        
     ranking = property(_get_ranking)
     
     def _get_logo(self):

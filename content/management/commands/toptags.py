@@ -40,14 +40,14 @@ class Command(BaseCommand):
 
         #calculate new top tags and place in dict
         newtoptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d1 = sorted([[tag.name,sum([ a.decayed_score_1.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d2 = sorted([[tag.name,sum([ a.decayed_score_2.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d3 = sorted([[tag.name,sum([ a.decayed_score_3.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d4 = sorted([[tag.name,sum([ a.decayed_score_4.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d5 = sorted([[tag.name,sum([ a.decayed_score_5.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d6 = sorted([[tag.name,sum([ a.decayed_score_6.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d7 = sorted([[tag.name,sum([ a.decayed_score_7.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
-        newtoptags_d8 = sorted([[tag.name,sum([ a.decayed_score_8.tagval_set.get(tag__iexact=tag.name).val for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d1 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay1') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d2 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay2') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d3 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay3') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d4 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay4') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d5 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay5') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d6 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay6') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d7 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay7') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
+        newtoptags_d8 = sorted([[tag.name,sum([ a._get_ranking(tag,'decay8') for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])
 
         for tagval in newtoptags:
             toptags.tagval_set.create(tag=tagval[0], val=tagval[1])
