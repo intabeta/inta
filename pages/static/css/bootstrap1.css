@@ -624,7 +624,6 @@ textarea {
   font-size: 13px;
   font-weight: normal;
   line-height: 18px;
-  opacity: 0.5;
 }
 input,
 button,
@@ -635,7 +634,6 @@ textarea {
 label {
   display: block;
   margin-bottom: 5px;
-  opacity: 0.5;
 }
 select,
 textarea,
@@ -3799,14 +3797,12 @@ a.thumbnail:hover {
   white-space: nowrap;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #003366;
-  opacity: 0.5;
 }
 .label {
   padding: 1px 4px 2px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  opacity: 0.5;
   margin-top: 5px;
   display: inline-block;
 }
