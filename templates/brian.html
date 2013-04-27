@@ -265,11 +265,20 @@ h4 {
 				{% endif %}
            </ul>
           <div>
-            <form class="navbar-search pull-left">
+            <form>
               {% csrf_token %}
               <input type="text" class="search-query" placeholder="Search tags or text">
             </form>
           </div>
+          <a href="#submit" role="button" class="btn" data-toggle="modal">Submit</a>
+            <div id="submit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <h3 id="myModalLabel">Submit</h3>
+              </div>
+              <div>
+                   <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a>
+              </div>
+            </div>
           <!--
            <div>
             <h4> To Share </h4>
