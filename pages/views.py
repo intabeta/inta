@@ -392,6 +392,7 @@ def brian(request, tags='', method='decay3', domain=''):
             'toptags': toptags,
             'toprelevant': toprelevant,
             'mytags': mytags,
+            'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             }
     else:
@@ -475,6 +476,7 @@ def brian(request, tags='', method='decay3', domain=''):
             'taglist': taglist,
             'toptags': toptags,
             'toprelevant': toprelevant,
+            'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
