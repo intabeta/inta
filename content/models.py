@@ -64,7 +64,7 @@ class Logo(models.Model):
     logo = models.ImageField(upload_to='site_logos')
 
     def __unicode__(self):
-        return self.site
+        return self.site       
 
 class Entry(models.Model):
     url = models.URLField(max_length=1000)
@@ -185,6 +185,13 @@ class FavoriteTag(models.Model):
 
     def __unicode__(self):
         return self.tags
+
+class FavoriteEntry(models.Model):
+    user = models.ForeignKey(User)
+    entry = models.ForeignKey(Entry)
+
+    def __unicode__(self):
+        return self.entry.title
 
 class InterestEmail(models.Model):
     email = models.EmailField(max_length=1000)
