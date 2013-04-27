@@ -720,7 +720,7 @@ def submit_plugin(request):
                                 split = urlparse.urlsplit(image_url)
                                 localPath = settings.MEDIA_ROOT + "site_logos/" + split.path.split("/")[-1]
                                 urlretrieve(image_url, localPath)
-                                logo.logo = localPath
+                                logo.logo = "site_logos/" + split.path.split("/")[-1]
                                 logo.save()
                             break #only first matching
                 except:
