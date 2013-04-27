@@ -182,6 +182,7 @@ class Entry(models.Model):
 class FavoriteTag(models.Model):
     user = models.ForeignKey(User)
     tags = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.tags
