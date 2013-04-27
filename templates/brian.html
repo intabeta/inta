@@ -80,7 +80,7 @@ $(function() {
 }
 #lb {
   margin-top: 20px;
-  margin-left:40px;
+  margin-left:80px;
 } 
 h4 {
   color:black;
@@ -196,8 +196,8 @@ h4 {
 
   <br>
   -->
-    <div class="row">
-      <div class="span3" id="lb">
+    <div class="row" style="border: 5px dashed blue">
+      <div class="span3" id="lb" style="border: 2px dashed blue">
         <div class="well" style="border: 1px solid gray">
           <div>
             <h3> Inta </h3>
@@ -335,7 +335,7 @@ h4 {
           </div>
         </div>
         -->
-     <div class="span7 well" id="rb" style="border: 1px solid gray">
+     <div class="span7 well pull-right" id="rb" style="border: 1px solid gray">
        <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
         <form action="" method="post" class="button-form">
             {% csrf_token %}
