@@ -43,11 +43,13 @@
     $( "#accordion2" ).accordion({
       collapsible: true
     });
-  });  $(function() {
+  });  
+  $(function() {
     $( "#accordion3" ).accordion({
       collapsible: true
     });
-  });  $(function() {
+  });  
+  $(function() {
     $( "#accordion4" ).accordion({
       collapsible: true
     });
@@ -61,13 +63,13 @@ $(function() {
   });
   
 $(function() {
-  $('#sign_in').modal({
+  $('#sign_up').modal({
       keyboard: false
   });
-  $('#sign_in').modal('toggle');
-  $('#sign_in').modal('show');
-  $('#sign_in').modal('hide');
-});
+  $('#sign_up').modal('toggle');
+  $('#sign_up').modal('show');
+  $('#sign_up').modal('hide');
+  });
 
 
 </script>    
@@ -177,7 +179,7 @@ h4 {
       </form>
       </div>
       
-      <button type="button" data-toggle="modal" data-target="#log_in">Log In</button>       
+          <a href="#log_in" role="button" class="btn" data-toggle="modal">Log In</a>
           </div>  
           
           <!-- MODAL 
@@ -229,21 +231,21 @@ h4 {
         <div class="well">
           <div id="accordion">
 <!--  id="draggable"  id="draggable2"  id="draggable3" -->
-            <h4> Top Tags <i class="icon-circle-arrow-down"></i></h4>
+            <h4> Top Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/brianplays/decay3/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toptags %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </div>
           <div id="accordion2"  class="clearfix">
-            <h4> Relevant Tags <i class="icon-circle-arrow-down"></i></h4>
+            <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/brianplays/decay1/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
            <div id="accordion3"  class="clearfix">
-              <h4>  My Tags  <i class="icon-circle-arrow-down"></i></h4>
+              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
               <ul class="nav nav-pills">
-                  {% for tag in mytags %}<li><a href="/brianplays/decay3/{{ tag }}">{{ tag }}</a>    
+                  {% for tag in mytags %}<li><a href="/brianplays/decay1/{{ tag }}">{{ tag }}</a>    
                   <form action="" method="post" class="button-form">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tag }}" />
@@ -302,7 +304,7 @@ h4 {
         </div>
         -->
      <div class="span7 well" id="rb">
-       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
         <form action="" method="post" class="button-form">
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
@@ -331,7 +333,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/{{ method }}/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/brianplays/decay1/{{ tags }}|{{ tag.0 }}/" style="color:#FFFFFF;text-decoration:none">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <br />
                   <div style="margin-top: 6px;"> 
