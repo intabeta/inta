@@ -345,7 +345,7 @@ h4 {
             <input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
-          </form>
+        </form>
           <table class="table table-condensed">
             <tbody>
               {% if postdata %}
@@ -370,6 +370,7 @@ h4 {
                   {% for tag in tagscores %}
                     <span class="label"><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
+                  <i class="icon-tags"></i>
                   <br />
                   <div style="margin-top: 6px;"> 
                   <!--
@@ -405,9 +406,8 @@ h4 {
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Share    
-                  </button>
+                <i class="icon-envelope"></i>
+                <!-- SHARE (get a better icon). Facebook and Twitter too... -->
               </form>
         </div>
        </td>
