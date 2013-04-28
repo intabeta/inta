@@ -244,10 +244,11 @@ h4 {
           <div>
           {% if user.id %}
               <div>
-                <h3> <i class="icon-user"></i>{{ user }} </h3>
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <span class="caret"></span>
-                </a>
+                <h3> <i class="icon-user"></i>    {{ user }}
+                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="caret"></span>
+                  </a>
+                </h3>
                 <ul class="dropdown-menu">
                   <li><a href="/accounts/{{ user }}/">Settings</a></li>
                   <li class="divider"></li>
