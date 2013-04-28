@@ -18,28 +18,25 @@
     
 <style type="text/css">
 .container {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 .hero-unit {
-	background:#ddf;
-	height:250px;
+  background:#ddf;
+  height:250px;
 }
 h3 {
-	color:black;
+  color:black;
 }
 h2 {
-	color:black;
-}
-.action {
-	margin: 1px;
-}
-blockquote {
-	margin:2px;
-	padding:5px;
+  color:black;
 }
 .span4 {
-	margin-bottom:0px;
-	padding:0px;
+  margin-bottom:0px;
+  padding:0px;
+}
+.space_1 {
+  height=100px;
+  margin-top=100px;
 }
 </style>
 
@@ -52,38 +49,44 @@ blockquote {
       <div class="hero-unit">
         <h1>Inta <small> beta - Know the Best <small></h1>
         <dl class="dl-horizontal">
-  			<dt>Founded by</dt>
-  			<dd>Brian Loeb</dd>
-  			<dt>with</dt>
-  			<dd>Christopher Shriver</dd>
-  			<dt>and</dt>
-  			<dd>Alex Reinking</dd>
-		</dl>
-		<p class="action"> We are excited to launch with the Yale community in the coming weeks!</p>
-		<p class="action">Leave your email to be among our first Intelligentsia</p>
-       	<div class="row-fluid">
-			<div class="span4">
-			<form action="" method="post" class="input-large" class="span4">
-				{% if failed %}
-					{% if reason == 'invalid' %}
-						{% if email == '' %}
-							Please enter your email address: <br />
-						{% else %}
-							It appears {{ email }} is invalid. <br />
-						{% endif %}
-					{% else %}
-						The email you entered - {{ email }} - has already been entered <br />
-					{% endif %}
-				{% endif %}
-				{% csrf_token %}
-				{{ form.email.errors }}
-				{{ form.email }}
-				<br />
-				<button type="submit" name="_post" value="post" class="btn">{% trans "Keep me updated" %}</button>
-			</form>
-			</div>
-		</div>
+        <dt>Founded by</dt>
+        <dd>Brian Loeb</dd>
+        <dt>with</dt>
+        <dd>Christopher Shriver</dd>
+        <dt>and</dt>
+        <dd>Alex Reinking</dd>
+    </dl>
+    <p>Inta uses votes to rank links from around the web, so every click leads to quality. You can also explore topics and time periods in more depth. </p>
+    <p>Having the Yale launch in a couple weeks, leave your email to be among our first Intelligentsia!</p>
+        <div class="row-fluid">
+      <div class="span4">
+      <form action="" method="post" class="input-large" class="span4">
+        {% if failed %}
+          {% if reason == 'invalid' %}
+            {% if email == '' %}
+              Please enter your email address: <br />
+            {% else %}
+              It appears {{ email }} is invalid. <br />
+            {% endif %}
+          {% else %}
+            The email you entered - {{ email }} - has already been entered <br />
+          {% endif %}
+        {% endif %}
+        {% csrf_token %}
+        {{ form.email.errors }}
+        {{ form.email }}
+        <br />
+        <button type="submit" name="_post" value="post" class="btn">{% trans "Keep me updated" %}</button>
+      </form>
+      </div>
     </div>
+    <p> Inta_list_view image </p>
+    </div>
+
+<!--
+          <div class="space_1" style="border: 1px dashed blue"> Blank </div>
+
+
 
       <div class="container" class="well">
       <br>
@@ -109,7 +112,10 @@ blockquote {
       <h2> Why</h2>
       <p>Because better content is time better spent</p>
       </div>
+      
+      -->
 <!-- 
+<p class="action"> We are excited to launch with the Yale community in the coming weeks!</p>
 <p>Explore topics - familiar and new - in more depth by combining tags </p>
 <p>Every click leads to quality as we rank links from most votes to least</p>
 <p>Find the best, not just the recent. Weight votes by minutes, hours, days, weeks, and even months</p>
