@@ -226,13 +226,13 @@ h4 {
             <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
-                     </div>
+      </div>
            <br>
            <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
               {% if domain == '' %}
               <li>
           <a href="#">Time Period <i class="icon-time"></i></a>
-          <ul class="nav nav pills">
+          <ul class="nav nav pills" style="border: 1px solid gray">
               <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30 mins</a></li>
               <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">Few hours</a></li>
               <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">A day</a></li>
