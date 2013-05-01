@@ -333,6 +333,7 @@ h4 {
         -->
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2>Tags: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <div style="display:inline-block">
        <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
               {% if domain == '' %}
               <li>
@@ -373,6 +374,7 @@ h4 {
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn" type="submit"><i class="icon-star"></i>Save to {{ user }}</button>
         </form>
+      </div>
           <table class="table table-condensed">
             <tbody>
               {% if postdata %}
