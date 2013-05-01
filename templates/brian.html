@@ -367,12 +367,46 @@ h4 {
         </div>
         -->
      <div class="span7 well" id="center" style="border: 1px solid gray">
-       <h2>Inta: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <h2>Tags: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+       <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
+              {% if domain == '' %}
+              <li>
+          <a href="#">Time Period <i class="icon-time"></i></a>
+          <ul class="nav nav pills" style="border:1px solid gray">
+              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30 mins</a></li>
+              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">Few hours</a></li>
+              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">A day</a></li>
+              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3 Days</a></li>
+              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">A Week</a></li>
+              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">A Month</a></li>
+              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">Few Months</a></li>
+              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/{{ tags }}">A Year</a></li>
+              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
+          </ul>
+          </li>
+            {% endif %}
+            {% if domain != '' %}
+              <li>
+          <a href="#">Time Period<i class="icon-time"></i></a>
+          <ul class="nav nav pills" style="border:1px solid gray">
+              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30 mins</a></li>
+              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">Few hours</a></li>
+              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">A day</a></li>
+              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3 Days</a></li>
+              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">A Week</a></li>
+              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">A Month</a></li>
+              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">Few Months</a></li>
+              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/site/{{ domain }}">A Year</a></li>
+              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
+          </ul>
+          </li>
+            {% endif %}
+          </ul>
         <form action="" method="post" class="button-form">
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn btn-success btn-mini" type="submit"><i class="icon-plus icon-white"></i></button>
+            <button class="btn" type="submit"><i class="icon-star"></i>Save to {{ user }}</button>
         </form>
           <table class="table table-condensed">
             <tbody>
