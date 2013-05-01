@@ -50,6 +50,9 @@
       collapsible: true
     });
   });
+  $(function() {
+    $( "#menu" ).menu();
+  });
 
 $(function() {
     $( "#draggable" ).draggable();
@@ -108,7 +111,9 @@ h4 {
     display: inline;
     padding-right: 3px;
 }
-
+.ui-menu { 
+  width: 150px; 
+}
 </style>
     
 </head>
@@ -227,7 +232,7 @@ h4 {
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
-            <br>
+           <br>
            <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
               {% if domain == '' %}
               <li>
@@ -495,6 +500,11 @@ h4 {
 
 </body>
 </html>
+
+
+
+
+
 
 
 
