@@ -446,11 +446,10 @@ h4 {
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
                 <i class="icon-envelope"></i>
-                <!-- SHARE (get a better icon). Facebook and Twitter too... -->
               </form>
               <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text=" from intabeta.com-&quot;find the best&quot;">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-              <div class="fb-like" data-href="{{ post.url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial" ref="fb_ref"></div>
+              <div class="fb-like" data-href="{{ post.url }}" data-layout="button_count" data-width="400" data-show-faces="false" data-font="arial" ref="fb_ref"></div>
         </div>
        </td>
        </tr>
