@@ -346,7 +346,7 @@ h4 {
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn" type="submit"><i class="icon-star"></i>Save</button>
+            <button class="btn" type="submit">Save to {{ user }}</button>
         </form>: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
        <div style="display:inline-block">
        <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
