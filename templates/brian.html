@@ -391,7 +391,7 @@ h4 {
               {% for post, score, tagscores in postdata %}
               <tr>
               <td>
-                <a href="/brianplays/{{ method }}/site/{{ post.domain }}" target="_blank" >
+                <a href="/brianplays/{{ method }}/site/{{ post.domain }}">
                 <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
