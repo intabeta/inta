@@ -342,12 +342,12 @@ h4 {
         </div>
         -->
      <div class="span7 well" id="center" style="border: 1px solid gray">
-       <h2>Tags <form action="" method="post" class="button-form">
+       <h2><form action="" method="post" class="button-form">
             {% csrf_token %}
             <input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn" type="submit">Save to {{ user }}</button>
-        </form>: {% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+            <button class="btn" type="submit">Save Tags to {{ user }}</button>
+        </form>{% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
        <div style="display:inline-block">
        <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
               {% if domain == '' %}
