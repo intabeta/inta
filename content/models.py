@@ -54,6 +54,13 @@ class IgProposal(models.Model):
     def __unicode__(self):
         return self.title
 
+class DataList(models.Model):
+    name = models.CharField(max_length=100)
+    data = models.CommaSeparatedIntegerField(max_length=None)
+
+    def __unicode__(self):
+        return self.name
+
 class IgProposalForm(ModelForm):
     class Meta:
         model = IgProposal
