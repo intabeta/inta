@@ -563,6 +563,12 @@ h4 {
 
 <script>
 // NIKOS
+// option value append
+function setLocation(elm, baseUrl) {
+    var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
+    window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
+};
+
 !function ($) {
         //caching all the "tr" objects so that gain a better performance.
 
@@ -596,16 +602,12 @@ h4 {
         });
     }(window.jQuery);
 
-// option value append
-function setLocation(elm, baseUrl) {
-    var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword (some sanity check could be done)
-    window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
-}
 
 </script>
 
 </body>
 </html>
+
 
 
 
