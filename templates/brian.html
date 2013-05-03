@@ -70,6 +70,22 @@ $(function() {
       $('#sign_up').modal('hide');
 });
 
+$(function() {
+    var select = $( "#minbeds" );
+    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+      min: 1,
+      max: 6,
+      range: "min",
+      value: select[ 0 ].selectedIndex + 1,
+      slide: function( event, ui ) {
+        select[ 0 ].selectedIndex = ui.value - 1;
+      }
+    });
+    $( "#minbeds" ).change(function() {
+      slider.slider( "value", this.selectedIndex + 1 );
+    });
+  });
+
 
 </script>    
 
@@ -344,13 +360,68 @@ h4 {
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2><form action="" method="post" class="button-form">
             {% csrf_token %}
-            <input type="hidden" name="tags" value="{{ tags }}" />
+            Tags :{% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn" type="submit">Save Tags to {{ user }}</button>
-        </form>:{% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
-       <div style="display:inline-block">
+            <button class="btn" type="submit">Save to {{ user }}</button>
+        </form>
+        </h2>
+        {% if domain == '' %}
+        <!-- Final touch would be to have the selected value display in the dropdown... but I think the JS interferes -->
+    <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
+      <option value="decay1/{{ tags }}">Half Hour</option>
+      <option value="decay2/{{ tags }}">Few Hours</option>
+      <option value="decay3/{{ tags }}">Day </option>
+      <option value="decay4/{{ tags }}">Few Days</option>
+      <option value="decay5/{{ tags }}">Week</option>
+      <option value="decay6/{{ tags }}">Month</option>
+      <option value="decay7/{{ tags }}">Few Months</option>
+      <option value="decay8/{{ tags }}">Year</option>
+      <option value="votes/{{ tags }}">All-time</option>
+    </select>
+    {% endif %}
+        {% if domain != '' %}
+    <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
+      <option value="decay1/{{ tags }}">Half Hour</option>
+      <option value="decay2/{{ tags }}">Few Hours</option>
+      <option value="decay3/{{ tags }}">Day </option>
+      <option value="decay1/{{ tags }}">Few Days</option>
+      <option value="decay2/{{ tags }}">Week</option>
+      <option value="decay3/{{ tags }}">Month</option>
+      <option value="decay1/{{ tags }}">Few Months</option>
+      <option value="decay2/{{ tags }}">Year</option>
+      <option value="decay3/{{ tags }}">All-time</option>
+    </select>
+    {% endif %}
+<!--
+        <select name="minbeds" id="minbeds">
+              <option href="/brianplays/decay1/{{ tags }}">30 mins</option>
+              <option>Few hours</option>
+            <option>A day</option>
+              <option>3 Days</option>
+              <option>A Week</option>
+              <option>Few Months</option>
+              <option>A Year</option>
+              <option>All-time</option>
+            </select>
+          
        <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
-              {% if domain == '' %}
+-->
+<!--
+              <form id="reservation">
+          <label for="minbeds">Minimum number of beds</label>
+            <select name="minbeds" id="minbeds">
+              <option>30 mins</option>
+              <option>Few hours</option>
+            <option>A day</option>
+              <option>3 Days</option>
+              <option>A Week</option>
+              <option>Few Months</option>
+              <option>A Year</option>
+              <option>All-time</option>
+            </select>
+        </form>
+-->
+<!--
               <li>
           <a href="#">Time Period <i class="icon-time"></i></a>
           <ul class="nav nav pills" style="border:1px solid gray">
@@ -365,8 +436,20 @@ h4 {
               <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
           </ul>
           </li>
-            {% endif %}
-            {% if domain != '' %}
+     
+            <form id="reservation">
+          <label for="minbeds">Minimum number of beds</label>
+            <select name="minbeds" id="minbeds">
+              <option>1</option>
+              <option>2</option>
+            <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+            </select>
+        </form>
+-->
+<!--
               <li>
           <a href="#">Time Period<i class="icon-time"></i></a>
           <ul class="nav nav pills" style="border:1px solid gray">
@@ -381,9 +464,11 @@ h4 {
               <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
           </ul>
           </li>
-            {% endif %}
+  endif tag
           </ul>
-      </div>
+           </div>
+-->
+     
           <table class="table table-condensed">
             <tbody>
               {% if postdata %}
@@ -411,11 +496,11 @@ h4 {
                   <i class="icon-tags"></i>
                   <br />
                   <div style="margin-top: 6px;"> 
-                  <!--
+<!--
                     <div class="URL_description">
                       {{ post.summary|default_if_none:"" }}
                     </div>
-                -->
+-->
               <form action="" method="post" class="button-form">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
@@ -432,6 +517,7 @@ h4 {
                   Great    
                   </button>
               </form>
+    <!--
               <form action="" method="post" class="button-form">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
@@ -440,6 +526,7 @@ h4 {
                   Favorite    
                   </button>
               </form>
+    -->
               <form action="" method="post" class="button-form">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
@@ -508,6 +595,12 @@ h4 {
             });
         });
     }(window.jQuery);
+
+// option value append
+function setLocation(elm, baseUrl) {
+    var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword (some sanity check could be done)
+    window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
+}
 
 </script>
 
