@@ -19,7 +19,8 @@ class Command(BaseCommand):
             top.data = [ post.id for post in relevantposts_votes ]
             top.save()
 
-        for entry in eval(DataList.objects.get(name='top_test').data):
+        for entryid in eval(DataList.objects.get(name='top_test').data):
+            entry = Entry.objects.get(id=entryid)
             print(entry.name,entry._get_ranking(test))
             
 
