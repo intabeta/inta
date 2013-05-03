@@ -85,8 +85,16 @@ $(function() {
       slider.slider( "value", this.selectedIndex + 1 );
     });
   });
-
-
+  
+$("#tag_button").hover(
+  function () {
+      $("#tag_saved").addClass("highlight");
+});
+$("#tag_saved").hover(
+  function () {
+      $(this).addClass("highlight");
+});
+  
 </script>    
 
 <div id="fb-root"></div>
@@ -100,6 +108,9 @@ $(function() {
 </script>
 
 <style type="text/css">
+
+.highlight { background:yellow; }
+
 .well {
   background:#FFFFFF;
   opacity:0.9;
@@ -360,9 +371,9 @@ h4 {
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2><form action="" method="post" class="button-form">
             {% csrf_token %}
-            Tags :{% for tag, slug in breadcrumbdata %} <a href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn" type="submit">Save to {{ user }}</button>
+            <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
         </h2>
         {% if domain == '' %}
