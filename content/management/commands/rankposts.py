@@ -16,7 +16,7 @@ class Command(BaseCommand):
             relevantposts = Entry.objects.filter(tags__name__in=[tag])
             relevantposts_votes = sorted(relevantposts, key=lambda a: -a._get_ranking(tag))
             top = DataList.objects.get(name='top_'+tag)
-            top.data = relevantposts_votes
+            top.data = [ post.id for post in relevantposts_votes ]
             top.save()
 
         for entry in eval(DataList.objects.get(name='top_test').data):
