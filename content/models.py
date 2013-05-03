@@ -56,7 +56,7 @@ class IgProposal(models.Model):
 
 class DataList(models.Model):
     name = models.CharField(max_length=100)
-    #data = models.CommaSeparatedIntegerField(max_length=10000, null=True)
+    data = models.CommaSeparatedIntegerField(max_length=10000, null=True)
 
     def __unicode__(self):
         return self.name
