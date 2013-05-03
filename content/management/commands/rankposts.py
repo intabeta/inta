@@ -21,6 +21,6 @@ class Command(BaseCommand):
 
         for entryid in eval(DataList.objects.get(name='top_test').data):
             entry = Entry.objects.get(id=entryid)
-            print(entry.title,entry._get_ranking(test))
+            print(entry.title,entry._get_ranking('test'))
             
 
