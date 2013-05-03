@@ -7,7 +7,7 @@ class Command(BaseCommand):
     args = ''
     help = 'Updates top tags Dict (id=193, name=PaqubeSTUPhACh8trust62Ex6Ve5am).'
     def handle(self, *args, **options):
-        activetagids = DataList.objects.get(id=1)
+        activetagids = DataList.objects.get(id=1).data
         activetags = [ Tag.objects.get(id=val).name for val in activetagids ]
 
         print('active tags:')
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             top.data = relevantposts_votes
             top.save()
 
-        for entry in DataList.objects.get(name='top_test'):
+        for entry in DataList.objects.get(name='top_test').data:
             print(entry.name,entry._get_ranking(test))
             
 
