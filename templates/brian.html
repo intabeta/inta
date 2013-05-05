@@ -269,6 +269,7 @@ h4 {
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
+           <h4> Relevant Tags </h4>
            <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
             {% for tag in toprelevant %}<option value="{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
            </select>
