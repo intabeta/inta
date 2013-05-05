@@ -378,6 +378,7 @@ h4 {
         </h2>
         {% if domain == '' %}
         <!-- Final touch would be to have the selected value display in the dropdown... but I think the JS interferes -->
+    <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
       <option value="decay1/{{ tags }}">Half Hour</option>
       <option value="decay2/{{ tags }}">Few Hours</option>
@@ -391,6 +392,7 @@ h4 {
     </select>
     {% endif %}
         {% if domain != '' %}
+    <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
       <option value="decay1/{{ tags }}">Half Hour</option>
       <option value="decay2/{{ tags }}">Few Hours</option>
