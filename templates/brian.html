@@ -271,7 +271,6 @@ h4 {
            </div>
            <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
             {% for tag in toprelevant %}<option value="{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
-            <option value="decay1/{{ tags }}">Half Hour</option>
            </select>
       </div>
       <div class="well clear" style="border: 1px solid gray">
