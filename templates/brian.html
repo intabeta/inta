@@ -269,7 +269,24 @@ h4 {
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
-           <h4> Relevant Tags </h4>
+      </div>
+      <div class="well clear" style="border: 1px solid gray">
+        <div>
+            <h3> Inta </h3>
+            <form>
+              {% csrf_token %}
+              <input type="text" class="search-query" placeholder="Search tags or text">
+            </form>
+          </div>
+        <h4> Top Sites </h4>
+           <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
+            {% for site in topsites %}<option value="{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
+           </select> 
+        <h4> Top Tags </h4>
+           <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
+            {% for tag in toptags %}<option value="{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
+           </select>  
+        <h4> Relevant Tags </h4>
            <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
             {% for tag in toprelevant %}<option value="{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
            </select>
