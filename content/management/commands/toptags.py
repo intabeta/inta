@@ -48,7 +48,7 @@ class Command(BaseCommand):
         del toptags_d4,newtoptags_d4
 
         toptags_d5 = Dict.objects.get(id=198)
-        newtoptags_d5 = [tag.name,sum([ a._get_ranking(tag,'decay5') for a in Entry.objects.all()])] for tag in Tag.objects.all()]
+        newtoptags_d5 = [[tag.name,sum([ a._get_ranking(tag,'decay5') for a in Entry.objects.all()])] for tag in Tag.objects.all()]
         for tagval in toptags_d5.tagval_set.all():
             tagval.delete()
         for tagval in newtoptags_d5:
