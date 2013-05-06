@@ -7,7 +7,7 @@ class Command(BaseCommand):
     args = ''
     help = 'Updates top tags Dict (id=193, name=PaqubeSTUPhACh8trust62Ex6Ve5am).'
     def handle(self, *args, **options):
-        tagsnentries = [ [tag,Entry.objects.filter(tags__name__in=[tag])] for tag in Tag.objects.all ] #an array of each tag paired with a list of entries with that tag
+        tagsnentries = [ [tag,Entry.objects.filter(tags__name__in=[tag])] for tag in Tag.objects.all() ] #an array of each tag paired with a list of entries with that tag
         
         toptags = Dict.objects.get(id=193)
         newtoptags = [[te[0].name,sum([a._get_ranking(te[0]) for a in te[1]])] for te in tagsnentries]
