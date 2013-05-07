@@ -329,7 +329,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=2).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data)) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
             votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
@@ -340,7 +340,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=3).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
@@ -349,7 +349,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=3).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
@@ -357,7 +357,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=4).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
@@ -365,7 +365,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=5).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
@@ -373,7 +373,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=6).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
@@ -381,7 +381,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=7).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
@@ -389,7 +389,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=8).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
@@ -397,7 +397,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=9).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0])) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
