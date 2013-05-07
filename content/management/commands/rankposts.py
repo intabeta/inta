@@ -12,6 +12,7 @@ class Command(BaseCommand):
         activetaglist.data = []
         activetaglist.save()
         activetags = [ Tag.objects.get(id=val).name for val in activetagids ]
+        activetags = [ t.name for t in Tag.objects.all() ]
 
         for tag in activetags:
             relevantposts = Entry.objects.filter(tags__name__in=[tag])
@@ -20,11 +21,47 @@ class Command(BaseCommand):
             votes, c = DataList.objects.get_or_create(name='top_'+tag) #this function returns a tuple; the variable c is either True or False depending on whether a new object was created
             votes.data = [ post.id for post in relevantposts_votes ]
             votes.save()
+            score = 0
+            for post in relevantposts_votes:
+                score += post._get_ranking(tag)
+            toptagsdict = Dict.objects.get(id=193) #from here on assumes that this Dict only holds the top ten tags. it'll take some adjusting (not too much) to make it store more
+            toptags = sorted(toptagsdict.tagval_set.all(), key=lambda a: a.val)
+            change=False
+            for i in range(9): #we insert [tag,score] if it is between two of the top ten, then store the last ten of toptags. using the <= on the first inequality gives slight preference to more recently active tags.
+                if toptags[i].val <= score and toptags[i+1].val > score:
+                    toptags.insert(i+1,[tag,score])
+                    change=True
+            if toptags[9].val <= score:
+                toptags.append([tag,score])
+                change=True
+            if change:
+                for tagval in toptagsdict.tagval_set.all():
+                    tagval.delete()
+                for tagval in toptags[-10:]:
+                    toptags_d1.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d1 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay1'))
             d1, c = DataList.objects.get_or_create(name='top_d1_'+tag)
             d1.data = [ post.id for post in relevantposts_d1 ]
             d1.save()
+            score = 0
+            for post in relevantposts:
+                score += post._get_ranking(tag, 'decay1')
+            toptagsdict = Dict.objects.get(id=194)
+            toptags = sorted(toptagsdict.tagval_set.all(), key=lambda a: a.val)
+            change=False
+            for i in range(9):
+                if toptags[i].val <= score and toptags[i+1].val > score:
+                    toptags.insert(i+1,[tag,score])
+                    change=True
+            if toptags[9].val <= score:
+                toptags.append([tag,score])
+                change=True
+            if change:
+                for tagval in toptagsdict.tagval_set.all():
+                    tagval.delete()
+                for tagval in toptags[-10:]:
+                    toptags_d1.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d2 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay2'))
             d2, c = DataList.objects.get_or_create(name='top_d2_'+tag)
