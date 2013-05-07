@@ -537,10 +537,17 @@ def submit_plugin(request):
             entry = None
             if withurl:
                 for tag in form.cleaned_data['tags'].split(', '): #consider each of the specified tags individually
+                    #load or create the tag
+                    tagcheck = Tag.objects.filter(name__iexact=tag)
+                    if tagcheck:
+                        newtag = tagcheck[0]
+                    else:
+                        newtag = Tag(name=tag)
+                        newtag.save()
                     #make tag active so that ranktags knows to look at it
                     activetags = eval(DataList.objects.get(id=1).data)
-                    if tag.id not in activetags:
-                        activetags.append(tag.id)
+                    if newtag.id not in activetags:
+                        activetags.append(newtag.id)
                         d = DataList.objects.get(id=1)
                         d.data = activetags
                         d.save()
@@ -549,18 +556,18 @@ def submit_plugin(request):
                     if entry: #update the posts/double_posts
                         form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
                         extra += ' Entry exists.'
-                        voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__exact=tag) ] #check to see if the user has already voted under this tag. change to __iexact if we want case-insensitive
+                        voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__iexact=tag) ] #check to see if the user has already voted under this tag. change to __exact if we want case sensitive
                         if user not in voters:
                             if request.user.is_authenticated():
                                 messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
                             action = request.session.get('action', '')
                             if '_post' in request.POST:
-                                tagval=entry[0].posts.tagval_set.get(tag__name=tag)
+                                tagval=entry[0].posts.tagval_set.get(tag__name_iexact=tag)
                                 tagval.val += 1
                                 tagval.save()
                                 entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
                             else:
-                                tagval=entry[0].double_posts.tagval_set.get(tag__name=tag)
+                                tagval=entry[0].double_posts.tagval_set.get(tag__name_iexact=tag)
                                 tagval.val += 1
                                 tagval.save()
                                 entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
@@ -570,12 +577,6 @@ def submit_plugin(request):
                             extra += ' Entry has been updated.'
                     else: #add tag
                         action = request.session.get('action', '')
-                        tagcheck = Tag.objects.filter(name__iexact=tag)
-                        if tagcheck:
-                            newtag = tagcheck[0]
-                        else:
-                            newtag = Tag(name=tag)
-                            newtag.save()
                         withurl[0].tags.add(newtag)
                         if '_post' in request.POST:
                             withurl[0].posts.tagval_set.create(tag=newtag, val=1)
