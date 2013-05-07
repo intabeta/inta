@@ -9,12 +9,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         entries = Entry.objects.all()
         for entry in entries:
+            now = datetime.utcnow()
+            then = entry.date_added.replace(tzinfo=None)
+            lapsed = now - then
             for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
-                now = datetime.utcnow()
-                then = entry.date_added.replace(tzinfo=None)
-                lapsed = now - then
-                #print lapsed.total_seconds()
+                print lapsed.total_seconds()
                 base = 0.5
                 tval1=entry.decayed_score_1.tagval_set.get(tag=tagnew)
                 tval1.val = total * (base ** (lapsed.total_seconds() / 1800))
