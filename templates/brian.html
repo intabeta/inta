@@ -259,8 +259,7 @@ h4 {
           </div>
           <div id="accordion" style="border: 1px solid gray">
             <h4> Top Tags <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toptags %}<p style="display:inline; padding:4px"><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></p>{% endfor %}
             </ul>
             </div>
           <div id="accordion2"  class="clearfix" style="border: 1px solid gray">
@@ -392,7 +391,7 @@ h4 {
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2><form action="" method="post" class="button-form">
             {% csrf_token %}
-            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/decay1/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
