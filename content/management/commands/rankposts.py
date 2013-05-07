@@ -25,7 +25,7 @@ class Command(BaseCommand):
             for post in relevantposts:
                 score += post._get_ranking(tag)
             toptagsdict = Dict.objects.get(id=193) #from here on assumes that this Dict only holds the top ten tags. it'll take some adjusting (not too much) to make it store more
-            toptags = sorted([ [tag.name, tag.val] for tag in toptagsdict.tagval_set.all() ], key=lambda a: a.val)
+            toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a.val)
             change=False
             for i in range(9): #we insert [tag,score] if it is between two of the top ten, then store the last ten of toptags. using the <= on the first inequality gives slight preference to more recently active tags.
                 if toptags[i][1] <= score and toptags[i+1][1] > score:
@@ -48,7 +48,7 @@ class Command(BaseCommand):
             for post in relevantposts:
                 score += post._get_ranking(tag, 'decay1')
             toptagsdict = Dict.objects.get(id=194)
-            toptags = sorted([ [tag.name, tag.val] for tag in toptagsdict.tagval_set.all() ], key=lambda a: a.val)
+            toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a.val)
             change=False
             for i in range(9):
                 if toptags[i][1] <= score and toptags[i+1][1] > score:
