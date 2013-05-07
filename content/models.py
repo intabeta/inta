@@ -54,7 +54,7 @@ class IgProposal(models.Model):
     def __unicode__(self):
         return self.title
 
-class DataList(models.Model):
+class DataList(models.Model): #used for storing ordered data like ids of top tags or entries
     name = models.CharField(max_length=100)
     data = models.CommaSeparatedIntegerField(max_length=15000, null=True)
 
