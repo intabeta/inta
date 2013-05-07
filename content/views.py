@@ -715,34 +715,34 @@ def submit_plugin(request):
                     entry.tags.add(newtag)
                     entry.save()
             
-            #try to pull in image from twitter, if it exists.
-            domains = Logo.objects.filter(site__iexact=entry.domain)
-            r = list(domains[:1])
-            if not r:
-                logo = Logo()
-                logo.site = entry.domain
-                try:
-                    googleResult = urllib2.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=twitter+' + logo.site).read()
-                    results = json.loads(googleResult)
-                    data = results['responseData']['results']
-                    urls = [e['url'] for e in data]
-                    
-                    for url in urls:
-                        if re.search(r"https?://(www\.)?twitter.com/\w+", url):
-                            contents = urllib2.urlopen(url).read()
-                            start = string.find(contents,"profile-picture")
-                            start = string.find(contents,"src=",start)
-                            m = re.search(r"src=\"([A-Za-z\.:/_0-9\-]+)\"",contents[start:])
-                            if m:
-                                image_url = m.group(1)
-                                split = urlparse.urlsplit(image_url)
-                                localPath = settings.MEDIA_ROOT + "site_logos/" + split.path.split("/")[-1]
-                                urlretrieve(image_url, localPath)
-                                logo.logo = "site_logos/" + split.path.split("/")[-1]
-                                logo.save()
-                            break #only first matching
-                except:
-                    logo = None
+                #try to pull in image from twitter, if it exists.
+                domains = Logo.objects.filter(site__iexact=entry.domain)
+                r = list(domains[:1])
+                if not r:
+                    logo = Logo()
+                    logo.site = entry.domain
+                    try:
+                        googleResult = urllib2.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=twitter+' + logo.site).read()
+                        results = json.loads(googleResult)
+                        data = results['responseData']['results']
+                        urls = [e['url'] for e in data]
+                        
+                        for url in urls:
+                            if re.search(r"https?://(www\.)?twitter.com/\w+", url):
+                                contents = urllib2.urlopen(url).read()
+                                start = string.find(contents,"profile-picture")
+                                start = string.find(contents,"src=",start)
+                                m = re.search(r"src=\"([A-Za-z\.:/_0-9\-]+)\"",contents[start:])
+                                if m:
+                                    image_url = m.group(1)
+                                    split = urlparse.urlsplit(image_url)
+                                    localPath = settings.MEDIA_ROOT + "site_logos/" + split.path.split("/")[-1]
+                                    urlretrieve(image_url, localPath)
+                                    logo.logo = "site_logos/" + split.path.split("/")[-1]
+                                    logo.save()
+                                break #only first matching
+                    except:
+                        logo = None
             
         if 'url' in request.session:
             del request.session['url']
