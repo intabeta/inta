@@ -537,6 +537,13 @@ def submit_plugin(request):
             entry = None
             if withurl:
                 for tag in form.cleaned_data['tags'].split(', '): #consider each of the specified tags individually
+                    activetags = eval(Dict.objects.get(id=1).data)
+                    if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
+                        activetags.append(tagnew.id)
+                        d = Dict.objects.get(id=1)
+                        d.data = activetags
+                        d.save()
+                        del d
                     entry = withurl.filter(tags__name__in=[tag]) #find out if it already has the given tag
                     if entry: #update the posts/double_posts
                         form.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
