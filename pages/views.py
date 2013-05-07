@@ -242,10 +242,10 @@ def brian(request, tags='', method='decay3', domain=''):
                 if post_slug not in voter and post_slug not in double_voter:
                     tagnew = Tag.objects.get(name=taglist[0])
                     post_change = get_object_or_404(Entry, slug=post_slug)
-                    activetags = eval(Dict.objects.get(id=1).data)
+                    activetags = eval(DataList.objects.get(id=1).data)
                     if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
                         activetags.append(tagnew.id)
-                        d = Dict.objects.get(id=1)
+                        d = DataList.objects.get(id=1)
                         d.data = activetags
                         d.save()
                         del d

@@ -537,10 +537,11 @@ def submit_plugin(request):
             entry = None
             if withurl:
                 for tag in form.cleaned_data['tags'].split(', '): #consider each of the specified tags individually
-                    activetags = eval(Dict.objects.get(id=1).data)
-                    if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
-                        activetags.append(tagnew.id)
-                        d = Dict.objects.get(id=1)
+                    #make tag active so that ranktags knows to look at it
+                    activetags = eval(DataList.objects.get(id=1).data)
+                    if tag.id not in activetags:
+                        activetags.append(tag.id)
+                        d = DataList.objects.get(id=1)
                         d.data = activetags
                         d.save()
                         del d
@@ -672,6 +673,15 @@ def submit_plugin(request):
                 entry.save()
 ##                action = request.session.get('action','')
                 for tag in tags.split(', '):
+                    #make tag active so that ranktags knows to look at it
+                    activetags = eval(DataList.objects.get(id=1).data)
+                    if tag.id not in activetags:
+                        activetags.append(tag.id)
+                        d = DataList.objects.get(id=1)
+                        d.data = activetags
+                        d.save()
+                        del d
+                    #if the tag already exists grab it, otherwise create a new one
                     tagcheck = Tag.objects.filter(name__iexact=tag)
                     if tagcheck:
                         newtag = tagcheck[0]
@@ -679,7 +689,7 @@ def submit_plugin(request):
                         newtag = Tag(name=tag)
                         newtag.save()
                         
-                    if '_post' in request.POST:
+                    if '_post' in request.POST: #'good'
                         postsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=1)
                         dcy2dict.tagval_set.create(tag=newtag, val=1)
@@ -690,7 +700,7 @@ def submit_plugin(request):
                         dcy7dict.tagval_set.create(tag=newtag, val=1)
                         dcy8dict.tagval_set.create(tag=newtag, val=1)
                         voterdict.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
-                    else:
+                    else: #'great'
                         dblpostsdict.tagval_set.create(tag=newtag, val=2)
                         dcy1dict.tagval_set.create(tag=newtag, val=2)
                         dcy2dict.tagval_set.create(tag=newtag, val=2)
