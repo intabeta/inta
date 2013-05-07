@@ -401,7 +401,7 @@ h4 {
     <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
       <option value="decay1/{{ tags }}">Half Hour</option>
-      <option value="decay2/{{ tags }}">Few Hours</option>
+      <option value="decay2/{{ tags }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
       <option value="decay3/{{ tags }}">Day </option>
       <option value="decay4/{{ tags }}">Few Days</option>
       <option value="decay5/{{ tags }}">Week</option>
