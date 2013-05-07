@@ -400,29 +400,29 @@ h4 {
         <!-- Final touch would be to have the selected value display in the dropdown... but I think the JS interferes -->
     <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-      <option value="decay1/{{ tags }}">Half Hour</option>
+      <option value="decay1/{{ tags }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
       <option value="decay2/{{ tags }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
-      <option value="decay3/{{ tags }}">Day </option>
-      <option value="decay4/{{ tags }}">Few Days</option>
-      <option value="decay5/{{ tags }}">Week</option>
-      <option value="decay6/{{ tags }}">Month</option>
-      <option value="decay7/{{ tags }}">Few Months</option>
-      <option value="decay8/{{ tags }}">Year</option>
-      <option value="votes/{{ tags }}">All-time</option>
+      <option value="decay3/{{ tags }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
+      <option value="decay4/{{ tags }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
+      <option value="decay5/{{ tags }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
+      <option value="decay6/{{ tags }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
+      <option value="decay7/{{ tags }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
+      <option value="decay8/{{ tags }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
+      <option value="votes/{{ tags }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
     </select>
     {% endif %}
         {% if domain != '' %}
     <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-      <option value="decay1/{{ tags }}">Half Hour</option>
-      <option value="decay2/{{ tags }}">Few Hours</option>
-      <option value="decay3/{{ tags }}">Day </option>
-      <option value="decay1/{{ tags }}">Few Days</option>
-      <option value="decay2/{{ tags }}">Week</option>
-      <option value="decay3/{{ tags }}">Month</option>
-      <option value="decay1/{{ tags }}">Few Months</option>
-      <option value="decay2/{{ tags }}">Year</option>
-      <option value="decay3/{{ tags }}">All-time</option>
+      <option value="decay1/{{ domain }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
+      <option value="decay2/{{ domain }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
+      <option value="decay3/{{ domain }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
+      <option value="decay4/{{ domain }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
+      <option value="decay5/{{ domain }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
+      <option value="decay6/{{ domain }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
+      <option value="decay7/{{ domain }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
+      <option value="decay8/{{ domain }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
+      <option value="votes/{{ domain }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
     </select>
     {% endif %}
 <!--
