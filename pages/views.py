@@ -312,7 +312,7 @@ def brian(request, tags='', method='decay3', domain=''):
 
 
         entries = Entry.objects.all()
-        if tags != '':
+        if tags != '' and domain == '':
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
         if domain != '':
