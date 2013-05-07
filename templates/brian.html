@@ -414,15 +414,15 @@ h4 {
         {% if domain != '' %}
     <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-      <option value="decay1/{{ domain }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
-      <option value="decay2/{{ domain }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
-      <option value="decay3/{{ domain }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
-      <option value="decay4/{{ domain }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
-      <option value="decay5/{{ domain }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
-      <option value="decay6/{{ domain }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
-      <option value="decay7/{{ domain }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
-      <option value="decay8/{{ domain }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
-      <option value="votes/{{ domain }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
+      <option value="decay1/site/{{ domain }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
+      <option value="decay2/site/{{ domain }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
+      <option value="decay3/site/{{ domain }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
+      <option value="decay4/site/{{ domain }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
+      <option value="decay5/site/{{ domain }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
+      <option value="decay6/site/{{ domain }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
+      <option value="decay7/site/{{ domain }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
+      <option value="decay8/site/{{ domain }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
+      <option value="votes/site/{{ domain }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
     </select>
     {% endif %}
 <!--
