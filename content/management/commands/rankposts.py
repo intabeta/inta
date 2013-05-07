@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
                 for tagval in toptags[-10:]:
-                    toptags_d1.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
+                    toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d1 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay1'))
             d1, c = DataList.objects.get_or_create(name='top_d1_'+tag)
@@ -61,7 +61,7 @@ class Command(BaseCommand):
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
                 for tagval in toptags[-10:]:
-                    toptags_d1.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
+                    toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d2 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay2'))
             d2, c = DataList.objects.get_or_create(name='top_d2_'+tag)
