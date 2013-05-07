@@ -134,7 +134,7 @@ class Entry(models.Model):
                 dbposts = self.double_posts.tagval_set.get(tag=tag).val
             except:
                 dbposts = 0
-            return posts + dbposts
+            return posts + 2*dbposts
         if method=='decay1':
             try:
                 return self.decayed_score_1.tagval_set.get(tag=tag).val
