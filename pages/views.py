@@ -329,7 +329,7 @@ def brian(request, tags='', method='decay3', domain=''):
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=2).data) ]
             elif len(taglist)==1:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data)) ]
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
             votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
