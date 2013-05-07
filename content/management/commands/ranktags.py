@@ -27,10 +27,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9): #we insert [tag,score] if it is between two of the top ten, then store the last ten of toptags. using the <= on the first inequality gives slight preference to more recently active tags.
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -50,10 +50,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -73,10 +73,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -96,10 +96,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -119,10 +119,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -142,10 +142,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -165,10 +165,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -188,10 +188,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
@@ -211,10 +211,10 @@ class Command(BaseCommand):
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
             for i in range(9):
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
+                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
                     toptags.insert(i+1,[tag,score])
                     change=True
-            if toptags[9][1] <= score:
+            if toptags[9][1] <= score and toptags[i][0] != tag:
                 toptags.append([tag,score])
                 change=True
             if change:
