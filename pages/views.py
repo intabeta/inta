@@ -338,14 +338,16 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'votes':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
-            votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
         if method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
