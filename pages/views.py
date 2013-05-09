@@ -354,7 +354,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay1':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d1 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
@@ -367,7 +367,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay2':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d2 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
@@ -380,7 +380,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay3':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d3 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
@@ -393,7 +393,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay4':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d4 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
@@ -406,7 +406,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay5':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d5 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
@@ -419,7 +419,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay6':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d6 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
@@ -432,7 +432,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay7':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d7 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
@@ -445,7 +445,7 @@ def brian(request, tags='', method='decay3', domain=''):
         if method == 'decay8':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
-                votecounts = [ entry.score_d for entry in posts ]
+                votecounts = [ entry.score_d8 for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
