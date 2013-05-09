@@ -84,6 +84,14 @@ class Entry(models.Model):
     domain = models.CharField(max_length=200)
     summary = models.TextField(blank=True, null=True)
     score = models.IntegerField(default=0)
+    score_d1 = models.IntegerField(default=0)
+    score_d2 = models.IntegerField(default=0)
+    score_d3 = models.IntegerField(default=0)
+    score_d4 = models.IntegerField(default=0)
+    score_d5 = models.IntegerField(default=0)
+    score_d6 = models.IntegerField(default=0)
+    score_d7 = models.IntegerField(default=0)
+    score_d8 = models.IntegerField(default=0)
 
     # user related fields
     submitted_by = models.ForeignKey(User, related_name='submitter', editable=False)

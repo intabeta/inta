@@ -353,93 +353,108 @@ def brian(request, tags='', method='decay3', domain=''):
             votecounts = [ a.last_growth for a in posts ]
         if method == 'decay1':
             if tags=='':
-                posts = [ Entry.objects.get(id=x) for x in eval(DataList.objects.get(id=3).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-##            posts = entries.order_by('-decayed_score_1', '-date_added')
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
         if method == 'decay2':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=3).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
         if method == 'decay3':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=4).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
         if method == 'decay4':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=5).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
         if method == 'decay5':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=6).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
         if method == 'decay6':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=7).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
         if method == 'decay7':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=8).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
         if method == 'decay8':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=9).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                votecounts = [ entry.score_d for entry in posts ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
                 except:
                     posts = []
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
-            votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
+                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
         if method == 'favorites':
             posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
         if method == 'green':
