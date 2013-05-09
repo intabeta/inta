@@ -337,7 +337,7 @@ def brian(request, tags='', method='decay3', domain=''):
 	
         if method == 'votes':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,15) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
