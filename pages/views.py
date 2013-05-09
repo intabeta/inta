@@ -332,7 +332,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 entries = entries.filter(tags__name__in=[tag])
         if domain != '':
             entries = entries.filter(domain__iexact=domain)
-		t2= time()-t1
+	t2= time()-t1
         if method == 'votes':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=2).data) ]
