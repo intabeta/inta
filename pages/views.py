@@ -682,9 +682,9 @@ def brian(request, tags='', method='decay3', domain='', page=1):
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
-            'double_voter': double_voter,
             'method': method,
             'voter': [],
+            'double_voter': [],
             'taglist': taglist,
             'toptags': toptags,
             'toprelevant': toprelevant,
