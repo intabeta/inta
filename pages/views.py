@@ -206,7 +206,13 @@ def splash(request):
 			'failed': False
 		}
 		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
-	
+
+
+def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
+    temp = []
+    for seg in ls:
+        temp.extend(seg)
+    return temp
 def brian(request, tags='', method='decay3', domain=''):
     user = request.user
     tags = tags
@@ -440,7 +446,8 @@ def brian(request, tags='', method='decay3', domain=''):
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
 
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10]
+        relevanttags = listsum([ post.tags.all() for post in posts ])
+        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
         if method=='votes':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay1':
