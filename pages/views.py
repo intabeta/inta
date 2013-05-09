@@ -349,7 +349,7 @@ def brian(request, tags='', method='decay3', domain=''):
             votecounts = [ a.last_growth for a in posts ]
         if method == 'decay1':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=3).data) ]
+                posts = [ Entry.objects.get(id=x) for x in eval(DataList.objects.get(id=3).data) ]
             elif len(taglist)==1:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
