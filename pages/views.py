@@ -9,6 +9,7 @@ from content.forms import EmailForm, SignUpForm
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from time import time
 
 
 def homepage(request):
@@ -216,11 +217,12 @@ def listsum(ls): #used in relevanttags below in brian() to append lists to eacho
 def brian(request, tags='', method='decay3', domain=''):
     user = request.user
     tags = tags
+    t0 = time()
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
     else:
         taglist = tags.split('|')
-
+    t1 = time() - t0
     if user.is_authenticated():
         voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
         voter = [ i.slug for i in voted.filter(val__exact=1) ]
@@ -330,7 +332,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 entries = entries.filter(tags__name__in=[tag])
         if domain != '':
             entries = entries.filter(domain__iexact=domain)
-			
+		t2= time()-t1
         if method == 'votes':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(id=2).data) ]
@@ -444,10 +446,11 @@ def brian(request, tags='', method='decay3', domain=''):
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
-
+        t3=time()-t2
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         relevanttags = listsum([ post.tags.all() for post in posts ])
-        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
+        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag, method) for a in posts])] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
+        t4=time()-t3
         if method=='votes':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay1':
@@ -471,8 +474,9 @@ def brian(request, tags='', method='decay3', domain=''):
             taglist=['all']
         if domain != '':
             taglist=['site: '+domain]
+        t5=time()-t4
         template_data = {
-            'tags': tags,
+            'tags': [str(t1),str(t2),str(t3),str(t4),str(t5)],
             'postdata': zip(posts,votecounts,tagscores),
             'voter': voter,
             'double_voter': double_voter,
