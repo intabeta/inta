@@ -217,12 +217,12 @@ def listsum(ls): #used in relevanttags below in brian() to append lists to eacho
 def brian(request, tags='', method='decay3', domain=''):
     user = request.user
     tags = tags
-    t0 = time()
+    
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
     else:
         taglist = tags.split('|')
-    t1 = time() - t0
+    
     if user.is_authenticated():
         voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
         voter = [ i.slug for i in voted.filter(val__exact=1) ]
@@ -446,13 +446,11 @@ def brian(request, tags='', method='decay3', domain=''):
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
-        t2= time()-t0-t1
+
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-        t3=time()-t0-t1-t2
         relevanttags = listsum([ post.tags.all() for post in posts ])
-        t4=time()-t0-t1-t2-t3
-        toprelevant = sorted([[tag.name,sum([a._get_ranking(tag, method) for a in posts])] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
-        t5=time()-t0-t1-t2-t3-t4
+        toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
+
         if method=='votes':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay1':
@@ -477,7 +475,6 @@ def brian(request, tags='', method='decay3', domain=''):
         if domain != '':
             taglist=['site: '+domain]
         
-        taglist=[str(t1),str(t2),str(t3),str(t4),str(t5)]
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
