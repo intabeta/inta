@@ -450,7 +450,7 @@ def brian(request, tags='', method='decay3', domain=''):
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         relevanttags = listsum([ post.tags.all() for post in posts ])
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag, method) for a in posts])] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
-        t4=time()--t0-t1-t2-t3
+        t4=time()-t0-t1-t2-t3
         if method=='votes':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay1':
