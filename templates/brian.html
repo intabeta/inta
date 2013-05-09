@@ -524,7 +524,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF; background-color:#9999FF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <i class="icon-tags"></i>
                   <br />
