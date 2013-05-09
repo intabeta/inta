@@ -476,12 +476,12 @@ def brian(request, tags='', method='decay3', domain=''):
             taglist=['site: '+domain]
         t5=time()-t4
         template_data = {
-            'tags': [str(t1),str(t2),str(t3),str(t4),str(t5)],
+            'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
             'voter': voter,
             'double_voter': double_voter,
             'method': method,
-            'taglist': taglist,
+            'taglist': [str(t1),str(t2),str(t3),str(t4),str(t5)],
             'toptags': toptags,
             'toprelevant': toprelevant,
             'mytags': mytags,
