@@ -83,6 +83,7 @@ class Entry(models.Model):
     #photo = models.ImageField(upload_to='entry_photos', blank=True)
     domain = models.CharField(max_length=200)
     summary = models.TextField(blank=True, null=True)
+    score = models.IntegerField(default=0)
 
     # user related fields
     submitted_by = models.ForeignKey(User, related_name='submitter', editable=False)
@@ -92,9 +93,7 @@ class Entry(models.Model):
     posts = models.ForeignKey(Dict, related_name='+') #reference a Dict containing tags and associated post counts
     double_posts = models.ForeignKey(Dict, related_name='+')
     favorites = models.ForeignKey(Dict, related_name='+')
-    
-    #ig = models.ForeignKey(InterestGroup)
-    
+        
     tags = TaggableManager()
     
     #Banned and flagged
