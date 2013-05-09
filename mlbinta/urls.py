@@ -27,7 +27,6 @@ urlpatterns = patterns('',
     (r'^brianplays/(?P<method>[-\w]+)/(?P<tags>[- |\w]+)/$', 'pages.views.brian'),
     (r'^brianplays/(?P<method>[-\w]+)/$', 'pages.views.brian'),
     (r'^brianplays/(?P<method>[-\w]+)/site/(?P<domain>[-.\w]+)/$', 'pages.views.brian'),
-    (r'^brianplays/(?P<method>[-\w]+)/site/(?P<domain>[-.\w]+)/(?P<page>\d+)/$', 'pages.views.brian'),
     
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),
