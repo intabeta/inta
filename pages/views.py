@@ -674,7 +674,6 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
-        mytags = []
         if tags == '': #show 'all' instead of a list of every single tag
             taglist=['all']
         if domain != '':
@@ -683,13 +682,13 @@ def brian(request, tags='', method='decay3', domain='', page=1):
         template_data = {
             'tags': tags,
             'postdata': zip(posts,votecounts,tagscores),
-            'voter': voter,
             'double_voter': double_voter,
             'method': method,
+            'voter': [],
             'taglist': taglist,
             'toptags': toptags,
             'toprelevant': toprelevant,
-            'mytags': mytags,
+            'mytags': [],
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             }
