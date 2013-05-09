@@ -216,7 +216,7 @@ def listsum(ls): #used in relevanttags below in brian() to append lists to eacho
     return temp
 def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 1)
 	return ls[(n-1)*l:n*l]
-def brian(request, tags='', method='decay3', domain=''):
+def brian(request, tags='', method='decay3', domain='', page=1):
     user = request.user
     tags = tags
     
@@ -337,7 +337,7 @@ def brian(request, tags='', method='decay3', domain=''):
 	
         if method == 'votes':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
                 votecounts = [ entry.score for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -353,7 +353,7 @@ def brian(request, tags='', method='decay3', domain=''):
             votecounts = [ a.last_growth for a in posts ]
         if method == 'decay1':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
                 votecounts = [ entry.score_d1 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -366,7 +366,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
         if method == 'decay2':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
                 votecounts = [ entry.score_d2 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -379,7 +379,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
         if method == 'decay3':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
                 votecounts = [ entry.score_d3 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -392,7 +392,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
         if method == 'decay4':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
                 votecounts = [ entry.score_d4 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -405,7 +405,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
         if method == 'decay5':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
                 votecounts = [ entry.score_d5 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -418,7 +418,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
         if method == 'decay6':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
                 votecounts = [ entry.score_d6 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -431,7 +431,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
         if method == 'decay7':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
                 votecounts = [ entry.score_d7 for entry in posts ]
             elif len(taglist)==1:
                 try:
@@ -444,7 +444,7 @@ def brian(request, tags='', method='decay3', domain=''):
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
         if method == 'decay8':
             if tags=='':
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),1,8) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
                 votecounts = [ entry.score_d8 for entry in posts ]
             elif len(taglist)==1:
                 try:
