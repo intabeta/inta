@@ -8,7 +8,7 @@ var X;
 var Y;
 var points={{ points }};
 var edges={{ edges }};
-var rad = 4;
+var rad = 2;
 var inLink = false;
 var link=0;
 
@@ -37,7 +37,7 @@ function draw(){
     }
 
     //draw the nodes
-    ctx.fillStyle = "#9999ff";
+    ctx.fillStyle = "rgb(50,50,220)";
     ctx.beginPath();
     for (i=0;i<points.length;i++) {
       X=points[i][0];
