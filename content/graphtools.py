@@ -40,7 +40,7 @@ class Graph:
         xrange = maxx - minx
         yrange = maxy - miny
         r = max([xrange,yrange])
-        self.points = [ [(p[0]-minx)*300/r,(p[1]-miny)*300/r,p[2]] for p in self.points ]
+        self.points = [ [(p[0]-minx)*300/r,(p[1]-miny)*300/r] for p in self.points ]
 
     def createpoint(self,x,y):
         self.points.append([x,y])
