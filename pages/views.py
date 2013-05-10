@@ -226,7 +226,7 @@ def graphtest(request):
     for e in edges:
         edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
         
-    graph = Graph(len(tagnames),edges2,100)           
+    graph = Graph(len(tagnames),edges2,1000)           
     
     template_data = {
         'points': graph.points,
