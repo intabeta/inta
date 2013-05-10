@@ -13,7 +13,7 @@ class Graph:
         self.bestpoints=[]
 
         for p in range(points):
-            self.createpoint(p[0],p[1])
+            self.createpoint(0,0)
 
         for e in edges:
             self.createedge(e[0],e[1],e[2])
