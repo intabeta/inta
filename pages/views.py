@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from time import time
+from content.graphtools import Graph
 
 
 def homepage(request):
@@ -208,6 +209,10 @@ def splash(request):
 		}
 		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
 
+
+def graphtest(request):
+    template_data = {}
+    return render_to_response('graphtest.html', template_data)
 
 def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
     temp = []

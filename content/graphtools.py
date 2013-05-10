@@ -2,27 +2,35 @@ from math import log, sqrt, cos, sin, pi
 from copy import deepcopy
 
 class Graph:
-    def __init__(self, res): #res should be in the thousands for a decent graph
+    def __init__(self, points, edges, res): #res should be in the thousands for a decent graph
         self.res = res
 
         self.points=[]
         self.edges=[]
         self.forces=[]
         self.velocities=[]
-        self.bestenergy=1000
+        self.bestenergy=10000
         self.bestpoints=[]
+
+        for p in points:
+            self.createpoint(p[0],p[1])
+
+        for e in edges:
+            self.createedge(e[0],e[1],e[2])
+
+        self.arrangepoints()
 
         for i in range(res):
             self.update()
             self.updateforces()
             if self.energy() < self.bestenergy:
                 self.bestenergy = self.energy()
-                self.bestpoints = [ [p[0],p[1],p[2]] for p in self.points ]
+                self.bestpoints = [ [p[0],p[1]] for p in self.points ]
         self.points = deepcopy(self.bestpoints)
         self.updateforces()
 
-    def createpoint(self,x,y,tag='tag'):
-        self.points.append([x,y,tag])
+    def createpoint(self,x,y):
+        self.points.append([x,y])
         self.forces.append([0,0])
         self.velocities.append([0,0])
         
