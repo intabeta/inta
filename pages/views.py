@@ -212,7 +212,7 @@ def splash(request):
 
 def graphtest(request):
     toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
-    entries = set([ Entry.objects.filter(tags__name__in=[tv[0]]) for tv in toptags ])
+    entries = set(listsum([ Entry.objects.filter(tags__name__in=[tv[0]]) for tv in toptags ]))
     edges=[]
     for entry in entries:
         tags = entry.tags.all()
