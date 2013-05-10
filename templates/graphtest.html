@@ -23,17 +23,18 @@ function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //draw edges
-    ctx.beginPath();
     for (i=0;i<edges.length;i++) {
-      ctx.fillStyle = "rgba(255,255,255,"+edges[i][2]+")";
+      ctx.beginPath();
+      ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/100)+')';
       X1=points[edges[i][0]][0];
       Y1=points[edges[i][0]][1];
       X2=points[edges[i][1]][0];
       Y2=points[edges[i][1]][1];
       ctx.moveTo(X1,Y1);
       ctx.lineTo(X2,Y2);
+      ctx.stroke();
+      ctx.closePath();
     }
-    ctx.stroke();
 
     //draw the nodes
     ctx.fillStyle = "#9999ff";
