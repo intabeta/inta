@@ -219,7 +219,7 @@ def graphtest(request):
         for i in range(len(tags)):
             tag1=tags[i]
             for tag2 in tags[i+1:]:
-                edges.append(tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2))
+                edges.append([tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2)])
     topnames = [ tv[0] for tv in toptags ]
     edges2=[]
     for e in edges:
