@@ -20,14 +20,14 @@ class Graph:
 
         self.arrangepoints()
 
-        for i in range(res):
-            self.update()
-            self.updateforces()
-            if self.energy() < self.bestenergy:
-                self.bestenergy = self.energy()
-                self.bestpoints = [ [p[0],p[1]] for p in self.points ]
-        self.points = deepcopy(self.bestpoints)
-        self.updateforces()
+##        for i in range(res):
+##            self.update()
+##            self.updateforces()
+##            if self.energy() < self.bestenergy:
+##                self.bestenergy = self.energy()
+##                self.bestpoints = [ [p[0],p[1]] for p in self.points ]
+##        self.points = deepcopy(self.bestpoints)
+##        self.updateforces()
 
         minx = min([ p[0] for p in self.points ])
         maxx = max([ p[0] for p in self.points ])
