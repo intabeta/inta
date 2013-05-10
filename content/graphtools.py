@@ -1,6 +1,3 @@
-from tkinter import *
-from time import sleep
-from time import clock
 from math import log, sqrt, cos, sin, pi
 from copy import deepcopy
 
