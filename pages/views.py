@@ -211,7 +211,9 @@ def splash(request):
 
 
 def graphtest(request):
-    template_data = {}
+    template_data = {
+        'points': [[5,5],[40,100],[100,30],[150,20]],
+    }
     return render_to_response('graphtest.html', template_data)
 
 def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
