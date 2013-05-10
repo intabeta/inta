@@ -211,8 +211,26 @@ def splash(request):
 
 
 def graphtest(request):
+    toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
+    entries = set([ Entry.objects.filter(tags__name__in=[tv[0]]) for tv in toptags ])
+    edges=[]
+    for entry in entries:
+        tags = entry.tags.all()
+        for i in range(len(tags)):
+            tag1=tags[i]
+            for tag2 in tags[i+1:]:
+                edges.append(tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2))
+    topnames = [ tv[0] for tv in toptags ]
+    edges2=[]
+    for e in edges:
+        if e[0] in topnames and e[1] in topnames:
+            edges2.append([topnames.index(e[0]),topnames.index(e[1]),e[2]])
+        
+    graph = Graph(len(topnames),edges2,100)           
+    
     template_data = {
-        'points': [[5,5],[40,100],[100,30],[150,20]],
+        'points': graph.points,
+        'edges': graph.edges,
     }
     return render_to_response('graphtest.html', template_data)
 

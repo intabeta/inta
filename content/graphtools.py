@@ -2,7 +2,7 @@ from math import log, sqrt, cos, sin, pi
 from copy import deepcopy
 
 class Graph:
-    def __init__(self, points, edges, res): #res should be in the thousands for a decent graph
+    def __init__(self, points, edges, res): #points is a number of points; res should be in the thousands for a decent graph
         self.res = res
 
         self.points=[]
@@ -12,7 +12,7 @@ class Graph:
         self.bestenergy=10000
         self.bestpoints=[]
 
-        for p in points:
+        for p in range(points):
             self.createpoint(p[0],p[1])
 
         for e in edges:
