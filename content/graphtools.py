@@ -54,8 +54,8 @@ class Graph:
         n = len(self.points)
         for i in range(n):
             p=self.points[i]
-            p[0]=150+20*cos(2*pi*i/n)
-            p[1]=150+20*sin(2*pi*i/n)
+            p[0]=150+100*cos(2*pi*i/n)
+            p[1]=150+100*sin(2*pi*i/n)
 
     def energy(self):
         e = 0
