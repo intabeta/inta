@@ -29,6 +29,19 @@ class Graph:
         self.points = deepcopy(self.bestpoints)
         self.updateforces()
 
+        minx = min([ p[0] for p in self.points ])
+        maxx = max([ p[0] for p in self.points ])
+        miny = min([ p[1] for p in self.points ])
+        maxy = max([ p[1] for p in self.points ])
+        minx -= 0.1*abs(minx)
+        maxx += 0.1*abs(maxx)
+        miny -= 0.1*abs(miny)
+        maxy += 0.1*abs(maxy)
+        xrange = maxx - minx
+        yrange = maxy - miny
+        r = max([xrange,yrange])
+        self.points = [ [(p[0]-minx)*300/r,(p[1]-miny)*300/r,p[2]] for p in self.points ]
+
     def createpoint(self,x,y):
         self.points.append([x,y])
         self.forces.append([0,0])
