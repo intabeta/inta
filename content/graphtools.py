@@ -20,27 +20,21 @@ class Graph:
 
         self.arrangepoints()
 
-##        for i in range(res):
-##            self.update()
-##            self.updateforces()
-##            if self.energy() < self.bestenergy:
-##                self.bestenergy = self.energy()
-##                self.bestpoints = [ [p[0],p[1]] for p in self.points ]
-##        self.points = deepcopy(self.bestpoints)
-##        self.updateforces()
+        for i in range(res):
+            self.update()
 
-##        minx = min([ p[0] for p in self.points ])
-##        maxx = max([ p[0] for p in self.points ])
-##        miny = min([ p[1] for p in self.points ])
-##        maxy = max([ p[1] for p in self.points ])
-##        minx -= 0.1*abs(minx)
-##        maxx += 0.1*abs(maxx)
-##        miny -= 0.1*abs(miny)
-##        maxy += 0.1*abs(maxy)
-##        xrange = maxx - minx
-##        yrange = maxy - miny
-##        r = max([xrange,yrange])
-##        self.points = [ [(p[0]-minx)*300/r,(p[1]-miny)*300/r] for p in self.points ]
+        minx = min([ p[0] for p in self.points ])
+        maxx = max([ p[0] for p in self.points ])
+        miny = min([ p[1] for p in self.points ])
+        maxy = max([ p[1] for p in self.points ])
+        minx -= 0.1*abs(minx)
+        maxx += 0.1*abs(maxx)
+        miny -= 0.1*abs(miny)
+        maxy += 0.1*abs(maxy)
+        xrange = maxx - minx
+        yrange = maxy - miny
+        r = max([xrange,yrange])
+        self.points = [ [(p[0]-minx)*300/r,(p[1]-miny)*300/r] for p in self.points ]
 
     def createpoint(self,x,y):
         self.points.append([x,y])
@@ -57,48 +51,35 @@ class Graph:
             p[0]=150+100*cos(2*pi*i/n)
             p[1]=150+100*sin(2*pi*i/n)
 
-    def energy(self):
-        e = 0
-##        for f in self.forces:
-##            e += f[0]**2 + f[1]**2
+    def update(self):
         for i in range(len(self.points)):
-            p=self.points[i]
-            for p1 in self.points[:i]+self.points[i+1:]:
-                d=((p[0]-p1[0])**2 + (p[1]-p1[1])**2)**(-0.5)
-                e += 200*d
-        return e
-
-    def updateforces(self):
-        for i in range(len(self.points)):
-            f=[0,0]
-            p=self.points[i]
+            p = self.points[i]
+            v = self.velocities[i]
+            f = self.forces[i]
+            v[0] += f[0]/100
+            v[1] += f[1]/100
+            p[0] += v[0]
+            p[1] += v[1]
+            f[0] = -v[0]*0.3 #resets forces and adds damping force
+            f[1] = -v[1]*0.3
             for p1 in self.points[:i]+self.points[i+1:]:
                 d=((p[0]-p1[0])**2 + (p[1]-p1[1])**2)**1.5
-                f[0]+=10000*(p[0]-p1[0])/d
-                f[1]+=10000*(p[1]-p1[1])/d
-            self.forces[i]=f
-
+                f[0]+=30000*(p[0]-p1[0])/d
+                f[1]+=30000*(p[1]-p1[1])/d
+            self.forces[i] = f
+            
         for e in self.edges:
             p=self.points[e[0]]
             p1=self.points[e[1]]
             f=self.forces[e[0]]
             f1=self.forces[e[1]]
-            d=((p[0]-p1[0])**2 + (p[1]-p1[1])**2)**0.5
-            s=0.01*e[2]
-            f[0]-=s*(p[0]-p1[0])
-            f[1]-=s*(p[1]-p1[1])
-            f1[0]+=s*(p[0]-p1[0])
-            f1[1]+=s*(p[1]-p1[1])
+            dx=p[0]-p1[0]
+            dy=p[1]-p1[1]
+            d=(dx**2 + dy**2)**0.5
+            s=0.001*(1-10/(e[2]*d))
+            f[0]-=s*dx
+            f[1]-=s*dy
+            f1[0]+=s*dx
+            f1[1]+=s*dy
             self.forces[e[0]] = f
             self.forces[e[1]] = f1
-            
-    
-    def update(self):
-        for i in range(len(self.points)):
-            p=self.points[i]
-            v=self.velocities[i]
-            f=self.forces[i]
-            v[0] += f[0]/100
-            v[1] += f[1]/100
-            p[0] += v[0]
-            p[1] += v[1]
