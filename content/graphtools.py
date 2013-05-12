@@ -64,8 +64,9 @@ class Graph:
             f[1] = -v[1]*0.3
             for p1 in self.points[:i]+self.points[i+1:]:
                 d=((p[0]-p1[0])**2 + (p[1]-p1[1])**2)**1.5
-                f[0]+=30000*(p[0]-p1[0])/d
-                f[1]+=30000*(p[1]-p1[1])/d
+                if d < 350:
+                    f[0]+=30000*(p[0]-p1[0])/d
+                    f[1]+=30000*(p[1]-p1[1])/d
             self.forces[i] = f
             
         for e in self.edges:
