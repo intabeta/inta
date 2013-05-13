@@ -211,22 +211,22 @@ def splash(request):
 
 
 def graphtest(request):
-    toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
-    entries = set(listsum([ Entry.objects.filter(tags__name__in=[tv[0]]) for tv in toptags ]))
-    tags = set(listsum([ entry.tags.all() for entry in entries ]))
-    edges=[]
-    for entry in entries:
-        etags = entry.tags.all()
-        for i in range(len(etags)):
-            tag1=etags[i]
-            for tag2 in etags[i+1:]:
-                edges.append([tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2)])
-    tagnames = [ t.name for t in tags ]
-    edges2=[]
-    for e in edges:
-        edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
-        
-    graph = Graph(len(tagnames),edges2,10000)           
+##    toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])[:10]
+##    entries = set(listsum([ Entry.objects.filter(tags__name__in=[tv[0]]) for tv in toptags ]))
+##    tags = set(listsum([ entry.tags.all() for entry in entries ]))
+##    edges=[]
+##    for entry in entries:
+##        etags = entry.tags.all()
+##        for i in range(len(etags)):
+##            tag1=etags[i]
+##            for tag2 in etags[i+1:]:
+##                edges.append([tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2)])
+##    tagnames = [ t.name for t in tags ]
+##    edges2=[]
+##    for e in edges:
+##        edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
+##        
+##    graph = Graph(len(tagnames),edges2,10000)           
     
     template_data = {
         'points': graph.points,
