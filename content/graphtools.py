@@ -52,6 +52,7 @@ class Graph:
             p[1]=150+100*sin(2*pi*i/n)
 
     def update(self):
+        damp=10
         for i in range(len(self.points)):
             p = self.points[i]
             v = self.velocities[i]
@@ -60,12 +61,12 @@ class Graph:
             v[1] += f[1]/100
             p[0] += v[0]
             p[1] += v[1]
-            f[0] = -v[0]*0.3 #resets forces and adds damping force
-            f[1] = -v[1]*0.3
+            f[0] = -v[0]*damp #resets forces and adds damping force
+            f[1] = -v[1]*damp
             for p1 in self.points[:i]+self.points[i+1:]:
                 d=((p[0]-p1[0])**2 + (p[1]-p1[1])**2)**1.5
-                f[0]+=30000*(p[0]-p1[0])/d
-                f[1]+=30000*(p[1]-p1[1])/d
+                f[0]+=300000*(p[0]-p1[0])/d
+                f[1]+=300000*(p[1]-p1[1])/d
             self.forces[i] = f
             
         for e in self.edges:
@@ -76,7 +77,7 @@ class Graph:
             dx=p[0]-p1[0]
             dy=p[1]-p1[1]
             d=(dx**2 + dy**2)**0.5
-            s=0.001*(1-10/(e[2]*d))
+            s=0.5*(1-10/(e[2]*d))
             f[0]-=s*dx
             f[1]-=s*dy
             f1[0]+=s*dx
