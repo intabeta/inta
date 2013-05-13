@@ -32,6 +32,16 @@ function max(array) {
     return Math.max.apply(null,array);
 }
 
+function arrangepoints() {
+  var l = points.length;
+  for (i=0; i<l; i++) {
+    var p = points[i];
+    p[0] = 150 + 20*Math.cos(2*Math.PI*i/l);
+    p[1] = 150 + 20*Math.sin(2*Math.PI*i/l);
+    points[i] = p;
+  }
+}
+
 // draw the nodes and edges
 function draw() {
   canvas = document.getElementById("myCanvas");
@@ -202,7 +212,7 @@ function on_up(e) {
 }
 </script>
 </head>
-<body onload="draw(); update()">
+<body onload="arrangepoints(); draw(); update()">
 <center>
 <canvas id="myCanvas" width="300" height="300" style="border-style:solid;border-width:1px">Canvas not supported.</canvas>
 </center>
