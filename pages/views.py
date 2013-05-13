@@ -229,8 +229,8 @@ def graphtest(request):
 ##    graph = Graph(len(tagnames),edges2,10000)           
     
     template_data = {
-        'points': graph.points,
-        'edges': graph.edges,
+        'points': [],
+        'edges': [],
     }
     return render_to_response('graphtest.html', template_data)
 
