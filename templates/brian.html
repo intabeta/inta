@@ -11,6 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="og:title" content="{{ post.title }}" />
+    <meta name="og:type" content="Inta URL" />
+    <meta name="og:image" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" />
+    
     <link rel="shortcut icon" href="https://twimg0-a.akamaihd.net/profile_images/2590228053/labo2kw9b0zlzvic458r.jpeg" type="image/x-icon" />
 
 
@@ -70,6 +74,7 @@ $(function() {
       $('#sign_up').modal('hide');
 });
 
+/*
 $(function() {
     var select = $( "#minbeds" );
     var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
@@ -85,7 +90,9 @@ $(function() {
       slider.slider( "value", this.selectedIndex + 1 );
     });
   });
-  
+*/
+
+/*
 $("#tag_button").hover(
   function () {
       $("#tag_saved").addClass("highlight");
@@ -94,18 +101,9 @@ $("#tag_saved").hover(
   function () {
       $(this).addClass("highlight");
 });
+*/
   
 </script>    
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
 
 <style type="text/css">
 
@@ -178,7 +176,7 @@ h4 {
  margin: 0 7px 0 0;
 }
 .brian_nav .link > li > a {
- color: grey;
+ color: #BFBEBE;
  font-weight:bold;
  text-decoration:none;
 }
@@ -224,24 +222,24 @@ h4 {
   <h4> Time: </h4>
   <ul class="link">
     {% if domain == '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30 m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3 h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">1 d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3 d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">1 w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">4 w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">12 w</a></li>
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">1d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">1w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">4w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">12w</a></li>
         <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/{{ tags }}">yr</a></li>
         <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
       {% endif %}
       {% if domain != '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30 m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">3 h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">1 d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3 d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">1 w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">4 w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">12 w</a></li>
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">3h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">1d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">1w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">4w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">12w</a></li>
         <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/site/{{ domain }}">yr</a></li>
         <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
       {% endif %}
@@ -672,12 +670,20 @@ h4 {
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
-                <i class="icon-envelope"></i>
                 <!-- SHARE (get a better icon). Facebook and Twitter too... -->
               </form>
-              <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text=" from intabeta.com-&quot;find the best&quot;">Tweet</a>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-              <div class="fb-like" data-href="{{ post.url }}" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial" ref="fb_ref"></div>
+              <div class="fb-like" data-href="{{ post.url }}" og:title="{{ post.title }}" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial" ref="fb_ref"></div>
+              <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
         </div>
        </td>
        </tr>
@@ -705,10 +711,11 @@ h4 {
 <script>
 // NIKOS
 // option value append
-function setLocation(elm, baseUrl) {
-    var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
-    window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
-};
+
+//function setLocation(elm, baseUrl) {
+  //  var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
+    //window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
+// };
 
 !function ($) {
         //caching all the "tr" objects so that gain a better performance.
