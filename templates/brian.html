@@ -116,13 +116,13 @@ $("#tag_saved").hover(
   opacity:0.9;
   }
 #center {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 #rb {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 #lb {
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left:80px;
 } 
 h4 {
@@ -151,11 +151,51 @@ h4 {
 .ui-menu { 
   width: 150px; 
 }
+.brian_nav {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  /* margin-bottom: 30px;  isn't working for some reason */
+  *z-index: 2;
+  overflow: hidden;
+  background-color: black;
+}
+.brian_nav > h4 {
+ color: white;
+ display: inline;
+ float:left;
+ margin: 2px 8px 2px 15px;
+}
+.brian_nav .link {
+ float: left;
+ text-decoration: none;
+ margin: 2px 0 2px 0;
+}
+.brian_nav .link > li {
+ display: inline;
+ margin: 0 7px 0 0;
+}
+.brian_nav .link > li > a {
+ color: grey;
+ font-weight:bold;
+ text-decoration:none;
+}
+.brian_nav .link a:hover {
+  color: white;
+  font-weight:bold;
+}
+.brian_nav .link .active > a {
+  color: white;
+  font-weight:bold;
+}
+
 </style>
     
 </head>
   
 <body style="background:#ddf">
+<!--
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <ul class="nav">
@@ -170,10 +210,35 @@ h4 {
         <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
     </ul>
   </div>
-
 </div>
-
-
+-->
+<div class="brian_nav">
+  <h4> Time: </h4>
+  <ul class="link">
+    {% if domain == '' %}
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30 m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3 h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">1 d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3 d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">1 w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">4 w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">12 w</a></li>
+        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/{{ tags }}">yr</a></li>
+        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
+      {% endif %}
+      {% if domain != '' %}
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30 m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">3 h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">1 d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3 d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">1 w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">4 w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">12 w</a></li>
+        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/site/{{ domain }}">yr</a></li>
+        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
+      {% endif %}
+    </ul>
+</div>
 
 
 <!-- 
@@ -418,8 +483,8 @@ h4 {
             <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
         </h2>
+<!--
         {% if domain == '' %}
-        <!-- Final touch would be to have the selected value display in the dropdown... but I think the JS interferes -->
     <i class="icon-time"></i>
     <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
       <option value="decay1/{{ tags }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
@@ -447,6 +512,7 @@ h4 {
       <option value="votes/site/{{ domain }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
     </select>
     {% endif %}
+-->
 <!--
         <select name="minbeds" id="minbeds">
               <option href="/brianplays/decay1/{{ tags }}">30 mins</option>
