@@ -645,13 +645,13 @@ h4 {
                   {% endfor %}
                   <i class="icon-tags"></i>
                   <br />
-                  <div style="margin-top: 6px;"> 
+                  <div> 
 <!--
                     <div class="URL_description">
                       {{ post.summary|default_if_none:"" }}
                     </div>
 -->
-              <form action="" method="post" class="button-form">
+              <form action="" method="post" class="button-form" style="border: 2px dashed; border-color:#ddf">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                         <input type="hidden" name="action" value="vote" />
@@ -659,7 +659,7 @@ h4 {
                           Good
                         </button>
                     </form>                   
-            <form action="" method="post" class="button-form">
+            <form action="" method="post" class="button-form" style="border: 2px dashed blue">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="double_vote" />
@@ -676,16 +676,20 @@ h4 {
                   Favorite    
                   </button>
               </form>
-    -->
+    
               <form action="" method="post" class="button-form">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
-                <!-- SHARE (get a better icon). Facebook and Twitter too... -->
               </form>
+     -->
+     
+        <div style="border: 2px dashed blue; display:inline-block; margin-right:0px;">
               <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-              <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
+      </div>
+      
+     <div style="border: 2px dashed blue; display:inline-block" class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -696,7 +700,7 @@ h4 {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-
+      
         </div>
        </td>
        </tr>
@@ -768,6 +772,7 @@ h4 {
 
 </body>
 </html>
+
 
 
 
