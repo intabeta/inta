@@ -162,12 +162,10 @@ h4 {
   overflow: hidden;
   background-color: black;
 }
-.brian_nav > h3 {
- color: white;
+#time_icon {
  display: inline;
  float:left;
- font-size:18px;
- margin: 8px 8px 2px 15px;
+ margin: 13px 8px 2px 15px;
 }
 .brian_nav .link {
  float: left;
@@ -242,8 +240,8 @@ h4 {
 -->
 <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
-  <h3> Time: </h3>
   <ul class="link">
+      <i class="icon-time" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
         <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
         <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3h</a></li>
@@ -298,6 +296,7 @@ h4 {
       <li></li>
         <li></li>
         <li></li>
+        <i class="icon-tags" style="background-color:white"></i>
         <li>My Tags</li>
         <li>My Sites</li>
        <li>Top Tags</li>
@@ -842,7 +841,6 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
-
 
 
 
