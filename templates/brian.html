@@ -37,26 +37,66 @@
 
 $(document).ready(function(){
   $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").toggleClass("show_subnav");
+    $(".brian_subnav--reltags").addClass("show_subnav");
   });
- $(".brian_subnav--reltags").mouseleave(function(){
-    $(".brian_subnav--reltags").toggleClass("show_subnav");
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
   });
 });
+
+
+/*
+
+$('.brian_subnav--reltags').toggleClass(function() {
+  if ($(this).is('.show_subnav')) {
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  } else {
+    $(".brian_subnav--reltags").addClass("show_subnav");
+  }
+   $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
+
+
+I need if logic so if the class is applied, #reltags would removeClass
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").toggleClass("show_subnav");
+  });
+  $(".brian_subnav--reltags").hasClass("show_subnav"){
+    $(".brian_nav").mouseenter(function(){
+        $(".brian_subnav--reltags").toggleClass("show_subnav");
+      });
+  });
+});
+*/
+
 $(document).ready(function(){
   $("#toptags").mouseenter(function(){
-    $(".brian_subnav--toptags").toggleClass("show_subnav");
+    $(".brian_subnav--toptags").addClass("show_subnav");
   });
- $(".brian_subnav--toptags").mouseleave(function(){
-    $(".brian_subnav--toptags").toggleClass("show_subnav");
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--toptags").removeClass("show_subnav");
   });
 });
+
 $(document).ready(function(){
   $("#mytags").mouseenter(function(){
-    $(".brian_subnav--mytags").toggleClass("show_subnav");
+    $(".brian_subnav--mytags").addClass("show_subnav");
   });
- $(".brian_subnav--mytags").mouseleave(function(){
-    $(".brian_subnav--mytags").toggleClass("show_subnav");
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--mytags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signin").mouseenter(function(){
+    $(".brian_subnav--signin").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
   });
 });
 
@@ -292,6 +332,18 @@ h4 {
     opacity:0.83;
     display:none;
 }
+.brian_subnav--signin {
+    height:100px;
+  position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+    overflow: hidden;
+    background-color: black;
+    opacity:0.83;
+    display:none;
+}
 .show_subnav {
   display:block;
 }
@@ -301,6 +353,9 @@ h4 {
 #toptags {
   color:orange;
 }
+#signin {
+ color:blue;
+}
 #mytags {
   color:yellow;
 }
@@ -308,6 +363,9 @@ h4 {
   color:white;
   margin: 10px 5px 10px 20px;
   font-size: 14px;
+}
+#nonnav {
+  border: 2px dashed blue;
 }
 </style>
     
@@ -379,7 +437,8 @@ h4 {
         <li>My Sites</li>
         <li id="toptags">Top Tags</li>
         <li id="reltags">Related Tags</li>
-       <li>Top Sites</li>
+        <li>Top Sites</li>
+        <li id="signin">Sign In</li>
     </ul>
   </div>
   <div class="brian_subnav--reltags">
@@ -410,8 +469,62 @@ h4 {
                   {% endfor %}
     </ul>
   </div>
-</div>
+  
+  <div class="brian_subnav--signin">
+  <br>
+        <form action="" method="post" class="well">
+          {% csrf_token %}
+          <fieldset>
+            <legend>{% trans "Sign in" %}</legend>
+            <br />
+            
+            {% if form.non_field_errors %}
+            <div class="alert alert-error">
+            {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            
+            {% for field in form %}
+            
+            {% if field.errors %}
+            <div class="alert alert-error">
+            {% endif %}
+            
+            {{ field.errors }}
 
+            
+            {% comment %} Displaying checkboxes differently {% endcomment %}
+            
+            {% if field.name == 'remember_me' %}
+            <p class="checkbox">
+            <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+            </p>
+            {% else %}
+            <p>
+            {{ field.label_tag }}
+            {{ field }}
+            </p>
+            {% endif %}
+            
+            {% if field.errors %}
+            </div>
+            {% endif %}
+            
+            {% endfor %}
+          </fieldset>
+          <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+          <br /><br />
+          <p><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
+          {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+        </form>        
+    </div>
+
+  
+  
+</div> 
+<!-- END NAVBAR and SUB-NAVBAR -->
+
+<!-- LIST -->
 
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2 style="border-bottom-style:solid"><form action="" method="post" class="button-form">
@@ -1008,7 +1121,6 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
-
 
 
 
