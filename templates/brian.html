@@ -83,6 +83,22 @@ $(document).ready(function(){
     $(".brian_subnav--reltags").toggleClass("show_subnav");
   });
 });
+$(document).ready(function(){
+  $("#toptags").mouseenter(function(){
+    $(".brian_subnav--toptags").toggleClass("show_subnav");
+  });
+ $(".brian_subnav--toptags").mouseleave(function(){
+    $(".brian_subnav--toptags").toggleClass("show_subnav");
+  });
+});
+$(document).ready(function(){
+  $("#mytags").mouseenter(function(){
+    $(".brian_subnav--mytags").toggleClass("show_subnav");
+  });
+ $(".brian_subnav--mytags").mouseleave(function(){
+    $(".brian_subnav--mytags").toggleClass("show_subnav");
+  });
+});
 
 /*
 $(function() {
@@ -187,7 +203,6 @@ h4 {
 /* high z-index so it has display preference from the rest of the page */
   overflow: hidden;
   background-color: black;
-  border: 1px dashed red;
 }
 .brian_nav .link {
  float: left;
@@ -237,14 +252,38 @@ h4 {
   position: fixed;
     right: 0;
     left: 0;
-    top:36px;
-    clear: both;
+    top:34px;
     z-index: 20001;
 /* high z-index so it has display preference from the rest of the page */
     overflow: hidden;
     background-color: black;
-    opacity:0.7;
-    border: 1px dashed red;
+    opacity:0.83;
+    display:none;
+}
+.brian_subnav--toptags {
+  height:100px;
+  position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+/* high z-index so it has display preference from the rest of the page */
+    overflow: hidden;
+    background-color: black;
+    opacity:0.83;
+    display:none;
+}
+.brian_subnav--mytags {
+  height:100px;
+  position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+/* high z-index so it has display preference from the rest of the page */
+    overflow: hidden;
+    background-color: black;
+    opacity:0.83;
     display:none;
 }
 .show_subnav {
@@ -252,6 +291,17 @@ h4 {
 }
 #reltags {
   color:red;
+}
+#toptags {
+  color:orange;
+}
+#mytags {
+  color:yellow;
+}
+.brian_subnav--header {
+  color:white;
+  margin: 10px 5px 10px 20px;
+  font-size: 14px;
 }
 
 /* shading of an element with hover
@@ -289,7 +339,7 @@ h4 {
 <div>  <!-- Navbar and Sub-navbar -->
   <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
-  <ul class="link" style="border:1px dashed white">
+  <ul class="link">
       <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
         <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
@@ -346,42 +396,58 @@ h4 {
         <li></li>
         <li></li>
         <i class="icon-tags" style="background-color:white"></i>
-        <li>My Tags</li>
+        <li id="mytags">My Tags</li>
         <li>My Sites</li>
-       <li>Top Tags</li>
-       <li id="reltags">Relevant Tags
-<!--
+       <li id="toptags">Top Tags</li>
+       <li id="reltags">Relevant Tags</li>
+<!--        Using only CSS, wouldn't close the relevant tags <li>
             <ul class="nav nav-pills" style="border: 1px dashed white">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
+            </li>
 -->
-       </li>
        <li>Top Sites</li>
+
+
+
 <!--      To add
 Caret for help, mission statement, blog, recommendations etc...
 <li>Headlines</li>
 -->
+
+
+
     </ul>
     <br>
   </div>
   <div class="brian_subnav--reltags">
     <br>
-    <h5> Relevant tags 1-10 </h5>
+    <p class="brian_subnav--header"> Relevant tags 1-10 </p>
     <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
   </div>
-<!--  
-  <div class="brian_subnav">
+  <div class="brian_subnav--toptags">
     <br>
-    <p> Boo </p>
+    <p class="brian_subnav--header"> Inta's top tags from {{ method }} </p>
+    <ul class="nav nav-pills">
+                {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+    </ul>
   </div>
-  <div class="brian_subnav">
+  <div class="brian_subnav--mytags">
     <br>
-    <br>
-    <p> Hoo </p>
+    <p class="brian_subnav--header"> My tags </p>
+    <ul class="nav nav-pills">
+                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  <form action="" method="post" class="button-form">
+                      {% csrf_token %}
+                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
+                      <input type="hidden" name="action" value="delete_mytag" />
+                      <button type="submit" class="close">&times;</button></li>
+                  </form>
+                  {% endfor %}
+    </ul>
   </div>
--->
 </div>
     
 <!--
@@ -822,14 +888,15 @@ Caret for help, mission statement, blog, recommendations etc...
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="share" />
               </form>
+              
+              style="border: 2px dashed blue; display:inline-block"
      -->
-     
-        <div style="border: 2px dashed blue; display:inline-block; margin-right:0px;">
+        <div>
               <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
       
-     <div style="border: 2px dashed blue; display:inline-block" class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
+     <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -912,7 +979,6 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
-
 
 
 
