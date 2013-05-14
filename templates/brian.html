@@ -114,13 +114,13 @@ $("#tag_saved").hover(
   opacity:0.9;
   }
 #center {
-  margin-top: 100px;
+  margin-top: 200px;
 }
 #rb {
-  margin-top: 100px;
+  margin-top: 200px;
 }
 #lb {
-  margin-top: 100px;
+  margin-top: 200px;
   margin-left:80px;
 } 
 h4 {
@@ -157,8 +157,8 @@ h4 {
   right: 0;
   left: 0;
   top: 0;
-  /* margin-bottom: 30px;  isn't working for some reason */
-  *z-index: 2;
+  z-index: 20000;
+/* high z-index so it has display preference from the rest of the page */
   overflow: hidden;
   background-color: black;
 }
@@ -218,6 +218,9 @@ h4 {
   display:none;
 }
 .brian_nav ul li:hover > ul {
+  display:block;
+}
+.brian_nav ul ul:hover {
   display:block;
 }
 .brian_nav ul:after {
