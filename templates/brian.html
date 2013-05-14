@@ -25,6 +25,7 @@
     <script src="{{ STATIC_URL }}js/bootstrap.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="text/javascript"></script>
 
+
     <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
@@ -72,6 +73,15 @@ $(function() {
       $('#sign_up').modal('toggle');
       $('#sign_up').modal('show');
       $('#sign_up').modal('hide');
+});
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").toggleClass("show_subnav");
+  });
+ $(".brian_subnav--reltags").mouseleave(function(){
+    $(".brian_subnav--reltags").toggleClass("show_subnav");
+  });
 });
 
 /*
@@ -152,6 +162,22 @@ h4 {
 .ui-menu { 
   width: 150px; 
 }
+#time_icon {
+ display: inline;
+ float:left;
+ margin: 13px 8px 2px 15px;
+}
+#user_navbar:hover {
+  color: red;
+  font-weight: bold;
+}
+#inta_brand {
+ color: #ddf;
+ display: inline;
+ float:left;
+ font-size:22px;
+ margin: 3px 4px 2px 15px;
+}
 .brian_nav {
   position: fixed;
   right: 0;
@@ -161,11 +187,7 @@ h4 {
 /* high z-index so it has display preference from the rest of the page */
   overflow: hidden;
   background-color: black;
-}
-#time_icon {
- display: inline;
- float:left;
- margin: 13px 8px 2px 15px;
+  border: 1px dashed red;
 }
 .brian_nav .link {
  float: left;
@@ -198,23 +220,6 @@ h4 {
   color: white;
   font-weight: bold;
 }
-.brian_nav .brian_sub_nav {
-  display:none;
-}
-.brian_nav .brian_sub_nav .sub_nav_toggler li:hover {
-  display:block;
-}
-#user_navbar:hover {
-  color: red;
-  font-weight: bold;
-}
-#inta_brand {
- color: #ddf;
- display: inline;
- float:left;
- font-size:22px;
- margin: 3px 4px 2px 15px;
-}
 .brian_nav ul ul {
   display:none;
 }
@@ -227,18 +232,26 @@ h4 {
 .brian_nav ul:after {
     content: ""; clear: both; display: block;
   }
-.brian_subnav {
+.brian_subnav--reltags {
   height:100px;
   position: fixed;
     right: 0;
     left: 0;
-    top:45px;
+    top:36px;
     clear: both;
     z-index: 20001;
 /* high z-index so it has display preference from the rest of the page */
     overflow: hidden;
     background-color: black;
     opacity:0.7;
+    border: 1px dashed red;
+    display:none;
+}
+.show_subnav {
+  display:block;
+}
+#reltags {
+  color:red;
 }
 
 /* shading of an element with hover
@@ -252,6 +265,7 @@ h4 {
 
 </style>
     
+
 </head>
   
 <body style="background:#ddf">
@@ -335,10 +349,12 @@ h4 {
         <li>My Tags</li>
         <li>My Sites</li>
        <li>Top Tags</li>
-       <li>Relevant Tags
+       <li id="reltags">Relevant Tags
+<!--
             <ul class="nav nav-pills" style="border: 1px dashed white">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
+-->
        </li>
        <li>Top Sites</li>
 <!--      To add
@@ -347,13 +363,25 @@ Caret for help, mission statement, blog, recommendations etc...
 -->
     </ul>
     <br>
-    <div class="brian_sub_nav">
-       <p> Working? </p>
-    </div>
+  </div>
+  <div class="brian_subnav--reltags">
+    <br>
+    <h5> Relevant tags 1-10 </h5>
+    <ul class="nav nav-pills">
+                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+    </ul>
+  </div>
+<!--  
+  <div class="brian_subnav">
+    <br>
+    <p> Boo </p>
   </div>
   <div class="brian_subnav">
-  <p> Here we go! </p>
+    <br>
+    <br>
+    <p> Hoo </p>
   </div>
+-->
 </div>
     
 <!--
@@ -884,6 +912,7 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
 
 
 
