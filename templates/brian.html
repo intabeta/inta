@@ -339,7 +339,7 @@ h4 {
     left: 0;
     top:34px;
     z-index: 20001;
-    overflow: hidden;
+    overflow: scroll;
     background-color: black;
     opacity:0.83;
     display:none;
@@ -472,12 +472,10 @@ h4 {
   
   <div class="brian_subnav--signin">
   <br>
-        <form action="" method="post" class="well">
+  <h4> Sign In </h4<
+        <form action="" method="post">
           {% csrf_token %}
-          <fieldset>
-            <legend>{% trans "Sign in" %}</legend>
-            <br />
-            
+          <fieldset>            
             {% if form.non_field_errors %}
             <div class="alert alert-error">
             {{ form.non_field_errors }}
@@ -512,7 +510,7 @@ h4 {
             
             {% endfor %}
           </fieldset>
-          <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+          <button type="submit" class="btn">{% trans "Sign in" %}</button>
           <br /><br />
           <p><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
           {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
@@ -1121,6 +1119,8 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
+
 
 
 
