@@ -114,13 +114,13 @@ $("#tag_saved").hover(
   opacity:0.9;
   }
 #center {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 #rb {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 #lb {
-  margin-top: 50px;
+  margin-top: 100px;
   margin-left:80px;
 } 
 h4 {
@@ -214,6 +214,15 @@ h4 {
  font-size:22px;
  margin: 3px 4px 2px 15px;
 }
+.brian_nav ul ul {
+  display:none;
+}
+.brian_nav ul li:hover > ul {
+  display:block;
+}
+.brian_nav ul:after {
+    content: ""; clear: both; display: block;
+  }
 */
 
 </style>
@@ -241,7 +250,7 @@ h4 {
 <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
   <ul class="link">
-      <i class="icon-time" id="time_icon" style="background-color:white"></i>
+      <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
         <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
         <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3h</a></li>
@@ -300,7 +309,11 @@ h4 {
         <li>My Tags</li>
         <li>My Sites</li>
        <li>Top Tags</li>
-       <li>Relevant Tags</li>
+       <li>Relevant Tags
+            <ul class="nav nav-pills">
+                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            </ul>
+       </li>
        <li>Top Sites</li>
 <!--      To add
 Caret for help, mission statement, blog, recommendations etc...
@@ -841,6 +854,7 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
 
 
 
