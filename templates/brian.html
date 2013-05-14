@@ -173,6 +173,7 @@ h4 {
  margin: 2px 0 2px 0;
  font-weight:bold;
  font-size: 15px;
+ width:1300px;
 }
 .brian_nav .link > li {
  display: inline;
@@ -226,6 +227,27 @@ h4 {
 .brian_nav ul:after {
     content: ""; clear: both; display: block;
   }
+.brian_subnav {
+  height:100px;
+  position: fixed;
+    right: 0;
+    left: 0;
+    top:45px;
+    clear: both;
+    z-index: 20001;
+/* high z-index so it has display preference from the rest of the page */
+    overflow: hidden;
+    background-color: black;
+    opacity:0.7;
+}
+
+/* shading of an element with hover
+.brian_nav ul li:hover {
+      background: #4b545f;
+      background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+      background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+      background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+    }
 */
 
 </style>
@@ -250,9 +272,10 @@ h4 {
   </div>
 </div>
 -->
-<div class="brian_nav">
+<div>  <!-- Navbar and Sub-navbar -->
+  <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
-  <ul class="link">
+  <ul class="link" style="border:1px dashed white">
       <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
         <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
@@ -313,7 +336,7 @@ h4 {
         <li>My Sites</li>
        <li>Top Tags</li>
        <li>Relevant Tags
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills" style="border: 1px dashed white">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
        </li>
@@ -327,6 +350,10 @@ Caret for help, mission statement, blog, recommendations etc...
     <div class="brian_sub_nav">
        <p> Working? </p>
     </div>
+  </div>
+  <div class="brian_subnav">
+  <p> Here we go! </p>
+  </div>
 </div>
     
 <!--
@@ -857,7 +884,6 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
-
 
 
 
