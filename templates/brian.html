@@ -34,17 +34,6 @@
 
 <script type="text/javascript">
 
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-
 /*
 
 $('.brian_subnav--reltags').toggleClass(function() {
@@ -72,6 +61,16 @@ $(document).ready(function(){
   });
 });
 */
+
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
 
 $(document).ready(function(){
   $("#toptags").mouseenter(function(){
@@ -108,6 +107,17 @@ $(document).ready(function(){
     $(".brian_subnav--signin").removeClass("show_subnav");
   });
 });
+
+
+$(document).ready(function(){
+  $("#user_nav").mouseenter(function(){
+    $(".brian_subnav--user").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--user").removeClass("show_subnav");
+  });
+});
+
 
 /*
 $(function() {
@@ -365,6 +375,18 @@ h4 {
     opacity:1;
     display:none;
 }
+.brian_subnav--user {
+  height:100px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+    overflow: scroll;
+    background-color: black;
+    opacity:1;
+    display:none;
+}
 .show_subnav {
   display:block;
 }
@@ -378,9 +400,13 @@ h4 {
  color: red;
 }
 #signin {
- color: red }
+ color: red 
+ }
 #mytags {
  color: #BFBEBE;
+}
+#user_nav {
+ color: white;
 }
 .brian_subnav--header {
   color:white;
@@ -414,6 +440,12 @@ h4 {
 .brian_subnav--signup .bottom-line_signup {
   margin-top: 5px;
   color:#ddf;
+}
+.brian_subnav--user h2 {
+  margin: 5px 0 0 15px;
+}
+.brian_subnav--user h4 {
+  margin: 2px 5px 0 15px;
 }
 </style>
     
@@ -469,22 +501,7 @@ h4 {
         <li id="reltags">Related Tags</li>
         <li>Top Sites</li>
         {% if user.id %}
-          <a class="btn dropdown-toggle" id="user_navbar" data-toggle="dropdown" href="#">
-             {{ user }}  <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/signout/">Sign Out</a></li>
-          </ul>   
+             <li id="user_nav"> {{ user }} </li>
         {% else %}
           <li id="signin">Sign In</li>
           <li id="signup">Sign Up</li>
@@ -551,6 +568,19 @@ h4 {
           <button type="submit" class="btn">{% trans "Sign In" %}</button>
     </form>
   </div>
+  
+  <div class="brian_subnav--user">
+      <h2> Functionality to come </h2>
+      <h4> As it is with all the site. Send me an email (bwloeb5@gmail.com) to talk about it </h4>
+          <ul class="nav nav-pills">
+                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
+                  <li><a href="/accounts/{{ user }}/">My Goods</a></li>
+                  <li><a href="/accounts/{{ user }}/">My Greats</a></li>
+                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
+                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
+                  <li><a href="/accounts/signout/">Sign Out</a></li>
+          </ul>  
+  </div> 
 
 <!--
           <fieldset>            
@@ -1195,6 +1225,8 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
+
 
 
 
