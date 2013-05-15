@@ -100,6 +100,15 @@ $(document).ready(function(){
   });
 });
 
+$(document).ready(function(){
+  $("#signin").mouseenter(function(){
+    $(".brian_subnav--signin").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
+  });
+});
+
 /*
 $(function() {
     var select = $( "#minbeds" );
@@ -344,6 +353,18 @@ h4 {
     opacity:1;
     display:none;
 }
+.brian_subnav--signin {
+  height:100px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+    overflow: scroll;
+    background-color: black;
+    opacity:1;
+    display:none;
+}
 .show_subnav {
   display:block;
 }
@@ -356,6 +377,8 @@ h4 {
 #signup {
  color: red;
 }
+#signin {
+ color: red }
 #mytags {
  color: #BFBEBE;
 }
@@ -370,11 +393,20 @@ h4 {
 .brian_subnav--signup form input {
   margin: 0 5px 0 5px;
 }
+.brian_subnav--signin form input {
+  margin: 0 5px 0 5px;
+}
 .brian_subnav--signup form p {
   color:white;
 }
+.brian_subnav--signin form p {
+  color:white;
+}
 .brian_subnav--signup form {
-  margin: 0 5px 0 15px;
+  margin: 10px 5px 0 15px;
+}
+.brian_subnav--signin form {
+  margin: 10px 5px 0 15px;
 }
 .brian_subnav--signup h4 {
   margin: 13px 5px 0 15px;
@@ -427,6 +459,15 @@ h4 {
         <li></li>
         <li></li>
         <li><a href="/graphtest">Node view</a></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <i class="icon-tags" style="background-color:white"></i>
+        <li id="mytags">My Tags</li>
+        <li>My Sites</li>
+        <li id="toptags">Top Tags</li>
+        <li id="reltags">Related Tags</li>
+        <li>Top Sites</li>
         {% if user.id %}
           <a class="btn dropdown-toggle" id="user_navbar" data-toggle="dropdown" href="#">
              {{ user }}  <span class="caret"></span>
@@ -444,19 +485,15 @@ h4 {
                   <li class="divider"></li>
                   <li><a href="/accounts/signout/">Sign Out</a></li>
           </ul>   
+        {% else %}
+          <li id="signin">Sign In</li>
+          <li id="signup">Sign Up</li>
         {% endif %}
-        <li></li>
-        <li></li>
-        <li></li>
-        <i class="icon-tags" style="background-color:white"></i>
-        <li id="mytags">My Tags</li>
-        <li>My Sites</li>
-        <li id="toptags">Top Tags</li>
-        <li id="reltags">Related Tags</li>
-        <li>Top Sites</li>
-        <li id="signup">Sign Up</li>
     </ul>
   </div>
+  
+<!-- SUBNAV Divs-->
+
   <div class="brian_subnav--reltags">
     <br>
     <p class="brian_subnav--header"> Related tags 1-10 </p>
@@ -464,6 +501,7 @@ h4 {
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
   </div>
+  
   <div class="brian_subnav--toptags">
     <br>
     <p class="brian_subnav--header"> Inta's top tags from {{ method }} </p>
@@ -471,6 +509,7 @@ h4 {
                 {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
   </div>
+  
   <div class="brian_subnav--mytags">
     <br>
     <p class="brian_subnav--header"> My tags </p>
@@ -487,7 +526,6 @@ h4 {
   </div>
   
   <div class="brian_subnav--signup">
-  <h4> Sign Up </h4>
         <form action="" method="post">
           {% csrf_token %}
           <p>Username: <input type="text" name="username">
@@ -498,11 +536,22 @@ h4 {
         <div class="bottom-line_signup">
         <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
       <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
-      <input type="submit" value="Submit"></p>
+          <button type="submit" class="btn">{% trans "Sign Up" %}</button>
       </div>
     </form>
+  </div>
           
-          
+  <div class="brian_subnav--signin">
+        <form action="" method="post">
+          {% csrf_token %}
+          <p>Username: <input type="text" name="user_signin">
+          Password: <input type="password" name="pwd_signin">
+        <br>
+        <input type="radio" name="remember" value="install">Save Log In</p>
+          <button type="submit" class="btn">{% trans "Sign In" %}</button>
+    </form>
+  </div>
+
 <!--
           <fieldset>            
             {% if form.non_field_errors %}
@@ -545,9 +594,6 @@ h4 {
           {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
         </form>     
 -->   
-    </div>
-
-  
   
 </div> 
 <!-- END NAVBAR and SUB-NAVBAR -->
@@ -1149,6 +1195,7 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
 
 
 
