@@ -515,7 +515,7 @@ h4 {
 
   <div class="brian_subnav--reltags">
     <br>
-    <p class="brian_subnav--header"> Related tags 1-10 </p>
+    <p class="brian_subnav--header"> Related tags </p>
     <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
@@ -523,7 +523,7 @@ h4 {
   
   <div class="brian_subnav--toptags">
     <br>
-    <p class="brian_subnav--header"> Inta's top tags from {{ method }} </p>
+    <p class="brian_subnav--header"> Top tags </p>
     <ul class="nav nav-pills">
                 {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
@@ -579,7 +579,7 @@ h4 {
   
   <div class="brian_subnav--user">
       <h2> Functionality to come </h2>
-      <h4> As it is with all the site. Send me an email (bwloeb5@gmail.com) to talk about it </h4>
+      <h4> Here and for the rest of the site. Send me an email (bwloeb5@gmail.com) to talk about it </h4>
           <ul class="nav nav-pills">
                   <li><a href="/accounts/{{ user }}/">Settings</a></li>
                   <li><a href="/accounts/{{ user }}/">My Goods</a></li>
@@ -671,7 +671,7 @@ h4 {
                   <br />
                   <div> 
 
-              <form action="" method="post" class="button-form" style="border: 2px dashed; border-color:#ddf">
+              <form action="" method="post" class="button-form">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                         <input type="hidden" name="action" value="vote" />
@@ -1229,6 +1229,7 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
+
 
 
 
