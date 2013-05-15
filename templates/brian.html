@@ -241,7 +241,7 @@ h4 {
   margin-top: 80px;
   margin-right: 80px;
 }
-/* All mine definitions post 5/13 (learning from TB etc) */
+/* All my definitions post 5/13 (learning from TB etc) */
 #time_icon {
  display: inline;
  float:left;
@@ -249,10 +249,6 @@ h4 {
 }
 #del_mytag {
   color:white;
-}
-#user_navbar:hover {
-  color: red;
-  font-weight: bold;
 }
 #inta_brand {
  color: #ddf;
@@ -268,8 +264,9 @@ h4 {
   top: 0;
   z-index: 20000;
 /* high z-index so it has display preference from the rest of the page */
-  overflow: hidden;
+  overflow: scroll;
   background-color: black;
+  float:left;
 }
 .brian_nav .link {
  float: left;
@@ -302,18 +299,6 @@ h4 {
   color: white;
   font-weight: bold;
 }
-.brian_nav ul ul {
-  display:none;
-}
-.brian_nav ul li:hover > ul {
-  display:block;
-}
-.brian_nav ul ul:hover {
-  display:block;
-}
-.brian_nav ul:after {
-    content: ""; clear: both; display: block;
-  }
 .brian_subnav--reltags {
   height:100px;
   position: fixed;
@@ -340,7 +325,7 @@ h4 {
     display:none;
 }
 .brian_subnav--mytags {
-  height:100px;
+  height:120px;
   position: fixed;
     right: 0;
     left: 0;
@@ -410,8 +395,9 @@ h4 {
 }
 .brian_subnav--header {
   color:white;
-  margin: 10px 5px 10px 20px;
+  margin: 5px 5px 5px 20px;
   font-size: 14px;
+    font-weight: bold;
 }
 #nonnav {
   border: 2px dashed blue;
@@ -443,10 +429,26 @@ h4 {
 }
 .brian_subnav--user h2 {
   margin: 5px 0 0 15px;
+  color: white;
 }
 .brian_subnav--user h4 {
   margin: 2px 5px 0 15px;
+  color: white;
 }
+.subnav--active_tags {
+  margin: 0 0 0 20px;
+  font-size: 13px;
+  color:#ddf;
+}
+.subnav--active_tags a {
+  margin: 0 0 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.subnav--active_tags button {
+  margin: 0 0 0 15px;
+}
+
 </style>
     
 
@@ -454,7 +456,7 @@ h4 {
   
 <body style="background:#ddf">
 <div>  <!-- Navbar and Sub_navbar -->
-  <div class="brian_nav">
+ <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
   <ul class="link">
       <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
@@ -490,16 +492,16 @@ h4 {
         <li></li>
         <li></li>
         <li></li>
-        <li><a href="/graphtest">Node view</a></li>
+        <li><a href="/graphtest" target="_blank">Node view</a></li>
         <li></li>
         <li></li>
         <li></li>
-        <i class="icon-tags" style="background-color:white"></i>
         <li id="mytags">My Tags</li>
         <li>My Sites</li>
         <li id="toptags">Top Tags</li>
         <li id="reltags">Related Tags</li>
         <li>Top Sites</li>
+        
         {% if user.id %}
              <li id="user_nav"> {{ user }} </li>
         {% else %}
@@ -529,6 +531,12 @@ h4 {
   
   <div class="brian_subnav--mytags">
     <br>
+        <form action="" method="post" class="button-form subnav--active_tags">
+            {% csrf_token %}
+            Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            <input type="hidden" name="action" value="addfavtag" />
+            <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
+        </form>
     <p class="brian_subnav--header"> My tags </p>
     <ul class="nav nav-pills">
                   {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
@@ -631,12 +639,8 @@ h4 {
 <!-- LIST -->
 
      <div class="span7 well" id="center" style="border: 1px solid gray">
-       <h2 style="border-bottom-style:solid"><form action="" method="post" class="button-form">
-            {% csrf_token %}
+       <h2 style="border-bottom: solid #ddf">
             Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
-            <input type="hidden" name="action" value="addfavtag" />
-            <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
-        </form>
         </h2>
         
           <table class="table table-condensed">
