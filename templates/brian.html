@@ -92,11 +92,11 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $("#signin").mouseenter(function(){
-    $(".brian_subnav--signin").addClass("show_subnav");
+  $("#signup").mouseenter(function(){
+    $(".brian_subnav--signup").addClass("show_subnav");
   });
  $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signin").removeClass("show_subnav");
+    $(".brian_subnav--signup").removeClass("show_subnav");
   });
 });
 
@@ -303,7 +303,7 @@ h4 {
     top:34px;
     z-index: 20001;
 /* high z-index so it has display preference from the rest of the page */
-    overflow: hidden;
+    overflow: scroll;
     background-color: black;
     opacity:0.83;
     display:none;
@@ -315,7 +315,7 @@ h4 {
     left: 0;
     top:34px;
     z-index: 20001;
-    overflow: hidden;
+    overflow: scroll;
     background-color: black;
     opacity:0.83;
     display:none;
@@ -327,12 +327,12 @@ h4 {
     left: 0;
     top:34px;
     z-index: 20001;
-    overflow: hidden;
+    overflow: scroll;
     background-color: black;
     opacity:0.83;
     display:none;
 }
-.brian_subnav--signin {
+.brian_subnav--signup {
     height:100px;
   position: fixed;
     right: 0;
@@ -341,23 +341,23 @@ h4 {
     z-index: 20001;
     overflow: scroll;
     background-color: black;
-    opacity:0.83;
+    opacity:1;
     display:none;
 }
 .show_subnav {
   display:block;
 }
 #reltags {
-  color:red;
+ color: #BFBEBE;
 }
 #toptags {
-  color:orange;
+ color: #BFBEBE;
 }
-#signin {
- color:blue;
+#signup {
+ color: red;
 }
 #mytags {
-  color:yellow;
+ color: #BFBEBE;
 }
 .brian_subnav--header {
   color:white;
@@ -366,6 +366,22 @@ h4 {
 }
 #nonnav {
   border: 2px dashed blue;
+}
+.brian_subnav--signup form input {
+  margin: 0 5px 0 5px;
+}
+.brian_subnav--signup form p {
+  color:white;
+}
+.brian_subnav--signup form {
+  margin: 0 5px 0 15px;
+}
+.brian_subnav--signup h4 {
+  margin: 13px 5px 0 15px;
+}
+.brian_subnav--signup .bottom-line_signup {
+  margin-top: 5px;
+  color:#ddf;
 }
 </style>
     
@@ -438,7 +454,7 @@ h4 {
         <li id="toptags">Top Tags</li>
         <li id="reltags">Related Tags</li>
         <li>Top Sites</li>
-        <li id="signin">Sign In</li>
+        <li id="signup">Sign Up</li>
     </ul>
   </div>
   <div class="brian_subnav--reltags">
@@ -470,11 +486,24 @@ h4 {
     </ul>
   </div>
   
-  <div class="brian_subnav--signin">
-  <br>
-  <h4> Sign In </h4<
+  <div class="brian_subnav--signup">
+  <h4> Sign Up </h4>
         <form action="" method="post">
           {% csrf_token %}
+          <p>Username: <input type="text" name="username">
+          Email: <input type="text" name="email">
+          Password: <input type="password" name="pwd">
+        Confirm Password: <input type="password" name="pwd_confirm">
+        <br>
+        <div class="bottom-line_signup">
+        <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
+      <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
+      <input type="submit" value="Submit"></p>
+      </div>
+    </form>
+          
+          
+<!--
           <fieldset>            
             {% if form.non_field_errors %}
             <div class="alert alert-error">
@@ -514,7 +543,8 @@ h4 {
           <br /><br />
           <p><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
           {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-        </form>        
+        </form>     
+-->   
     </div>
 
   
@@ -614,7 +644,7 @@ h4 {
 
        <div class="well span3" id="rb">
           <a class="btn" href="javascript:bookmark()">Click to add shortcut</a>
-             <a class="btn" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Drag into your bookmark bar, then vote or favorite from anywhere </p>
+             <a class="btn" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Tag and vote from anywhere </p>
         </div>
 
 <script type="text/javascript">
@@ -1119,8 +1149,6 @@ Caret for help, mission statement, blog, recommendations etc...
 
 </body>
 </html>
-
-
 
 
 
