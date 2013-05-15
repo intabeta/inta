@@ -266,7 +266,6 @@ h4 {
 /* high z-index so it has display preference from the rest of the page */
   overflow: scroll;
   background-color: black;
-  float:left;
 }
 .brian_nav .link {
  float: left;
@@ -274,7 +273,6 @@ h4 {
  margin: 2px 0 2px 0;
  font-weight:bold;
  font-size: 15px;
- width:1300px;
 }
 .brian_nav .link > li {
  display: inline;
@@ -301,10 +299,10 @@ h4 {
 }
 .brian_subnav--reltags {
   height:100px;
-  position: fixed;
+  position: absolute;
     right: 0;
     left: 0;
-    top:34px;
+    clear:both;
     z-index: 20001;
 /* high z-index so it has display preference from the rest of the page */
     overflow: scroll;
@@ -455,7 +453,7 @@ h4 {
 </head>
   
 <body style="background:#ddf">
-<div>  <!-- Navbar and Sub_navbar -->
+<div style="position:relative; border:5px dashed white">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <h2 id="inta_brand"> inta </h2>
   <ul class="link">
@@ -1220,7 +1218,7 @@ Caret for help, mission statement, blog, recommendations etc...
         });
     }(window.jQuery);
 
-// option value append f
+// option value append
 //function setLocation(elm, baseUrl) {
   //  var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
     //window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
