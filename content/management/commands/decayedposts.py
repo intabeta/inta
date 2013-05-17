@@ -24,7 +24,6 @@ class Command(BaseCommand):
             for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
                 entry.score += total
-                print lapsed.total_seconds()
                 base = 0.5
                 tval1=entry.decayed_score_1.tagval_set.get(tag=tagnew)
                 tval1.val = total * (base ** (lapsed.total_seconds() / 1800))

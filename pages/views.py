@@ -488,7 +488,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
 
-        tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
+        tagscores = [ sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         if tags != '':
             relevanttags = listsum([ post.tags.all() for post in posts ])
             toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
