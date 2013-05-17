@@ -679,7 +679,7 @@ def submit_plugin(request):
                     if tagcheck:
                         newtag = tagcheck[0]
                     else:
-                        newtag = Tag(name=tag)
+                        newtag = Tag(name=tagname)
                         newtag.save()
                         
                     #make tag active so that ranktags knows to look at it
@@ -701,7 +701,7 @@ def submit_plugin(request):
                         dcy6dict.tagval_set.create(tag=newtag, val=1)
                         dcy7dict.tagval_set.create(tag=newtag, val=1)
                         dcy8dict.tagval_set.create(tag=newtag, val=1)
-                        voterdict.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
+                        voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
                     else: #'great'
                         dblpostsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=2)
@@ -712,7 +712,7 @@ def submit_plugin(request):
                         dcy6dict.tagval_set.create(tag=newtag, val=2)
                         dcy7dict.tagval_set.create(tag=newtag, val=2)
                         dcy8dict.tagval_set.create(tag=newtag, val=2)
-                        voterdict.voter_set.create(tag=tag, user=user, val=2, slug=entry.slug)
+                        voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
                     entry.tags.add(newtag)
                     entry.save()
             
