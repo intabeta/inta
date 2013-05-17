@@ -673,22 +673,23 @@ def submit_plugin(request):
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                 entry.save()
 ##                action = request.session.get('action','')
-                for tag in tags.split(', '):
-                    #make tag active so that ranktags knows to look at it
-                    activetags = eval(DataList.objects.get(id=1).data)
-                    if tag.id not in activetags:
-                        activetags.append(tag.id)
-                        d = DataList.objects.get(id=1)
-                        d.data = activetags
-                        d.save()
-                        del d
+                for tagname in tags.split(', '):
                     #if the tag already exists grab it, otherwise create a new one
-                    tagcheck = Tag.objects.filter(name__iexact=tag)
+                    tagcheck = Tag.objects.filter(name__iexact=tagname)
                     if tagcheck:
                         newtag = tagcheck[0]
                     else:
                         newtag = Tag(name=tag)
                         newtag.save()
+                        
+                    #make tag active so that ranktags knows to look at it
+                    activetags = eval(DataList.objects.get(id=1).data)
+                    if newtag.id not in activetags:
+                        activetags.append(newtag.id)
+                        d = DataList.objects.get(id=1)
+                        d.data = activetags
+                        d.save()
+                        del d
                         
                     if '_post' in request.POST: #'good'
                         postsdict.tagval_set.create(tag=newtag, val=1)
@@ -702,7 +703,7 @@ def submit_plugin(request):
                         dcy8dict.tagval_set.create(tag=newtag, val=1)
                         voterdict.voter_set.create(tag=tag, user=user, val=1, slug=entry.slug)
                     else: #'great'
-                        dblpostsdict.tagval_set.create(tag=newtag, val=2)
+                        dblpostsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=2)
                         dcy2dict.tagval_set.create(tag=newtag, val=2)
                         dcy3dict.tagval_set.create(tag=newtag, val=2)
