@@ -266,6 +266,13 @@ def ig_proposal_done(request):
 
 
 def tag_list(request, tags, method):
+    """
+
+    :param request:
+    :param tags:
+    :param method:
+    :return:
+    """
     user = request.user
     tags = tags
 
@@ -360,7 +367,7 @@ def tag_list(request, tags, method):
         entries = Entry.objects.all()
         for tag in taglist:
             entries = entries.filter(tags__name__in=[tag])
-			
+
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
             votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
@@ -421,11 +428,11 @@ def tag_list(request, tags, method):
             }
     else:
         taglist = tags.split('|')
-	entries = Entry.objects.all()
-		
-	for tag in taglist:
-	    entries = entries.filter(tags__name__in=[tag])
-			
+    entries = Entry.objects.all()
+
+    for tag in taglist:
+        entries = entries.filter(tags__name__in=[tag])
+
         if method == 'votes':
             posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
             votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
@@ -468,7 +475,7 @@ def tag_list(request, tags, method):
         if method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
 
-        
+
         toptags = sorted([[tag.name,sum([a._get_ranking(tag) for a in Entry.objects.all()])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top ten tags by number of votes over all entries
         toprelevant = sorted([[tag.name,sum([a._get_ranking(tag) for a in posts])] for tag in Tag.objects.all()], key=lambda a: -a[1])[:10] #get top related tags (ranked by votes only, not by how closely related they are)
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
@@ -528,7 +535,7 @@ def submit_plugin(request):
     if request.method == 'POST':
         form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
         extra += ' Getting form...'
-        
+
         if form.is_valid():
             extra += ' Form is valid.'
             url = form.cleaned_data['url']
@@ -624,15 +631,15 @@ def submit_plugin(request):
                 postsdict = Dict(name=entry.url)
                 postsdict.save()
                 entry.posts=postsdict
-                
+
                 dblpostsdict = Dict(name=entry.url)
                 dblpostsdict.save()
                 entry.double_posts = dblpostsdict
-                
+
                 favdict = Dict(name=entry.url)
                 favdict.save()
                 entry.favorites = favdict
-                
+
                 voterdict = Dict(name=entry.url)
                 voterdict.save()
                 entry.voted_by = voterdict
@@ -681,7 +688,7 @@ def submit_plugin(request):
                     else:
                         newtag = Tag(name=tagname)
                         newtag.save()
-                        
+
                     #make tag active so that ranktags knows to look at it
                     activetags = eval(DataList.objects.get(id=1).data)
                     if newtag.id not in activetags:
@@ -690,7 +697,7 @@ def submit_plugin(request):
                         d.data = activetags
                         d.save()
                         del d
-                        
+
                     if '_post' in request.POST: #'good'
                         postsdict.tagval_set.create(tag=newtag, val=1)
                         dcy1dict.tagval_set.create(tag=newtag, val=1)
@@ -715,7 +722,7 @@ def submit_plugin(request):
                         voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
                     entry.tags.add(newtag)
                     entry.save()
-            
+
                 #try to pull in image from twitter, if it exists.
                 domains = Logo.objects.filter(site__iexact=entry.domain)
                 r = list(domains[:1])
@@ -727,7 +734,7 @@ def submit_plugin(request):
                         results = json.loads(googleResult)
                         data = results['responseData']['results']
                         urls = [e['url'] for e in data]
-                        
+
                         for url in urls:
                             if re.search(r"https?://(www\.)?twitter.com/\w+", url):
                                 contents = urllib2.urlopen(url).read()
@@ -744,7 +751,7 @@ def submit_plugin(request):
                                 break #only first matching
                     except:
                         logo = None
-            
+
         if 'url' in request.session:
             del request.session['url']
         if 'action' in request.session:
@@ -814,10 +821,10 @@ def submit_details(request): #no longer used
 
         entry.save()
         for tag in newtags.split(', '):
-        	entry.tags.add(tag)
-    	entry.save()
-        
-        
+            entry.tags.add(tag)
+        entry.save()
+
+
         ig.posts = ig.posts + 1
         ig.save()
 

@@ -370,10 +370,10 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
                 votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-        if method == 'growth':
+        elif method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
-        if method == 'decay1':
+        elif method == 'decay1':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
                 votecounts = [ entry.score_d1 for entry in posts ]
@@ -386,7 +386,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-        if method == 'decay2':
+        elif method == 'decay2':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
                 votecounts = [ entry.score_d2 for entry in posts ]
@@ -399,7 +399,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-        if method == 'decay3':
+        elif method == 'decay3':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
                 votecounts = [ entry.score_d3 for entry in posts ]
@@ -412,7 +412,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-        if method == 'decay4':
+        elif method == 'decay4':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
                 votecounts = [ entry.score_d4 for entry in posts ]
@@ -425,7 +425,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-        if method == 'decay5':
+        elif method == 'decay5':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
                 votecounts = [ entry.score_d5 for entry in posts ]
@@ -438,7 +438,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-        if method == 'decay6':
+        elif method == 'decay6':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
                 votecounts = [ entry.score_d6 for entry in posts ]
@@ -451,7 +451,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-        if method == 'decay7':
+        elif method == 'decay7':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
                 votecounts = [ entry.score_d7 for entry in posts ]
@@ -464,7 +464,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-        if method == 'decay8':
+        elif method == 'decay8':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
                 votecounts = [ entry.score_d8 for entry in posts ]
@@ -477,16 +477,18 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-        if method == 'favorites':
+        elif method == 'favorites':
             posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        if method == 'green':
+        elif method == 'green':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'orange':
+        elif method == 'orange':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'red':
+        elif method == 'red':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'black':
+        elif method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
+        else:
+            return render_to_response('404.html')
 
         tagscores = [ sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         if tags != '':
@@ -553,10 +555,10 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
                 votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-        if method == 'growth':
+        elif method == 'growth':
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
-        if method == 'decay1':
+        elif method == 'decay1':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
                 votecounts = [ entry.score_d1 for entry in posts ]
@@ -569,7 +571,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-        if method == 'decay2':
+        elif method == 'decay2':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
                 votecounts = [ entry.score_d2 for entry in posts ]
@@ -582,7 +584,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-        if method == 'decay3':
+        elif method == 'decay3':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
                 votecounts = [ entry.score_d3 for entry in posts ]
@@ -595,7 +597,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-        if method == 'decay4':
+        elif method == 'decay4':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
                 votecounts = [ entry.score_d4 for entry in posts ]
@@ -608,7 +610,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-        if method == 'decay5':
+        elif method == 'decay5':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
                 votecounts = [ entry.score_d5 for entry in posts ]
@@ -621,7 +623,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-        if method == 'decay6':
+        elif method == 'decay6':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
                 votecounts = [ entry.score_d6 for entry in posts ]
@@ -634,7 +636,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-        if method == 'decay7':
+        elif method == 'decay7':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
                 votecounts = [ entry.score_d7 for entry in posts ]
@@ -647,7 +649,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-        if method == 'decay8':
+        elif method == 'decay8':
             if tags=='':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
                 votecounts = [ entry.score_d8 for entry in posts ]
@@ -660,17 +662,19 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             else:
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-        if method == 'favorites':
+        elif method == 'favorites':
             posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        if method == 'green':
+        elif method == 'green':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'orange':
+        elif method == 'orange':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'red':
+        elif method == 'red':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
-        if method == 'black':
+        elif method == 'black':
             posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
-
+        else:
+            return render_to_response('404.html')
+        
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
         if tags != '':
             relevanttags = listsum([ post.tags.all() for post in posts ])
