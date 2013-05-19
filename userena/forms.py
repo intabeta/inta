@@ -33,10 +33,10 @@ class SignupForm(forms.Form):
                              label=_("Email"))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict,
                                                            render_value=False),
-                                label=_("Create password"))
+                                label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict,
                                                            render_value=False),
-                                label=_("Repeat password"))
+                                label=_("Confirm Password"))
 
     def clean_username(self):
         """

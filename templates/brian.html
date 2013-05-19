@@ -551,16 +551,22 @@ h4 {
   <div class="brian_subnav--signup">
         <form action="" method="post">
           {% csrf_token %}
-          <p>Username: <input type="text" name="username">
-          Email: <input type="text" name="email">
-          Password: <input type="password" name="pwd">
-        Confirm Password: <input type="password" name="pwd_confirm">
+          {% if form.non_field_errors %}
+          <div class="alert alert-error">
+            {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+          <p>Username: {{ signupform.username }}
+          Email: {{ signupform.email }}
+          Password: {{ signupform.password1 }}
+        Confirm Password: {{ signupform.password2 }}
         <br>
         <div class="bottom-line_signup">
-        <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
-      <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
+          <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
+          <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
+          <input type="hidden" name="action" value="signup" />
           <button type="submit" class="btn">{% trans "Sign Up" %}</button>
-      </div>
+        </div>
     </form>
   </div>
           

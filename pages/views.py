@@ -1,5 +1,6 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.view.generic import TemplateView
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
@@ -231,6 +232,18 @@ def graphtest(request):
     }
     return render_to_response('graphtest.html', template_data)
 
+class ExtraContextTemplateView(TemplateView):
+    """ Add extra context to a simple template view """
+    extra_context = None
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExtraContextTemplateView, self).get_context_data(*args, **kwargs)
+        if self.extra_context:
+            context.update(self.extra_context)
+        return context
+        
+    post = TemplateView.get
+
 def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
     temp = []
     for seg in ls:
@@ -238,7 +251,11 @@ def listsum(ls): #used in relevanttags below in brian() to append lists to eacho
     return temp
 def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 1)
 	return ls[(n-1)*l:n*l]
-def brian(request, tags='', method='decay3', domain='', page=1):
+def brian(request, tags='', method='decay3', domain='', page=1,
+          signup_form=SignupForm, template_name='brian.html',
+          extra_context=None):
+    
+    signupform = signup_form()
     user = request.user
     tags = tags
     
@@ -263,12 +280,22 @@ def brian(request, tags='', method='decay3', domain='', page=1):
                         user.favoritetag_set.create(tags=favtags,name='All Tags')
                     else:
                         user.favoritetag_set.create(tags=favtags,name=' + '.join(favtags.split('|')))
+                        
             elif action == 'delete_mytag':
                 mytag = request.POST.get('mytag_x','')
                 if user.favoritetag_set.filter(tags=mytag):
                     user.favoritetag_set.get(tags=mytag).delete()
                 else:
                     pass
+                
+            elif action == 'signup':
+                signupform = signup_form(request.POST, request.FILES)
+                if signupform.is_valid():
+                    user = signupform.save()
+
+                    # Send the signup complete signal
+                    userena_signals.signup_complete.send(sender=None, user=user)
+                    
             else:
                 post_slug = request.POST.get('post_slug', '')
                 if post_slug not in voter and post_slug not in double_voter:
@@ -533,8 +560,18 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             'mytags': mytags,
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
+            'signupform': signupform,
             }
     else:
+        if request.method == 'POST':
+            if action == 'signup':
+                signupform = signup_form(request.POST, request.FILES)
+                if signupform.is_valid():
+                    user = signupform.save()
+
+                    # Send the signup complete signal
+                    userena_signals.signup_complete.send(sender=None, user=user)
+                    
         entries = Entry.objects.all()
         if tags != '' and domain == '':
             for tag in taglist:
@@ -717,6 +754,7 @@ def brian(request, tags='', method='decay3', domain='', page=1):
             'mytags': [],
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
+            'signupform': signupform,
             }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
