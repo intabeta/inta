@@ -1,12 +1,13 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.view.generic import TemplateView
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
 from content.models import InterestEmail
 from content.forms import EmailForm, SignUpForm
+from userena.forms import SignupForm
+from userena import signals as userena_signals
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -232,17 +233,6 @@ def graphtest(request):
     }
     return render_to_response('graphtest.html', template_data)
 
-class ExtraContextTemplateView(TemplateView):
-    """ Add extra context to a simple template view """
-    extra_context = None
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(ExtraContextTemplateView, self).get_context_data(*args, **kwargs)
-        if self.extra_context:
-            context.update(self.extra_context)
-        return context
-        
-    post = TemplateView.get
 
 def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
     temp = []
