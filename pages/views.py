@@ -554,6 +554,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
             }
     else:
         if request.method == 'POST':
+            action = request.POST.get('action', '')
             if action == 'signup':
                 signupform = signup_form(request.POST, request.FILES)
                 if signupform.is_valid():
