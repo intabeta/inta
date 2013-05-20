@@ -190,7 +190,7 @@ h4 {
   position: fixed;
     right: 0;
     left: 0;
-    top:34px;
+    top:100px;
     z-index: 20001;
     overflow: scroll;
     background-color: black;
@@ -324,16 +324,26 @@ h4 {
 .subnav--active_tags button {
   margin: 0 0 0 15px;
 }
-
+.navbar-p {
+  display:inline-block;
+}
+.nav/sub_container {
+  border: 2px solid red;
+}
+.nav_row {
+  display:inline-block;
+  border: 2px solid red;
+}
 </style>
     
 
 </head>
   
 <body style="background:#ddf">
-<div style="position:relative; border:5px dashed white">  <!-- Navbar and Sub_navbar -->
+<div class="nav/sub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
-  <ul class="link">
+  <div class="nav_row">
+    <ul class="link">
       <li id="inta_brand"> inta </li>
       <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
@@ -358,24 +368,30 @@ h4 {
         <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">yr</a></li>
         <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></li>
       {% endif %}
-        <li></li>
-        <li></li>
-        <li></li>
+      </ul>
+    </div>
+    <div class="nav_row">
+    <ul class="link">
         <form style="display:inline-block; margin: 4px 0 0 0; padding-bottom: 0px; height:30px;">
               {% csrf_token %}
               <input type="text" class="search-query" placeholder="Search tags or text">
         </form>
-        <li></li>
-        <li></li>
-        <li></li>
         <li><a href="/graphtest" target="_blank">Node view</a></li>
-        <li></li>
-        <li></li>
-        <li></li>
+      </ul>
+    </div>
+    <div class="nav_row">
+      <ul class="link">
         <li id="mytags" style="border:1px solid white">My Tags & Sites</li>
         <li id="toptags" style="border:1px solid white">Top Tags</li>
         <li id="reltags" style="border:1px solid white">Related Tags</li>
         <li id="topsites" style="border:1px solid white">Top Sites</li>
+        
+<!--
+        <div style="border:1px solid white" class="navbar-p">
+        <p style="border:1px solid white" class="navbar-p"> Boo </p>
+        <p class="navbar-p"> Hello HelloHello</p>
+        </div>
+-->
         
         {% if user.id %}
              <li id="user_nav"> {{ user }} </li>
@@ -383,7 +399,8 @@ h4 {
           <li id="signin">Sign In</li>
           <li id="signup">Sign Up</li>
         {% endif %}
-    </ul>
+     </ul>
+    </div>
   </div>
   
 <!-- SUBNAV Divs-->
@@ -490,15 +507,12 @@ h4 {
       </form>
   </div> 
   
-</div> 
-
-<div class="brian_subnav--top_sites">
+  <div class="brian_subnav--top_sites">
      <p class="brian_subnav--header"> Top Sites  </p>  
         <ul class="nav nav-pills">
             {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
         </ul>
-</div> 
-  
+  </div>  
 </div> 
 
 <!-- END NAVBAR and SUB-NAVBAR -->
@@ -1180,10 +1194,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   $("#topsites").mouseenter(function(){
-    $(".brian_subnav--top_sites").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--top_sites").removeClass("show_subnav");
+    $(".brian_subnav--top_sites").toggleClass("show_subnav");
   });
 });
 
