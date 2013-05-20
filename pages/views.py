@@ -237,14 +237,14 @@ def graphtest(request):
     return render_to_response('graphtest.html', template_data)
 
 
-def listsum(ls): #used in relevanttags below in brian() to append lists to eachother
+def listsum(ls): #used in relevanttags below in tagslist() to append lists to eachother
     temp = []
     for seg in ls:
         temp.extend(seg)
     return temp
 def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 1)
 	return ls[(n-1)*l:n*l]
-def brian(request, tags='', method='decay3', domain='', page=1,
+def taglist(request, tags='', method='decay3', domain='', page=1,
           signup_form=SignupForm, auth_form=AuthenticationForm):
     
     signupform = signup_form()
@@ -255,7 +255,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
     else:
-        taglist = tags.split('|')
+        taglist = tags.split('+')
     
     if user.is_authenticated():
         voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
@@ -272,7 +272,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
                     if favtags == '':
                         user.favoritetag_set.create(tags=favtags,name='All Tags')
                     else:
-                        user.favoritetag_set.create(tags=favtags,name=' + '.join(favtags.split('|')))
+                        user.favoritetag_set.create(tags=favtags,name=' + '.join(favtags.split('+')))
                         
             elif action == 'delete_mytag':
                 mytag = request.POST.get('mytag_x','')
@@ -552,7 +552,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
             'toprelevant': toprelevant,
             'mytags': mytags,
             'domain': domain,
-            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
+            'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             'signupform': signupform,
             'signinform': dict(), #no reason to have a sign in form if the user is authenticated
             }
@@ -769,7 +769,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
             'toprelevant': toprelevant,
             'mytags': [],
             'domain': domain,
-            'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
+            'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             'signupform': signupform,
             'signinform': signinform,
             }
