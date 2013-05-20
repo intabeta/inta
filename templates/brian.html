@@ -108,15 +108,72 @@ h4 {
  font-size:22px;
  margin: 10px 4px 2px 15px;
 }
-.brian_nav {
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
+.navsub_container {
+  border: 2px solid red;
+  position:fixed;
+  top:0%;
+  right:0%;
+  left:0%;
   z-index: 20000;
-/* high z-index so it has display preference from the rest of the page */
+  overflow: scroll;
+}
+.brian_nav {
+  overflow: scroll;
+}
+.nav_row {
+  display:inline-block;
+  border: 2px solid red;
+}
+.brian_subnav--reltags {
   overflow: scroll;
   background-color: black;
+  opacity:0.83;
+  display:none;
+}
+.brian_subnav--toptags {
+  overflow: scroll;
+  background-color: black;
+  opacity:0.83;
+  display:none;
+}
+.brian_subnav--mytags {
+  overflow: scroll;
+  background-color: black;
+  opacity:0.83;
+  display:none;
+}
+.brian_subnav--top_sites {
+  overflow: scroll;
+  background-color: black;
+  opacity:0.83;
+  display:none;
+}
+.brian_subnav--signup {
+  overflow: scroll;
+  background-color: black;
+  opacity:1;
+  display:none;
+}
+.brian_subnav--signin {
+  overflow: scroll;
+  background-color: black;
+  opacity:1;
+  display:none;
+}
+.brian_subnav--user {
+  overflow: scroll;
+  background-color: black;
+  opacity:1;
+  display:none;
+}
+.brian_subnav--add_tags {
+  overflow: scroll;
+  background-color: black;
+  opacity:0.83;
+  display:none;
+}
+.show_subnav {
+  display:block;
 }
 .brian_nav .link {
  float: left;
@@ -147,106 +204,6 @@ h4 {
 .brian_nav .link .active > a {
   color: white;
   font-weight: bold;
-}
-.brian_subnav--reltags {
-  height:100px;
-  position: absolute;
-    right: 0;
-    left: 0;
-    clear:both;
-    z-index: 20001;
-/* high z-index so it has display preference from the rest of the page */
-    overflow: scroll;
-    background-color: black;
-    opacity:0.83;
-    display:none;
-}
-.brian_subnav--toptags {
-  height:100px;
-  position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:0.83;
-    display:none;
-}
-.brian_subnav--mytags {
-  height:120px;
-  position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:0.83;
-    display:none;
-}
-.brian_subnav--top_sites {
-  height:120px;
-  position: fixed;
-    right: 0;
-    left: 0;
-    top:100px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:0.83;
-    display:none;
-}
-.brian_subnav--signup {
-    height:100px;
-  position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:1;
-    display:none;
-}
-.brian_subnav--signin {
-  height:100px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:1;
-    display:none;
-}
-.brian_subnav--user {
-  height:100px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:1;
-    display:none;
-}
-.brian_subnav--add_tags {
-  height:100px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    top:34px;
-    z-index: 20001;
-    overflow: scroll;
-    background-color: black;
-    opacity:1;
-    display:none;
-}
-.show_subnav {
-  display:block;
 }
 #reltags {
  color: #BFBEBE;
@@ -327,20 +284,13 @@ h4 {
 .navbar-p {
   display:inline-block;
 }
-.nav/sub_container {
-  border: 2px solid red;
-}
-.nav_row {
-  display:inline-block;
-  border: 2px solid red;
-}
 </style>
     
 
 </head>
   
 <body style="background:#ddf">
-<div class="nav/sub_container">  <!-- Navbar and Sub_navbar -->
+<div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row">
     <ul class="link">
@@ -514,6 +464,8 @@ h4 {
         </ul>
   </div>  
 </div> 
+
+
 
 <!-- END NAVBAR and SUB-NAVBAR -->
 
