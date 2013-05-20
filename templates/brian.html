@@ -32,161 +32,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
 
-<script type="text/javascript">
-
-/*
-
-$('.brian_subnav--reltags').toggleClass(function() {
-  if ($(this).is('.show_subnav')) {
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  } else {
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  }
-   $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-
-I need if logic so if the class is applied, #reltags would removeClass
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").toggleClass("show_subnav");
-  });
-  $(".brian_subnav--reltags").hasClass("show_subnav"){
-    $(".brian_nav").mouseenter(function(){
-        $(".brian_subnav--reltags").toggleClass("show_subnav");
-      });
-  });
-});
-*/
-
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#toptags").mouseenter(function(){
-    $(".brian_subnav--toptags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--toptags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#mytags").mouseenter(function(){
-    $(".brian_subnav--mytags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--mytags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signup").mouseenter(function(){
-    $(".brian_subnav--signup").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signup").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signin").mouseenter(function(){
-    $(".brian_subnav--signin").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signin").removeClass("show_subnav");
-  });
-});
-
-
-$(document).ready(function(){
-  $("#user_nav").mouseenter(function(){
-    $(".brian_subnav--user").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--user").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#add_tags").click(function(){
-    $(".brian_subnav--add_tags").toggleClass("show_subnav");
-  });
-});
-
-
-/*
-$(function() {
-    var select = $( "#minbeds" );
-    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
-      min: 1,
-      max: 6,
-      range: "min",
-      value: select[ 0 ].selectedIndex + 1,
-      slide: function( event, ui ) {
-        select[ 0 ].selectedIndex = ui.value - 1;
-      }
-    });
-    $( "#minbeds" ).change(function() {
-      slider.slider( "value", this.selectedIndex + 1 );
-    });
-  });
-  
-  
-  // jQuery UI
-  $(function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  });
-    $(function() {
-    $( "#accordion2" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion3" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion4" ).accordion({
-      collapsible: true
-    });
-  });
-  $(function() {
-    $( "#menu" ).menu();
-  });
-
-$(function() {
-    $( "#draggable" ).draggable();
-  });
-$(function() {
-    $( "#draggable2" ).draggable();
-  });
-  
-$(function() {
-  $('#sign_up').modal({
-      keyboard: false
-  });
-      $('#sign_up').modal('toggle');
-      $('#sign_up').modal('show');
-      $('#sign_up').modal('hide');
-});
-*/
-  
-</script>    
-
 <style type="text/css">
 
 /*
@@ -624,49 +469,6 @@ h4 {
           <button type="submit" class="btn">{% trans "Sign Up" %}</button>
       </form>
   </div> 
-
-<!--
-          <fieldset>            
-            {% if form.non_field_errors %}
-            <div class="alert alert-error">
-            {{ form.non_field_errors }}
-            </div>
-            {% endif %}
-            
-            {% for field in form %}
-            
-            {% if field.errors %}
-            <div class="alert alert-error">
-            {% endif %}
-            
-            {{ field.errors }}
-
-            
-            {% comment %} Displaying checkboxes differently {% endcomment %}
-            
-            {% if field.name == 'remember_me' %}
-            <p class="checkbox">
-            <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-            </p>
-            {% else %}
-            <p>
-            {{ field.label_tag }}
-            {{ field }}
-            </p>
-            {% endif %}
-            
-            {% if field.errors %}
-            </div>
-            {% endif %}
-            
-            {% endfor %}
-          </fieldset>
-          <button type="submit" class="btn">{% trans "Sign in" %}</button>
-          <br /><br />
-          <p><a href='{% url userena_password_reset %}' title="{% trans "Forgot your password?" %}">{% trans "Forgot your password?" %}</a></p>
-          {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-        </form>     
--->   
   
 </div> 
 <!-- END NAVBAR and SUB-NAVBAR -->
@@ -702,7 +504,7 @@ h4 {
                   {% for tag in tagscores %}
                     <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
-                  <i class="icon-tags" id="add_tags"></i>
+                  <button class"btn"><i class="icon-tags" id="add_tags"></i></button>
                   <br />
                   <div> 
 
@@ -1260,6 +1062,158 @@ Caret for help, mission statement, blog, recommendations etc...
   //  var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
     //window.location = 'http://intabeta.com/' + keyword + '/'; // Redirects
 // };
+
+/*
+
+$('.brian_subnav--reltags').toggleClass(function() {
+  if ($(this).is('.show_subnav')) {
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  } else {
+    $(".brian_subnav--reltags").addClass("show_subnav");
+  }
+   $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
+
+
+I need if logic so if the class is applied, #reltags would removeClass
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").toggleClass("show_subnav");
+  });
+  $(".brian_subnav--reltags").hasClass("show_subnav"){
+    $(".brian_nav").mouseenter(function(){
+        $(".brian_subnav--reltags").toggleClass("show_subnav");
+      });
+  });
+});
+*/
+
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#toptags").mouseenter(function(){
+    $(".brian_subnav--toptags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--toptags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#mytags").mouseenter(function(){
+    $(".brian_subnav--mytags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--mytags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signup").mouseenter(function(){
+    $(".brian_subnav--signup").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signup").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signin").mouseenter(function(){
+    $(".brian_subnav--signin").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
+  });
+});
+
+
+$(document).ready(function(){
+  $("#user_nav").mouseenter(function(){
+    $(".brian_subnav--user").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--user").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#add_tags").click(function(){
+    $(".brian_subnav--add_tags").toggleClass("show_subnav");
+  });
+});
+
+
+/*
+$(function() {
+    var select = $( "#minbeds" );
+    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+      min: 1,
+      max: 6,
+      range: "min",
+      value: select[ 0 ].selectedIndex + 1,
+      slide: function( event, ui ) {
+        select[ 0 ].selectedIndex = ui.value - 1;
+      }
+    });
+    $( "#minbeds" ).change(function() {
+      slider.slider( "value", this.selectedIndex + 1 );
+    });
+  });
+  
+  
+  // jQuery UI
+  $(function() {
+    $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  });
+    $(function() {
+    $( "#accordion2" ).accordion({
+      collapsible: true
+    });
+  });  
+  $(function() {
+    $( "#accordion3" ).accordion({
+      collapsible: true
+    });
+  });  
+  $(function() {
+    $( "#accordion4" ).accordion({
+      collapsible: true
+    });
+  });
+  $(function() {
+    $( "#menu" ).menu();
+  });
+
+$(function() {
+    $( "#draggable" ).draggable();
+  });
+$(function() {
+    $( "#draggable2" ).draggable();
+  });
+  
+$(function() {
+  $('#sign_up').modal({
+      keyboard: false
+  });
+      $('#sign_up').modal('toggle');
+      $('#sign_up').modal('show');
+      $('#sign_up').modal('hide');
+});
+*/
+  
 </script>
 
 </body>
