@@ -573,10 +573,11 @@ h4 {
   <div class="brian_subnav--signin">
         <form action="" method="post">
           {% csrf_token %}
-          <p>Username: <input type="text" name="user_signin">
-          Password: <input type="password" name="pwd_signin">
+          <p>Username: {{ signinform.identification }}
+          Password: {{ signinform.password }}
         <br>
-        <input type="radio" name="remember" value="install">Save Log In</p>
+         Remember me: {{ signinform.remember_me}}
+        <input type="hidden" name="action" value="signin" />
           <button type="submit" class="btn">{% trans "Sign In" %}</button>
     </form>
   </div>

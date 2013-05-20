@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList
@@ -6,9 +7,10 @@ from haystack.query import SearchQuerySet
 from content.views import get_referer_view
 from content.models import InterestEmail
 from content.forms import EmailForm, SignUpForm
-from userena.forms import SignupForm
+from userena.forms import SignupForm, AuthenticationForm
 from userena import signals as userena_signals
 from django.core.mail import send_mail
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from time import time
@@ -242,10 +244,10 @@ def listsum(ls): #used in relevanttags below in brian() to append lists to eacho
 def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 1)
 	return ls[(n-1)*l:n*l]
 def brian(request, tags='', method='decay3', domain='', page=1,
-          signup_form=SignupForm, template_name='brian.html',
-          extra_context=None):
+          signup_form=SignupForm, auth_form=AuthenticationForm):
     
     signupform = signup_form()
+    signinform = auth_form()
     user = request.user
     tags = tags
     
@@ -551,6 +553,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             'signupform': signupform,
+            'signinform': dict(), #no reason to have a sign in form if the user is authenticated
             }
     else:
         if request.method == 'POST':
@@ -562,6 +565,22 @@ def brian(request, tags='', method='decay3', domain='', page=1,
 
                     # Send the signup complete signal
                     userena_signals.signup_complete.send(sender=None, user=user)
+            elif action == 'signin':
+                signinform = auth_form(request.POST, request.FILES)
+                if signinform.is_valid():
+                    identification, password, remember_me = (signinform.cleaned_data['identification'],
+                                                             signinform.cleaned_data['password'],
+                                                             signinform.cleaned_data['remember_me'])
+                    user = authenticate(identification=identification,
+                                        password=password)
+                    if user.is_active:
+                        login(request, user)
+                        if remember_me:
+                            request.session.set_expiry(userena_settings.USERENA_REMEMBER_ME_DAYS[1] * 86400)
+                        else: request.session.set_expiry(0)
+                    else:
+                        return redirect(reverse('userena_disabled',
+                                                kwargs={'username': user.username}))
                     
         entries = Entry.objects.all()
         if tags != '' and domain == '':
@@ -746,6 +765,7 @@ def brian(request, tags='', method='decay3', domain='', page=1,
             'domain': domain,
             'breadcrumbdata': zip(taglist,['|'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
             'signupform': signupform,
+            'signinform': signinform,
             }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
