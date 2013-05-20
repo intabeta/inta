@@ -248,7 +248,7 @@ h4 {
 #signin {
  color: red 
  }
- #add_tags {
+.add_tags {
  font-size:10px;
  }
 #mytags {
@@ -504,7 +504,7 @@ h4 {
                   {% for tag in tagscores %}
                     <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
-                  <button class"btn"><i class="icon-tags" id="add_tags"></i></button>
+                  <button class"btn"><i class="icon-tags add_tags"></i></button>
                   <br />
                   <div> 
 
@@ -1148,7 +1148,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $("#add_tags").click(function(){
+  $(".add_tags").click(function(){
     $(".brian_subnav--add_tags").toggleClass("show_subnav");
   });
 });
@@ -1218,6 +1218,7 @@ $(function() {
 
 </body>
 </html>
+
 
 
 
