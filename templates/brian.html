@@ -533,7 +533,8 @@ h4 {
      <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
@@ -565,7 +566,7 @@ h4 {
         </div>
 
 <script type="text/javascript">
-var url = "javascript:(function()%7Bvar a%3Dwindow,b%3Ddocument,c%3DencodeURIComponent,d%3Da.open(%27http://intabeta.com/content/submit_plugin/%3Fop%3Dedit%26output%3Dpopup%26bkmk%3D%27%2Bc(b.location)%2B%27%26title%3D%27%2Bc(b.title),%27bkmk_popup%27,%27left%3D%27%2B((a.screenX%7C%7Ca.screenLeft)%2B10)%2B%27,top%3D%27%2B((a.screenY%7C%7Ca.screenTop)%2B10)%2B%27,height%3D200px,width%3D900px,resizable%3D1,alwaysRaised%3D1%27)%3Ba.setTimeout(function()%7Bd.focus()%7D,300)%7D)()%3B"; //Change these
+var url = "javascript:(function()%7Bvar a%3Dwindow,b%3Ddocument,c%3DencodeURIComponent,d%3Da.open(%27http://intabeta.com/content/submit_plugin/%3Fop%3Dedit%26output%3Dpopup%26bkmk%3D%27%2Bc(b.location)%2B%27%26title%3D%27%2Bc(b.title),%27bkmk_popup%27,%27left%3D%27%2B((a.screenX%7C%7Ca.screenRight)%2B10)%2B%27,top%3D%27%2B((a.screenY%7C%7Ca.screenTop)%2B10)%2B%27,height%3D200px,width%3D500px,resizable%3D1,alwaysRaised%3D1%27)%3Ba.setTimeout(function()%7Bd.focus()%7D,300)%7D)()%3B"; //Change these
 var pageName = "Inta shortcut"; //Change these
 function bookmark() {
     if (window.external) {
@@ -1218,6 +1219,8 @@ $(function() {
 
 </body>
 </html>
+
+
 
 
 
