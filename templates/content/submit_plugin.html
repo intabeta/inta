@@ -32,6 +32,12 @@
   
   <script type="text/javascript">
   </script>
+  <style>
+  .well {
+  background:#FFFFFF;
+  opacity:0.9;
+  }
+  </style>
   </head>
   
   <body style="background:#ddf">
@@ -72,13 +78,13 @@
 </ul>
 <h5> Suggested Tags </h5>
 <ul class="nav nav-pills">
-{% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a></li>{% endfor %}
+{% for tags, name in mytags %}<li>{{ name }}</li>{% endfor %}
 </ul>
 <!-- I think with some Javascript I can have it append on click, maybe just to the textbox? -->
 
 <h5> Add tags </h5>
 <!--
-    {{ form.tags.errors }}
+		{{ form.tags.errors }}
 -->
         {{ form.tags }}
 <br />
@@ -90,5 +96,4 @@
 </form>
   </body>
   </hmtl>
-
 
