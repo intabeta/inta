@@ -45,40 +45,40 @@
 <!--
 <h5> Category </h5>
 <ul class="nav nav-pills">
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Sports</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Culture</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Politics</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">International Affairs</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Science</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Sports</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Culture</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Politics</a></li>
+<li><a href="/{{ method }}/{{ tags }}">International Affairs</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Science</a></li>
 <br>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Art</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Technology</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Religion</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">News</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Opinion</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Economy</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Art</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Technology</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Religion</a></li>
+<li><a href="/{{ method }}/{{ tags }}">News</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Opinion</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Economy</a></li>
 <br>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Health</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Style</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Travel</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Entertainment</a></li>
-<li><a href="/brianplays/{{ method }}/{{ tags }}">Food</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Health</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Style</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Travel</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Entertainment</a></li>
+<li><a href="/{{ method }}/{{ tags }}">Food</a></li>
 </ul>
 -->
 
 <h5> My Tags </h5>
 <ul class="nav nav-pills">
-{% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a></li>{% endfor %}
+{% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a></li>{% endfor %}
 </ul>
 <h5> Suggested Tags </h5>
 <ul class="nav nav-pills">
-{% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a></li>{% endfor %}
+{% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a></li>{% endfor %}
 </ul>
 <!-- I think with some Javascript I can have it append on click, maybe just to the textbox? -->
 
 <h5> Add tags </h5>
 <!--
-		{{ form.tags.errors }}
+    {{ form.tags.errors }}
 -->
         {{ form.tags }}
 <br />
@@ -90,6 +90,5 @@
 </form>
   </body>
   </hmtl>
-
 
 

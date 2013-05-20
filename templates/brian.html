@@ -459,26 +459,26 @@ h4 {
       <li id="inta_brand"> inta </li>
       <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">3h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">1d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">1w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">4w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">12w</a></li>
-        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/{{ tags }}">yr</a></li>
-        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">3h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}">1d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}">3d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}">1w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}">4w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}">12w</a></li>
+        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}">yr</a></li>
+        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}">All-time</a></li>
       {% endif %}
       {% if domain != '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">3h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">1d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">1w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">4w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">12w</a></li>
-        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/site/{{ domain }}">yr</a></li>
-        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
+        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}">30m</a></li>
+        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}">3h</a></li>
+        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}">1d</a></li>
+        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}">3d</a></li>
+        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}">1w</a></li>
+        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}">4w</a></li>
+        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}">12w</a></li>
+        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">yr</a></li>
+        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></li>
       {% endif %}
         <li></li>
         <li></li>
@@ -515,7 +515,7 @@ h4 {
     <br>
     <p class="brian_subnav--header"> Related tags </p>
     <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
   </div>
   
@@ -523,7 +523,7 @@ h4 {
     <br>
     <p class="brian_subnav--header"> Top tags </p>
     <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toptags %}<li><a href="/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
   </div>
   
@@ -531,13 +531,13 @@ h4 {
     <br>
         <form action="" method="post" class="button-form subnav--active_tags">
             {% csrf_token %}
-            Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
     <p class="brian_subnav--header"> My tags </p>
     <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
@@ -551,33 +551,26 @@ h4 {
   <div class="brian_subnav--signup">
         <form action="" method="post">
           {% csrf_token %}
-          {% if form.non_field_errors %}
-          <div class="alert alert-error">
-            {{ form.non_field_errors }}
-          </div>
-          {% endif %}
-          <p>Username: {{ signupform.username }}
-          Email: {{ signupform.email }}
-          Password: {{ signupform.password1 }}
-        Confirm Password: {{ signupform.password2 }}
+          <p>Username: <input type="text" name="username">
+          Email: <input type="text" name="email">
+          Password: <input type="password" name="pwd">
+        Confirm Password: <input type="password" name="pwd_confirm">
         <br>
         <div class="bottom-line_signup">
-          <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
-          <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
-          <input type="hidden" name="action" value="signup" />
+        <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
+      <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
           <button type="submit" class="btn">{% trans "Sign Up" %}</button>
-        </div>
+      </div>
     </form>
   </div>
           
   <div class="brian_subnav--signin">
         <form action="" method="post">
           {% csrf_token %}
-          <p>Username: {{ signinform.identification }}
-          Password: {{ signinform.password }}
+          <p>Username: <input type="text" name="user_signin">
+          Password: <input type="password" name="pwd_signin">
         <br>
-         Remember me: {{ signinform.remember_me}}
-        <input type="hidden" name="action" value="signin" />
+        <input type="radio" name="remember" value="install">Save Log In</p>
           <button type="submit" class="btn">{% trans "Sign In" %}</button>
     </form>
   </div>
@@ -645,7 +638,7 @@ h4 {
 
      <div class="span7 well" id="center" style="border: 1px solid gray">
        <h2 style="border-bottom: solid #ddf">
-            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/brianplays/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
         </h2>
         
           <table class="table table-condensed">
@@ -654,7 +647,7 @@ h4 {
               {% for post, score, tagscores in postdata %}
               <tr>
               <td>
-                <a href="/brianplays/{{ method }}/site/{{ post.domain }}">
+                <a href="/{{ method }}/site/{{ post.domain }}">
                 <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
@@ -670,7 +663,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <i class="icon-tags"></i>
                   <br />
@@ -764,7 +757,7 @@ function bookmark() {
 
 Using only CSS, wouldn't close the relevant tags <li>
             <ul class="nav nav-pills" style="border: 1px dashed white">
-                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
             </li>
 -->
@@ -901,18 +894,18 @@ Caret for help, mission statement, blog, recommendations etc...
           <div id="accordion4" style="border: 1px solid gray">
             <h4> Top Sites <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for site in topsites %}<li><a href="/brianplays/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
           </div>
           <div id="accordion" style="border: 1px solid gray">
             <h4> Top Tags <i class="icon-chevron-down"></i></h4>
-                {% for tag in toptags %}<p style="display:inline; padding:4px"><a href="/brianplays/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></p>{% endfor %}
+                {% for tag in toptags %}<p style="display:inline; padding:4px"><a href="/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></p>{% endfor %}
             </ul>
             </div>
           <div id="accordion2"  class="clearfix" style="border: 1px solid gray">
             <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
             <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/brianplays/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
             </ul>
            </div>
       </div>
@@ -975,7 +968,7 @@ Caret for help, mission statement, blog, recommendations etc...
           <div id="accordion3"  class="clearfix" style="border: 1px solid gray">
               <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
               <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li><a href="/brianplays/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
@@ -1078,7 +1071,7 @@ Caret for help, mission statement, blog, recommendations etc...
 -->
 <!--
         <select name="minbeds" id="minbeds">
-              <option href="/brianplays/decay1/{{ tags }}">30 mins</option>
+              <option href="/decay1/{{ tags }}">30 mins</option>
               <option>Few hours</option>
             <option>A day</option>
               <option>3 Days</option>
@@ -1111,15 +1104,15 @@ Caret for help, mission statement, blog, recommendations etc...
               <li>
           <a href="#">Time Period <i class="icon-time"></i></a>
           <ul class="nav nav pills" style="border:1px solid gray">
-              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/{{ tags }}">30 mins</a></li>
-              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/{{ tags }}">Few hours</a></li>
-              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/{{ tags }}">A day</a></li>
-              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/{{ tags }}">3 Days</a></li>
-              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/{{ tags }}">A Week</a></li>
-              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/{{ tags }}">A Month</a></li>
-              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/{{ tags }}">Few Months</a></li>
-              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/{{ tags }}">A Year</a></li>
-              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/{{ tags }}">All-time</a></li>
+              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30 mins</a></li>
+              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">Few hours</a></li>
+              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}">A day</a></li>
+              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}">3 Days</a></li>
+              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}">A Week</a></li>
+              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}">A Month</a></li>
+              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}">Few Months</a></li>
+              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}">A Year</a></li>
+              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}">All-time</a></li>
           </ul>
           </li>
      
@@ -1139,15 +1132,15 @@ Caret for help, mission statement, blog, recommendations etc...
               <li>
           <a href="#">Time Period<i class="icon-time"></i></a>
           <ul class="nav nav pills" style="border:1px solid gray">
-              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/brianplays/decay1/site/{{ domain }}">30 mins</a></li>
-              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/brianplays/decay2/site/{{ domain }}">Few hours</a></li>
-              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/brianplays/decay3/site/{{ domain }}">A day</a></li>
-              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/brianplays/decay4/site/{{ domain }}">3 Days</a></li>
-              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/brianplays/decay5/site/{{ domain }}">A Week</a></li>
-              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/brianplays/decay6/site/{{ domain }}">A Month</a></li>
-              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/brianplays/decay7/site/{{ domain }}">Few Months</a></li>
-              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/brianplays/decay8/site/{{ domain }}">A Year</a></li>
-              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/brianplays/votes/site/{{ domain }}">All-time</a></li>
+              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}">30 mins</a></li>
+              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}">Few hours</a></li>
+              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}">A day</a></li>
+              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}">3 Days</a></li>
+              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}">A Week</a></li>
+              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}">A Month</a></li>
+              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}">Few Months</a></li>
+              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">A Year</a></li>
+              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></li>
           </ul>
           </li>
   endif tag
@@ -1228,13 +1221,12 @@ Caret for help, mission statement, blog, recommendations etc...
 // option value append
 //function setLocation(elm, baseUrl) {
   //  var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
-    //window.location = 'http://intabeta.com/brianplays/' + keyword + '/'; // Redirects
+    //window.location = 'http://intabeta.com/' + keyword + '/'; // Redirects
 // };
 </script>
 
 </body>
 </html>
-
 
 
 
