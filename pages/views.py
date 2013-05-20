@@ -566,6 +566,10 @@ def brian(request, tags='', method='decay3', domain='', page=1,
 
                     # Send the signup complete signal
                     userena_signals.signup_complete.send(sender=None, user=user)
+
+                    #sign in
+                    login(request, user)
+                    
             elif action == 'signin':
                 signinform = auth_form(request.POST, request.FILES)
                 if signinform.is_valid():
@@ -574,13 +578,14 @@ def brian(request, tags='', method='decay3', domain='', page=1,
                                                              signinform.cleaned_data['remember_me'])
                     user = authenticate(identification=identification,
                                         password=password)
-                    if user.is_active:
-                        login(request, user)
-                        if remember_me:
-                            request.session.set_expiry(userena_settings.USERENA_REMEMBER_ME_DAYS[1] * 86400)
-                        else: request.session.set_expiry(0)
-                    else:
-                        return redirect(reverse('userena_disabled',
+                    if user is not None:
+                        if user.is_active:
+                            login(request, user)
+                            if remember_me:
+                                request.session.set_expiry(userena_settings.USERENA_REMEMBER_ME_DAYS[1] * 86400)
+                            else: request.session.set_expiry(0)
+                        else:
+                            return redirect(reverse('userena_disabled',
                                                 kwargs={'username': user.username}))
                     
         entries = Entry.objects.all()
