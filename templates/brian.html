@@ -162,40 +162,14 @@ h4 {
 .show_subnav {
   display:block;
 }
-.brian_nav .link {
- float: left;
- text-decoration: none;
- font-weight:bold;
- font-size: 15px;
-}
-.brian_nav .link > li {
- display: inline;
- margin: 0 7px 0 0;
- color: #BFBEBE;
- font-weight:bold;
-}
-.brian_nav .link > li > a {
- color: #BFBEBE;
- font-weight:bold;
- text-decoration:none;
-}
-.brian_nav .link a:hover {
-  color: white;
-  font-weight:bold;
-}
-.brian_nav .link li:hover {
-  color: red;
-  font-weight:bold;
-}
-.brian_nav .link .active > a {
-  color: #BFBEBE;
-  font-weight: bold;
-}
 #reltags {
  color: white;
 }
 #toptags {
  color: white;
+}
+#topsites {
+ color:white;
 }
 #signup {
  color: red;
@@ -225,7 +199,7 @@ h4 {
 #time_icon {
  display: inline;
  float:left;
- margin: 8px 5px 0 15px;
+ margin: 9px 5px 0 15px;
  border: 1px solid white;
 }
 #inta_brand {
@@ -237,9 +211,6 @@ h4 {
 }
 .brian_nav form input {
 
-}
-#nonnav {
-  border: 2px dashed blue;
 }
 .brian_subnav--signup form input {
   margin: 0 5px 0 5px;
@@ -290,16 +261,18 @@ h4 {
 .brian_nav p {
   display:inline-block;
   padding-bottom: 2px;
-  margin: 8px 5px 4px 0px;
+  margin: 8px 5px 0px 0px;
   font-weight:bold;
   font-size: 15px;
 }
 .brian_nav p a {
-  text-decoration: none;
   color: white;
 }
 .brian_nav p a:hover {
   text-decoration: none;
+  color: #317eac;
+}
+.brian_nav .active > a {
   color: #317eac;
 }
 </style>
@@ -346,13 +319,13 @@ h4 {
     <div class="nav_row pull-right">
         <p><a href="/graphtest" target="_blank">Node view</a></p>
         <p> | </p>
-        <p id="mytags">My Tags & Sites</p>
+        <p id="mytags" style="border: 1px solid red">My Tags & Sites</p>
         <p> | </p>
-        <p id="toptags">Top Tags</p>
+        <p id="toptags" style="border: 1px solid red">Top Tags</p>
         <p> | </p>
-        <p id="reltags">Related Tags</p>
+        <p id="reltags" style="border: 1px solid red">Related Tags</p>
         <p> | </p>
-        <p id="topsites">Top Sites</p>
+        <p id="topsites" style="border: 1px solid red">Top Sites</p>
         <p> | </p>
         
 <!--
@@ -1240,7 +1213,6 @@ $(function() {
 
 </body>
 </html>
-
 
 
 
