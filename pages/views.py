@@ -9,6 +9,7 @@ from content.models import InterestEmail
 from content.forms import EmailForm, SignUpForm
 from userena.forms import SignupForm, AuthenticationForm
 from userena import signals as userena_signals
+from userena import settings as userena_settings
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
