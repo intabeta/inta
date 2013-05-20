@@ -93,23 +93,8 @@ h4 {
   margin-right: 80px;
 }
 /* All my definitions post 5/13 (learning from TB etc) */
-#time_icon {
- display: inline;
- float:left;
- margin: 13px 8px 2px 15px;
-}
-#del_mytag {
-  color:white;
-}
-#inta_brand {
- color: #ddf;
- display: inline;
- float:left;
- font-size:22px;
- margin: 10px 4px 2px 15px;
-}
+
 .navsub_container {
-  border: 2px solid red;
   position:fixed;
   top:0%;
   right:0%;
@@ -119,10 +104,12 @@ h4 {
 }
 .brian_nav {
   overflow: scroll;
+  background-color: black;
 }
 .nav_row {
   display:inline-block;
-  border: 2px solid red;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 .brian_subnav--reltags {
   overflow: scroll;
@@ -178,7 +165,6 @@ h4 {
 .brian_nav .link {
  float: left;
  text-decoration: none;
- margin: 2px 0 2px 0;
  font-weight:bold;
  font-size: 15px;
 }
@@ -202,14 +188,14 @@ h4 {
   font-weight:bold;
 }
 .brian_nav .link .active > a {
-  color: white;
+  color: #BFBEBE;
   font-weight: bold;
 }
 #reltags {
- color: #BFBEBE;
+ color: white;
 }
 #toptags {
- color: #BFBEBE;
+ color: white;
 }
 #signup {
  color: red;
@@ -221,16 +207,36 @@ h4 {
  font-size:10px;
  }
 #mytags {
- color: #BFBEBE;
+ color: white;
 }
 #user_nav {
  color: white;
+ margin-right:20px;
+}
+#del_mytag {
+  color:white;
 }
 .brian_subnav--header {
   color:white;
   margin: 5px 5px 5px 20px;
   font-size: 14px;
     font-weight: bold;
+}
+#time_icon {
+ display: inline;
+ float:left;
+ margin: 8px 5px 0 15px;
+ border: 1px solid white;
+}
+#inta_brand {
+ color: #ddf;
+ display: inline;
+ float:left;
+ font-size:22px;
+ margin-left: 20px;
+}
+.brian_nav form input {
+
 }
 #nonnav {
   border: 2px dashed blue;
@@ -281,8 +287,20 @@ h4 {
 .subnav--active_tags button {
   margin: 0 0 0 15px;
 }
-.navbar-p {
+.brian_nav p {
   display:inline-block;
+  padding-bottom: 2px;
+  margin: 8px 5px 4px 0px;
+  font-weight:bold;
+  font-size: 15px;
+}
+.brian_nav p a {
+  text-decoration: none;
+  color: white;
+}
+.brian_nav p a:hover {
+  text-decoration: none;
+  color: #317eac;
 }
 </style>
     
@@ -293,48 +311,49 @@ h4 {
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row">
-    <ul class="link">
-      <li id="inta_brand"> inta </li>
-      <i class="icon-time navbar_icon" id="time_icon" style="background-color:white"></i>
+      <p id="inta_brand"> inta </p>
+      <i class="icon-time" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">3h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}">1d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}">3d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}">1w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}">4w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}">12w</a></li>
-        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}">yr</a></li>
-        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}">All-time</a></li>
+        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
+        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">3h</a></p>
+        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}">1d</a></p>
+        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}">3d</a></p>
+        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}">1w</a></p>
+        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}">4w</a></p>
+        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}">12w</a></p>
+        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}">yr</a></p>
+        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}">All-time</a></p>
       {% endif %}
       {% if domain != '' %}
-        <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}">30m</a></li>
-        <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}">3h</a></li>
-        <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}">1d</a></li>
-        <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}">3d</a></li>
-        <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}">1w</a></li>
-        <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}">4w</a></li>
-        <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}">12w</a></li>
-        <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">yr</a></li>
-        <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></li>
+        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}">30m</a></p>
+        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}">3h</a></p>
+        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}">1d</a></p>
+        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}">3d</a></p>
+        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}">1w</a></p>
+        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}">4w</a></p>
+        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}">12w</a></p>
+        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">yr</a></p>
+        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></p>
       {% endif %}
-      </ul>
     </div>
-    <div class="nav_row">
-    <ul class="link">
+
+<!--
         <form style="display:inline-block; margin: 4px 0 0 0; padding-bottom: 0px; height:30px;">
               {% csrf_token %}
               <input type="text" class="search-query" placeholder="Search tags or text">
         </form>
-        <li><a href="/graphtest" target="_blank">Node view</a></li>
-      </ul>
-    </div>
-    <div class="nav_row">
-      <ul class="link">
-        <li id="mytags" style="border:1px solid white">My Tags & Sites</li>
-        <li id="toptags" style="border:1px solid white">Top Tags</li>
-        <li id="reltags" style="border:1px solid white">Related Tags</li>
-        <li id="topsites" style="border:1px solid white">Top Sites</li>
+-->
+    <div class="nav_row pull-right">
+        <p><a href="/graphtest" target="_blank">Node view</a></p>
+        <p> | </p>
+        <p id="mytags">My Tags & Sites</p>
+        <p> | </p>
+        <p id="toptags">Top Tags</p>
+        <p> | </p>
+        <p id="reltags">Related Tags</p>
+        <p> | </p>
+        <p id="topsites">Top Sites</p>
+        <p> | </p>
         
 <!--
         <div style="border:1px solid white" class="navbar-p">
@@ -344,12 +363,12 @@ h4 {
 -->
         
         {% if user.id %}
-             <li id="user_nav"> {{ user }} </li>
+             <p id="user_nav"> {{ user }} </p>
         {% else %}
-          <li id="signin">Sign In</li>
-          <li id="signup">Sign Up</li>
+          <p id="signin">Sign In</p>
+          <p> | </p>
+          <p id="signup">Sign Up</p>
         {% endif %}
-     </ul>
     </div>
   </div>
   
@@ -1221,6 +1240,7 @@ $(function() {
 
 </body>
 </html>
+
 
 
 
