@@ -185,6 +185,18 @@ h4 {
     opacity:0.83;
     display:none;
 }
+.brian_subnav--top_sites {
+  height:120px;
+  position: fixed;
+    right: 0;
+    left: 0;
+    top:34px;
+    z-index: 20001;
+    overflow: scroll;
+    background-color: black;
+    opacity:0.83;
+    display:none;
+}
 .brian_subnav--signup {
     height:100px;
   position: fixed;
@@ -360,11 +372,10 @@ h4 {
         <li></li>
         <li></li>
         <li></li>
-        <li id="mytags">My Tags</li>
-        <li>My Sites</li>
-        <li id="toptags">Top Tags</li>
-        <li id="reltags">Related Tags</li>
-        <li>Top Sites</li>
+        <li id="mytags" style="border:1px solid white">My Tags & Sites</li>
+        <li id="toptags" style="border:1px solid white">Top Tags</li>
+        <li id="reltags" style="border:1px solid white">Related Tags</li>
+        <li id="topsites" style="border:1px solid white">Top Sites</li>
         
         {% if user.id %}
              <li id="user_nav"> {{ user }} </li>
@@ -401,9 +412,18 @@ h4 {
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
-    <p class="brian_subnav--header"> My tags </p>
+    <p class="brian_subnav--header"> My tags</p>
     <ul class="nav nav-pills">
                   {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  <form action="" method="post" class="button-form" id="del_mytag">
+                      {% csrf_token %}
+                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
+                      <input type="hidden" name="action" value="delete_mytag" />
+                      <button type="submit" class="close">&times;</button></li>
+                  </form>
+                  {% endfor %}
+    <p class="brian_subnav--header"> My Sites</p>
+                  {% for sites, name in mysites %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
@@ -471,6 +491,16 @@ h4 {
   </div> 
   
 </div> 
+
+<div class="brian_subnav--top_sites">
+     <p class="brian_subnav--header"> Top Sites  </p>  
+        <ul class="nav nav-pills">
+            {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+        </ul>
+</div> 
+  
+</div> 
+
 <!-- END NAVBAR and SUB-NAVBAR -->
 
 <!-- LIST -->
@@ -1145,6 +1175,15 @@ $(document).ready(function(){
   });
  $(".brian_nav").mouseenter(function(){
     $(".brian_subnav--user").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#topsites").mouseenter(function(){
+    $(".brian_subnav--top_sites").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--top_sites").removeClass("show_subnav");
   });
 });
 
