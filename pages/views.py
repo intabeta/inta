@@ -379,10 +379,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
 
 
         entries = Entry.objects.all()
-        if tags != '':
+        if tags:
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
-        if domain != '':
+        if domain:
             entries = entries.filter(domain__iexact=domain)
 	
         if method == 'votes':
@@ -598,14 +598,14 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                                 kwargs={'username': user.username}))
                     
         entries = Entry.objects.all()
-        if tags != '':
+        if tags:
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
-        if domain != '':
+        if domain:
             entries = entries.filter(domain__iexact=domain)
 	
         if method == 'votes':
-            if tags=='':
+            if tags == '':
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
                 votecounts = [ entry.score for entry in posts ]
             elif len(taglist)==1:
@@ -738,7 +738,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             return render_to_response('404.html')
         
         tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-        if tags != '':
+        if tags:
             relevanttags = listsum([ post.tags.all() for post in posts ])
             toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
         else:
