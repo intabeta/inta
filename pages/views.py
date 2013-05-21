@@ -384,6 +384,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 entries = entries.filter(tags__name__in=[tag])
         if domain:
             entries = entries.filter(domain__iexact=domain)
+            return domain
 	
         if method == 'votes':
             if tags=='':
