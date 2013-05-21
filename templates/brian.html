@@ -557,11 +557,18 @@ h4 {
 
        <div class="well span3" id="rb">
           <a class="btn" href="javascript:bookmark()">Click to add shortcut</a>
-             <a class="btn" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Tag and vote from anywhere </p>
+             <a class="btn" id="button--shortcut" javascript:location.href="'http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk=' 
+                                +encodeURIComponent(location.href)  
+                                +'&title='+encodeURIComponent(document.title);">INTA Shortcut</a></p><p style="padding: 0px 15px;">Tag and vote from anywhere </p>
         </div>
 
 <script type="text/javascript">
-var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //Change these
+var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
+
+
+
+
+                                Change these
 var pageName = "Inta shortcut"; //Change these
 function bookmark() {
     if (window.external) {
