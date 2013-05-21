@@ -117,48 +117,56 @@ h4 {
   background-color: black;
   opacity:0.83;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--toptags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--mytags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--top_sites {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signup {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signin {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--user {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--add_tags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
+  border-bottom: 1px solid #ddf;
 }
 .show_subnav {
   display:block;
@@ -471,9 +479,11 @@ h4 {
 <!-- LIST -->
 
      <div class="span7 well" id="center" style="border: 1px solid gray">
+       <center>
        <h2 style="border-bottom: solid #ddf">
             Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
         </h2>
+      </center>
         
           <table class="table table-condensed">
             <tbody>
