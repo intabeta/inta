@@ -280,7 +280,10 @@ h4 {
   color: #317eac;
 }
 .brian_nav .active > a {
-  color: #317eac;
+  border-bottom: 2px solid white;
+}
+.underline_title {
+ border-bottom: 2px solid white;
 }
 </style>
     
@@ -1106,39 +1109,47 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#reltags").mouseenter(function(){
     $(".brian_subnav--reltags").toggleClass("show_subnav");
+    $("#reltags").toggleClass("underline_title");
   });
  $(document).click(function(){
     $(".brian_subnav--reltags").removeClass("show_subnav");
+    $("#reltags").removeClass("underline_title");
   });
 });
 
 $(document).ready(function(){
   $("#toptags").mouseenter(function(){
     $(".brian_subnav--toptags").toggleClass("show_subnav");
+    $("#toptags").toggleClass("underline_title");
   });
  $(document).click(function(){
     $(".brian_subnav--toptags").removeClass("show_subnav");
+    $("#toptags").removeClass("underline_title");
   });
 });
 
 $(document).ready(function(){
   $("#mytags").mouseenter(function(){
     $(".brian_subnav--mytags").toggleClass("show_subnav");
+    $("#mytags").toggleClass("underline_title");
   });
   $(document).click(function(){
     $(".brian_subnav--mytags").removeClass("show_subnav");
+    $("#mytags").removeClass("underline_title");
   });
 });
 
 $(document).ready(function(){
   $("#signup").mouseenter(function(){
     $(".brian_subnav--signup").toggleClass("show_subnav");
+    $("#signup").toggleClass("underline_title");
   });
 });
 
 $(document).ready(function(){
   $("#signin").mouseenter(function(){
     $(".brian_subnav--signin").toggleClass("show_subnav");
+    $("#signin").toggleClass("underline_title");
   });
 });
 
@@ -1146,18 +1157,22 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#user_nav").mouseenter(function(){
     $(".brian_subnav--user").toggleClass("show_subnav");
+    $("#user_nav").toggleClass("underline_title");
   });
  $(document).click(function(){
     $(".brian_subnav--user").removeClass("show_subnav");
+    $("#user_nav").removeClass("underline_title");
   });
 });
 
 $(document).ready(function(){
   $("#topsites").mouseenter(function(){
     $(".brian_subnav--top_sites").toggleClass("show_subnav");
+    $("#topsites").toggleClass("underline_title");
   });
   $(document).click(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
+    $("#topsites").removeClass("underline_title");
   });
 });
 
