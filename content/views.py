@@ -730,7 +730,7 @@ def submit_plugin(request):
                     logo = Logo()
                     logo.site = entry.domain
                     try:
-                        googleResult = urllib2.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=twitter+' + logo.site).read()
+                        googleResult = urllib2.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=twitter.com+' + logo.site).read()
                         results = json.loads(googleResult)
                         data = results['responseData']['results']
                         urls = [e['url'] for e in data]
