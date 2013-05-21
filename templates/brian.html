@@ -182,8 +182,6 @@ h4 {
  }
 #mytags {
  color: white;
- margin-top: 6px;
- margin-bottom: 12px;
 }
 #user_nav {
  color: #ddf;
@@ -199,18 +197,14 @@ h4 {
   font-size: 14px;
     font-weight: bold;
 }
-#time_icon {
- display: inline;
- float:left;
- margin: 9px 5px 0 15px;
- border: 1px solid white;
-}
 #inta_brand {
  color: #ddf;
  display: inline;
  float:left;
  font-size:22px;
+ margin: 10px 15px 0px 20px;
  margin-left: 20px;
+ margin-right: 15px;
 }
 .brian_nav form input {
 
@@ -264,7 +258,7 @@ h4 {
 .brian_nav p {
   display:inline-block;
   padding-bottom: 2px;
-  margin: 8px 5px 0px 0px;
+  margin: 12px 5px 12px 0px;
   font-weight:bold;
   font-size: 15px;
 }
@@ -288,7 +282,6 @@ h4 {
  <div class="brian_nav">
   <div class="nav_row">
       <p id="inta_brand"> inta </p>
-      <i class="icon-time" id="time_icon" style="background-color:white"></i>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
         <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">3h</a></p>
@@ -1161,76 +1154,6 @@ $(document).ready(function(){
   });
 });
 
-/*   JS of hover to activate, navbar hover to close. THE HOVER isn't working precisely...
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#toptags").mouseenter(function(){
-    $(".brian_subnav--toptags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--toptags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#mytags").mouseenter(function(){
-    $(".brian_subnav--mytags").toggleClass("show_subnav");
-  });
-  $(document).click(function(){
-    $(".brian_subnav--mytags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signup").mouseenter(function(){
-    $(".brian_subnav--signup").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signup").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signin").mouseenter(function(){
-    $(".brian_subnav--signin").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signin").removeClass("show_subnav");
-  });
-});
-
-
-$(document).ready(function(){
-  $("#user_nav").mouseenter(function(){
-    $(".brian_subnav--user").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--user").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#topsites").mouseenter(function(){
-    $(".brian_subnav--top_sites").toggleClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $(".add_tags").click(function(){
-    $(".brian_subnav--add_tags").toggleClass("show_subnav");
-  });
-});
-
-*/
 
 /*
 $(function() {
