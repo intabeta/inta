@@ -288,6 +288,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
 
                     # Send the signup complete signal
                     userena_signals.signup_complete.send(sender=None, user=user)
+            elif action == 'signout':
+                logout(request)
                     
             else:
                 post_slug = request.POST.get('post_slug', '')
