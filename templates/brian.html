@@ -1115,17 +1115,11 @@ $(document).ready(function(){
   $("#signup").mouseenter(function(){
     $(".brian_subnav--signup").toggleClass("show_subnav");
   });
- $(document).click(function(){
-    $(".brian_subnav--signup").removeClass("show_subnav");
-  });
 });
 
 $(document).ready(function(){
   $("#signin").mouseenter(function(){
     $(".brian_subnav--signin").toggleClass("show_subnav");
-  });
- $(document).click(function(){
-    $(".brian_subnav--signin").removeClass("show_subnav");
   });
 });
 
@@ -1154,6 +1148,76 @@ $(document).ready(function(){
   });
 });
 
+/*   JS of hover to activate, navbar hover to close. THE HOVER isn't working precisely...
+
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#toptags").mouseenter(function(){
+    $(".brian_subnav--toptags").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--toptags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#mytags").mouseenter(function(){
+    $(".brian_subnav--mytags").toggleClass("show_subnav");
+  });
+  $(document).click(function(){
+    $(".brian_subnav--mytags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signup").mouseenter(function(){
+    $(".brian_subnav--signup").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signup").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signin").mouseenter(function(){
+    $(".brian_subnav--signin").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
+  });
+});
+
+
+$(document).ready(function(){
+  $("#user_nav").mouseenter(function(){
+    $(".brian_subnav--user").addClass("show_subnav");
+  });
+ $(".brian_nav").mouseenter(function(){
+    $(".brian_subnav--user").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#topsites").mouseenter(function(){
+    $(".brian_subnav--top_sites").toggleClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $(".add_tags").click(function(){
+    $(".brian_subnav--add_tags").toggleClass("show_subnav");
+  });
+});
+
+*/
 
 /*
 $(function() {
@@ -1219,7 +1283,6 @@ $(function() {
 
 </body>
 </html>
-
 
 
 
