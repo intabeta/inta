@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from time import time
 from content.graphtools import Graph
-from re import compile as re_compile, match as re_match
+from re import compile as re_compile
 
 
 def homepage(request):
@@ -257,8 +257,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
     else:
-        taglist = [ tag for tag in tags.split('+') if not site_re.re_match(tag) ]
-        domainlist = [ tag for tag in tags.split('+') if site_re.re_match(tag) ]
+        taglist = [ tag for tag in tags.split('+') if not site_re.match(tag) ]
+        domainlist = [ tag for tag in tags.split('+') if site_re.match(tag) ]
         tags = '+'.join(taglist)
         domain = domainlist[0][5:] if domainlist else ''
     
