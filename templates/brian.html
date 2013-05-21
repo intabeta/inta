@@ -492,7 +492,7 @@ h4 {
               {% for post, score, tagscores in postdata %}
               <tr>
               <td>
-                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ post.domain }}">
+                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
                 <img style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
