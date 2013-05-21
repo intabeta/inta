@@ -482,7 +482,7 @@ h4 {
               <tr>
               <td>
                 <a href="/{{ method }}/site/{{ post.domain }}">
-                <img style="max-width: 40px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="40" title="{{ post.domain }}" alt="{{ post.title }}" />
+                <img style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
               <td>
@@ -561,7 +561,7 @@ h4 {
         </div>
 
 <script type="text/javascript">
-var url = "javascript:(function()%7Bvar a%3Dwindow,b%3Ddocument,c%3DencodeURIComponent,d%3Da.open(%27http://intabeta.com/content/submit_plugin/%3Fop%3Dedit%26output%3Dpopup%26bkmk%3D%27%2Bc(b.location)%2B%27%26title%3D%27%2Bc(b.title),%27bkmk_popup%27,%27left%3D%27%2B((a.screenX%7C%7Ca.screenLeft)%2B10)%2B%27,top%3D%27%2B((a.screenY%7C%7Ca.screenTop)%2B10)%2B%27,height%3D200px,width%3D500px,resizable%3D1,alwaysRaised%3D1%27)%3Ba.setTimeout(function()%7Bd.focus()%7D,300)%7D)()%3B"; //Change these
+var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //Change these
 var pageName = "Inta shortcut"; //Change these
 function bookmark() {
     if (window.external) {
