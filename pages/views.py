@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from time import time
 from content.graphtools import Graph
+from re import compile as re_compile, match as re_match
 
 
 def homepage(request):
@@ -244,6 +245,7 @@ def listsum(ls): #used in relevanttags below in tagslist() to append lists to ea
     return temp
 def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 1)
 	return ls[(n-1)*l:n*l]
+site_re = re_compile(r'^site:')
 def taglist(request, tags='', method='decay3', domain='', page=1,
           signup_form=SignupForm, auth_form=AuthenticationForm):
     
@@ -255,7 +257,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
     else:
-        taglist = tags.split('+')
+        taglist = [ tag in tags.split('+') if not site_re.re_match(tag) ]
+        domainlist = [ tag in tags.split('+') if site_re.re_match(tag) ]
+        tags = '+'.join(taglist)
+        domain = domainlist[0][5:] if domainlist else ''
     
     if user.is_authenticated():
         voted = user.voter_set.filter(tag__in=[taglist[0]]) #only dealing with votes on the primary tag
@@ -373,7 +378,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
 
 
         entries = Entry.objects.all()
-        if tags != '' and domain == '':
+        if tags != '':
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
         if domain != '':
