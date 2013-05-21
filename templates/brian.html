@@ -367,6 +367,7 @@ h4 {
   
   <div class="brian_subnav--mytags">
     <br>
+    <div style="display:inline-block; clear:left">
         <form action="" method="post" class="button-form subnav--active_tags">
             {% csrf_token %}
             Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
@@ -383,7 +384,11 @@ h4 {
                       <button type="submit" class="close">&times;</button></li>
                   </form>
                   {% endfor %}
+    </ul>
+    </div>
+    <div style="display:inline-block;">
     <p class="brian_subnav--header"> My Sites</p>
+        <ul class="nav nav-pills">
                   {% for sites, name in mysites %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
@@ -393,6 +398,7 @@ h4 {
                   </form>
                   {% endfor %}
     </ul>
+    </div>
   </div>
   
   <div class="brian_subnav--signup">
