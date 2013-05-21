@@ -260,6 +260,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         taglist = [ tag for tag in tags.split('+') if not site_re.match(tag) ]
         domainlist = [ tag for tag in tags.split('+') if site_re.match(tag) ]
         tags = '+'.join(taglist)
+        taglist = Tag.objects.all() if not tags # if removing all r'^site:' elements has left the list empty, then we want to look at all tags
         domain = domainlist[0][5:] if domainlist else ''
     
     if user.is_authenticated():
@@ -597,7 +598,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                                 kwargs={'username': user.username}))
                     
         entries = Entry.objects.all()
-        if tags != '' and domain == '':
+        if tags != '':
             for tag in taglist:
                 entries = entries.filter(tags__name__in=[tag])
         if domain != '':
@@ -764,7 +765,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         if tags == '': #show 'all' instead of a list of every single tag
             taglist=['all']
         if domain != '':
-            taglist=['site: '+domain]
+            taglist += ['site:'+domain]
         
         template_data = {
             'tags': tags,
