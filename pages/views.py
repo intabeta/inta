@@ -568,6 +568,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                     userena_signals.signup_complete.send(sender=None, user=user)
 
                     #sign in
+                    user = authenticate(identification=signupform.username, password=signupform.password1)
                     login(request, user)
                     
             elif action == 'signin':
