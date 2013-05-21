@@ -189,6 +189,9 @@ h4 {
 .add_tags {
  font-size:10px;
  }
+.btn--tag {
+ display:inline;
+}
 #mytags {
  color: white;
 }
@@ -289,7 +292,6 @@ h4 {
   font-size: 10.998px;
   font-weight: bold;
   line-height: 14px;
-  color: black;
   vertical-align: baseline;
   white-space: nowrap;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -300,6 +302,17 @@ h4 {
   border-radius: 3px;
   margin-top: 5px;
   display: inline-block;
+}
+.URL_title {
+  color: black;
+}
+.URL_title:hover {
+  color: black;
+  text-decoration:none;
+  border-bottom: 2px solid red;
+}
+.URL_hovered {
+  border-bottom: 1px solid red;
 }
 </style>
     
@@ -517,7 +530,7 @@ h4 {
               </td>
               <td>
                 <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" class="main-link" target="_blank">
+                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}']);" target="_blank" class="URL_title">
                   {% if post.title == "Untitled" %}
                     {{ post.url }}
                   {% else %}
@@ -529,7 +542,7 @@ h4 {
                   {% for tag in tagscores %}
                     <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" style="color:#ffffff">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
-                  <button class"btn"><i class="icon-tags add_tags"></i></button>
+                  <button class="btn btn--tag"><i class="icon-tags add_tags"></i></button>
                   <br />
                   <div> 
 
@@ -1076,10 +1089,13 @@ Caret for help, mission statement, blog, recommendations etc...
                 //when mouse is on, animate it via 'fadeout'
                 $(this).find("td>div").css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0},300);
                 $(this).find(".label").addClass("label_active");
+                $(this).find(".btn--tag").addClass("show_subnav");
             }, function () {
                 //by the same token, fade it out when mouse is out.
                 $(this).find("td>div").css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0},500);
                 $(this).find(".label").removeClass("label_active");
+                $(this).find(".btn--tag").removeClass("show_subnav");
+                $(this).find(".URL_title").addClass("URL_hovered");
             });
         });
     }(window.jQuery);
@@ -1362,7 +1378,6 @@ $(function() {
 
 </body>
 </html>
-
 
 
 
