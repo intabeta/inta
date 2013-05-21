@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     (r'^autoclose/$', 'pages.views.autoclose'),
     (r'^splash/$', 'pages.views.splash'),
     (r'^graphtest/$', 'pages.views.graphtest'),
+    (r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),
     (r'^content/', include('content.urls')),
@@ -43,8 +44,5 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
 )
 
