@@ -182,6 +182,8 @@ h4 {
  }
 #mytags {
  color: white;
+ margin-top: 6px;
+ margin-bottom: 12px;
 }
 #user_nav {
  color: white;
@@ -319,13 +321,13 @@ h4 {
     <div class="nav_row pull-right">
         <p><a href="/graphtest" target="_blank">Node view</a></p>
         <p> | </p>
-        <p id="mytags" style="border: 1px solid red">My Tags & Sites</p>
+        <p id="mytags">My Tags & Sites</p>
         <p> | </p>
-        <p id="toptags" style="border: 1px solid red">Top Tags</p>
+        <p id="toptags">Top Tags</p>
         <p> | </p>
-        <p id="reltags" style="border: 1px solid red">Related Tags</p>
+        <p id="reltags">Related Tags</p>
         <p> | </p>
-        <p id="topsites" style="border: 1px solid red">Top Sites</p>
+        <p id="topsites">Top Sites</p>
         <p> | </p>
         
 <!--
@@ -460,6 +462,8 @@ h4 {
 
 
 <!-- END NAVBAR and SUB-NAVBAR -->
+
+
 
 <!-- LIST -->
 
@@ -1080,6 +1084,80 @@ $(document).ready(function(){
 });
 */
 
+$(document).ready(function(){
+  $("#reltags").mouseenter(function(){
+    $(".brian_subnav--reltags").toggleClass("show_subnav");
+  });
+ $(document).click(function(){
+    $(".brian_subnav--reltags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#toptags").mouseenter(function(){
+    $(".brian_subnav--toptags").toggleClass("show_subnav");
+  });
+ $(document).click(function(){
+    $(".brian_subnav--toptags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#mytags").mouseenter(function(){
+    $(".brian_subnav--mytags").toggleClass("show_subnav");
+  });
+  $(document).click(function(){
+    $(".brian_subnav--mytags").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signup").mouseenter(function(){
+    $(".brian_subnav--signup").toggleClass("show_subnav");
+  });
+ $(document).click(function(){
+    $(".brian_subnav--signup").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#signin").mouseenter(function(){
+    $(".brian_subnav--signin").toggleClass("show_subnav");
+  });
+ $(document).click(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
+  });
+});
+
+
+$(document).ready(function(){
+  $("#user_nav").mouseenter(function(){
+    $(".brian_subnav--user").toggleClass("show_subnav");
+  });
+ $(document).click(function(){
+    $(".brian_subnav--user").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $("#topsites").mouseenter(function(){
+    $(".brian_subnav--top_sites").toggleClass("show_subnav");
+  });
+  $(document).click(function(){
+    $(".brian_subnav--top_sites").removeClass("show_subnav");
+  });
+});
+
+$(document).ready(function(){
+  $(".add_tags").click(function(){
+    $(".brian_subnav--add_tags").toggleClass("show_subnav");
+  });
+  $(document).click(function(){
+    $(".brian_subnav--add_tags").removeClass("show_subnav");
+  });
+});
+
+/*   JS of hover to activate, navbar hover to close. THE HOVER isn't working precisely...
 
 $(document).ready(function(){
   $("#reltags").mouseenter(function(){
@@ -1101,9 +1179,9 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   $("#mytags").mouseenter(function(){
-    $(".brian_subnav--mytags").addClass("show_subnav");
+    $(".brian_subnav--mytags").toggleClass("show_subnav");
   });
- $(".brian_nav").mouseenter(function(){
+  $(document).click(function(){
     $(".brian_subnav--mytags").removeClass("show_subnav");
   });
 });
@@ -1148,6 +1226,7 @@ $(document).ready(function(){
   });
 });
 
+*/
 
 /*
 $(function() {
