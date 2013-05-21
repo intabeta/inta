@@ -546,7 +546,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         if tags == '': #show 'all' instead of a list of every single tag
             taglist=['all']
         if domain != '':
-            taglist=['site: '+domain]
+            taglist += ['site:'+domain]
         
         template_data = {
             'tags': tags,
