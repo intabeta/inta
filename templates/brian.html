@@ -117,56 +117,48 @@ h4 {
   background-color: black;
   opacity:0.83;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--toptags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--mytags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--top_sites {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signup {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signin {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--user {
   overflow: scroll;
   background-color: black;
   opacity:1;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--add_tags {
   overflow: scroll;
   background-color: black;
   opacity:0.83;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .show_subnav {
   display:block;
@@ -449,7 +441,7 @@ h4 {
                   <li><a href="/accounts/{{ user }}/">My Greats</a></li>
                   <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
                   <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <form><button>Sign Out</button></form>
+                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" /><button type="submit" class="btn">Sign Out</button></form></li>
           </ul>  
   </div> 
   
@@ -478,14 +470,10 @@ h4 {
 
 <!-- LIST -->
 
-
      <div class="span7 well" id="center" style="border: 1px solid gray">
-     <center>
        <h2 style="border-bottom: solid #ddf">
             Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
         </h2>
-        </center>
-
         
           <table class="table table-condensed">
             <tbody>
@@ -493,7 +481,7 @@ h4 {
               {% for post, score, tagscores in postdata %}
               <tr>
               <td>
-                <a href="/{{ method }}/site/{{ post.domain }}">
+                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
                 <img style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
@@ -509,7 +497,7 @@ h4 {
                   &nbsp;{{ post.date_added|date:"M j" }}
                   <br />
                   {% for tag in tagscores %}
-                    <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}/" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
+                    <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" style="color:#FFFFFF">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class"btn"><i class="icon-tags add_tags"></i></button>
                   <br />
@@ -573,7 +561,12 @@ h4 {
         </div>
 
 <script type="text/javascript">
-var url = "javascript:(function(){%7Bvar a%3Dwindow,b%3Ddocument,c%3DencodeURIComponent,d%3Da.open(%27http://intabeta.com/content/submit_plugin/%3Fop%3Dedit%26output%3Dpopup%26bkmk%3D%27%2Bc(b.location)%2B%27%26title%3D%27%2Bc(b.title),%27bkmk_popup%27,%27left%3D%27%2B((a.screenX%7C%7Ca.screenLeft)%2B10)%2B%27,top%3D%27%2B((a.screenY%7C%7Ca.screenTop)%2B10)%2B%27,height%3D200px,width%3D500px,resizable%3D1,alwaysRaised%3D1%27)%3Ba.setTimeout(function()%7Bd.focus()%7D,300)%7D)()%3B}(); //Change these
+var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
+
+
+
+
+                                Change these
 var pageName = "Inta shortcut"; //Change these
 function bookmark() {
     if (window.external) {
