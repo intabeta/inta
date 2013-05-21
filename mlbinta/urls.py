@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),
     (r'^content/', include('content.urls')),
-    (r'^(?P<method>[-\w]+)/(?P<tags>[- :+|\w]+)/$', 'pages.views.taglist'),
+    (r'^(?P<method>[-\w]+)/(?P<tags>[- :.+|\w]+)/$', 'pages.views.taglist'),
     (r'^(?P<method>[-\w]+)/$', 'pages.views.taglist'),
 #     url(r'^search/',  
 #        SearchView(  
