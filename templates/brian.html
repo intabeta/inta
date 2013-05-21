@@ -441,7 +441,7 @@ h4 {
                   <li><a href="/accounts/{{ user }}/">My Greats</a></li>
                   <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
                   <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li><form action="" method="post">{% csrf_token %}<input type="hidden" name="action" value="signout" /><button type="submit" class="btn">Sign Out</button></form></li>
+                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" /><button type="submit" class="btn">Sign Out</button></form></li>
           </ul>  
   </div> 
   
@@ -557,9 +557,7 @@ h4 {
 
        <div class="well span3" id="rb">
           <a class="btn" href="javascript:bookmark()">Click to add shortcut</a>
-             <a class="btn" id="button--shortcut" javascript:location.href="'http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk=' 
-                                +encodeURIComponent(location.href)  
-                                +'&title='+encodeURIComponent(document.title);">INTA Shortcut</a></p><p style="padding: 0px 15px;">Tag and vote from anywhere </p>
+             <a class="btn" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p style="padding: 0px 15px;">Tag and vote from anywhere </p>
         </div>
 
 <script type="text/javascript">
