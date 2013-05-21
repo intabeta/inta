@@ -544,9 +544,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
-        if tags == '': #show 'all' instead of a list of every single tag
+        if not tags and not domain: #show 'all' instead of a list of every single tag
             taglist=['all']
-        if domain != '':
+        if domain:
             taglist += ['site:'+domain]
         
         template_data = {
@@ -605,10 +605,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             entries = entries.filter(domain__iexact=domain)
 	
         if method == 'votes':
-            if tags == '':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
                 votecounts = [ entry.score for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
                 except:
@@ -621,10 +621,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             posts = entries.order_by('-last_growth', '-date_added')
             votecounts = [ a.last_growth for a in posts ]
         elif method == 'decay1':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
                 votecounts = [ entry.score_d1 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
                 except:
@@ -634,10 +634,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
         elif method == 'decay2':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
                 votecounts = [ entry.score_d2 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
                 except:
@@ -647,10 +647,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
         elif method == 'decay3':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
                 votecounts = [ entry.score_d3 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
                 except:
@@ -660,10 +660,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
         elif method == 'decay4':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
                 votecounts = [ entry.score_d4 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
                 except:
@@ -673,10 +673,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
         elif method == 'decay5':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
                 votecounts = [ entry.score_d5 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
                 except:
@@ -686,10 +686,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
         elif method == 'decay6':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
                 votecounts = [ entry.score_d6 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
                 except:
@@ -699,10 +699,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
         elif method == 'decay7':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
                 votecounts = [ entry.score_d7 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
                 except:
@@ -712,10 +712,10 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
                 votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
         elif method == 'decay8':
-            if tags=='':
+            if not tags and not domain:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
                 votecounts = [ entry.score_d8 for entry in posts ]
-            elif len(taglist)==1:
+            elif len(taglist)==1 and not domain:
                 try:
                     posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
                 except:
@@ -762,9 +762,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])[:10]
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])[:10]
-        if tags == '': #show 'all' instead of a list of every single tag
+        if not tags and not domain: #show 'all' instead of a list of every single tag
             taglist=['all']
-        if domain != '':
+        if domain:
             taglist += ['site:'+domain]
         
         template_data = {
