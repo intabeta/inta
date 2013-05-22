@@ -318,6 +318,9 @@ h4 {
 URL_hovered:hover {
   font-size: 12px;
  }
+ #button--great {
+  text-decoration: none;
+ }
 </style>
     
 
@@ -326,7 +329,7 @@ URL_hovered:hover {
 <body style="background:#ddf">
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
-  <div class="nav_row">
+  <div class="nav_row" id="time_nav">
       <p id="inta_brand"> inta </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
@@ -358,8 +361,9 @@ URL_hovered:hover {
               <input type="text" class="search-query" placeholder="Search tags or text">
         </form>
 -->
+
     <div class="nav_row pull-right">
-        <p><a href="/graphtest" target="_blank">Node view</a></p>
+        <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'Brian_graph_noscript', 'graph', 'functionality']);" target="_blank" id="graphtest">Node view</a></p>
         <p> | </p>
         <p id="mytags">My Tags & Sites</p>
         <p> | </p>
@@ -552,10 +556,10 @@ function bookmark() {
 
 <!-- LIST -->
 
-     <div class="span7 well" id="center" style="border: 1px solid gray">
+     <div class="span9 well" id="center" style="border: 2px solid gray">
        <center>
        <h2 style="border-bottom: solid #ddf">
-            Tags :{% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+            Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
         </h2>
       </center>
         
@@ -566,7 +570,7 @@ function bookmark() {
               <tr>
               <td>
                 <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
-                <img style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}" />
+                <img id="site_image" style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}" />
                 </a>
               </td>
               <td>
@@ -587,7 +591,7 @@ function bookmark() {
                   <br />
                   <div> 
 
-              <form action="" method="post" class="button-form">
+              <form action="" method="post" class="button-form" id="button--good">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                         <input type="hidden" name="action" value="vote" />
@@ -595,7 +599,7 @@ function bookmark() {
                           Good
                         </button>
                     </form>                   
-            <form action="" method="post" class="button-form">
+            <form action="" method="post" class="button-form" id="button--great">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                 <input type="hidden" name="action" value="double_vote" />
@@ -1500,9 +1504,92 @@ $(function() {
 
 </script>
 
+<script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-32641734-1'');
+ga('send', 'pageview');
+
+</script>
+
+  
+<script>
+$('#button--great').on('click', function() {
+  ga('send', 'event', 'URL-line', 'Great', 'Curate', {{ score }} );
+});   
+$('#button--good').on('click', function() {
+  ga('send', 'event', 'URL-line', 'Good', 'Curate', {{ score }} );
+});
+$('.add_tags').on('click', function() {
+  ga('send', 'event', 'URL-line', 'Add Tags', 'Curate', {{ score }} );
+});
+$('.URL_title').on('click', function() {
+  ga('send', 'event', 'URL-line', 'Link', 'Consume', {{ score }} );
+});
+var first_URL_title = $( ".URL_title" ).get( 0 );
+$(first_URL_title).on('click', function() {
+  ga('send', 'event', 'URL-line', 'Link-1', 'Consume', {{ score }} );
+});
+$('.label').on('click', function() {
+  ga('send', 'event', 'Tag', '{{ tag.0 }}', 'Move', {{ score }} );
+});
+$('#site_image').on('click', function() {
+  ga('send', 'event', 'Site Image', '{{ post.domain }}', 'Move', {{ score }} );
+});
+$('.tag-breadcrumb').on('click', function() {
+  ga('send', 'event', 'Breadcrumbs', '{{ tag }}', 'Move');
+});
+
+$('#graphtest').on('click', function() {
+  ga('send', 'event', 'Navbar', 'graphtest', 'Functionality');
+});
+$('#time_nav').on('click', function() {
+  ga('send', 'event', 'time', '{{ method }}', 'Move');
+});
+$('#reltags').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'reltags', 'Move');
+});
+$('#mytags').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'mytags', 'Move');
+});
+$('#toptags').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'toptags', 'Move');
+});
+$('#user_nav').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'user', 'Move');
+});
+$('#signin').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'sign in', 'Move');
+});
+$('#signup').on('hover', function() {
+  ga('send', 'event', 'Navbar', 'sign up', 'Move');
+});
+$('.brian_subnav--signup button').on('click', function() {
+  ga('send', 'event', 'Subnav', 'sign up', 'Button');
+});
+$('.brian_subnav--signin button').on('click', function() {
+  ga('send', 'event', 'Subnav', 'sign in', 'Button');
+});
+$('.brian_subnav--mytag {{ tag }}').on('click', function() {
+  ga('send', 'event', 'Subnav', 'mytags', 'Move');
+});
+$('.brian_subnav--toptag {{ tag.0 }}').on('click', function() {
+  ga('send', 'event', 'Subnav', 'toptags_no_find', 'Move');
+});
+$('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
+  ga('send', 'event', 'Subnav', 'reltags-find_test', 'Move');
+});
+
+
+
+</script>
+
 </body>
 </html>
-
 
 
 
