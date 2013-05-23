@@ -439,6 +439,7 @@ $(document).ready(function(){
     <br>
     <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+       <button class="btn" style="display:inline-block"> Show more </button>
     </ul>
   </div>
   
@@ -585,7 +586,7 @@ function bookmark() {
   </div>  
   
 </div> 
-
+</div>
 
 
 <!-- END NAVBAR and SUB-NAVBAR -->
@@ -623,13 +624,16 @@ function bookmark() {
                   {% else %}
                     {{ post.title }}
                   {% endif %}
+                  <p style="font-size:12px; display:inline; color:grey;">({{ post.domain }})</p>
                   </a></strong>
             </center>
 <div>
+        <center>
                   {% for tag in tagscores %}
                     <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" style="color:#ffffff">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag"><i class="icon-tags add_tags"></i></button>
+                  </center>
 </div>
                   <br />
 
@@ -998,6 +1002,8 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
+
+
 
 
 
