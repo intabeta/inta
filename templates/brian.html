@@ -111,6 +111,7 @@ h4 {
   display:inline-block;
   margin-bottom: 0px;
   padding-bottom: 0px;
+  border: 1px dashed red;
 }
 .brian_subnav--reltags {
   overflow: scroll;
@@ -171,6 +172,9 @@ h4 {
 .show_subnav {
   display:block;
 }
+.hide_subnav {
+  display:none;
+}
 #reltags {
  color: white;
 }
@@ -209,7 +213,7 @@ h4 {
   font-size: 14px;
     font-weight: bold;
 }
-#inta_brand {
+.inta_brand {
  color: #ddf;
  display: inline;
  float:left;
@@ -218,9 +222,6 @@ h4 {
  margin-left: 20px;
  margin-right: 15px;
  border-bottom: 2px solid white;
-}
-.brian_nav form input {
-
 }
 .brian_subnav--signup form input {
   margin: 0 5px 0 5px;
@@ -321,7 +322,22 @@ URL_hovered:hover {
  #button--great {
   text-decoration: none;
  }
+.brian_nav--collapsed {
+  color: #ddf;
+  display: inline;
+  font-size: 300px;
+  margin: 12px 15px 0px 10px;
+  border-bottom: 2px dashed white white;
+ }
+ .nav-row--hide {
+  display:none;
+ }
+ #tag_nav_collapsed {
+ 
+ }
+
 </style>
+
 
 <script>
 
@@ -338,7 +354,8 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p id="inta_brand"> inta </p>
+      <p class="inta_brand"> inta </p>
+      <p class="brian_nav--collapsed" id="time-collapse"> Time: </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
         <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">3h</a></p>
@@ -362,6 +379,35 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></p>
       {% endif %}
     </div>
+    
+    <div class="nav_row--hide" id="time-nav-small" style="border: 1px dashed red">
+      <p class="inta_brand"> inta </p>
+      <p class="brian_nav--collapsed" id="time-expand"> Time: </p>
+      <p {% if method == 'decay1' %}> 30m </p>{% endif %}
+      <p {% if method == 'decay2' %}> 3h </p>{% endif %}
+      <p {% if method == 'decay3' %}> 1d </p>{% endif %}
+      <p {% if method == 'decay4' %}> 3d </p>{% endif %}
+      <p {% if method == 'decay5' %}> 1w </p>{% endif %}
+      <p {% if method == 'decay6' %}> 4w </p>{% endif %}
+      <p {% if method == 'decay7' %}> 12w </p>{% endif %}
+      <p {% if method == 'decay8' %}> yr </p>{% endif %}
+      <p {% if method == 'votes' %}> All-time </p>{% endif %}
+    </div>
+    
+<script>
+
+$(document).ready(function(){
+  $("#time-collapse").click(function(){
+    $("#time_nav").addClass("hide_subnav");
+    $("#time-nav-small").addClass("show_subnav");
+  });
+  $("#time-expand").click(function(){
+    $("#time_nav").removeClass("hide_subnav");
+    $("#time-nav-small").removeClass("show_subnav");
+  });
+});
+
+</script>
 
 <!--
         <form style="display:inline-block; margin: 4px 0 0 0; padding-bottom: 0px; height:30px;">
@@ -370,7 +416,8 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         </form>
 -->
 
-    <div class="nav_row pull-right">
+    <div class="nav_row pull-right" id="tag_nav">
+      <p id="tag_title-collapse"> Tags: </p>
         <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'Brian_graph_noscript', 'graph', 'functionality']);" target="_blank" id="graphtest">Node view</a></p>
         <p> | </p>
         <p id="mytags">My Tags & Sites</p>
@@ -381,14 +428,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         <p> | </p>
         <p id="topsites">Top Sites</p>
         <p> | </p>
-        
-<!--
-        <div style="border:1px solid white" class="navbar-p">
-        <p style="border:1px solid white" class="navbar-p"> Boo </p>
-        <p class="navbar-p"> Hello HelloHello</p>
-        </div>
--->
-        
+                
         {% if user.id %}
              <p id="user_nav"> {{ user }} </p>
         {% else %}
@@ -397,6 +437,29 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           <p id="signup">Sign Up</p>
         {% endif %}
     </div>
+    <div class="nav_row pull-right" id="tag_nav_collapsed">
+      <p id="tag_title-expand"> Tags </p>
+        {% if user.id %}
+             <p id="user_nav"> {{ user }} </p>
+        {% else %}
+          <p id="signin">Sign In</p>
+          <p> | </p>
+          <p id="signup">Sign Up</p>
+        {% endif %}
+    </div>
+
+<script>
+$(document).ready(function(){
+  $("#tag_title-collapse").click(function(){
+    $("#tag_nav").addClass("hide_subnav");
+    $("#tag_nav_collapsed").addClass("show_subnav");
+  });
+  $("#tag_title-expand").click(function(){
+    $("#tag_nav").removeClass("hide_subnav");
+    $("#tag_nav_collapsed").removeClass("show_subnav");
+  });
+});
+</script>
   </div>
   
 <!-- SUBNAV Divs-->
@@ -1590,6 +1653,7 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
+
 
 
 
