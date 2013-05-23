@@ -321,8 +321,7 @@ h4 {
   font-size: 14px;
 }
 .URL_hovered {
-  font-size: 12px;
-  border-bottom: 1px solid red;
+  color: grey;
 }
 URL_hovered:hover {
   font-size: 12px;
@@ -330,12 +329,14 @@ URL_hovered:hover {
  #button--great {
   text-decoration: none;
  }
-.brian_nav--collapsed {
+.brian_nav .brian_nav--collapsed {
   color: #ddf;
   display: inline;
-  font-size: 300px;
+  font-size: 18px;
   margin: 12px 15px 0px 10px;
-  border-bottom: 2px dashed white white;
+  border-bottom: 1px dashed white;
+  border-right: 1px dashed white;
+  padding-left: 5px;
  }
 
 </style>
@@ -354,7 +355,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   
 <body style="background:#ddf">
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
- <div class="brian_nav">
+ <div class="brian_nav" style="1px dashed red">
   <div class="nav_row" id="time_nav">
       <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-collapse"> Time: </p>
@@ -425,7 +426,7 @@ $(document).ready(function(){
 -->
 
     <div class="nav_row pull-right" id="tag_nav">
-      <p id="tag_title-collapse"> Tags: </p>
+      <p id="tag_title-collapse" class="brian_nav--collapsed"> Tags: </p>
         <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'Brian_graph_noscript', 'graph', 'functionality']);" target="_blank" id="graphtest">Node view</a></p>
         <p> | </p>
         <p id="mytags">My Tags & Sites</p>
@@ -447,7 +448,7 @@ $(document).ready(function(){
     </div>
     
     <div class="nav_row--hide pull-right" id="tag_nav_collapsed">
-      <p id="tag_title-expand"> Explore Tags </p>
+      <p id="tag_title-expand" class="brian_nav--collapsed"> Explore Tags </p>
         {% if user.id %}
              <p class="user_nav"> {{ user }} </p>
         {% else %}
@@ -457,6 +458,7 @@ $(document).ready(function(){
         {% endif %}
     </div>
 </div>
+
 </div>
 
 <script>
@@ -642,7 +644,7 @@ function bookmark() {
 
      <div class="span9 well" id="center" style="border: 2px solid gray">
        <center>
-       <h2 style="border-bottom: solid #ddf">
+       <h2 style="border-bottom: solid grey">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
         </h2>
       </center>
@@ -658,24 +660,33 @@ function bookmark() {
                 </a>
               </td>
               <td>
-                <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp;
-                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Nikos GA?', 'Link', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
+              <center>
+               <span class="label label-important">{{ score }}</span>
+              <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
+              <!--  Bubbles with different colors...
+              <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp; -->
+                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'Consume', 'Link', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
                   {% if post.title == "Untitled" %}
                     {{ post.url }}
                   {% else %}
                     {{ post.title }}
                   {% endif %}
                   </a></strong>
-                  &nbsp;{{ post.date_added|date:"M j" }}
-                  <br />
+            </center>
+<div>
                   {% for tag in tagscores %}
                     <span class="label"><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" style="color:#ffffff">  {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag"><i class="icon-tags add_tags"></i></button>
+</div>
                   <br />
-                  <div> 
 
-              <form action="" method="post" class="button-form" id="button--good">
+
+       </td>
+       
+       <td>
+       <div>
+        <form action="" method="post" class="button-form" id="button--good">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
                         <input type="hidden" name="action" value="vote" />
@@ -691,12 +702,12 @@ function bookmark() {
                   Great    
                   </button>
               </form>
-              
+        <br />
         <div style="display:inline-block; margin-right:0px;">
               <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta">Tweet</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
-      
+      <br />
      <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
 
 <div id="fb-root"></div>
@@ -709,8 +720,7 @@ function bookmark() {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-      
-        </div>
+      </div>
        </td>
        </tr>
        {% endfor %}
@@ -1666,7 +1676,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
