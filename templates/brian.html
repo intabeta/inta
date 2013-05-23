@@ -172,9 +172,6 @@ h4 {
 .show_subnav {
   display:block;
 }
-.show_collapse {
-  display:inline-block;
-}
 .hide_subnav {
   display:none;
 }
@@ -216,7 +213,7 @@ h4 {
   font-size: 14px;
     font-weight: bold;
 }
-#inta_brand {
+.inta_brand {
  color: #ddf;
  display: inline;
  float:left;
@@ -282,9 +279,6 @@ h4 {
 .brian_nav p a {
   color: white;
 }
-.nav_row--hide p {
-  color: white;
-}
 .brian_nav p a:hover {
   text-decoration: none;
   color: #317eac;
@@ -335,9 +329,9 @@ URL_hovered:hover {
   margin: 12px 15px 0px 10px;
   border-bottom: 2px dashed white white;
  }
-.nav_row--hide {
+ .nav-row--hide {
   display:none;
-}
+ }
  #tag_nav_collapsed {
  
  }
@@ -360,8 +354,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p id="inta_brand"> inta </p>
-      <div class="nav_row" id="time_navs">
+      <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-collapse"> Time: </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
@@ -387,7 +380,8 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       {% endif %}
     </div>
     
-    <div class="nav_row--hide" id="time-nav-small">
+    <div class="nav_row--hide" id="time-nav-small" style="border: 1px dashed red">
+      <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-expand"> Time: </p>
       <p {% if method == 'decay1' %}> 30m </p>{% endif %}
       <p {% if method == 'decay2' %}> 3h </p>{% endif %}
@@ -400,22 +394,16 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       <p {% if method == 'votes' %}> All-time </p>{% endif %}
     </div>
     
-    </div>
-    
-    
-    
 <script>
 
 $(document).ready(function(){
   $("#time-collapse").click(function(){
-    $("#time_navs").addClass("hide_subnav");
-    $("#time-nav-small").removeClass("nav_row--hide");
-    $("#time-nav-small").addClass("show_collapse");
+    $("#time_nav").addClass("hide_subnav");
+    $("#time-nav-small").addClass("show_subnav");
   });
   $("#time-expand").click(function(){
-    $("#time_navs").removeClass("hide_subnav");
+    $("#time_nav").removeClass("hide_subnav");
     $("#time-nav-small").removeClass("show_subnav");
-    $("#time-nav-small").addClass("nav_row--hide");
   });
 });
 
@@ -426,7 +414,7 @@ $(document).ready(function(){
               {% csrf_token %}
               <input type="text" class="search-query" placeholder="Search tags or text">
         </form>
-
+-->
 
     <div class="nav_row pull-right" id="tag_nav">
       <p id="tag_title-collapse"> Tags: </p>
@@ -459,7 +447,7 @@ $(document).ready(function(){
           <p id="signup">Sign Up</p>
         {% endif %}
     </div>
--->
+
 <script>
 $(document).ready(function(){
   $("#tag_title-collapse").click(function(){
