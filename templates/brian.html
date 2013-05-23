@@ -111,9 +111,7 @@ h4 {
   display:inline-block;
   margin-bottom: 0px;
   padding-bottom: 0px;
-}
-.nav_row--hide {
-  display:none;
+  border: 1px dashed red;
 }
 .brian_subnav--reltags {
   overflow: scroll;
@@ -189,10 +187,10 @@ h4 {
 #topsites {
  color:white;
 }
-.brian_nav .signup {
+#signup {
  color: red;
 }
-.brian_nav .signin {
+#signin {
  color: red 
  }
 .add_tags {
@@ -204,7 +202,7 @@ h4 {
 #mytags {
  color: white;
 }
-.brian_nav .user_nav {
+#user_nav {
  color: #ddf;
  margin-right:20px;
  font-size: 18px;
@@ -218,7 +216,7 @@ h4 {
   font-size: 14px;
     font-weight: bold;
 }
-.brian_nav .inta_brand {
+#inta_brand {
  color: #ddf;
  display: inline;
  float:left;
@@ -337,6 +335,12 @@ URL_hovered:hover {
   margin: 12px 15px 0px 10px;
   border-bottom: 2px dashed white white;
  }
+.nav_row--hide {
+  display:none;
+}
+ #tag_nav_collapsed {
+ 
+ }
 
 </style>
 
@@ -356,7 +360,8 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p class="inta_brand"> inta </p>
+      <p id="inta_brand"> inta </p>
+      <div class="nav_row" id="time_navs">
       <p class="brian_nav--collapsed" id="time-collapse"> Time: </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30m</a></p>
@@ -383,7 +388,6 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     </div>
     
     <div class="nav_row--hide" id="time-nav-small">
-      <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-expand"> Time: </p>
       <p {% if method == 'decay1' %}> 30m </p>{% endif %}
       <p {% if method == 'decay2' %}> 3h </p>{% endif %}
@@ -396,7 +400,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       <p {% if method == 'votes' %}> All-time </p>{% endif %}
     </div>
     
-  </div>
+    </div>
     
     
     
@@ -404,13 +408,13 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 $(document).ready(function(){
   $("#time-collapse").click(function(){
-    $("#time_nav").addClass("hide_subnav");
+    $("#time_navs").addClass("hide_subnav");
     $("#time-nav-small").removeClass("nav_row--hide");
     $("#time-nav-small").addClass("show_collapse");
   });
   $("#time-expand").click(function(){
-    $("#time_nav").removeClass("hide_subnav");
-    $("#time-nav-small").removeClass("show_collapse");
+    $("#time_navs").removeClass("hide_subnav");
+    $("#time-nav-small").removeClass("show_subnav");
     $("#time-nav-small").addClass("nav_row--hide");
   });
 });
@@ -422,7 +426,7 @@ $(document).ready(function(){
               {% csrf_token %}
               <input type="text" class="search-query" placeholder="Search tags or text">
         </form>
--->
+
 
     <div class="nav_row pull-right" id="tag_nav">
       <p id="tag_title-collapse"> Tags: </p>
@@ -438,42 +442,37 @@ $(document).ready(function(){
         <p> | </p>
                 
         {% if user.id %}
-             <p class="user_nav"> {{ user }} </p>
+             <p id="user_nav"> {{ user }} </p>
         {% else %}
-          <p class="signin">Sign In</p>
+          <p id="signin">Sign In</p>
           <p> | </p>
-          <p class="signup">Sign Up</p>
+          <p id="signup">Sign Up</p>
         {% endif %}
     </div>
-    
-    <div class="nav_row--hide pull-right" id="tag_nav_collapsed">
-      <p id="tag_title-expand"> Explore Tags </p>
+    <div class="nav_row pull-right" id="tag_nav_collapsed">
+      <p id="tag_title-expand"> Tags </p>
         {% if user.id %}
-             <p class="user_nav"> {{ user }} </p>
+             <p id="user_nav"> {{ user }} </p>
         {% else %}
-          <p class="signin">Sign In</p>
+          <p id="signin">Sign In</p>
           <p> | </p>
-          <p class="signup">Sign Up</p>
+          <p id="signup">Sign Up</p>
         {% endif %}
     </div>
-</div>
-</div>
-
+-->
 <script>
 $(document).ready(function(){
   $("#tag_title-collapse").click(function(){
     $("#tag_nav").addClass("hide_subnav");
     $("#tag_nav_collapsed").addClass("show_subnav");
-    $("#tag_nav_collapsed").removeClass("nav_row--hide");
   });
   $("#tag_title-expand").click(function(){
     $("#tag_nav").removeClass("hide_subnav");
     $("#tag_nav_collapsed").removeClass("show_subnav");
-    $("#tag_nav_collapsed").addClass("nav_row--hide");
   });
 });
 </script>
-
+  </div>
   
 <!-- SUBNAV Divs-->
 
@@ -1270,11 +1269,11 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
  $(document).click(function(){
@@ -1294,11 +1293,11 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
  $(document).click(function(){
@@ -1318,11 +1317,11 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
   $(document).click(function(){
@@ -1332,9 +1331,9 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $(".signup").mouseenter(function(){
+  $("#signup").mouseenter(function(){
     $(".brian_subnav--signup").toggleClass("show_subnav");
-    $(".signup").toggleClass("underline_title");
+    $("#signup").toggleClass("underline_title");
     $(".brian_subnav--reltags").removeClass("show_subnav");
     $("#reltags").removeClass("underline_title");
     $(".brian_subnav--mytags").removeClass("show_subnav");
@@ -1344,17 +1343,17 @@ $(document).ready(function(){
     $(".brian_subnav--signup").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
 });
 
 $(document).ready(function(){
-  $(".signin").mouseenter(function(){
+  $("#signin").mouseenter(function(){
     $(".brian_subnav--signin").toggleClass("show_subnav");
-    $(".signin").toggleClass("underline_title");
+    $("#signin").toggleClass("underline_title");
     $(".brian_subnav--reltags").removeClass("show_subnav");
     $("#reltags").removeClass("underline_title");
     $(".brian_subnav--mytags").removeClass("show_subnav");
@@ -1362,20 +1361,20 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
 });
 
 
 $(document).ready(function(){
-  $(".user_nav").mouseenter(function(){
+  $("#user_nav").mouseenter(function(){
     $(".brian_subnav--user").toggleClass("show_subnav");
-    $(".user_nav").toggleClass("underline_title");
+    $("#user_nav").toggleClass("underline_title");
     $(".brian_subnav--reltags").removeClass("show_subnav");
     $("#reltags").removeClass("underline_title");
     $(".brian_subnav--mytags").removeClass("show_subnav");
@@ -1383,16 +1382,16 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
  $(document).click(function(){
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
   });
 });
 
@@ -1407,11 +1406,11 @@ $(document).ready(function(){
     $(".brian_subnav--toptags").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
   $(document).click(function(){
@@ -1430,11 +1429,11 @@ $(document).ready(function(){
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
     $(".brian_subnav--signup").removeClass("show_subnav");
-    $(".signup").removeClass("underline_title");
+    $("#signup").removeClass("underline_title");
     $(".brian_subnav--signin").removeClass("show_subnav");
-    $(".signin").removeClass("underline_title");
+    $("#signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
-    $(".user_nav").removeClass("underline_title");
+    $("#user_nav").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
   });
