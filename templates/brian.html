@@ -34,47 +34,6 @@
 
 <style type="text/css">
 
-/*
-#lb {
-  margin-top: 200px;
-  margin-left:80px;
-} 
-h4 {
-  color:black;
-}
-#draggable { 
-  width: 150px; height: 150px; padding: 0.5em; 
-}
-#brand { 
-  margin-left:8px;
-}
-.side {
-  margin: 4px;
-}
-.delete_tag {
-  display:inline;
-}
-#tag_button {
-  background-color:#ddf; 
-}
-#contentbox:hover + #controls {
-    display: block;
-}
-
-.ui-menu { 
-  width: 150px; 
-}
-
-///// shading of an element with hover
-.brian_nav ul li:hover {
-      background: #4b545f;
-      background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
-      background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
-      background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
-    }
-*/
-
-
 .button-form {
     margin: 0px;
     display: inline;
@@ -335,7 +294,6 @@ URL_hovered:hover {
   font-size: 18px;
   margin: 12px 15px 0px 10px;
   border-bottom: 1px dashed white;
-  border-right: 1px dashed white;
   padding-left: 5px;
  }
 
@@ -355,7 +313,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   
 <body style="background:#ddf">
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
- <div class="brian_nav" style="1px dashed red">
+ <div class="brian_nav">
   <div class="nav_row" id="time_nav">
       <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-collapse"> Time: </p>
@@ -457,9 +415,7 @@ $(document).ready(function(){
           <p class="signup">Sign Up</p>
         {% endif %}
     </div>
-</div>
 
-</div>
 
 <script>
 $(document).ready(function(){
@@ -481,7 +437,6 @@ $(document).ready(function(){
 
   <div class="brian_subnav--reltags">
     <br>
-    <p class="brian_subnav--header"> Related tags </p>
     <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
@@ -489,7 +444,6 @@ $(document).ready(function(){
   
   <div class="brian_subnav--toptags">
     <br>
-    <p class="brian_subnav--header"> Top tags </p>
     <ul class="nav nav-pills">
                 {% for tag in toptags %}<li><a href="/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
@@ -504,7 +458,6 @@ $(document).ready(function(){
             <input type="hidden" name="action" value="addfavtag" />
             <button class="btn" id="tag_button" type="submit">Save to {{ user }}</button>
         </form>
-    <p class="brian_subnav--header"> My tags</p>
     <ul class="nav nav-pills">
                   {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
@@ -534,7 +487,6 @@ function bookmark() {
 }
 </script>
   <br>
-    <p> My Sites</p>
         <ul class="nav nav-pills">
                   {% for sites, name in mysites %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
@@ -627,11 +579,11 @@ function bookmark() {
   </div> 
   
   <div class="brian_subnav--top_sites">
-     <p class="brian_subnav--header"> Top Sites  </p>  
         <ul class="nav nav-pills">
             {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
         </ul>
   </div>  
+  
 </div> 
 
 
@@ -743,453 +695,6 @@ function bookmark() {
 </footer>
 </center>
 
-<!--
-   <div> <a href="/privacy/">Privacy</a>&nbsp;-&nbsp;<a href="mailto:bwloeb5@gmail.com" target="_blank>">Suggestions</a>&nbsp;-&nbsp;<a href="/howto/">How To</a>&nbsp;-&nbsp;<a href="/mission/">Mission</a>&nbsp;-&nbsp;<a href="//twitter.com/Inta_beta">@inta_beta</a><p>&copy; Inta 2013</p></div>
-
--->
-
-
-
- <!--  SUBNAV
-      <div class="span2 well pull-right" id="rb" style="border: 1px solid gray">
-        <div class="URL_description">
-          Post description with Hover...
-          {{ post.summary|default_if_none:"" }}
-        </div>
-      </div>
-    </div>
--->
-
-
-<!--        FOR NAVBAR
-
-Using only CSS, wouldn't close the relevant tags <li>
-            <ul class="nav nav-pills" style="border: 1px dashed white">
-                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-            </li>
--->
-<!--      To add
-Caret for help, mission statement, blog, recommendations etc...
-<li>Headlines</li>
--->
-
-
-<!--    LEFT SIDEBAR
-    {% if user.id %}
-              <div>
-                <h3> <i class="icon-user"></i>    {{ user }}
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="caret"></span>
-                  </a>
-                </h3>
-                <ul class="dropdown-menu">
-                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/signout/">Sign Out</a></li>
-                </ul>   
-              </div>
-          {% endif %}
-          </div>
--->
-          
-<!-- 
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inverse">
-      <div class="navbar-inner">    
-          <a class="brand" id="brand" href="/"><strong>inta</strong></a>
-          {% if user.id %}
-              <div class="btn-group pull-right">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i> {{ user }}
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/signout/">Sign Out</a></li>
-                </ul>   
-              </div>
-          {% else %}
-          <div class="btn-group pull-right">
-          <a href="#sign_up" role="button" class="btn" data-toggle="modal">Sign Up</a>
-      <div id="sign_up" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <h3 id="myModalLabel">Sign Up</h3>
-        </div>
-        <form action="" method="post" class="well">
-          {% csrf_token %}
-          <fieldset>
-          <legend>{% trans "Sign up" %}</legend>
-          <br />
-          {% if form.non_field_errors %}
-            <div class="alert alert-error">
-              {{ form.non_field_errors }}
-            </div>
-          {% endif %}
-          {% for field in form %}
-            {% if field.errors %}
-              <div class="alert alert-error">
-            {% endif %}
-          {{ field.errors }}
-            {% if field.name == 'tos' %}
-              <p class="checkbox">
-              <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-              </p>
-            {% else %}
-              <p>
-              {{ field.label_tag }} 
-              {{ field }}
-              </p>
-            {% endif %}
-            {% if field.errors %}
-              </div>
-            {% endif %}
-          {% endfor %}
-          </fieldset>
-          <button type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">{% trans "Sign up" %}</button>
-      </form>
-      </div>
-      
-          <a href="#log_in" role="button" class="btn" data-toggle="modal">Log In</a>
-          </div>  
-          
-          
-
-            
-          {% endif %}
-
-        <div class="nav-collapse">  
-            <ul class="nav">          
-              <li{% ifequal request.path '/content/submit/' %} class="active"{% endifequal %}><a href="/content/submit/">Submit Content</a></li>
-            </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <br>
-  -->
-  
-  
-<!--  SUBNAV
-    <div class="row">
-      <div class="span3" id="lb">
-        <div class="well" style="border: 1px solid gray">
-          <div>
-            <h3> Inta </h3>
-            <form>
-              {% csrf_token %}
-              <input type="text" class="search-query" placeholder="Search tags or text">
-            </form>
-          </div>
-          <div id="accordion4" style="border: 1px solid gray">
-            <h4> Top Sites <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-          </div>
-          <div id="accordion" style="border: 1px solid gray">
-            <h4> Top Tags <i class="icon-chevron-down"></i></h4>
-                {% for tag in toptags %}<p style="display:inline; padding:4px"><a href="/{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></p>{% endfor %}
-            </ul>
-            </div>
-          <div id="accordion2"  class="clearfix" style="border: 1px solid gray">
-            <h4> Relevant Tags <i class="icon-chevron-down"></i></h4>
-            <ul class="nav nav-pills">
-                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-            </ul>
-           </div>
-      </div>
---> 
-      
-      
-      
-      
-<!--
-      <div class="well clear" style="border: 1px solid gray">
-        <div>
-            <h3> Inta </h3>
-            <form>
-              {% csrf_token %}
-              <input type="text" class="search-query" placeholder="Search tags or text">
-            </form>
-          </div>
-        <h4> Top Sites </h4>
-           <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-            {% for site in topsites %}<option value="{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
-           </select> 
-        <h4> Top Tags </h4>
-           <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-            {% for tag in toptags %}<option value="{{ method }}/{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
-           </select>  
-        <h4> Relevant Tags </h4>
-           <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-            {% for tag in toprelevant %}<option value="{{ method }}/{% if tags != '' %}{{ tags }}|{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</option>{% endfor %}
-           </select>
-      </div>
--->
-
-
- <!--  SUBNAV
-      <div class="well clear" style="border: 1px solid gray">
-          <div>
-          {% if user.id %}
-              <div>
-                <h3> <i class="icon-user"></i>    {{ user }}
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="caret"></span>
-                  </a>
-                </h3>
-                <ul class="dropdown-menu">
-                  <li><a href="/accounts/{{ user }}/">Settings</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Good</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Great</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Favorites</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/{{ user }}/">My Shared</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/accounts/signout/">Sign Out</a></li>
-                </ul>   
-              </div>
-          {% endif %}
-          </div>
-          <div id="accordion3"  class="clearfix" style="border: 1px solid gray">
-              <h4>  My Tags  <i class="icon-chevron-down"></i></h4>
-              <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
-                  <form action="" method="post" class="button-form">
-                      {% csrf_token %}
-                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
-                      <input type="hidden" name="action" value="delete_mytag" />
-                      <button type="submit" class="close">&times;</button></li>
-                  </form>
-                  {% endfor %}
-              </ul>
-           </div>
-          <a href="#submit" role="button" class="btn" data-toggle="modal">Submit</a>
-            <div id="submit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-header">
-                <h3 id="myModalLabel">Submit</h3>
-              </div>
-              <div>
-                   <a class="btn btn-info" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a>
-              </div>
-              <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
-  </div>
-          </div>
--->
-          
-          
-          
-          
-          <!--
-           <div>
-            <h4> To Share </h4>
-            <ul>
-                {% for URL in URL_share %}<li>{{ URL_share }}</li>{% endfor %}
-                <li> Sharing List, buttons to modals </li>
-                <li> { for URL in URL_share } </li>
-            </ul>
-             <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="email_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Email    
-                  </button>
-              </form>
-               <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="FB_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Facebook    
-                  </button>
-              </form>
-               <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="Tw_modal" />
-                <button class="btn btn-mini const-width" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Twitter    
-                  </button>
-              </form>
-            </div>
-          -->
-          
- <!--  SUBNAV
-        </div>
-     </div>
--->
-   
-<!--
-        {% if domain == '' %}
-    <i class="icon-time"></i>
-    <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-      <option value="decay1/{{ tags }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
-      <option value="decay2/{{ tags }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
-      <option value="decay3/{{ tags }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
-      <option value="decay4/{{ tags }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
-      <option value="decay5/{{ tags }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
-      <option value="decay6/{{ tags }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
-      <option value="decay7/{{ tags }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
-      <option value="decay8/{{ tags }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
-      <option value="votes/{{ tags }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
-    </select>
-    {% endif %}
-        {% if domain != '' %}
-    <i class="icon-time"></i>
-    <select onchange="setLocation(this, '<?php echo $this->getUrl(); ?>')">
-      <option value="decay1/site/{{ domain }}"{% if method == 'decay1' %} selected="selected"{% endif %}>Half Hour</option>
-      <option value="decay2/site/{{ domain }}"{% if method == 'decay2' %} selected="selected"{% endif %}>Few Hours</option>
-      <option value="decay3/site/{{ domain }}"{% if method == 'decay3' %} selected="selected"{% endif %}>Day </option>
-      <option value="decay4/site/{{ domain }}"{% if method == 'decay4' %} selected="selected"{% endif %}>Few Days</option>
-      <option value="decay5/site/{{ domain }}"{% if method == 'decay5' %} selected="selected"{% endif %}>Week</option>
-      <option value="decay6/site/{{ domain }}"{% if method == 'decay6' %} selected="selected"{% endif %}>Month</option>
-      <option value="decay7/site/{{ domain }}"{% if method == 'decay7' %} selected="selected"{% endif %}>Few Months</option>
-      <option value="decay8/site/{{ domain }}"{% if method == 'decay8' %} selected="selected"{% endif %}>Year</option>
-      <option value="votes/site/{{ domain }}"{% if method == 'votes' %} selected="selected"{% endif %}>All-time</option>
-    </select>
-    {% endif %}
--->
-<!--
-        <select name="minbeds" id="minbeds">
-              <option href="/decay1/{{ tags }}">30 mins</option>
-              <option>Few hours</option>
-            <option>A day</option>
-              <option>3 Days</option>
-              <option>A Week</option>
-              <option>Few Months</option>
-              <option>A Year</option>
-              <option>All-time</option>
-            </select>
-          
-       <ul id="menu" class="nav nav pills" style="border: 1px solid gray">
--->
-<!--
-              <form id="reservation">
-          <label for="minbeds">Minimum number of beds</label>
-            <select name="minbeds" id="minbeds">
-              <option>30 mins</option>
-              <option>Few hours</option>
-            <option>A day</option>
-              <option>3 Days</option>
-              <option>A Week</option>
-              <option>Few Months</option>
-              <option>A Year</option>
-              <option>All-time</option>
-            </select>
-        </form>
--->
-
-
-<!--  SELECT MENU
-              <li>
-          <a href="#">Time Period <i class="icon-time"></i></a>
-          <ul class="nav nav pills" style="border:1px solid gray">
-              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}">30 mins</a></li>
-              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}">Few hours</a></li>
-              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}">A day</a></li>
-              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}">3 Days</a></li>
-              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}">A Week</a></li>
-              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}">A Month</a></li>
-              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}">Few Months</a></li>
-              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}">A Year</a></li>
-              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}">All-time</a></li>
-          </ul>
-          </li>
-     
-            <form id="reservation">
-          <label for="minbeds">Minimum number of beds</label>
-            <select name="minbeds" id="minbeds">
-              <option>1</option>
-              <option>2</option>
-            <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
-        </form>
--->
-<!--
-              <li>
-          <a href="#">Time Period<i class="icon-time"></i></a>
-          <ul class="nav nav pills" style="border:1px solid gray">
-              <li {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}">30 mins</a></li>
-              <li {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}">Few hours</a></li>
-              <li {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}">A day</a></li>
-              <li {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}">3 Days</a></li>
-              <li {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}">A Week</a></li>
-              <li {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}">A Month</a></li>
-              <li {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}">Few Months</a></li>
-              <li {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}">A Year</a></li>
-              <li {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}">All-time</a></li>
-          </ul>
-          </li>
-  endif tag
-          </ul>
-           </div>
--->
-     
-
-<!--  FOR LIST
-                    <div class="URL_description">
-                      {{ post.summary|default_if_none:"" }}
-                    </div>
--->
-    <!--
-              <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="favorite" />
-                <button class="btn btn-mini const-width {% if post.slug in favorite %}btn-success{% endif %}" {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Favorite    
-                  </button>
-              </form>
-    
-              <form action="" method="post" class="button-form">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="share" />
-              </form>
-              
-     -->
-
-   
-<!--    RIGHT SIDEBAR         
-         <div class="well">
-          <div class="span3">
-            <p style="border:1px dashed blue">primary of tag header</p>
-          </div>
-        </div>
-        -->
-
-
 
 <script>
 // NIKOS
@@ -1216,58 +721,6 @@ Caret for help, mission statement, blog, recommendations etc...
             });
         });
     }(window.jQuery);
-
-/*
-URL description
-
-!function ($) {
-        var $tableRows = $('table>tbody>tr>.URL_description');
-        $tableRows.find("td>div").css('visibility','visible');
-        $(function () {
-            $tableRows.hover(function () {
-                //when mouse is on, animate it via 'fadeout'
-                $(this).find("td>div").css({opacity: 0.0, visibility: "hidden"}).animate({opacity: 1.0},300);
-            }, function () {
-                //by the same token, fade it out when mouse is out.
-                $(this).find("td>div").css({opacity: 1.0, visibility: "visible"}).animate({opacity: 0.0},500);
-            });
-        });
-    }(window.jQuery);
-*/
-
-// option value append
-//function setLocation(elm, baseUrl) {
-  //  var keyword = elm.options[elm.selectedIndex].value; // Gets the selected keyword 
-    //window.location = 'http://intabeta.com/' + keyword + '/'; // Redirects
-// };
-
-/*
-
-$('.brian_subnav--reltags').toggleClass(function() {
-  if ($(this).is('.show_subnav')) {
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  } else {
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  }
-   $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-
-I need if logic so if the class is applied, #reltags would removeClass
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").toggleClass("show_subnav");
-  });
-  $(".brian_subnav--reltags").hasClass("show_subnav"){
-    $(".brian_nav").mouseenter(function(){
-        $(".brian_subnav--reltags").toggleClass("show_subnav");
-      });
-  });
-});
-*/
 
 $(document).ready(function(){
   $("#reltags").mouseenter(function(){
@@ -1450,137 +903,6 @@ $(document).ready(function(){
   });
 });
 
-/*   JS of hover to activate, navbar hover to close. THE HOVER isn't working precisely...
-
-$(document).ready(function(){
-  $("#reltags").mouseenter(function(){
-    $(".brian_subnav--reltags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--reltags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#toptags").mouseenter(function(){
-    $(".brian_subnav--toptags").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--toptags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#mytags").mouseenter(function(){
-    $(".brian_subnav--mytags").toggleClass("show_subnav");
-  });
-  $(document).click(function(){
-    $(".brian_subnav--mytags").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signup").mouseenter(function(){
-    $(".brian_subnav--signup").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signup").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#signin").mouseenter(function(){
-    $(".brian_subnav--signin").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--signin").removeClass("show_subnav");
-  });
-});
-
-
-$(document).ready(function(){
-  $("#user_nav").mouseenter(function(){
-    $(".brian_subnav--user").addClass("show_subnav");
-  });
- $(".brian_nav").mouseenter(function(){
-    $(".brian_subnav--user").removeClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $("#topsites").mouseenter(function(){
-    $(".brian_subnav--top_sites").toggleClass("show_subnav");
-  });
-});
-
-$(document).ready(function(){
-  $(".add_tags").click(function(){
-    $(".brian_subnav--add_tags").toggleClass("show_subnav");
-  });
-});
-
-*/
-
-/*
-$(function() {
-    var select = $( "#minbeds" );
-    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
-      min: 1,
-      max: 6,
-      range: "min",
-      value: select[ 0 ].selectedIndex + 1,
-      slide: function( event, ui ) {
-        select[ 0 ].selectedIndex = ui.value - 1;
-      }
-    });
-    $( "#minbeds" ).change(function() {
-      slider.slider( "value", this.selectedIndex + 1 );
-    });
-  });
-  
-  
-  // jQuery UI
-  $(function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  });
-    $(function() {
-    $( "#accordion2" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion3" ).accordion({
-      collapsible: true
-    });
-  });  
-  $(function() {
-    $( "#accordion4" ).accordion({
-      collapsible: true
-    });
-  });
-  $(function() {
-    $( "#menu" ).menu();
-  });
-
-$(function() {
-    $( "#draggable" ).draggable();
-  });
-$(function() {
-    $( "#draggable2" ).draggable();
-  });
-  
-$(function() {
-  $('#sign_up').modal({
-      keyboard: false
-  });
-      $('#sign_up').modal('toggle');
-      $('#sign_up').modal('show');
-      $('#sign_up').modal('hide');
-});
-*/
-  
 </script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
