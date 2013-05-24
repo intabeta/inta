@@ -533,12 +533,14 @@ $(document).ready(function(){
 
   <div class="brian_subnav--reltags">
     <br>
+     {% if tag in toprelevant %} 
     <ul class="nav nav-pills">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}"
                 onClick="_gaq.push(['_trackEvent', 'move', 'rel tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', 'subnav', {{ tag }}]);">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-       <button class="btn" style="display:inline-block"> Show more </button>
+                <button class="btn" style="display:inline-block"> Show more </button>
     </ul>
+                {% else %} <p style="color:white; margin-left: 20px;"> No relevant tags for the "All" list </p> {% endif %}
   </div>
   
   <div class="brian_subnav--toptags">
@@ -781,7 +783,7 @@ function bookmark() {
     <div style="display:inline-block;">
         <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn"> Email </a>
         
-    <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false" onClick="_gaq.push(['_trackEvent', 'share', 'Facebook', 'URL line']);"></div>
+    <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
 
 <div id="fb-root"></div>
 <script>
@@ -798,7 +800,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
 });
 </script>
 </div>
-              <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta" onClick="_gaq.push(['_trackEvent', 'share', 'Twitter', 'URL line']);"></a>
+              <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta"></a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
                   </center>
