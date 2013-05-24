@@ -518,12 +518,16 @@ function bookmark() {
       {% endif %}
       <p>Username: {{ signupform.username }}
       Email: {{ signupform.email }}
+      </p>
+      <p></p>
+      <p>
       Password: {{ signupform.password1 }}
       Confirm Password: {{ signupform.password2 }}
-      <br>
+      </p>
       <div class="bottom-line_signup">
         <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
         <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
+        <p></p>
         <input type="hidden" name="action" value="signup" />
         <button type="submit" class="btn">{% trans "Sign Up" %}</button>
       </div>
@@ -536,8 +540,11 @@ function bookmark() {
       {% csrf_token %}
       <p>Username: {{ signinform.identification }}
       Password: {{ signinform.password }}
-      <br>
+      </p>
+      <p></p>
+      <p>
       Remember me: {{ signinform.remember_me}}</p>
+      </p>
       <input type="hidden" name="action" value="signin" />
       <button type="submit" class="btn">{% trans "Sign In" %}</button>
     </form>
@@ -632,7 +639,7 @@ function bookmark() {
               <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
               <!--  Bubbles with different colors...
               <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp; -->
-                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link', '{{ post.title }}', {{ score }}]);" 
+                  <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
                   onmouseover="_gaq.push(['_trackEvent', 'consume', 'Link hover', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
                   {% if post.title == "Untitled" %}
                     {{ post.url }}
@@ -837,9 +844,9 @@ $(document).ready(function(){
     $("#mytags").removeClass("underline_title");
     $(".brian_subnav--top_sites").removeClass("show_subnav");
     $("#topsites").removeClass("underline_title");
-    $(".brian_subnav--signup").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
+    $(".brian_subnav--signin").removeClass("show_subnav");
     $(".signin").removeClass("underline_title");
     $(".brian_subnav--user").removeClass("show_subnav");
     $(".user_nav").removeClass("underline_title");
