@@ -778,7 +778,9 @@ function bookmark() {
                   </button>
               </form>
     </div>
-    <div style="display:inline-block; margin-top: 5px;">
+    <div style="display:inline-block;">
+        <a href="mailto:{{ user.email }}?subject=&body=I found {{ post.title }} ( {{ post.url }} ) on %0D%0A %0D%0A intabeta.com - Find the Best." class="btn"> Email </a>
+        
     <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false" onClick="_gaq.push(['_trackEvent', 'share', 'Facebook', 'URL line']);"></div>
 
 <div id="fb-root"></div>
@@ -798,7 +800,6 @@ FB.Event.subscribe('message.send', function(targetUrl) {
 </div>
               <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta" onClick="_gaq.push(['_trackEvent', 'share', 'Twitter', 'URL line']);"></a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    
 </div>
                   </center>
 
