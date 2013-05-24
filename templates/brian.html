@@ -381,32 +381,32 @@ $(document).ready(function(){
       <p id="tag_title-collapse" class="brian_nav--collapsed" onClick="_gaq.push(['_trackEvent', 'personal', 'collapse tag', 'navbar']);"> Tags: </p>
         <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'move', 'graph_test', 'functionality']);" target="_blank" id="graphtest">Node view</a></p>
         <p> | </p>
-        <p id="mytags" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags', 'navbar']);">My Tags & Sites</p>
+        <p id="mytags" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'navbar']);">My Tags & Sites</p>
         <p> | </p>
-        <p id="toptags" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags', 'navbar']);">Top Tags</p>
+        <p id="toptags" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', 'navbar']);">Top Tags</p>
         <p> | </p>
-        <p id="reltags" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags', 'navbar']);">Related Tags</p>
+        <p id="reltags" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', 'navbar']);">Related Tags</p>
         <p> | </p>
-        <p id="topsites" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites', 'navbar']);">Top Sites</p>
+        <p id="topsites" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites hover', 'navbar']);">Top Sites</p>
         <p> | </p>
                 
         {% if user.id %}
-             <p class="user_nav" onmouseover="_gaq.push(['_trackEvent', 'move', 'user', 'navbar']);"> {{ user }} </p>
+             <p class="user_nav" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', 'navbar']);"> {{ user }} </p>
         {% else %}
-          <p class="signin" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in', 'navbar']);">Sign In</p>
+          <p class="signin" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', 'navbar']);">Sign In</p>
           <p> | </p>
-          <p class="signup" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up', 'navbar']);">Sign Up</p>
+          <p class="signup" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', 'navbar']);">Sign Up</p>
         {% endif %}
     </div>
     
     <div class="nav_row--hide pull-right" id="tag_nav_collapsed">
       <p id="tag_title-expand" class="brian_nav--collapsed" onClick="_gaq.push(['_trackEvent', 'personal', 'expand tag', 'navbar']);"> Explore Tags </p>
         {% if user.id %}
-             <p class="user_nav" onmouseover="_gaq.push(['_trackEvent', 'move', 'user', 'collapsed']);"> {{ user }} </p>
+             <p class="user_nav" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', 'collapsed']);"> {{ user }} </p>
         {% else %}
-          <p class="signin" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in', 'collapsed']);">Sign In</p>
+          <p class="signin" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', 'collapsed']);">Sign In</p>
           <p> | </p>
-          <p class="signup" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up', 'collapsed']);">Sign Up</p>
+          <p class="signup" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', 'collapsed']);">Sign Up</p>
         {% endif %}
     </div>
 
@@ -642,7 +642,7 @@ function bookmark() {
 <div>
         <center>
                   {% for tag in tagscores %}
-                    <span class="label" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
+                    <span onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
                     <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
@@ -693,6 +693,10 @@ function bookmark() {
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=461289420626616";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+FB.Event.subscribe('message.send', function(targetUrl) {
+  _gaq.push(['_trackSocial', 'facebook', 'send', targetUrl]);
+});
 </script>
       </div>
        </td>
