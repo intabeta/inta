@@ -77,58 +77,50 @@
 .brian_subnav--reltags {
   overflow: scroll;
   background-color: black;
-  opacity:0.83;
+  opacity:0.88;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--toptags {
   overflow: scroll;
   background-color: black;
-  opacity:0.83;
+  opacity:0.88;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--mytags {
   overflow: scroll;
   background-color: black;
-  opacity:0.83;
+  opacity:0.88;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--top_sites {
   overflow: scroll;
   background-color: black;
-  opacity:0.83;
+  opacity:0.88;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signup {
   overflow: scroll;
   background-color: black;
-  opacity:1;
+  opacity:.9;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--signin {
   overflow: scroll;
   background-color: black;
-  opacity:1;
+  opacity:.9;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--user {
   overflow: scroll;
   background-color: black;
-  opacity:1;
+  opacity:.9;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .brian_subnav--add_tags {
   overflow: scroll;
   background-color: black;
-  opacity:0.83;
+  opacity:0.88;
   display:none;
-  border-bottom: 1px solid #ddf;
 }
 .show_subnav {
   display:block;
@@ -248,7 +240,7 @@
 }
 .brian_nav p a:hover {
   text-decoration: none;
-  color: #317eac;
+  color: #ddf;
 }
 .brian_nav .active > a {
   border-bottom: 2px solid white;
@@ -431,6 +423,7 @@ $(document).ready(function(){
   });
 });
 </script>
+</div>
 
   
 <!-- SUBNAV Divs-->
@@ -470,10 +463,24 @@ $(document).ready(function(){
                   {% endfor %}
     </ul>
     </div>
-    <div style="display:inline-block;">
+  <div style="display:inline-block;">
+        <ul class="nav nav-pills">
+                  {% for sites, name in mysites %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
+                  <form action="" method="post" class="button-form" id="del_mytag">
+                      {% csrf_token %}
+                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
+                      <input type="hidden" name="action" value="delete_mytag" />
+                      <button type="submit" class="close">&times;</button></li>
+                  </form>
+                  {% endfor %}
+    </ul>
+    </div>
+    <div style="display:inline-block;" class="pull-right">
     
-        <a class="btn" style="border:4px solid red" href="javascript:bookmark()">Click to add shortcut</a>
-        <a class="btn" style="border:4px solid red" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p class="brian_subnav--header" style="border-bottom: 1px solid red">Tag and vote from anywhere</p>
+        <a class="btn btn-primary" style="border:3px solid red" href="javascript:bookmark()">Click to add shortcut</a>
+        <a class="btn btn-primary" style="border:3px solid red" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+        <br/>
+        <p class="brian_subnav--header" style="border-bottom: 1px solid red">Tag and vote from anywhere</p>
 
 <script type="text/javascript">
 var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
@@ -487,18 +494,7 @@ function bookmark() {
     }
 }
 </script>
-  <br>
-        <ul class="nav nav-pills">
-                  {% for sites, name in mysites %}<li><a href="/{{ method }}/{{ tags }}">{{ name }}</a>    
-                  <form action="" method="post" class="button-form" id="del_mytag">
-                      {% csrf_token %}
-                      <input type="hidden" name="mytag_x" value="{{ tags }}" />
-                      <input type="hidden" name="action" value="delete_mytag" />
-                      <button type="submit" class="close">&times;</button></li>
-                  </form>
-                  {% endfor %}
-    </ul>
-    </div>
+  </div>
   </div>
   
   <div class="brian_subnav--signup">
@@ -552,8 +548,10 @@ function bookmark() {
         </div>
         <div style="display:inline-block;">
       <br>
-        <a class="btn" style="border:4px solid red" href="javascript:bookmark()">Click to add shortcut</a>
-        <a class="btn" style="border:4px solid red" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p><p class="brian_subnav--header" style="border-bottom: 1px solid red">Tag and vote from anywhere</p>
+         <a class="btn btn-primary" style="border:3px solid red" href="javascript:bookmark()">Click to add shortcut</a>
+        <a class="btn btn-primary" style="border:3px solid red" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+        <br/>
+        <p class="brian_subnav--header" style="border-bottom: 1px solid red">Tag and vote from anywhere</p>
 
 <script type="text/javascript">
 var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
@@ -585,7 +583,6 @@ function bookmark() {
         </ul>
   </div>  
   
-</div> 
 </div>
 
 
@@ -1002,7 +999,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
