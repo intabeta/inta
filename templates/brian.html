@@ -288,6 +288,10 @@ URL_hovered:hover {
   border-bottom: 1px dashed white;
   padding-left: 5px;
  }
+.list_width {
+  width: 65.95744680199999%;
+  *width: 65.90425531263828%;
+}
 
 </style>
 
@@ -602,7 +606,7 @@ function bookmark() {
 
 <!-- LIST -->
 
-     <div class="span9 well" id="center" style="border: 2px solid gray">
+     <div class="list_width well" id="center" style="border: 2px solid gray">
        <center>
        <h2 style="border-bottom: solid grey">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit" 
@@ -1031,6 +1035,7 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
+
 
 
 
