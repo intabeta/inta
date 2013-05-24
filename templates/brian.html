@@ -779,7 +779,7 @@ function bookmark() {
               </form>
     </div>
     <div style="display:inline-block;">
-        <a href="mailto:{{ user.email }}?subject=&body=I found {{ post.title }} ( {{ post.url }} ) on %0D%0A %0D%0A intabeta.com - Find the Best." class="btn"> Email </a>
+        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn"> Email </a>
         
     <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false" onClick="_gaq.push(['_trackEvent', 'share', 'Facebook', 'URL line']);"></div>
 
