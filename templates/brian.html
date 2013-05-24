@@ -45,12 +45,9 @@
   }
 #center {
   margin-top: 80px;
-  margin-left: 80px;
+  margin-left: 2%;
 }
-#rb {
-  margin-top: 80px;
-  margin-right: 80px;
-}
+
 /* All my definitions post 5/13 (learning from TB etc) */
 
 .navsub_container {
@@ -301,7 +298,7 @@ URL_hovered:hover {
   display: inline;
   color: #ddf;
   font-size: 14px;
-  margin: 5px 6px 0px 6px;
+  margin: 5px 3px 0px 3px;
   padding-left: 0px;
  }
 .brian_nav #time_nav {
@@ -310,6 +307,9 @@ URL_hovered:hover {
   padding-bottom: 0px;
   padding-top: 0px;
   height: 30px;
+}
+.brian_nav {
+  border-top: 1px solid #ddf;
 }
  }
  @media all and (min-width: 730px) {
@@ -350,7 +350,7 @@ URL_hovered:hover {
  display: inline;
  float:left;
  font-size:14px;
- margin: 12px 10px 0px 5px;
+ margin: 12px 10px 0px 10px;
  border-bottom: 2px solid white;
  padding-bottom: 0px;
 }
@@ -363,15 +363,14 @@ URL_hovered:hover {
  @media all and (min-width: 921px) {
 .list_width {
   width: 800px;
-  margin-left: 0%;
+  position: absolute;
   border: 2px solid gray;
 }
 .
 }
  @media all and (max-width: 760px) and (min-width: 461px) {
 .list_width {
-  width: 80%;
-  *width: 80%;
+  width: 90%;
   border: 2px solid gray;
 }
 }
@@ -1135,7 +1134,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
