@@ -61,6 +61,16 @@
   z-index: 20000;
   overflow: scroll;
 }
+/*
+@media only screen and (max-device-width: 480px), only screen and (min-device-width: 560px) and (max-device-width: 1136px) and (-webkit-min-device-pixel-ratio: 2) {
+.navsub_container {
+  position:absolute;
+  top:0%;
+  right:-20%;
+  left:0%;
+}
+}
+*/
 .brian_nav {
   overflow: scroll;
   background-color: black;
@@ -263,6 +273,12 @@
   margin-top: 5px;
   display: inline-block;
 }
+.label_active a:hover {
+  text-decoration:underline;
+}
+.label a:hover {
+  text-decoration: underline;
+}
 .URL_title {
   color: black;
   font-size: 14px;
@@ -280,18 +296,87 @@ URL_hovered:hover {
  #button--great {
   text-decoration: none;
  }
+ @media all and (max-width: 710px) {
 .brian_nav .brian_nav--collapsed {
-  color: #ddf;
   display: inline;
-  font-size: 18px;
-  margin: 12px 15px 0px 10px;
-  border-bottom: 1px dashed white;
-  padding-left: 5px;
+  color: #ddf;
+  font-size: 14px;
+  margin: 5px 6px 0px 6px;
+  padding-left: 0px;
  }
+ }
+ @media all and (min-width: 710px) {
+ .brian_nav .brian_nav--collapsed {
+  display: none;
+  color: #ddf;
+  font-size: 14px;
+  margin: 5px 6px 0px 6px;
+  padding-left: 0px;
+ }
+ }
+ @media all and (min-width: 761px) and (max-width: 920px) {
 .list_width {
-  width: 65.95744680199999%;
-  *width: 65.90425531263828%;
+  width: 82.97872339599999%;
+  *width: 82.92553190663828%;
+  border: 2px solid gray;
 }
+}
+@media all and (max-width: 1030px) {
+.brian_nav p {
+  display:inline-block;
+  padding-bottom: 2px;
+  margin: 14px 5px 12px 0px;
+  font-weight:bold;
+  font-size: 12px;
+}
+}
+@media all and (max-width: 880px) {
+.brian_nav p {
+  display:inline-block;
+  padding-bottom: 2px;
+  margin: 14px 0px 12px 0px;
+  font-weight:bold;
+  font-size: 12px;
+}
+.brian_nav .inta_brand {
+ color: #ddf;
+ display: inline;
+ float:left;
+ font-size:14px;
+ margin: 12px 10px 0px 5px;
+ border-bottom: 2px solid white;
+ padding-bottom: 0px;
+}
+.brian_nav .user_nav {
+ color: #ddf;
+ margin-right:10px;
+ font-size: 14px;
+}
+}
+ @media all and (min-width: 921px) {
+.list_width {
+  width: 800px;
+  margin-left: 0%;
+  border: 2px solid gray;
+}
+.
+}
+ @media all and (max-width: 760px) and (min-width: 461px) {
+.list_width {
+  width: 80%;
+  *width: 80%;
+  border: 2px solid gray;
+}
+}
+@media only screen and (max-device-width: 480px), only screen and (min-device-width: 560px) and (max-device-width: 1136px) and (-webkit-min-device-pixel-ratio: 2) {
+ .list_width {
+  width: 85%;
+  *width: 85%;
+  margin-left: 0px;
+  border: 2px solid gray;
+}
+}
+
 
 </style>
 
@@ -554,7 +639,7 @@ function bookmark() {
   <div class="brian_subnav--user">
        <div style="display:inline-block; margin-right: 100px; float:left">
       <h2> Functionality to come </h2>
-      <h4> We're working on all parts of the site. Send me an email (bwloeb5@gmail.com) to talk about it </h4>
+      <h4> We're working on all parts of the site. Send me an email (<a href="mailto:bwloeb5@gmail.com"> bwloeb5@gmail.com </a>) to talk about it </h4>
           <ul class="nav nav-pills">
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'settings hover', 'user']);">Settings</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my goods hover', 'user']);">My Goods</a></li>
@@ -613,7 +698,7 @@ function bookmark() {
 
 <!-- LIST -->
 
-     <div class="list_width well" id="center" style="border: 2px solid gray">
+     <div class="list_width well" id="center">
        <center>
        <h2 style="border-bottom: solid grey">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit" 
@@ -653,8 +738,9 @@ function bookmark() {
 <div>
         <center>
                   {% for tag in tagscores %}
-                    <span onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
-                    <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff">
+                    <span>
+                    <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff"
+                    onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]);"><i class="icon-tags add_tags"></i></button>
@@ -1042,7 +1128,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
