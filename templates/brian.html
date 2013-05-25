@@ -370,7 +370,7 @@ URL_hovered:hover {
 }
  @media all and (min-width: 921px) {
 .list_width {
-  width: 800px;
+  width: 750px;
   position: absolute;
   border: 2px solid gray;
 }
@@ -388,12 +388,24 @@ URL_hovered:hover {
   border: 2px solid gray;
 }
 }
-
-
+if (document.documentElement.clientWidth < 900) {
+  // scripts
+}
 </style>
 
 
 <script type="text/javascript">
+if (document.documentElement.clientWidth < 900) {
+  $(".site_image").addClass("hide_subnav");
+}
+
+if (screen.width < 1000) {
+$(document).ready(function(){
+  $(".site_image").addClass("hide_subnav");
+});
+};
+
+
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -715,7 +727,7 @@ function bookmark() {
 
      <div class="list_width well" id="center">
        <center>
-       <h2 style="border-bottom: solid grey">
+       <h2 style="border-bottom: solid grey; text-indent: 80px;">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit" 
             onClick="_gaq.push(['_trackEvent', 'move', 'tag header', '', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag header hover', '{{ tag }}']);">
             {{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
@@ -729,7 +741,7 @@ function bookmark() {
               <tr>
               <td>
                 <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
-                <img id="site_image" class="img_rounded" style="max-width: 60px;" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+                <img class="site_image" class="img_rounded" style="max-width: 60px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                 onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 </a>
               </td>
@@ -1140,7 +1152,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
