@@ -764,7 +764,7 @@ def submit_plugin(request):
         bkmk = request.GET.get('bkmk', '')
         tags = request.GET.get('tags', '')
         form = SubmitFormPlugin(user, bkmk, tags)
-        mytags = [ favtag.tags for favtag in user.favoritetag_set.all() ]
+        mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
     template_data = {'form': form, 'extra': extra, 'tags':tags, 'mytags':mytags,}
     return render_to_response('content/submit_plugin.html', template_data, context_instance=RequestContext(request))
 
