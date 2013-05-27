@@ -702,11 +702,11 @@ function bookmark() {
   </div>
   
   <div class="brian_subnav--add_tags">
-     <p class="brian_subnav--header"> Add away - 1 or many </p>  
      <form action="" method="post">
             {% csrf_token %}    
-            <input style="margin-left: 10px;" type="text" name="tags">
-          <button type="submit" class="btn" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Sign Up" %}</button>
+            <br>
+            <input style="margin-left: 40px;" type="text" name="tags">
+          <button type="submit" class="btn-info" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add Tag(s)" %}</button>
       </form>
   </div> 
   
@@ -1152,6 +1152,8 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
+
+
 
 
 
