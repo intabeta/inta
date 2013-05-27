@@ -744,9 +744,10 @@ function bookmark() {
               <tr>
               <td>
                 <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
-                <img class="site_image" class="img_rounded" style="max-width: 60px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+                <img class="site_image" style="max-width: 30px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                 onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 </a>
+                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline; color:grey;">{{ post.domain }}</p>
               </td>
               <td>
               <center>
@@ -761,67 +762,9 @@ function bookmark() {
                   {% else %}
                     {{ post.title }}
                   {% endif %}
-                  <p style="font-size:12px; display:inline; color:grey;">({{ post.domain }})</p>
                   </a></strong>
             </center>
-          
-<div>
-        <center>
-                  {% for tag in tagscores %}
-                    <span>
-                    <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff"
-                    onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
-                      {{ tag.0 }} ({{ tag.1 }})</a></span>
-                  {% endfor %}
-                  <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]);"><i class="icon-tags add_tags"></i></button>
-                  <br/>
-    <div style="display:inline-block;">
-        <form action="" method="post" class="button-form" id="button--good">
-              {% csrf_token %}
-                        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                        <input type="hidden" name="action" value="vote" />
-                        <button class="btn btn-mini btn-info const-width {% if post.slug in voter %}btn-success{% endif %}" 
-                        onClick="_gaq.push(['_trackEvent', 'curate', 'Good', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
-                         {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                          Good
-                        </button>
-                    </form>                   
-            <form action="" method="post" class="button-form" id="button--great">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="action" value="double_vote" />
-                <button class="btn btn-mini btn-info const-width {% if post.slug in double_voter %}btn-success{% endif %}" 
-                onClick="_gaq.push(['_trackEvent', 'curate', 'Great', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
-                 {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Great    
-                  </button>
-              </form>
-    </div>
-        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn btn-mini btn-primary"> Email </a>
-    <div style="display:inline-block; height: 13px">
-    <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
-    <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta"></a>
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=461289420626616";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-FB.Event.subscribe('message.send', function(targetUrl) {
-  _gaq.push(['_trackSocial', 'facebook', 'send', targetUrl]);
-});
-</script>
-</div>
-              
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</div>
-                  </center>
-
-
+  
 
        </td>
        </tr>
@@ -1155,7 +1098,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
 
 
 
