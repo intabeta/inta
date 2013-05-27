@@ -383,13 +383,43 @@ URL_hovered:hover {
 }
 @media only screen and (max-device-width: 480px), only screen and (min-device-width: 560px) and (max-device-width: 1136px) and (-webkit-min-device-pixel-ratio: 2) {
  .list_width {
-  width: 85%;
-  *width: 85%;
-  border: 2px solid gray;
+  width:100%;
+  *width: 100%;
+  border: 1px solid #ddf;
+}
+#center {
+  margin-left: -19px;
+}
+#time_nav {
+  display:none;
+}
+#time-nav-small {
+  display: inline-block;
+}
+#icon_vote_mobile {
+  display:inline-block;
+}
+#vote_label_big {
+  display:none;
+}
+#icon_big {
+  display:none;
+}
+#URL_title_big {
+  display:none;
 }
 }
 if (document.documentElement.clientWidth < 900) {
   // scripts
+}
+#URL_title_big {
+  display:none;
+}
+#vote_label_big {
+  display:none;
+}
+#icon_big {
+  display:none;
 }
 </style>
 
@@ -730,7 +760,7 @@ function bookmark() {
 
      <div class="list_width well" id="center">
        <center>
-       <h2 style="border-bottom: solid grey; text-indent: 80px;">
+       <h2 style="border-bottom: solid grey;">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit" 
             onClick="_gaq.push(['_trackEvent', 'move', 'tag header', '', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag header hover', '{{ tag }}']);">
             {{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
@@ -742,17 +772,44 @@ function bookmark() {
               {% if postdata %}
               {% for post, score, tagscores in postdata %}
               <tr>
-              <td>
+      <td id="icon_big">
+              <center>
                 <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}">
-                <img class="site_image" style="max-width: 30px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+                <img class="site_image" style="max-width: 35px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                 onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 </a>
-                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline; color:grey;">{{ post.domain }}</p>
+                <br/>
+                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline-block; color:grey;">{{ post.domain }}</a>
+              </center>
               </td>
-              <td>
-              <center>
-               <span class="label label-important">{{ score }}</span>
-              <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
+              <td id="vote_label_big">
+                <center>
+                <span class="label label-important">{{ score }}</span>
+                <br/>
+                <p style="display:inline;">{{ post.date_added|date:"M j" }}</p>
+                </center>
+              </td>
+              <td id="icon_vote_mobile">
+                <center>
+                <div>
+                <span class="label label-important">{{ score }}</span>
+          <br/>
+                <p style="display:inline-block; font-size: 10px; margin-bottom: -10px">{{ post.date_added|date:"M j" }}</p>
+                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:10px; display:inline-block; color:grey; margin: 2px 0 2px 0;">{{ post.domain }}</a>
+                </div>
+                <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
+                  onmouseover="_gaq.push(['_trackEvent', 'consume', 'Link hover', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
+                  {% if post.title == "Untitled" %}
+                    {{ post.url }}
+                  {% else %}
+                    {{ post.title }}
+                  {% endif %}
+                  </a></strong>
+                </center>
+              </td>
+              <td id="URL_title_big">
+                <center>
+               
               <!--  Bubbles with different colors...
               <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp; -->
                   <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
@@ -763,10 +820,8 @@ function bookmark() {
                     {{ post.title }}
                   {% endif %}
                   </a></strong>
-            </center>
-  
-
-       </td>
+              </center>
+          </td>
        </tr>
        {% endfor %}
              {% else %}
@@ -1098,10 +1153,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
-
-
-
-
 
 
 
