@@ -611,7 +611,7 @@ $(document).ready(function(){
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}"
                 onClick="_gaq.push(['_trackEvent', 'move', 'rel tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', 'subnav', {{ tag }}]);">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-                <button class="btn" style="display:inline-block"> Show more </button>
+                <button class="btn" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'move', 'more rel tags', '{{ user }}']);"> Show more </button>
     </ul>
   </div>
   
@@ -725,7 +725,7 @@ $(document).ready(function(){
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my favorites hover', 'user']);">My Favorites</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my shared hover', 'user']);">My Shared</a></li>
                   <li><form action="" method="post"><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
-                  onmouseover="_gaq.push(['_trackEvent', 'personal', 'sign out hover', 'user']);" onclick="_gaq.push(['_trackEvent', 'personal', 'sign out click', 'user']);">
+                  onmouseover="_gaq.push(['_trackEvent', 'personal', 'sign out hover', 'user']);" onclick="_gaq.push(['_trackEvent', 'personal', 'sign out click', '{{ user }}']);">
                   Sign Out</button></form></li>
           </ul>  
         </div>
@@ -789,8 +789,6 @@ $(document).ready(function(){
               <td id="vote_label_big--URL_title_big">
                <span class="label label-important">{{ score }}</span>
                 <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
-                <!--  Bubbles with different colors...
-                <span class="badge {{ post.date_added|bubble_color }}">{{ score }}</span>&nbsp; -->
                   <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
                   onmouseover="_gaq.push(['_trackEvent', 'consume', 'Link hover', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
                   {% if post.title == "Untitled" %}
@@ -941,6 +939,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
           </tbody>
         </table>
         <hr />
+        <button class="btn btn-info" style="display:inline-block" onmouseover="_gaq.push(['_trackEvent', 'move', 'more links hover', '{{ tag.0 }}']);" onclick="_gaq.push(['_trackEvent', 'move', 'more links click', '{{ tag.0 }}']);"> Show more links </button>
       </div>
 
 
