@@ -8,6 +8,7 @@ class Command(BaseCommand):
     help = 'Decay for entry scores.'
     def handle(self, *args, **options):
         entries = Entry.objects.all()
+        base = 0.5
         for entry in entries:
             now = datetime.utcnow()
             then = entry.date_added.replace(tzinfo=None)
@@ -24,7 +25,6 @@ class Command(BaseCommand):
             for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
                 entry.score += total
-                base = 0.5
                 tval1=entry.decayed_score_1.tagval_set.get(tag=tagnew)
                 tval1.val = round(total * (base ** (lapsed.total_seconds() / 1800)),5)
                 entry.score_d1 += tval1.val

@@ -23,23 +23,22 @@ class Command(BaseCommand):
             score = 0
             for post in relevantposts:
                 score += post._get_ranking(tag)
-            toptagsdict = Dict.objects.get(id=193) #from here on assumes that this Dict only holds the top ten tags. it'll take some adjusting (not too much) to make it store more
-            toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
+            toptagsdict = Dict.objects.get(id=193)
+            toptags = [ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ]
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1): #we insert [tag,score] if it is between two of the top ten, then store the last ten of toptags. using the <= on the first inequality gives slight preference to more recently active tags.
-                if toptags[i][1] <= score and toptags[i+1][1] > score:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d1 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay1'))
@@ -52,20 +51,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=194)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d2 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay2'))
@@ -78,20 +76,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=195)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d3 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay3'))
@@ -104,20 +101,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=196)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d4 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay4'))
@@ -130,20 +126,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=197)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d5 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay5'))
@@ -156,20 +151,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=198)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d6 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay6'))
@@ -182,20 +176,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=199)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d7 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay7'))
@@ -208,20 +201,19 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=200)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d8 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay8'))
@@ -234,18 +226,17 @@ class Command(BaseCommand):
             toptagsdict = Dict.objects.get(id=201)
             toptags = sorted([ [tagval.tag, tagval.val] for tagval in toptagsdict.tagval_set.all() ], key=lambda a: a[1])
             change=False
-            for t in toptags: #remove tag from toptags if it's there already to avoid duplicates
-                if t[0] == tag:
-                    toptags.remove(t)
-            for i in range(len(toptags)-1):
-                if toptags[i][1] <= score and toptags[i+1][1] > score and toptags[i][0] != tag:
-                    toptags.insert(i+1,[tag,score])
+            removelist=[]
+            for i, t in enumerate(toptags): #remove tag from toptags if it's there already to avoid duplicates
+                if t[1] <= score:
                     change=True
-            if toptags[len(toptags)-1][1] <= score and toptags[i][0] != tag:
-                toptags.append([tag,score])
-                change=True
+                if t[0] == tag:
+                    removelist.append(i)
+            for i in removelist:
+                toptags.__delitem__(i)
             if change:
+                toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in toptags[-10:]:
+                for tagval in toptags[-20:]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
