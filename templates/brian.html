@@ -634,14 +634,14 @@ $(document).ready(function(){
             <button class="btn" id="tag_button" type="submit" onClick="_gaq.push(['_trackEvent', 'personal', 'save tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'personal', 'save tags hover', 'subnav', {{ tag }}]);">
             Save to {{ user }}</button>
         </form>
-    <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li style="border: 1px solid #ddf"><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'subnav', {{ tag }}]);">
+    <ul class="nav nav-pills" style="margin-left: 20px; margin-top: 10px">
+                  {% for tags, name in mytags %}<li style="border: 1px solid #ddf; margin-right: 10px; text-align: center"><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'subnav', {{ tag }}]);">
                   {{ name }}</a>    
-                  <form action="" method="post" class="button-form" id="del_mytag" style="background-color:white">
+                  <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
-                      <button type="submit" class="close">&times;</button></li>
+                      <button type="submit" class="close" style="opacity: 1.0; color: white">&times;</button></li>
                   </form>
                   {% endfor %}
     </ul>
