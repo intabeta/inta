@@ -761,7 +761,7 @@ def submit_plugin(request):
         return render_to_response('autoclose.html')
     else:
         extra += ' First open.'
-        bkmk = request.GET.get('bkmk', '').split('?')[0] #remove query string from url
+        bkmk = request.GET.get('bkmk', '')
         tags = request.GET.get('tags', '')
         form = SubmitFormPlugin(user, bkmk, tags)
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
