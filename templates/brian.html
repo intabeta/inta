@@ -704,7 +704,7 @@ function bookmark() {
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my greats hover', 'user']);">My Greats</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my favorites hover', 'user']);">My Favorites</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my shared hover', 'user']);">My Shared</a></li>
-                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" /><button type="submit" class="btn" 
+                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
                   onmouseover="_gaq.push(['_trackEvent', 'personal', 'sign out hover', 'user']);" onclick="_gaq.push(['_trackEvent', 'personal', 'sign out click', 'user']);">
                   Sign Out</button></form></li>
           </ul>  
