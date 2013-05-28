@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d1 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay1'))
@@ -63,7 +63,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d2 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay2'))
@@ -88,7 +88,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d3 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay3'))
@@ -113,7 +113,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d4 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay4'))
@@ -138,7 +138,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d5 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay5'))
@@ -163,7 +163,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d6 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay6'))
@@ -188,7 +188,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d7 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay7'))
@@ -213,7 +213,7 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
 
             relevantposts_d8 = sorted(relevantposts, key=lambda a: -a._get_ranking(tag,'decay8'))
@@ -238,5 +238,5 @@ class Command(BaseCommand):
                 toptags.append([tag,score])
                 for tagval in toptagsdict.tagval_set.all():
                     tagval.delete()
-                for tagval in sorted(toptags, key=lambda a: -a[1])[-20:]:
+                for tagval in sorted(toptags, key=lambda a: -a[1])[:20]:
                     toptagsdict.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
