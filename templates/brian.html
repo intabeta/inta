@@ -649,14 +649,21 @@ $(document).ready(function(){
     </center>
   
 <script type="text/javascript">
-var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
-
-var pageName = "Inta shortcut"; //Change these
 function bookmark() {
-    if (window.external) {
-        window.external.AddFavorite(url, pageName);
+    var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();";
+    var title = "Inta Shortcut";
+    if (window.sidebar) {
+        window.sidebar.addPanel(title, url, ""); 
+    } else if(window.opera && window.print){ 
+        var elem = document.createElement('a'); 
+        elem.setAttribute('href',url); 
+        elem.setAttribute('title',title); 
+        elem.setAttribute('rel','sidebar'); 
+        elem.click(); 
+    } else if(document.all) {
+        window.external.AddFavorite(url, title); 
     } else {
-        alert("Sorry! Your browser doesn't support bookmarks.");
+        alert("Sorry! Chrome and Safari do not allow bookmark installation. Please drag the Inta shortcut to your bookmarks bar.");
     }
 }
 </script>
