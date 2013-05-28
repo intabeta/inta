@@ -656,13 +656,18 @@ $(document).ready(function(){
                   </form>
                   {% endfor %}
     </ul>
-    </div>
-        <div style="display:inline-block; margin: 10px 30px;" class="pull-right">
-          <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
-          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
-        </div>
+    </div> 
+    <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
+      <br>
+         <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
+         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+         <br/>
+         <center>
+         <p class="brian_subnav--header">Tag and vote from anywhere</p>
+         </center>
+   </div> 
   </div>
-  
+    
   <div class="brian_subnav--signup">
     <form action="" method="post">
       {% csrf_token %}
@@ -726,10 +731,15 @@ $(document).ready(function(){
           </ul>  
         </div>
         
-        <div style="display:inline-block; margin-right: 30px; margin-top: 45px;" class="pull-right">
+   <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
+         <br>
          <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
-        <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
-  </div> 
+         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+         <br/>
+         <center>
+         <p class="brian_subnav--header">Tag and vote from anywhere</p>
+         </center>
+   </div> 
   </div>
   
   <div class="brian_subnav--add_tags">
@@ -771,7 +781,7 @@ $(document).ready(function(){
               <tr>
       <td id="icon_big">
              <center>
-        <img class="site_image" style="max-width: 40px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+        <img class="site_image" style="max-width: 45px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                  onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 <br/>
                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline-block; color:grey;">{{ post.domain }}</a>
