@@ -300,8 +300,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             else:
                 post_slug = request.POST.get('post_slug', '')
                 if post_slug not in voter and post_slug not in double_voter:
-                    tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post.tags.all(), key=lambda t: -post._get_ranking(t))[0]
                     post_change = get_object_or_404(Entry, slug=post_slug)
+                    tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post_change.tags.all(), key=lambda t: -post_change._get_ranking(t))[0]
                     activetags = eval(DataList.objects.get(id=1).data)
                     if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
                         activetags.append(tagnew.id)
