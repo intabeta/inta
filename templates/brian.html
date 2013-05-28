@@ -394,7 +394,6 @@ URL_hovered:hover {
  @media all and (min-width: 921px) {
 .list_width {
   width: 750px;
-  position: absolute;
   border: 2px solid gray;
 }
 }
@@ -455,6 +454,11 @@ if (document.documentElement.clientWidth < 900) {
 #icon_big {
   display:none;
 }
+
+footer {
+    text-align: center;
+}
+
 </style>
 
 
@@ -936,14 +940,12 @@ FB.Event.subscribe('message.send', function(targetUrl) {
       </div>
 
 
-<center>
 <footer>
    <div style="clear:both; font-weight:bold;"> <a href="/howto/" target="_blank" onmouseover="_gaq.push(['_trackEvent', 'brand', 'how to click', 'user']);">How To</a>&nbsp;-&nbsp;
    <a href="/mission/" target="_blank" onmouseover="_gaq.push(['_trackEvent', 'brand', 'mission click', 'user']);">Mission</a>&nbsp;-&nbsp;
    <a href="mailto:bwloeb5@gmail.com" target="_blank" onmouseover="_gaq.push(['_trackEvent', 'brand', 'suggestions', 'user']);">Suggestions</a>&nbsp;-&nbsp;
    <a href="//twitter.com/Inta_beta" target="_blank" onmouseover="_gaq.push(['_trackEvent', 'brand', 'suggestions', 'user']);">@inta_beta</a><p>&copy; Inta 2013</p></div>
 </footer>
-</center>
 <script type="text/javascript">
 // NIKOS
 !function ($) {
