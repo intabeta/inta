@@ -659,8 +659,10 @@ $(document).ready(function(){
     </div> 
     <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
       <br>
-         <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
-         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+         <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
+Click to add shortcut</a>
+         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
+         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
          <br/>
          <center>
          <p class="brian_subnav--header">Tag and vote from anywhere</p>
@@ -733,9 +735,11 @@ $(document).ready(function(){
         </div>
         
    <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
-         <br>
-         <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
-         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+      <br>
+         <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
+Click to add shortcut</a>
+         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
+         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
          <br/>
          <center>
          <p class="brian_subnav--header">Tag and vote from anywhere</p>
@@ -750,6 +754,18 @@ $(document).ready(function(){
             <input style="margin-left: 40px; margin-bottom: 0" type="text" name="tags">
           <button type="submit" class="btn-info" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add Tag(s)" %}</button>
       </form>
+      
+      <div style="display:inline-block; margin-right: 30px; background-color: #E65932" class="pull-right">
+      <br>
+         <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
+Click to add shortcut</a>
+         <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
+         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
+         <br/>
+         <center>
+         <p class="brian_subnav--header">Tag and vote from anywhere</p>
+         </center>
+   </div>
   </div> 
   
   <div class="brian_subnav--top_sites">
@@ -832,7 +848,8 @@ $(document).ready(function(){
                   </button>
               </form>
     </div>
-        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn btn-mini btn-primary"> Email </a>
+        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn btn-mini btn-primary"> Email </a>                  
+        <button class="btn btn-mini btn-primary" onmouseover="_gaq.push(['_trackEvent', 'features', 'description hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'description click', '{{ user }}']);"> Link description </button>
     <div style="display:inline-block; height: 13px">
     <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
     <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta"></a>
