@@ -36,7 +36,7 @@
 
 .button-form {
     margin: 0px;
-    display: inline;
+    display: inline-block;
     padding-right: 3px;
 }
 .well {
@@ -593,7 +593,7 @@ $(document).ready(function(){
   
   <div class="brian_subnav--mytags">
     <br>
-    <div style="display:inline-block; margin-right: 100px; float:left">
+    <div style="display:inline-block; margin-right: 100px; float:left;">
         <form action="" method="post" class="button-form subnav--active_tags">
             {% csrf_token %}
             Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
@@ -602,9 +602,9 @@ $(document).ready(function(){
             Save to {{ user }}</button>
         </form>
     <ul class="nav nav-pills">
-                  {% for tags, name in mytags %}<li><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'subnav', {{ tag }}]);">
+                  {% for tags, name in mytags %}<li style="border: 1px solid #ddf"><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'subnav', {{ tag }}]);">
                   {{ name }}</a>    
-                  <form action="" method="post" class="button-form" id="del_mytag">
+                  <form action="" method="post" class="button-form" id="del_mytag" style="background-color:white">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
@@ -625,13 +625,15 @@ $(document).ready(function(){
                   {% endfor %}
     </ul>
     </div>
-    <div style="display:inline-block;" class="pull-right">
-    
-        <a class="btn btn-primary" style="border:3px solid red" href="javascript:bookmark()">Click to add shortcut</a>
-        <a class="btn btn-primary" style="border:3px solid red" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
+        <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
+      <br>
+         <a class="btn btn-large btn-info"  href="javascript:bookmark()">Click to add shortcut</a>
+        <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();">INTA Shortcut</a></p>
         <br/>
-        <p class="brian_subnav--header" style="border-bottom: 1px solid red">Tag and vote from anywhere</p>
-
+        <center>
+        <p class="brian_subnav--header">Tag and vote from anywhere</p>
+    </center>
+  
 <script type="text/javascript">
 var url = "javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();" //
 
@@ -644,7 +646,8 @@ function bookmark() {
     }
 }
 </script>
-  </div>
+  </div> 
+  <br>
   </div>
   
   <div class="brian_subnav--signup">
@@ -702,7 +705,7 @@ function bookmark() {
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my greats hover', 'user']);">My Greats</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my favorites hover', 'user']);">My Favorites</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my shared hover', 'user']);">My Shared</a></li>
-                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" /><button type="submit" class="btn" 
+                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
                   onmouseover="_gaq.push(['_trackEvent', 'personal', 'sign out hover', 'user']);" onclick="_gaq.push(['_trackEvent', 'personal', 'sign out click', 'user']);">
                   Sign Out</button></form></li>
           </ul>  
@@ -1180,6 +1183,8 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
+ 
+
  
 
 
