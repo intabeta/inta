@@ -667,8 +667,10 @@ function bookmark() {
       Confirm Password: {{ signupform.password2 }}
       </p>
       <div class="bottom-line_signup">
+<!--
         <input type="radio" name="bookmark" value="install">Bookmark the voting / tagging shortcut 
         <input type="radio" name="bookmark" value="no_install">Don't (but it's your tool for contributing)
+-->
         <p></p>
         <input type="hidden" name="action" value="signup" />
         <button type="submit" class="btn">{% trans "Sign Up" %}</button>
@@ -1184,7 +1186,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </body>
 </html>
  
-
  
 
 
