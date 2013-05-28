@@ -466,15 +466,15 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'all']);">All-time</a></p>
       {% endif %}
       {% if domain != '' %}
-        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '30m']);">30m</a></p>
-        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '3h']);">3h</a></p>
-        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '1d']);">1d</a></p>
-        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '3d']);">3d</a></p>
-        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '1w']);">1w</a></p>
-        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '4w']);">4w</a></p>
-        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '12w']);">12w</a></p>
-        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'yr']);">yr</a></p>
-        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site/{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'all']);">All-time</a></p>
+        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '30m']);">30m</a></p>
+        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '3h']);">3h</a></p>
+        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '1d']);">1d</a></p>
+        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '3d']);">3d</a></p>
+        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '1w']);">1w</a></p>
+        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '4w']);">4w</a></p>
+        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '12w']);">12w</a></p>
+        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'yr']);">yr</a></p>
+        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'all']);">All-time</a></p>
       {% endif %}
     </div>
     
@@ -1180,7 +1180,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 
 </body>
 </html>
- 
  
 
 
