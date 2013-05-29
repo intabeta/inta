@@ -232,7 +232,7 @@ function on_down(e) {
   if (inLink) {
     selected = link;
     oldpoint = drawpoints[link];
-    document.getElementById("link").innerHTML="<a href = '/decay3/"+String(points[link][2])+"' target='_blank'>Go to tag "+ String(points[link][2])+"</a>";
+    document.getElementById("link").innerHTML="<a href = '/{{ method }}/"+String(points[link][2])+"' target='_blank'>Go to tag "+ String(points[link][2])+"</a>";
   }
 }
 

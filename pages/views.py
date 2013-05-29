@@ -217,7 +217,7 @@ def splash(request):
 		return render_to_response('splash.html', template_data, context_instance=RequestContext(request))
 
 
-def graphtest(request):
+def graphtest(request,method='votes'):
     tags = Tag.objects.all()
     tagnames = [ str(t.name) for t in tags ]
     entries = Entry.objects.all()
@@ -225,13 +225,17 @@ def graphtest(request):
     tagscores = dict()
     for tag in tagnames:
         tagscores[tag] = 0
-    for entry in entries:
-        etags = entry.tags.all()
-        for i, tag1 in enumerate(etags):
-            rank1 = entry._get_ranking(tag1)
-            tagscores[tag1.name] += rank1
-            for tag2 in etags[i+1:]:
-                edges.append([tag1.name,tag2.name,rank1+entry._get_ranking(tag2)])
+    if method in ('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'):
+        for entry in entries:
+            etags = entry.tags.all()
+            for i, tag1 in enumerate(etags):
+                rank1 = entry._get_ranking(tag1, method)
+                tagscores[tag1.name] += rank1
+                for tag2 in etags[i+1:]:
+                    edges.append([tag1.name,tag2.name,rank1+entry._get_ranking(tag2,method)])
+    else:
+        return render_to_response('404.html')
+    
     edges2=[]
     for e in edges:
         edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
@@ -241,6 +245,7 @@ def graphtest(request):
     template_data = {
         'points': points,
         'edges': edges2,
+        'method': method,
     }
     return render_to_response('graphtest.html', template_data)
 
