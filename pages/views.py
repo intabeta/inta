@@ -527,22 +527,31 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         
         if method=='votes':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1463).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay1':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=194).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1464).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay2':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=195).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1465).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay3':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=196).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1466).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay4':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=197).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1467).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay5':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=198).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1468).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay6':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=199).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1469).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay7':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1470).tagval_set.all()], key=lambda a: -a[1])
         elif method=='decay8':
             toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])
+            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1471).tagval_set.all()], key=lambda a: -a[1])
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
         if not tags and not domain: #show 'all' instead of a list of every single tag
             taglist=['all']
@@ -559,6 +568,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             'double_voter': double_voter,
             'method': method,
             'taglist': taglist,
+            'topsites': topsites,
             'toptags_1': nthslice(toptags,1,10),
             'toptags_2': nthslice(toptags,2,10),
             'toprelevant': toprelevant,
