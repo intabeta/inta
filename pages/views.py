@@ -232,7 +232,7 @@ def graphtest(request):
     for e in edges:
         edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
     n = len(tags)
-    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),tags[i]] for i in range(n) ]
+    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),tags[i].name] for i in range(n) ]
             
     template_data = {
         'points': points,
