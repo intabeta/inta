@@ -8,7 +8,7 @@ var ctx;
 var linkText="http://intabeta.com";
 var X;
 var Y;
-var points={{ points }};
+var points={% autoescape off %}{{ points }}{% endautoescape %};
 var edges={{ edges }};
 var forces=points.map(function(p) { return [0,0]; });
 var velocities=points.map(function(p) { return [0,0]; });
