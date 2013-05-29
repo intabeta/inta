@@ -779,7 +779,7 @@ Click to add shortcut</a>
           <form action="" method="post">
             {% csrf_token %}    
             <br>
-            <input type="hidden" id="post_addtags"/>
+            <input type="hidden" id="addtags_url" name="addtags_url" value=""/>
             <input type="hidden" name="action" value="addtags"/>
             <input type="text" name="addtags" style="margin-left: 20px;"/>
          <button type="submit" class="btn-info" style="margin-bottom: 8px;" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add tag(s)" %}</button>
@@ -855,7 +855,7 @@ Click to add shortcut</a>
                     onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
-                  <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]);"><i class="icon-tags add_tags"></i></button>
+                  <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]); document.getElementById('addtags_url').value='{{ post.url }}';"><i class="icon-tags add_tags"></i></button>
                   
 <script type="text/javascript">
                     var post.url.JS;
@@ -941,7 +941,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
                     onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
-                  <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]);"><i class="icon-tags add_tags"></i></button>
+                  <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]); document.getElementById('addtags_url').value='{{ post.url }}';"><i class="icon-tags add_tags"></i></button>
                   <br/>
     <div style="display:inline-block;">
         <form action="" method="post" class="button-form" id="button--good">
