@@ -17,7 +17,7 @@ from django.contrib import messages
 from time import time
 from content.graphtools import Graph
 from re import compile as re_compile
-from math import cos, sin, pi, log
+from math import cos, sin, pi, log, ceil
 
 
 def homepage(request):
@@ -232,7 +232,7 @@ def graphtest(request,method='votes'):
                 rank1 = entry._get_ranking(tag1, method)
                 tagscores[tag1.name] += rank1
                 for tag2 in etags[i+1:]:
-                    edges.append([tag1.name,tag2.name,rank1+entry._get_ranking(tag2,method)])
+                    edges.append([tag1.name,tag2.name,ceil(rank1+entry._get_ranking(tag2,method))])
     else:
         return render_to_response('404.html')
 
