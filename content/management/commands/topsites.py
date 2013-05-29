@@ -18,7 +18,7 @@ class Command(BaseCommand):
                 scores[datum[0]][i] += datum[i+1]
                 
         for i, topsites in enumerate(topsitesdicts):
-            topdomains = sorted(scores, key=lambda d: scores[d][i])[:10]
+            topdomains = sorted(scores, key=lambda d: -scores[d][i])[:10]
             for tv in topsites.tagval_set.all():
                 tv.delete()
             for td in topdomains:
