@@ -143,6 +143,7 @@ function on_mousemove (ev) {
           document.body.style.cursor = "pointer";
           inLink=true;
           link=i;
+          document.getElementById("tag").innerHTML="tag: "+String(points[link][2])+' ('+String(points[link][3])+')'
       }
     }
   }
@@ -214,7 +215,7 @@ function on_down(e) {
   if (inLink) {
     selected = link;
     oldpoint = drawpoints[link];
-    document.getElementById("tag").innerHTML="<span style='font-size: 18px; color: blue; font-weight: bold'>tag: "+String(points[link][2])+' ('+String(points[link][3])+')'+'</span> <br />' + "<a href = '/decay3/"+String(points[link][2])+"'>Go to tag</a>";
+    document.getElementById("link").innerHTML="<a href = '/decay3/"+String(points[link][2])+"' target='_blank'>Go to tag "+ String(points[link][3])+"</a>";
   }
 }
 
@@ -234,7 +235,9 @@ function on_up(e) {
     <center>
     <canvas id="myCanvas" width="600" height="600" style="border: 1px solid black; background-color:white;">Canvas not supported.</canvas>
     <br/>
-    <div id='tag'><span style="font-size: 18px; color: blue; font-weight: bold">tag:</span></div>
+    <div id='tag' style="font-size: 18px; color: blue; font-weight: bold">tag:</div>
+    <br/>
+    <div id='link'></div>
     </center>
   </div>
 </body>
