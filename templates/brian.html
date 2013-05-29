@@ -782,9 +782,9 @@ Click to add shortcut</a>
   </div> 
   
   <div class="brian_subnav--top_sites">
+      <br>
         <ul class="nav nav-pills">
-            {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ site.0 }}</a></li>{% endfor %}
-            <button class="btn" style="display:inline-block; margin-top: 15px; margin-left: 15px" onclick="_gaq.push(['_trackEvent', 'features', 'request top sites click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'request top sites hover', '{{ user }}']);"> Request Top Sites ordering </button>
+            {% for site in topsites %}<li><a href="/{{ method }}/{{ tags }}+site:{{ site.0}}">{{ site.0 }}</a></li>{% endfor %}
         </ul>
   </div>  
   
