@@ -243,7 +243,7 @@ def graphtest(request,method='votes'):
             edges2.append([nztags.index(e[0]),nztags.index(e[1]),e[2]])
     
     n = len(nztags)
-    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),nztags[i],round(tagscores[nztags[i]]) for i in range(n) ]
+    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
 
     template_data = {
         'points': points,
