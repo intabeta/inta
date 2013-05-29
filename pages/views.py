@@ -235,13 +235,16 @@ def graphtest(request,method='votes'):
                     edges.append([tag1.name,tag2.name,rank1+entry._get_ranking(tag2,method)])
     else:
         return render_to_response('404.html')
-    
+
+    nztags = [ tag for tag in tagnames if round(tagscores[tag]) != 0 ] #nonzero tags
     edges2=[]
     for e in edges:
-        edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
-    n = len(tags)
-    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),tagnames[i],tagscores[tagnames[i]]] for i in range(n) ]
-            
+        if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags
+            edges2.append([nztags.index(e[0]),nztags.index(e[1]),e[2]])
+    
+    n = len(nztags)
+    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),nztags[i],round(tagscores[nztags[i]]) for i in range(n) ]
+
     template_data = {
         'points': points,
         'edges': edges2,
