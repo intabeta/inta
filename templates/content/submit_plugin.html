@@ -88,8 +88,8 @@
 -->
         {{ form.tags }}
 <br />
-<button type="submit" name="_post" value="post" class="btn">{% trans "Good" %}</button>
-<button type="submit" name="_double_post" value="double_post" class="btn">{% trans "Great" %}</button>
+<button type="submit" name="_post" value="post" class="btn" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'bookmarklet good hover']);" onclick="_gaq.push(['_trackEvent', '{{ user }}', 'bookmarklet good click']);">{% trans "Good" %}</button>
+<button type="submit" name="_double_post" value="double_post" class="btn" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'bookmarklet good hover']);" onclick="_gaq.push(['_trackEvent', '{{ user }}', 'bookmarklet great click']);">{% trans "Great" %}</button>
 <!--
 <button type="submit" name="_favorite" value="favorite" class="btn">{% trans "Favorite" %}</button>
 -->
