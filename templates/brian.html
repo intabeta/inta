@@ -772,13 +772,17 @@ Click to add shortcut</a>
   </div>
   
   <div class="brian_subnav--add_tags">
-     <form action="" method="post">
+          <form action="" method="post">
             {% csrf_token %}    
             <br>
-            <input style="margin-left: 40px; margin-bottom: 0" type="text" name="tags">
-          <button type="submit" class="btn-info" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add Tag(s)" %}</button>
-      </form>
-         <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
+            <input type="hidden" name="post_addtags" value="{{ post.url }}"/>
+            <input type="hidden" name="action" value="addtags"/>
+            <input type="text" name="addtags" style="margin-left: 20px;"/>
+         <button type="submit" class="btn-info" style="margin-bottom: 8px;" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add tag(s)" %}</button>
+     </form>
+     
+     
+         <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
 Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
          onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
@@ -1286,3 +1290,4 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </script>
 </body>
 </html>
+
