@@ -311,7 +311,43 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                     userena_signals.signup_complete.send(sender=None, user=user)
             elif action == 'signout':
                 logout(request)
-                    
+            elif action == 'addtags':
+                addtags_url = request.POST.get('addtags_url', '')
+                addtags_entry = get_object_or_404(Entry, url=addtags_url)
+                addtags_tags = request.POST.get('addtags', '').split(', ')
+                for tag in addtags_tags:
+                    #load or create the tag
+                    tagcheck = Tag.objects.filter(name__iexact=tag)
+                    if tagcheck:
+                        newtag = tagcheck[0]
+                    else:
+                        newtag = Tag(name=tag)
+                        newtag.save()
+    
+                    if newtag not in addtags_entry.tags.all(): #check to see if it already has the tag first
+                        #make tag active so that ranktags knows to look at it
+                        activetags = eval(DataList.objects.get(id=1).data)
+                        if newtag.id not in activetags:
+                            activetags.append(newtag.id)
+                            d = DataList.objects.get(id=1)
+                            d.data = activetags
+                            d.save()
+                            del d
+                        addtags_entry.tags.add(newtag)
+
+                        addtags_entry.posts.tagval_set.create(tag=newtag, val=1)
+                        addtags_entry.decayed_score_1.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_2.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_3.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_4.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_5.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_6.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_7.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.decayed_score_8.tagval_set.create(tag=tag, val=1)
+                        addtags_entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=addtags_entry.slug)
+
+                        addtags_entry.save()
+                
             else:
                 post_slug = request.POST.get('post_slug', '')
                 if post_slug not in voter and post_slug not in double_voter:
