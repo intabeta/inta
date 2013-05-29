@@ -801,7 +801,8 @@ Click to add shortcut</a>
   <div class="brian_subnav--top_sites">
       <br>
         <ul class="nav nav-pills" style="margin-left:20px">
-            {% for site in topsites %}<li><a href="/{{ method }}/{{ tags }}site:{{ site.0}}">{{ site.0 }}</a></li>{% endfor %}
+            {% for site in topsites %}<li><a href="/{{ method }}/site:{{ site.0}}">{{ site.0 }}</a></li>{% endfor %}
+
         </ul>
   </div>  
   
