@@ -458,6 +458,9 @@ if (document.documentElement.clientWidth < 900) {
 #more_top {
   display:none;
 }
+#more_top_tags {
+  margin-right: 0px;
+}
 </style>
 
 
@@ -608,7 +611,7 @@ $(document).ready(function(){
 $(document).ready(function(){
   $("#more_top_tags").click(function(){
     $("#more_top").addClass("show_subnav");
-  });
+    });
 });
 
 </script>
@@ -633,7 +636,7 @@ $(document).ready(function(){
                 {% for tag in toptags_1 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
                 <button class="btn" id="more_top_tags" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click 1', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags 1 hover', '{{ user }}']);"> Request more </button>
-        </ul>
+    </ul>
     <ul class="nav nav-pills" id="more_top">
                 {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
@@ -641,12 +644,6 @@ $(document).ready(function(){
     </ul>
   </div>
   
-  
-<script type="text/javascript">
-
-
-
-</script>
   
   <div class="brian_subnav--mytags">
     <div style="display:inline-block; margin-top: 14px; float:left;">
@@ -786,7 +783,7 @@ Click to add shortcut</a>
   
   <div class="brian_subnav--top_sites">
         <ul class="nav nav-pills">
-            {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+            {% for site in topsites %}<li><a href="/{{ method }}/site/{{ site }}">{{ site.0 }}</a></li>{% endfor %}
             <button class="btn" style="display:inline-block; margin-top: 15px; margin-left: 15px" onclick="_gaq.push(['_trackEvent', 'features', 'request top sites click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'request top sites hover', '{{ user }}']);"> Request Top Sites ordering </button>
         </ul>
   </div>  
@@ -1286,3 +1283,4 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </script>
 </body>
 </html>
+
