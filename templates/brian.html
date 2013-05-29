@@ -194,7 +194,7 @@ function bookmark() {
   color:white;
   margin: 5px 5px 5px 20px;
   font-size: 14px;
-    font-weight: bold;
+  font-weight: bold;
 }
 .brian_nav .inta_brand {
  color: #ddf;
@@ -444,6 +444,7 @@ if (document.documentElement.clientWidth < 900) {
   display:none;
 }
 */
+
 #mobile {
    display:inline-block;
 }
@@ -451,6 +452,10 @@ if (document.documentElement.clientWidth < 900) {
   display:none;
 }
 #icon_big {
+  display:none;
+}
+}
+#more_top {
   display:none;
 }
 </style>
@@ -599,6 +604,13 @@ $(document).ready(function(){
     $("#tag_nav_collapsed").addClass("nav_row--hide");
   });
 });
+
+$(document).ready(function(){
+  $("#more_top_tags").click(function(){
+    $("#more_top").addClass("show_subnav");
+  });
+});
+
 </script>
 </div>
 
@@ -615,14 +627,26 @@ $(document).ready(function(){
     </ul>
   </div>
   
-  <div class="brian_subnav--toptags">
+ <div class="brian_subnav--toptags">
     <br>
     <ul class="nav nav-pills">
-                {% for tag in toptags %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
+                {% for tag in toptags_1 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-                <button class="btn" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover', '{{ user }}']);"> Request more </button>
+                <button class="btn" id="more_top_tags" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click 1', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags 1 hover', '{{ user }}']);"> Request more </button>
+        </ul>
+    <ul class="nav nav-pills" id="more_top">
+                {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
+                {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+                <button class="btn" id="more_top_tags2" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click 1', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags 1 hover', '{{ user }}']);"> Request more </button>
     </ul>
   </div>
+  
+  
+<script type="text/javascript">
+
+
+
+</script>
   
   <div class="brian_subnav--mytags">
     <div style="display:inline-block; margin-top: 14px; float:left;">
@@ -754,18 +778,10 @@ Click to add shortcut</a>
             <input style="margin-left: 40px; margin-bottom: 0" type="text" name="tags">
           <button type="submit" class="btn-info" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add Tag(s)" %}</button>
       </form>
-      
-      <div style="display:inline-block; margin-right: 30px; background-color: #E65932" class="pull-right">
-      <br>
          <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
 Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
          onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
-         <br/>
-         <center>
-         <p class="brian_subnav--header">Tag and vote from anywhere</p>
-         </center>
-   </div>
   </div> 
   
   <div class="brian_subnav--top_sites">
@@ -1036,10 +1052,6 @@ $(document).ready(function(){
     $(".brian_subnav--user").removeClass("show_subnav");
     $(".user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
-  });
- $(document).click(function(){
-    $(".brian_subnav--toptags").removeClass("show_subnav");
-    $("#toptags").removeClass("underline_title");
   });
 });
 
