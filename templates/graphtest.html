@@ -92,7 +92,7 @@ function draw() {
     for (i=0;i<points.length;i++) {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
-      rad = points[i][3];
+      rad = 2*Math.log(points[i][3]+4);
       ctx.moveTo(X+rad,Y);
       if (i==link && selected != -1) {
         ctx.arc(X,Y,rad+1,0,Math.PI*2,true);
@@ -138,12 +138,12 @@ function on_mousemove (ev) {
     for (i=0;i<drawpoints.length;i++) {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
-      rad = points[i][3];
+      rad = 2*Math.log(points[i][3]+4);
       if (x >= (X - rad) && x <= (X + rad) && y<=(Y+rad) && y>= (Y-rad)){
           document.body.style.cursor = "pointer";
           inLink=true;
           link=i;
-          document.getElementById("tag").innerHTML="tag: "+String(points[link][2]);
+          document.getElementById("tag").innerHTML="tag: "+String(points[link][2])+' ('+String(points[link][3])+')');
       }
     }
   }
