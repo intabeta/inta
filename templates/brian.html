@@ -271,7 +271,6 @@ function bookmark() {
 }
 .brian_nav .active > a {
   border-bottom: 2px solid white;
-  color: #ddf;
 }
 .underline_title {
  border-bottom: 2px solid white;
@@ -567,7 +566,7 @@ $(document).ready(function(){
 
     <div class="nav_row pull-right" id="tag_nav">
       <p id="tag_title-collapse" class="brian_nav--collapsed" onClick="_gaq.push(['_trackEvent', 'personal', 'collapse tag', 'navbar']);"> Tags: </p>
-        <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'move', 'graph_test', 'functionality']);" target="_blank" id="graphtest">Universe view</a></p>
+        <p><a href="/graphtest/{{ method }}" onClick="_gaq.push(['_trackEvent', 'move', 'graph_test', 'functionality']);" target="_blank" id="graphtest">Universe view</a></p>
         <p> | </p>
         <p id="mytags" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'navbar']);">My Tags & Sites</p>
         <p> | </p>
@@ -1314,4 +1313,5 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </script>
 </body>
 </html>
+
 
