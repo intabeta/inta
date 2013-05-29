@@ -217,23 +217,25 @@ def splash(request):
 
 
 def graphtest(request):
-##    tags = Tag.objects.all()
-##    entries = Entry.objects.all()
-##    edges=[]
-##    for entry in entries:
-##        etags = entry.tags.all()
-##        for i in range(len(etags)):
-##            tag1=etags[i]
-##            for tag2 in etags[i+1:]:
-##                edges.append([tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2)])
-##    tagnames = [ t.name for t in tags ]
-##    edges2=[]
-##    for e in edges:
-##        edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
+    tags = Tag.objects.all()
+    entries = Entry.objects.all()
+    edges=[]
+    for entry in entries:
+        etags = entry.tags.all()
+        for i in range(len(etags)):
+            tag1=etags[i]
+            for tag2 in etags[i+1:]:
+                edges.append([tag1.name,tag2.name,entry._get_ranking(tag1)+entry._get_ranking(tag2)])
+    tagnames = [ t.name for t in tags ]
+    edges2=[]
+    for e in edges:
+        edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
+    n = len(tags)
+    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),tags[i]] for i in range(n) ]
             
     template_data = {
-        'points': [],#[[0,0]]*len(tags),
-        'edges': [],#edges2,
+        'points': points,
+        'edges': edges2,
     }
     return render_to_response('graphtest.html', template_data)
 
