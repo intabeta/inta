@@ -219,24 +219,24 @@ def splash(request):
 
 def graphtest(request):
     tags = Tag.objects.all()
+    tagnames = [ t.name for t in tags ]
     entries = Entry.objects.all()
     edges=[]
     tagscores = dict()
+    for tag in tagnames:
+        tagscores[tag] = 0
     for entry in entries:
         etags = entry.tags.all()
         for i, tag1 in enumerate(etags):
-            if not tagscores.__contains__(tag1.name):
-                tagscores[tag1.name] = 0
             rank1 = entry._get_ranking(tag1)
             tagscores[tag1.name] += rank1
             for tag2 in etags[i+1:]:
                 edges.append([tag1.name,tag2.name,rank1+entry._get_ranking(tag2)])
-    tagnames = [ t.name for t in tags ]
     edges2=[]
     for e in edges:
         edges2.append([tagnames.index(e[0]),tagnames.index(e[1]),e[2]])
     n = len(tags)
-    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),str(tags[i].name),tagscores[tags[i].name]/6] for i in range(n) ]
+    points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),tagnames[i],tagscores[tags[i].name]/6] for i in range(n) ]
             
     template_data = {
         'points': points,
