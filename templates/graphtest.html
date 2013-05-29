@@ -2,6 +2,8 @@
 <head>
 <script type="text/javascript">
 var canvas = document.getElementById("myCanvas");
+var width = 400;
+var height = 400;
 var ctx;
 var linkText="http://intabeta.com";
 var X;
@@ -36,8 +38,8 @@ function arrangepoints() {
   var l = points.length;
   for (i=0; i<l; i++) {
     var p = points[i];
-    p[0] = 150 + 20*Math.cos(2*Math.PI*i/l);
-    p[1] = 150 + 20*Math.sin(2*Math.PI*i/l);
+    p[0] = width/2 + 20*Math.cos(2*Math.PI*i/l);
+    p[1] = height/2 + 20*Math.sin(2*Math.PI*i/l);
     points[i] = p;
   }
 }
@@ -60,7 +62,7 @@ function draw() {
       yrange = maxy - miny;
       r = Math.max(xrange,yrange);
     }
-    drawpoints = points.map(function(point) { return [(point[0]-minx+0.5*(r-xrange))*300/r,(point[1]-miny+0.5*(r-yrange))*300/r]; });
+    drawpoints = points.map(function(point) { return [(point[0]-minx+0.5*(r-xrange))*width/r,(point[1]-miny+0.5*(r-yrange))*height/r]; });
     //console.log(xrange,yrange);
 
     ctx=canvas.getContext("2d");
@@ -139,6 +141,7 @@ function on_mousemove (ev) {
           document.body.style.cursor = "pointer";
           inLink=true;
           link=i;
+          document.getElementById("tag").innerHTML="tag number "+String(link);
       }
     }
   }
@@ -159,8 +162,8 @@ function update() {
     f[0] = -v[0]*damp; //resets forces and adds damping force
     f[1] = -v[1]*damp;
 
-    var dx = p[0]-150; //attach each point to a weak, invisible spring connected to the center
-    var dy = p[1]-150;
+    var dx = p[0]-width/2; //attach each point to a weak, invisible spring connected to the center
+    var dy = p[1]-height/2;
     var d = Math.pow(Math.pow(dx,2) + Math.pow(dy,2),0.5);
     var s = 0.8*(1-10/(0.03*d));
     f[0] -= s*dx;
