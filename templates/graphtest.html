@@ -84,24 +84,25 @@ function draw() {
       ctx.stroke();
       ctx.closePath();
     }
-    
-    //hilight hovered node
-    ctx.fillStyle = "#ddddff";
-    ctx.beginPath();
-    X=drawpoints[link][0];
-    Y=drawpoints[link][1];
-    rad = 2*Math.log(points[link][3]+1)+2;
-    ctx.moveTo(X+rad,Y);
-    ctx.arc(X,Y,rad,0,Math.PI*2,true);
-    ctx.fill();
-    ctx.fillStyle = "#aaaaff";
+    if (inLink) {
+      //hilight hovered node
+      ctx.fillStyle = "#ddddff";
       ctx.beginPath();
       X=drawpoints[link][0];
-    Y=drawpoints[link][1];
-    rad = 2*Math.log(points[link][3]+1)+1;
-    ctx.moveTo(X+rad,Y);
-    ctx.arc(X,Y,rad,0,Math.PI*2,true);
-    ctx.fill();
+      Y=drawpoints[link][1];
+      rad = 2*Math.log(points[link][3]+1)+2;
+      ctx.moveTo(X+rad,Y);
+      ctx.arc(X,Y,rad,0,Math.PI*2,true);
+      ctx.fill();
+      ctx.fillStyle = "#aaaaff";
+        ctx.beginPath();
+        X=drawpoints[link][0];
+      Y=drawpoints[link][1];
+      rad = 2*Math.log(points[link][3]+1)+1;
+      ctx.moveTo(X+rad,Y);
+      ctx.arc(X,Y,rad,0,Math.PI*2,true);
+      ctx.fill();
+    }
 
     //draw the nodes
     ctx.fillStyle = "#7777ff";
