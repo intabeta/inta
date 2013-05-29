@@ -138,12 +138,15 @@ function on_mousemove (ev) {
     for (i=0;i<drawpoints.length;i++) {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
-      rad = 2*Math.log(points[i][3]+1);
+      rad = 2*Math.log(points[i][3]+1)+1; // the +1 gives a bit of leeway
       if (x >= (X - rad) && x <= (X + rad) && y<=(Y+rad) && y>= (Y-rad)){
           document.body.style.cursor = "pointer";
           inLink=true;
           link=i;
+<<<<<<< HEAD
           document.getElementById("tag").innerHTML="tag:    "+String(points[link][2])+' ('+String(points[link][3])+')';
+=======
+>>>>>>> c1158533473ea5794131ae23196cba09386005af
       }
     }
   }
@@ -215,7 +218,7 @@ function on_down(e) {
   if (inLink) {
     selected = link;
     oldpoint = drawpoints[link];
-    console.log(link);
+    document.getElementById("tag").innerHTML="tag: "+"<a href = '/decay3/"+String(points[link][2])+"'>"+String(points[link][2])+' ('+String(points[link][3])+')'+'<a>';
   }
 }
 
