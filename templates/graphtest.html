@@ -93,6 +93,7 @@ function draw() {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
       ctx.moveTo(X+rad,Y);
+      rad = points[i][3];
       if (i==link && selected != -1) {
         ctx.arc(X,Y,rad+1,0,Math.PI*2,true);
       } else {
