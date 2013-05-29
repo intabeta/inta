@@ -254,6 +254,11 @@ function on_up(e) {
  border-bottom: 2px solid white;
 }
 .brian_nav {
+  position: fixed;
+  top:0%;
+  right:0%;
+  left:0%;
+  z-index: 20000;
   overflow: hidden;
   background-color: black;
   border-bottom: 1px solid #ddf;
@@ -262,14 +267,6 @@ function on_up(e) {
   display:inline-block;
   margin-bottom: 0px;
   padding-bottom: 0px;
-}
-.navsub_container {
-  position:fixed;
-  top:0%;
-  right:0%;
-  left:0%;
-  z-index: 20000;
-  overflow: hidden;
 }
 .brian_nav p {
   display:inline-block;
@@ -300,7 +297,6 @@ function on_up(e) {
 
 </head>
 <body onload="draw(); update()" style="background-color: #ddf">
-  <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
       <p class="inta_brand"> inta </p>
@@ -316,18 +312,18 @@ function on_up(e) {
     </div>
 </div>
 
-  <div style="display:inline-block; float:left; margin-left: 20px; margin-top: 20px">
-    <p style="font-size: 14px; font-weight:bold; width: 350px; float:left;">We're playing with a "universe" type view to see all of Inta's web. Each dot is a tag, while the threads attaching them get darker as more URLs share the two tags. </p>
+  <div style="display:inline-block; float:left; margin-left: 20px; margin-top: 60px">
+    <p style="font-size: 14px; font-weight:bold; width: 400px; float:left;">We're playing with a "universe" type view to see all of Inta's web. Each dot is a tag, while the threads attaching them get darker as more URLs share the two tags. </p>
     <br/>
-    <p style="font-size: 14px; font-weight:bold; width: 350px; float:left"> This is rough but let us know if you like the idea. <a href="mailto:christopher.shriver@yale.edu?subject=The Inta Universe"> christopher.shriver@yale.edu</a> is the architect </p>
+    <p style="font-size: 14px; font-weight:bold; width: 400px; float:left"> This is rough but let us know if you like the idea. <a href="mailto:christopher.shriver@yale.edu?subject=The Inta Universe"> christopher.shriver@yale.edu</a> is the architect </p>
   </div>
-  <div style="display:inline-block; margin-left: 40px; margin-top: 20px">
+  <div style="display:inline-block; margin-left: 40px; margin-top: 60px">
     <center>
       <div id='tag' style="font-size: 18px; color: black; font-weight: bold">tag:</div>
         <div id='link' onClick="_gaq.push(['_trackEvent', 'link click', 'graphtest', '{{ user }}']);"></div>
   <br/>
     <canvas id="myCanvas" width="600" height="600" style="border: 1px solid black; background-color:white; margin-bottom: 30px">Canvas not supported.</canvas>
+      </center>
   </div>
-  </center>
 </body>
 </html>
