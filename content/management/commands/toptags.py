@@ -81,8 +81,6 @@ class Command(BaseCommand):
             toptags_d8.tagval_set.create(tag=tagval[0], val=int(tagval[1]))
         del toptags_d8,newtoptags_d8
 
-        top_sites = Dict.objects.get(id=322)
-
 
 
 
