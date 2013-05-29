@@ -779,12 +779,18 @@ Click to add shortcut</a>
           <form action="" method="post">
             {% csrf_token %}    
             <br>
-            <input type="hidden" name="post_addtags" value="{{ post.url }}"/>
+            <input type="hidden" id="post_addtags"/>
             <input type="hidden" name="action" value="addtags"/>
             <input type="text" name="addtags" style="margin-left: 20px;"/>
          <button type="submit" class="btn-info" style="margin-bottom: 8px;" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add tag(s)" %}</button>
      </form>
      
+     <input type="text" id="mytext">
+
+<script type="text/javascript">
+var elem = document.getElementById("post_addtags");
+elem.value = post.url.JS;
+</script>
      
          <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
 Click to add shortcut</a>
@@ -849,6 +855,17 @@ Click to add shortcut</a>
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]);"><i class="icon-tags add_tags"></i></button>
+                  
+<script type="text/javascript">
+                    var post.url.JS;
+                    $(".add_tags").click(function(){
+                      var get_post_url = function({{ post.url }}) {
+              return post.url.JS = {{ post.url }};
+              console.log(post.url.JS);
+          };  
+                    }); 
+</script>
+
                   <br/>
     <div style="display:inline-block;">
         <form action="" method="post" class="button-form" id="button--good">
