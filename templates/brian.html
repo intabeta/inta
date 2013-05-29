@@ -566,7 +566,7 @@ $(document).ready(function(){
 
     <div class="nav_row pull-right" id="tag_nav">
       <p id="tag_title-collapse" class="brian_nav--collapsed" onClick="_gaq.push(['_trackEvent', 'personal', 'collapse tag', 'navbar']);"> Tags: </p>
-        <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'move', 'graph_test', 'functionality']);" target="_blank" id="graphtest">Node view</a></p>
+        <p><a href="/graphtest" onClick="_gaq.push(['_trackEvent', 'move', 'graph_test', 'functionality']);" target="_blank" id="graphtest">Universe view</a></p>
         <p> | </p>
         <p id="mytags" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'navbar']);">My Tags & Sites</p>
         <p> | </p>
@@ -889,8 +889,10 @@ Click to add shortcut</a>
                   </button>
               </form>
     </div>
-        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn btn-mini btn-primary"> Email </a>                  
-        <button class="btn btn-mini btn-primary" onmouseover="_gaq.push(['_trackEvent', 'features', 'description hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'description click', '{{ user }}']);"> Link description </button>
+        <a href="mailto:{{ user.email }}?subject=&body=I found '{{ post.title }}' %0D%0A{{ post.url }} %0D%0Aon intabeta.com - Find the Best." class="btn btn-mini btn-primary"> Email </a>             
+<!--     
+        <button class="btn btn-mini btn-primary" onmouseover="_gaq.push(['_trackEvent', 'features', 'description hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'description click', '{{ user }}']);"> Request description </button>
+-->
     <div style="display:inline-block; height: 13px">
     <div class="fb-like" data-href="{{ post.url }}" data-send="false" data-layout="button_count" data-width="350" data-show-faces="false"></div>
     <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta"></a>
@@ -1311,3 +1313,4 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </script>
 </body>
 </html>
+
