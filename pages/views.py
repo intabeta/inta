@@ -17,6 +17,7 @@ from django.contrib import messages
 from time import time
 from content.graphtools import Graph
 from re import compile as re_compile
+from math import cos, sin, pi
 
 
 def homepage(request):
