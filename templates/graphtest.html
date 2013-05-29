@@ -2,8 +2,8 @@
 <head>
 <script type="text/javascript">
 var canvas = document.getElementById("myCanvas");
-var width = 400;
-var height = 400;
+var width = 600;
+var height = 600;
 var ctx;
 var linkText="http://intabeta.com";
 var X;
@@ -92,8 +92,8 @@ function draw() {
     for (i=0;i<points.length;i++) {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
-      ctx.moveTo(X+rad,Y);
       rad = points[i][3];
+      ctx.moveTo(X+rad,Y);
       if (i==link && selected != -1) {
         ctx.arc(X,Y,rad+1,0,Math.PI*2,true);
       } else {
@@ -138,6 +138,7 @@ function on_mousemove (ev) {
     for (i=0;i<drawpoints.length;i++) {
       X=drawpoints[i][0];
       Y=drawpoints[i][1];
+      rad = points[i][3];
       if (x >= (X - rad) && x <= (X + rad) && y<=(Y+rad) && y>= (Y-rad)){
           document.body.style.cursor = "pointer";
           inLink=true;
