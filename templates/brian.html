@@ -787,10 +787,6 @@ Click to add shortcut</a>
      
      <input type="text" id="mytext">
 
-<script type="text/javascript">
-// var elem = document.getElementById("post_addtags");
-// elem.value = post.url.JS;
-</script>
      
          <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
 Click to add shortcut</a>
@@ -856,16 +852,6 @@ Click to add shortcut</a>
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag btn-mini btn-info" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]); document.getElementById('addtags_url').value='{{ post.url }}';"><i class="icon-tags add_tags"></i></button>
-                  
- <script type="text/javascript">
-//                     var post.url.JS;
-//                     $(".add_tags").click(function(){
-//                       var get_post_url = function({{ post.url }}) {
-//               return post.url.JS = {{ post.url }};
-//               console.log(post.url.JS);
-//           };  
-//                     }); 
- </script>
 
                   <br/>
     <div style="display:inline-block;">
