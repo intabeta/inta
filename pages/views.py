@@ -350,11 +350,11 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 submitform = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
                 if submitform.is_valid():
                     url = submitform.cleaned_data['url']
-                    tags = submitform.cleaned_data['tags']
+                    submittags = submitform.cleaned_data['tags']
                     withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
                     entry = None
                     if withurl:
-                        for tag in tags.split(', '): #consider each of the specified tags individually
+                        for tag in submittags.split(', '): #consider each of the specified tags individually
                             #load or create the tag
                             tagcheck = Tag.objects.filter(name__iexact=tag)
                             if tagcheck:
@@ -489,7 +489,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                         entry.save()
         ##                action = request.session.get('action','')
-                        for tagname in tags.split(', '):
+                        for tagname in submittags.split(', '):
                             #if the tag already exists grab it, otherwise create a new one
                             tagcheck = Tag.objects.filter(name__iexact=tagname)
                             if tagcheck:
