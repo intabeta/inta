@@ -260,7 +260,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     signupform = signup_form()
     signinform = auth_form()
     user = request.user
-    submitform = SubmitFormPlugin(user, '', '')
+    submitform = SubmitFormPlugin(user, 'url', 'tags')
     tags = tags
 
     page = int(request.POST.get('page', '1'))
@@ -346,6 +346,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             elif action == 'pageset':
                 pass
             elif action == 'submit':
+                form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
                 if submitform.is_valid():
                     url = submitform.cleaned_data['url']
                     tags = submitform.cleaned_data['tags']
