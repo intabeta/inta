@@ -777,27 +777,31 @@ Click to add shortcut</a>
   
   <div class="brian_subnav--add_tags">
     <div class="pull-left">
-          <form action="" method="post">
-            {% csrf_token %}    
-            <br>
-            <input type="hidden" name="page" value="{{ page }}" />
-            <input type="hidden" id="addtags_url" name="addtags_url" value=""/>
-            <input type="hidden" name="action" value="addtags"/>
-            <input type="text" name="addtags" style="margin-left: 20px;"/>
-         <button type="submit" class="btn-info" style="margin-bottom: 8px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add tags submit click', '{{ post.title }}']);" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '{{ tags }}']);">{% trans "Add tag(s)" %}</button>
-     </form>
+      <form action="" method="post">
+          {% csrf_token %}    
+          <br>
+          <input type="hidden" name="page" value="{{ page }}" />
+          <input type="hidden" id="addtags_url" name="addtags_url" value=""/>
+          <input type="hidden" name="action" value="addtags"/>
+          <input type="text" name="addtags" style="margin-left: 20px;"/>
+          <button type="submit" class="btn-info" style="margin-bottom: 8px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add tags submit click', '{{ post.title }}']);" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '{{ tags }}']);">{% trans "Add tag(s)" %}</button>
+      </form>
     </div>
     
     <div style="margin-left: 50px; margin-top: 20px; display: inline-block">
       <p style="color: white; font-size: 16px; font-weight: strong">Or submit a new link</p>
-      <p style="display:inline; color: white; font-size: 14px">Link URL:</p>
-      <input type="text" name="site_submit_url" style="margin-left: 20px;"/>
-     <br/>
-     <p style="display:inline; color: white; font-size: 14px">Tags:</p>
-     <input type="text" name="site_submit_tags" style="margin-left: 20px;"/>
-     <br/>
-     <button type="submit" name="_post" value="post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Good" %}</button>
-     <button type="submit" name="_double_post" value="double_post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Great" %}</button>
+      <form action="" method="post">
+        {% csrf_token %}
+       <p style="display:inline; color: white; font-size: 14px">Link URL:</p>
+       {{ submitform.url }}
+       <br/>
+       <p style="display:inline; color: white; font-size: 14px">Tags:</p>
+       {{ submitform.tags }}
+       <br/>
+       <input type="hidden" name="action" value="submit" />
+       <button type="submit" name="post" value="post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Good" %}</button>
+       <button type="submit" name="post" value="double_post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Great" %}</button>
+      </form>
     </div>
      
      <div class="pull-right" style="margin-right: 20px; margin-top: 20px">

@@ -1,12 +1,13 @@
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.template.defaultfilters import slugify
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList, Graph
+from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList, Graph, Logo
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
 from content.models import InterestEmail
-from content.forms import EmailForm, SignUpForm
+from content.forms import EmailForm, SignUpForm, SubmitFormPlugin
 from userena.forms import SignupForm, AuthenticationForm
 from userena import signals as userena_signals
 from userena import settings as userena_settings
@@ -14,10 +15,16 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 from time import time
 from re import compile as re_compile
+import re
 from math import cos, sin, pi
-
+import tldextract
+from urllib import urlopen
+import urllib2
+import json
+import urlparse
 
 def homepage(request):
     user = request.user
@@ -253,6 +260,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     signupform = signup_form()
     signinform = auth_form()
     user = request.user
+    submitform = SubmitFormPlugin(user, '', '')
     tags = tags
 
     page = int(request.POST.get('page', '1'))
@@ -337,6 +345,219 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         addtags_entry.save()
             elif action == 'pageset':
                 pass
+            elif action == 'submit':
+                if submitform.is_valid():
+                    url = submitform.cleaned_data['url']
+                    tags = submitform.cleaned_data['tags']
+                    withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
+                    entry = None
+                    if withurl:
+                        for tag in tags.split(', '): #consider each of the specified tags individually
+                            #load or create the tag
+                            tagcheck = Tag.objects.filter(name__iexact=tag)
+                            if tagcheck:
+                                newtag = tagcheck[0]
+                            else:
+                                newtag = Tag(name=tag)
+                                newtag.save()
+                            #make tag active so that ranktags knows to look at it
+                            activetags = eval(DataList.objects.get(id=1).data)
+                            if newtag.id not in activetags:
+                                activetags.append(newtag.id)
+                                d = DataList.objects.get(id=1)
+                                d.data = activetags
+                                d.save()
+                                del d
+                            entry = withurl.filter(tags__name__in=[tag]) #find out if it already has the given tag
+                            if entry: #update the posts/double_posts
+                                submitform.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
+                                extra += ' Entry exists.'
+                                voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__iexact=tag) ] #check to see if the user has already voted under this tag. change to __exact if we want case sensitive
+                                if user not in voters:
+                                    post = request.session.get('post', '')
+                                    if post == 'post':
+                                        tagval=entry[0].posts.tagval_set.get(tag__name_iexact=tag)
+                                        tagval.val += 1
+                                        tagval.save()
+                                        entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
+                                    else:
+                                        tagval=entry[0].double_posts.tagval_set.get(tag__name_iexact=tag)
+                                        tagval.val += 1
+                                        tagval.save()
+                                        entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
+
+                                    entry[0].save()
+
+                                    extra += ' Entry has been updated.'
+                            else: #add tag
+                                post = request.session.get('post', '')
+                                withurl[0].tags.add(newtag)
+                                if post == 'post':
+                                    withurl[0].posts.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
+                                else:
+                                    withurl[0].double_posts.tagval_set.create(tag=newtag, val=1)
+                                    withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=2)
+                                    withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=withurl[0].slug)
+
+                                withurl[0].save()
+
+                                extra += ' Added tag'+tag
+
+                    else: #add entry and tags
+                        results = linter(url)
+                        ext = tldextract.extract(url)
+
+                        #create entry
+                        entry = Entry()
+                        entry.url = url
+                        entry.title = results.get('title', 'Untitled')
+                        if results.get('description'):
+                            entry.summary = results.get('description')
+                        if results.get('image'):
+                            entry.photo = results.get('image')
+                        entry.domain = '%s.%s' % (ext.domain, ext.tld)
+                        entry.submitted_by = user
+
+                        #initialize dictionaries for entry
+                        postsdict = Dict(name=entry.url)
+                        postsdict.save()
+                        entry.posts=postsdict
+
+                        dblpostsdict = Dict(name=entry.url)
+                        dblpostsdict.save()
+                        entry.double_posts = dblpostsdict
+
+                        favdict = Dict(name=entry.url)
+                        favdict.save()
+                        entry.favorites = favdict
+
+                        voterdict = Dict(name=entry.url)
+                        voterdict.save()
+                        entry.voted_by = voterdict
+
+                        dcy1dict = Dict(name=entry.url)
+                        dcy1dict.save()
+                        entry.decayed_score_1 = dcy1dict
+
+                        dcy2dict = Dict(name=entry.url)
+                        dcy2dict.save()
+                        entry.decayed_score_2 = dcy2dict
+
+                        dcy3dict = Dict(name=entry.url)
+                        dcy3dict.save()
+                        entry.decayed_score_3 = dcy3dict
+
+                        dcy4dict = Dict(name=entry.url)
+                        dcy4dict.save()
+                        entry.decayed_score_4 = dcy4dict
+
+                        dcy5dict = Dict(name=entry.url)
+                        dcy5dict.save()
+                        entry.decayed_score_5 = dcy5dict
+
+                        dcy6dict = Dict(name=entry.url)
+                        dcy6dict.save()
+                        entry.decayed_score_6 = dcy6dict
+
+                        dcy7dict = Dict(name=entry.url)
+                        dcy7dict.save()
+                        entry.decayed_score_7 = dcy7dict
+
+                        dcy8dict = Dict(name=entry.url)
+                        dcy8dict.save()
+                        entry.decayed_score_8 = dcy8dict
+
+                        #slugify
+                        entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
+                        entry.save()
+        ##                action = request.session.get('action','')
+                        for tagname in tags.split(', '):
+                            #if the tag already exists grab it, otherwise create a new one
+                            tagcheck = Tag.objects.filter(name__iexact=tagname)
+                            if tagcheck:
+                                newtag = tagcheck[0]
+                            else:
+                                newtag = Tag(name=tagname)
+                                newtag.save()
+
+                            #make tag active so that ranktags knows to look at it
+                            activetags = eval(DataList.objects.get(id=1).data)
+                            if newtag.id not in activetags:
+                                activetags.append(newtag.id)
+                                d = DataList.objects.get(id=1)
+                                d.data = activetags
+                                d.save()
+                                del d
+
+                            if '_post' in request.POST: #'good'
+                                postsdict.tagval_set.create(tag=newtag, val=1)
+                                dcy1dict.tagval_set.create(tag=newtag, val=1)
+                                dcy2dict.tagval_set.create(tag=newtag, val=1)
+                                dcy3dict.tagval_set.create(tag=newtag, val=1)
+                                dcy4dict.tagval_set.create(tag=newtag, val=1)
+                                dcy5dict.tagval_set.create(tag=newtag, val=1)
+                                dcy6dict.tagval_set.create(tag=newtag, val=1)
+                                dcy7dict.tagval_set.create(tag=newtag, val=1)
+                                dcy8dict.tagval_set.create(tag=newtag, val=1)
+                                voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
+                            else: #'great'
+                                dblpostsdict.tagval_set.create(tag=newtag, val=1)
+                                dcy1dict.tagval_set.create(tag=newtag, val=2)
+                                dcy2dict.tagval_set.create(tag=newtag, val=2)
+                                dcy3dict.tagval_set.create(tag=newtag, val=2)
+                                dcy4dict.tagval_set.create(tag=newtag, val=2)
+                                dcy5dict.tagval_set.create(tag=newtag, val=2)
+                                dcy6dict.tagval_set.create(tag=newtag, val=2)
+                                dcy7dict.tagval_set.create(tag=newtag, val=2)
+                                dcy8dict.tagval_set.create(tag=newtag, val=2)
+                                voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
+                            entry.tags.add(newtag)
+                            entry.save()
+
+                        #try to pull in image from twitter, if it exists.
+                        domains = Logo.objects.filter(site__iexact=entry.domain)
+                        r = list(domains[:1])
+                        if not r:
+                            logo = Logo()
+                            logo.site = entry.domain
+                            try:
+                                googleResult = urllib2.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=twitter.com+' + logo.site).read()
+                                results = json.loads(googleResult)
+                                data = results['responseData']['results']
+                                urls = [e['url'] for e in data]
+
+                                for url in urls:
+                                    if re.search(r"https?://(www\.)?twitter.com/\w+", url):
+                                        contents = urllib2.urlopen(url).read()
+                                        start = string.find(contents,"profile-picture")
+                                        start = string.find(contents,"src=",start)
+                                        m = re.search(r"src=\"([A-Za-z\.:/_0-9\-]+)\"",contents[start:])
+                                        if m:
+                                            image_url = m.group(1)
+                                            split = urlparse.urlsplit(image_url)
+                                            localPath = settings.MEDIA_ROOT + "site_logos/" + split.path.split("/")[-1]
+                                            urlretrieve(image_url, localPath)
+                                            logo.logo = "site_logos/" + split.path.split("/")[-1]
+                                            logo.save()
+                                        break #only first matching
+                            except:
+                                logo = None
                 
             else:
                 post_slug = request.POST.get('post_slug', '')
@@ -653,9 +874,29 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
         'signupform': signupform,
         'signinform': signinform,
+        'submitform': submitform,
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
+def linter(url):
+    encurl = quote_plus(url)
+    html5 = urlopen('http://developers.facebook.com/tools/debug/og/object?q=' + encurl).read()
+
+    # html5 = urlopen("https://developers.facebook.com/tools/lint/?url=" + encurl + "&format=json").read()
+
+    soup = BeautifulSoup(html5)
+    data = soup.find_all('td')
+    prev = [x.previous_element for x in data]
+    results = {}
+    for cell in data:
+        if cell.previous_element == u'og:title:':
+            results['title'] = cell.string
+        if cell.previous_element == u'og:description:':
+            results['description'] = cell.string
+        if cell.previous_element == u'og:image:':
+            href = cell.span.img['src']
+            results['image'] = href
+    return results
     
     
         
