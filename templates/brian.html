@@ -495,7 +495,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p class="inta_brand"  onClick="_gaq.push(['_trackEvent', 'features', 'inta brand', '{{ user }}']);"> inta </p>
+      <p class="inta_brand"><a href="/graphtest/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', ' Inta link click to graphtest', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'Inta link to graphtest', '/{{ method }}/{{ tags }}']);"> inta </a></p>
       <p class="brian_nav--collapsed" id="time-collapse" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse time']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse time', '{{ user }}']);"> Time: </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '30m', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '30m', '/decay1/{{ tags }}']);">30m</a></p>
@@ -850,7 +850,7 @@ Click to add shortcut</a>
           <div>
           <center>
                       {% for tag in tagscores %}
-                    <span style="border: 1px dashed red" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'URL tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', '{{ tag }}');" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', '{{ tag }}']);">
+                    <span onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'URL tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', '{{ tag }}');" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', '{{ tag }}']);">
                     <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
@@ -914,8 +914,8 @@ FB.Event.subscribe('message.send', function(targetUrl) {
 
        </td>
        <td id="mobile">
-               <span class="label label-important" onClick="_gaq.push(['_trackEvent', 'features', 'vote label click', '{{ post.title }}', {{ score }}]);"
-               onmouseover="_gaq.push(['_trackEvent', 'features', 'vote label hover', '{{ post.title }}', {{ score }}]);">{{ score }}</span>
+               <span class="label label-important" onClick="_gaq.push(['_trackEvent', 'features', 'mobile vote label click', '{{ post.title }}', {{ score }}]);"
+               onmouseover="_gaq.push(['_trackEvent', 'features', 'mobile vote label hover', '{{ post.title }}', {{ score }}]);">{{ score }}</span>
                <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline-block; color:grey;">{{ post.domain }}</a>
               <br/>
@@ -1228,99 +1228,16 @@ $(document).ready(function(){
 </script type="text/javascript">
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-32641734-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 
 <script type="text/javascript">
 
 ga('create', 'UA-32641734-1');
 ga('send', 'pageview');
 
-/* other method working well - this wasn't
-
-
-
-$('#button--great').on('click', function() {
-  ga('send', 'event', 'URL-line', 'Great', 'Curate', {{ score }} );
-});   
-$('#button--good').on('click', function() {
-  ga('send', 'event', 'URL-line', 'Good', 'Curate', {{ score }} );
-});
-$('.add_tags').on('click', function() {
-  ga('send', 'event', 'URL-line', 'Add Tags', 'Curate', {{ score }} );
-});
-$('.URL_title').on('click', function() {
-  ga('send', 'event', 'URL-line', 'Link', 'Consume', {{ score }} );
-});
-var first_URL_title = $( ".URL_title" ).get( 0 );
-$(first_URL_title).on('click', function() {
-  ga('send', 'event', 'URL-line', 'Link-1', 'Consume', {{ score }} );
-});
-$('.label').on('click', function() {
-  ga('send', 'event', 'Tag', '{{ tag.0 }}', 'Move', {{ score }} );
-});
-$('#site_image').on('click', function() {
-  ga('send', 'event', 'Site Image', '{{ post.domain }}', 'Move', {{ score }} );
-});
-$('.tag-breadcrumb').on('click', function() {
-  ga('send', 'event', 'Breadcrumbs', '{{ tag }}', 'Move');
-});
-
-$('#graphtest').on('click', function() {
-  ga('send', 'event', 'Navbar', 'graphtest', 'Functionality');
-});
-$('#time_nav').on('click', function() {
-  ga('send', 'event', 'time', '{{ method }}', 'Move');
-});
-$('#reltags').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'reltags', 'Move');
-});
-$('#mytags').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'mytags', 'Move');
-});
-$('#toptags').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'toptags', 'Move');
-});
-$('#user_nav').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'user', 'Move');
-});
-$('#signin').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'sign in', 'Move');
-});
-$('#signup').on('hover', function() {
-  ga('send', 'event', 'Navbar', 'sign up', 'Move');
-});
-$('.brian_subnav--signup button').on('click', function() {
-  ga('send', 'event', 'Subnav', 'sign up', 'Button');
-});
-$('.brian_subnav--signin button').on('click', function() {
-  ga('send', 'event', 'Subnav', 'sign in', 'Button');
-});
-$('.brian_subnav--mytag {{ tag }}').on('click', function() {
-  ga('send', 'event', 'Subnav', 'mytags', 'Move');
-});
-$('.brian_subnav--toptag {{ tag.0 }}').on('click', function() {
-  ga('send', 'event', 'Subnav', 'toptags_no_find', 'Move');
-});
-$('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
-  ga('send', 'event', 'Subnav', 'reltags-find_test', 'Move');
-});
-
-*/
-
 
 </script>
+
 </body>
 </html>
 

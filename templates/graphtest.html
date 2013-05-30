@@ -300,31 +300,56 @@ function on_up(e) {
 <body onload="draw(); update()" style="background-color: #ddf">
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p class="inta_brand"> inta </p>
-        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/graphtest/decay1" onClick="_gaq.push(['_trackEvent', 'time', 'move', '30m']);">30m</a></p>
-        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/graphtest/decay2" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '3h']);">3h</a></p>
-        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/graphtest/decay3" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '1d']);">1d</a></p>
-        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/graphtest/decay4" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '3d']);">3d</a></p>
-        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/graphtest/decay5" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '1w']);">1w</a></p>
-        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/graphtest/decay6" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '4w']);">4w</a></p>
-        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/graphtest/decay7" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', '12w']);">12w</a></p>
-        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/graphtest/decay8" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', 'yr']);">yr</a></p>
-        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/graphtest/votes" onClick="_gaq.push(['_trackEvent', 'time', 'graphtest', 'all']);">All-time</a></p>
+      <p class="inta_brand"><a href="/{{ method }}/" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
+        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/graphtest/decay1" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 30m']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '30m']);">30m</a></p>
+        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/graphtest/decay2" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3h']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3h']);">3h</a></p>
+        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/graphtest/decay3" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1d']);">1d</a></p>
+        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/graphtest/decay4" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3d']);">3d</a></p>
+        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/graphtest/decay5" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1w']);">1w</a></p>
+        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/graphtest/decay6" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 4w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '4w']);">4w</a></p>
+        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/graphtest/decay7" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 12w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '12w']);">12w</a></p>
+        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/graphtest/decay8" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest yr']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'yr']);">yr</a></p>
+        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/graphtest/votes" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest all']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'all']);">All-time</a></p>
     </div>
 </div>
 
   <div style="display:inline-block; float:left; margin-left: 20px; margin-top: 60px">
-    <p style="font-size: 14px; font-weight:bold; width: 400px; float:left;">We're playing with a "universe" type view to see all of Inta's web. Each dot is a tag, while the threads attaching them get darker as more URLs share the two tags. </p>
+    <p style="font-size: 14px; font-weight:bold; width: 400px; float:left;">We're playing with a "universe" type view to see all of Inta's web. Let us know if you like it or have ideas for it. <a href="mailto:christopher.shriver@yale.edu?subject=The Inta Universe"> christopher.shriver@yale.edu</a> is the architect </p> 
     <br/>
-    <p style="font-size: 14px; font-weight:bold; width: 400px; float:left"> This is rough but let us know if you like the idea. <a href="mailto:christopher.shriver@yale.edu?subject=The Inta Universe"> christopher.shriver@yale.edu</a> is the architect </p>
+    <ul style="font-size: 14px; font-weight:bold; width: 400px; float:left"> 
+      <li>Each node (dot) is a tag</li>
+        <ul>
+          <li>Tags get bigger with more votes</li>
+          <li>Hover to see the tag name (and vote count)</li>
+          <li>Click to create a link to Inta for that tag</li>
+        </ul>
+        <br>
+      <li>Tags with connecting lines have shared links</li>
+        <ul>
+          <li>The darker the line, the more links</li>
+        </ul>
+        <br>
+      <li>Click different time periods above to alter the universe</li>
+        <ul>
+          <li>Tags with 0 votes in a time period will disappear</li>
+        </ul>
+  </ul>
   </div>
   <div style="display:inline-block; margin-left: 40px; margin-top: 60px">
     <center>
       <div id='tag' style="font-size: 18px; color: black; font-weight: bold">tag:</div>
-        <div id='link' onClick="_gaq.push(['_trackEvent', 'link click', 'graphtest', '{{ user }}']);"></div>
+        <div id='link' onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest link click']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'list link', '{{ user }}']);"></div>
   <br/>
     <canvas id="myCanvas" width="600" height="600" style="border: 1px solid black; background-color:white; margin-bottom: 30px">Canvas not supported.</canvas>
       </center>
   </div>
+  
+<script type="text/javascript">
+
+ga('create', 'UA-32641734-1');
+ga('send', 'pageview');
+
+
+</script>
 </body>
 </html>
