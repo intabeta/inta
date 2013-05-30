@@ -33,5 +33,6 @@ class Command(BaseCommand):
             points= [ [nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
 
             datalist.data = [points,edges2]
+            print(datalist.data)
             datalist.save()
             
