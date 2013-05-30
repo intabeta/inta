@@ -30,7 +30,7 @@ class Command(BaseCommand):
                     edges2.append(e)
             
             n = len(nztags)
-            points= [ [nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
+            points= [ [nztags[i],int(round(tagscores[nztags[i]]))] for i in range(n) ]
 
             graph = Graph.objects.get(name = method)
             graph.points = points
