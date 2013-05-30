@@ -432,208 +432,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         tval8.val += 2
                         tval8.save()
 
-
-        entries = Entry.objects.all()
-        if tags:
-            for tag in taglist:
-                entries = entries.filter(tags__name__in=[tag])
-        if domain:
-            entries = entries.filter(domain__iexact=domain)
-	
-        if method == 'votes':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
-                votecounts = [ entry.score for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
-                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-        elif method == 'growth':
-            posts = entries.order_by('-last_growth', '-date_added')
-            votecounts = [ a.last_growth for a in posts ]
-        elif method == 'decay1':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
-                votecounts = [ entry.score_d1 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay2':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
-                votecounts = [ entry.score_d2 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay3':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
-                votecounts = [ entry.score_d3 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay4':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
-                votecounts = [ entry.score_d4 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay5':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
-                votecounts = [ entry.score_d5 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay6':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
-                votecounts = [ entry.score_d6 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay7':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
-                votecounts = [ entry.score_d7 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay8':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
-                votecounts = [ entry.score_d8 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-        elif method == 'favorites':
-            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        elif method == 'green':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'orange':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'red':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'black':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
-        else:
-            return render_to_response('404.html')
-
-        tagscores = [ sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-        if tags != '':
-            relevanttags = listsum([ post.tags.all() for post in posts ])
-            toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
-        else:
-            toprelevant = []
-        
-        if method=='votes':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1463).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay1':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=194).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1464).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay2':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=195).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1465).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay3':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=196).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1466).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay4':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=197).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1467).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay5':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=198).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1468).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay6':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=199).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1469).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay7':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1470).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay8':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1471).tagval_set.all()], key=lambda a: -a[1])
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
-        if not tags and not domain: #show 'all' instead of a list of every single tag
-            taglist=['all']
-        if domain:
-            if tags:
-                taglist += ['site:'+domain]
-            else:
-                taglist = ['site:'+domain]
-        
-        template_data = {
-            'tags': tags,
-            'postdata': zip(posts,votecounts,tagscores),
-            'voter': voter,
-            'page': page,
-            'double_voter': double_voter,
-            'method': method,
-            'taglist': taglist,
-            'topsites': topsites,
-            'toptags_1': nthslice(toptags,1,10),
-            'toptags_2': nthslice(toptags,2,10),
-            'toprelevant': toprelevant,
-            'mytags': mytags,
-            'domain': domain,
-            'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
-            'signupform': signupform,
-            'signinform': dict(), #no reason to have a sign in form if the user is authenticated
-            }
+
     else:
         if request.method == 'POST':
             action = request.POST.get('action', '')
@@ -667,206 +467,206 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             return redirect(reverse('userena_disabled',
                                                 kwargs={'username': user.username}))
                     
-        entries = Entry.objects.all()
-        if tags:
-            for tag in taglist:
-                entries = entries.filter(tags__name__in=[tag])
-        if domain:
-            entries = entries.filter(domain__iexact=domain)
-	
-        if method == 'votes':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
-                votecounts = [ entry.score for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
-                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
-        elif method == 'growth':
-            posts = entries.order_by('-last_growth', '-date_added')
-            votecounts = [ a.last_growth for a in posts ]
-        elif method == 'decay1':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
-                votecounts = [ entry.score_d1 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d1_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay2':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
-                votecounts = [ entry.score_d2 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d2_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay3':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
-                votecounts = [ entry.score_d3 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d3_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay4':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
-                votecounts = [ entry.score_d4 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d4_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay5':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
-                votecounts = [ entry.score_d5 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d5_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay6':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
-                votecounts = [ entry.score_d6 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d6_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay7':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
-                votecounts = [ entry.score_d7 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d7_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
-        elif method == 'decay8':
-            if not tags and not domain:
-                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
-                votecounts = [ entry.score_d8 for entry in posts ]
-            elif len(taglist)==1 and not domain:
-                try:
-                    posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_d8_'+taglist[0]).data) ]
-                except:
-                    posts = []
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-            else:
-                posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist]))
-                votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
-        elif method == 'favorites':
-            posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
-        elif method == 'green':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'orange':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'red':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
-        elif method == 'black':
-            posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
+    entries = Entry.objects.all()
+    if tags:
+        for tag in taglist:
+            entries = entries.filter(tags__name__in=[tag])
+    if domain:
+        entries = entries.filter(domain__iexact=domain)
+    
+    if method == 'votes':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=2).data),page,8) ]
+            votecounts = [ entry.score for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
+            except:
+                posts = []
+            votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
         else:
-            return render_to_response('404.html')
-        
-        tagscores = [ sorted([ [tag.name, post._get_ranking(tag)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-        if tags:
-            relevanttags = listsum([ post.tags.all() for post in posts ])
-            toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
+            posts = sorted(entries, key=lambda a: -sum([ a._get_ranking(tag) for tag in taglist]))
+            votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+    elif method == 'growth':
+        posts = entries.order_by('-last_growth', '-date_added')
+        votecounts = [ a.last_growth for a in posts ]
+    elif method == 'decay1':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
+            votecounts = [ entry.score_d1 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d1_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
         else:
-            toprelevant = []
-        
-        if method=='votes':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1463).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay1':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=194).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1464).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay2':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=195).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1465).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay3':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=196).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1466).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay4':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=197).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1467).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay5':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=198).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1468).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay6':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=199).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1469).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay7':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1470).tagval_set.all()], key=lambda a: -a[1])
-        elif method=='decay8':
-            toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])
-            topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1471).tagval_set.all()], key=lambda a: -a[1])
-        if not tags and not domain: #show 'all' instead of a list of every single tag
-            taglist=['all']
-        if domain:
-            if tags:
-                taglist += ['site:'+domain]
-            else:
-                taglist = ['site:'+domain]
-        
-        template_data = {
-            'tags': tags,
-            'postdata': zip(posts,votecounts,tagscores),
-            'method': method,
-            'voter': [],
-            'double_voter': [],
-            'taglist': taglist,
-            'page': page,
-            'topsites': topsites,
-            'toptags_1': nthslice(toptags,1,10),
-            'toptags_2': nthslice(toptags,2,10),
-            'toprelevant': toprelevant,
-            'mytags': [],
-            'domain': domain,
-            'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
-            'signupform': signupform,
-            'signinform': signinform,
-            }
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay2':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
+            votecounts = [ entry.score_d2 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d2_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay3':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
+            votecounts = [ entry.score_d3 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d3_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay4':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
+            votecounts = [ entry.score_d4 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d4_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay5':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
+            votecounts = [ entry.score_d5 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d5_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay6':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
+            votecounts = [ entry.score_d6 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d6_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay7':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
+            votecounts = [ entry.score_d7 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d7_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist]),1) for a in posts ]
+    elif method == 'decay8':
+        if not tags and not domain:
+            posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
+            votecounts = [ entry.score_d8 for entry in posts ]
+        elif len(taglist)==1 and not domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d8_'+taglist[0]).data),page,8) ]
+            except:
+                posts = []
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
+        else:
+            posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist])),page,8)
+            votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist]),1) for a in posts ]
+    elif method == 'favorites':
+        posts = entries.filter(favorites__gt=0).order_by('-favorites', '-date_added')
+    elif method == 'green':
+        posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=1), datetime.now())), key=lambda a: -a._get_ranking(taglist[0]))
+    elif method == 'orange':
+        posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=3), datetime.now() - timedelta(days=1))), key=lambda a: -a._get_ranking(taglist[0]))
+    elif method == 'red':
+        posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=6), datetime.now() - timedelta(days=3))), key=lambda a: -a._get_ranking(taglist[0]))
+    elif method == 'black':
+        posts = sorted(entries.filter(date_added__range=(datetime.now() - timedelta(days=365), datetime.now() - timedelta(days=6))), key=lambda a: -a._get_ranking(taglist[0]))
+    else:
+        return render_to_response('404.html')
+
+    tagscores = [ sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
+    if tags != '':
+        relevanttags = listsum([ post.tags.all() for post in posts ])
+        toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
+    else:
+        toprelevant = []
+    
+    if method=='votes':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=193).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1463).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay1':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=194).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1464).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay2':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=195).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1465).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay3':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=196).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1466).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay4':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=197).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1467).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay5':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=198).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1468).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay6':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=199).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1469).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay7':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=200).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1470).tagval_set.all()], key=lambda a: -a[1])
+    elif method=='decay8':
+        toptags = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=201).tagval_set.all()], key=lambda a: -a[1])
+        topsites = sorted([ [a.tag, a.val] for a in Dict.objects.get(id=1471).tagval_set.all()], key=lambda a: -a[1])
+    if not tags and not domain: #show 'all' instead of a list of every single tag
+        taglist=['all']
+    if domain:
+        if tags:
+            taglist += ['site:'+domain]
+        else:
+            taglist = ['site:'+domain]
+    
+    template_data = {
+        'tags': tags,
+        'postdata': zip(posts,votecounts,tagscores),
+        'method': method,
+        'voter': [],
+        'double_voter': [],
+        'taglist': taglist,
+        'page': page,
+        'topsites': topsites,
+        'toptags_1': nthslice(toptags,1,10),
+        'toptags_2': nthslice(toptags,2,10),
+        'toprelevant': toprelevant,
+        'mytags': [],
+        'domain': domain,
+        'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
+        'signupform': signupform,
+        'signinform': signinform,
+        }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
     
