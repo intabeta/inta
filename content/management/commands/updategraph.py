@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from content.models import Entry, Dict, DataList
+from content.models import Entry, Dict, Graph
 from taggit.models import Tag
 from math import sin, cos, pi
 import os
@@ -11,7 +11,7 @@ class Command(BaseCommand):
         tags = Tag.objects.all()
         entries = Entry.objects.all()
         tagscores = dict()
-        for method, datalist in zip(['votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'],[ DataList.objects.get(id=i) for i in range(3000,3009) ]):
+        for method in ('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'):
             edges=[]
             for tag in tags:
                 tagscores[tag.id] = 0
@@ -21,7 +21,7 @@ class Command(BaseCommand):
                     rank1 = entry._get_ranking(tag1, method)
                     tagscores[tag1.id] += rank1
                     for tag2 in etags[i+1:]:
-                        edges.append([tag1.id,tag2.id,round(rank1+entry._get_ranking(tag2,method))])
+                        edges.append([tag1.id,tag2.id,int(round(rank1+entry._get_ranking(tag2,method)))])
 
             nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) != 0 ] #nonzero tags
             edges2=[]
@@ -32,7 +32,8 @@ class Command(BaseCommand):
             n = len(nztags)
             points= [ [nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
 
-            datalist.data = [points,edges2]
-            print(datalist.data)
-            datalist.save()
+            graph = Graph.objects.get(name = method)
+            graph.points = points
+            graph.edges = edges2
+            graph.save()
             
