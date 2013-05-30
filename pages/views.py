@@ -349,6 +349,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         addtags_entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=addtags_entry.slug)
 
                         addtags_entry.save()
+            elif action == 'pageset':
+                pass
                 
             else:
                 post_slug = request.POST.get('post_slug', '')

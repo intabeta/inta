@@ -994,7 +994,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
           <form action="" method="post">
             {% csrf_token %}
           <input type="hidden" name="action" value="pageset" />
-          <button class='btn{% if page == 1 %}disabled{% endif %}' type='submit' name='newpage' value='{{ page|add:"-1" }}'>&laquo;</button>
+          <button class='btn{% if page == 1 %} disabled{% endif %}' type='submit' name='newpage' value='{{ page|add:"-1" }}'>&laquo;</button>
           <button class='btn disabled' disabled='disabled'>Page {{ page }}</button>
           <button class='btn' type='submit' name='newpage' value='{{ page|add:"1" }}'>&raquo;</button>
           </form>
