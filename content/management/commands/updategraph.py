@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from content.models import Entry, Dict, DataList
 from taggit.models import Tag
+from math import sin, cos, pi, ceil
 import os
 
 class Command(BaseCommand):
@@ -22,8 +23,6 @@ class Command(BaseCommand):
                     tagscores[tag1.name] += rank1
                     for tag2 in etags[i+1:]:
                         edges.append([tag1.name,tag2.name,ceil(rank1+entry._get_ranking(tag2,method))])
-            else:
-                return render_to_response('404.html')
 
             nztags = [ tag for tag in tagnames if round(tagscores[tag]) != 0 ] #nonzero tags
             edges2=[]
