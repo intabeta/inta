@@ -508,6 +508,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '12w']);">12w</a></p>
         <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'yr']);">yr</a></p>
         <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', 'all']);">All-time</a></p>
+        <p></p>
       {% endif %}
       {% if domain != '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site:{{ domain }}" onClick="_gaq.push(['_trackEvent', 'time', 'move', '30m']);">30m</a></p>
@@ -620,25 +621,23 @@ $(document).ready(function(){
 
   <div class="brian_subnav--reltags">
     <br>
-    <ul class="nav nav-pills" style="margin-left:20px">
-                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}"
-                onClick="_gaq.push(['_trackEvent', 'move', 'rel tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', 'subnav', {{ tag }}]);">
-                {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
+    <ul class="nav nav-pills" style="margin-left:20px" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags tag hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'rel tags tag click', '{{ tag }}']);">
+                {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
                 <button class="btn" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button>
     </ul>
   </div>
   
  <div class="brian_subnav--toptags">
     <br>
-    <ul class="nav nav-pills" style="margin-left:20px" id="top_1">
-                {% for tag in toptags_1 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
+    <ul class="nav nav-pills" style="margin-left:20px" id="top_1" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags tag1 hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'top tags tag1 click', '{{ tag }}']);">
+                {% for tag in toptags_1 %}<li><a href="/{{ method }}/{{ tag.0 }}">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
-    <ul class="nav nav-pills hide_subnav" id="more_top">
-                {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}" onClick="_gaq.push(['_trackEvent', 'move', 'top tags options click', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags options hover', 'subnav', {{ tag }}]);">
+    <ul class="nav nav-pills hide_subnav" id="more_top" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags tag2 hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'top tags tag2 click', '{{ tag }}']);">
+                {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
-    <button class="btn" id="more_top_tags" style="display:inline-block; margin-bottom: 10px; margin-left: 20px;" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click 1', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags 1 hover', '{{ user }}']);"> Request more </button>
+    <button class="btn" id="more_top_tags" style="display:inline-block; margin-bottom: 10px; margin-left: 20px;" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover']);"> Request more </button>
   </div>
   
 <script>
@@ -659,11 +658,11 @@ $(document).ready(function(){
             Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <input type="hidden" name="page" value="{{ page }}" />
-            <button class="btn" id="tag_button" type="submit" onClick="_gaq.push(['_trackEvent', 'personal', 'save tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'personal', 'save tags hover', 'subnav', {{ tag }}]);">
+            <button class="btn" id="tag_button" type="submit" onClick="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'save tags hover', '{{ tag }}']);">
             Save to {{ user }}</button>
         </form>
     <ul class="nav nav-pills" style="margin-left: 20px; margin-top: 10px">
-                  {% for tags, name in mytags %}<li style="border: 1px solid #ddf; margin-right: 10px; text-align: center"><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', 'subnav', {{ tag }}]);">
+                  {% for tags, name in mytags %}<li style="border: 1px solid #ddf; margin-right: 10px; text-align: center"><a href="/{{ method }}/{{ tags }}" onClick="_gaq.push(['_trackEvent', 'move', 'my tags tag click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags tag hover', '{{ tag }}']);">
                   {{ name }}</a>    
                   <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
@@ -693,7 +692,7 @@ $(document).ready(function(){
          <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
 Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
-         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
+         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'My hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'My click to drag', '{{ user }}']);">INTA Shortcut</a></p>
          <br/>
          <center>
          <p class="brian_subnav--header">Tag and vote from anywhere</p>
@@ -791,18 +790,15 @@ Click to add shortcut</a>
          <button type="submit" class="btn-info" style="margin-bottom: 8px;" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '', {{tag}}]);">{% trans "Add tag(s)" %}</button>
      </form>
      
-     <input type="text" id="mytext">
-
-     
-         <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'hover to add', '{{ user }}']);"> 
+         <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'install add hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'install add click', '{{ user }}']);"> 
 Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
-         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'click to drag', '{{ user }}']);">INTA Shortcut</a></p>
+         onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'add hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'add click to drag', '{{ user }}']);">INTA Shortcut</a></p>
   </div> 
   
   <div class="brian_subnav--top_sites">
       <br>
-        <ul class="nav nav-pills" style="margin-left:20px">
+        <ul class="nav nav-pills" style="margin-left:20px" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites site hover', '{{ site.0 }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'top sites site click', '{{ site.0 }}']);">
             {% for site in topsites %}<li><a href="/{{ method }}/site:{{ site.0}}">{{ site.0 }}</a></li>{% endfor %}
 
         </ul>
@@ -999,7 +995,6 @@ FB.Event.subscribe('message.send', function(targetUrl) {
           </tbody>
         </table>
         <hr />
-        <button class="btn btn-info" style="display:inline-block" onmouseover="_gaq.push(['_trackEvent', 'features', 'more links hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'more links click', '{{ user }}']);"> Request more links </button>
 <!--
         <div class="pagination pagination-centered">
         <form action="" method="post">
@@ -1022,7 +1017,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
           <form action="" method="post">
             {% csrf_token %}
           <input type="hidden" name="action" value="pageset" />
-          <button class='btn{% if page == 1 %} disabled{% endif %}' type='submit' name='page' value='{{ page|add:"-1" }}' {% if page == 1 %}disabled='disabled'{% endif %}>&laquo;</button>
+          <button class='btn {% if page == 1 %} disabled{% endif %}' type='submit' name='page' value='{{ page|add:"-1" }}' {% if page == 1 %}disabled='disabled'{% endif %}>&laquo;</button>
           <button class='btn disabled' disabled='disabled'>Page {{ page }}</button>
           <button class='btn' type='submit' name='page' value='{{ page|add:"1" }}'>&raquo;</button>
           </form>
