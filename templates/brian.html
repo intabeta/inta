@@ -415,12 +415,6 @@ URL_hovered:hover {
 #center {
   margin-left: -19px;
 }
-#time_nav {
-  display:none;
-}
-#time-nav-small {
-  display: inline-block;
-}
 /*
 #icon_vote_mobile {
   display:inline-block;
@@ -622,7 +616,7 @@ $(document).ready(function(){
     <br>
     <ul class="nav nav-pills" style="margin-left:20px" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags tag click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags tag hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'rel tags tag click', '{{ tag }}']);">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-                <button class="btn" style="display:inline-block" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button>
+                <button class="btn" style="display:inline-block" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more rel tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button>
     </ul>
   </div>
   
@@ -636,7 +630,7 @@ $(document).ready(function(){
                 {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
-    <button class="btn" id="more_top_tags" style="display:inline-block; margin-bottom: 10px; margin-left: 20px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more top tags hover']);" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover']);"> Request more </button>
+    <button class="btn" id="more_top_tags" style="display:inline-block; margin-bottom: 10px; margin-left: 20px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more top tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover']);"> Request more </button>
   </div>
   
 <script>
@@ -1240,6 +1234,5 @@ ga('send', 'pageview');
 
 </body>
 </html>
-
 
 
