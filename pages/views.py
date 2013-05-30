@@ -678,6 +678,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             return redirect(reverse('userena_disabled',
                                                 kwargs={'username': user.username}))
         mytags = []
+        voter = []
                     
     entries = Entry.objects.all()
     if tags:
@@ -865,7 +866,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'tags': tags,
         'postdata': zip(posts,votecounts,tagscores),
         'method': method,
-        'voter': [],
+        'voter': voter,
         'double_voter': [],
         'taglist': taglist,
         'page': page,
