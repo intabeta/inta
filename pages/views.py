@@ -268,6 +268,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     signinform = auth_form()
     user = request.user
     tags = tags
+
+    page = int(request.POST.get('newpage', '1'))
     
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]

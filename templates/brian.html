@@ -990,6 +990,15 @@ FB.Event.subscribe('message.send', function(targetUrl) {
         </table>
         <hr />
         <button class="btn btn-info" style="display:inline-block" onmouseover="_gaq.push(['_trackEvent', 'features', 'more links hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'more links click', '{{ user }}']);"> Request more links </button>
+        <div align='center' class='btn-group'>
+          <form action="" method="post">
+            {% csrf_token %}
+          <input type="hidden" name="action" value="pageset" />
+          <button class='btn{% if page==1 %}disabled{% endif %}' type='submit' name='newpage' value='{{ page|add:"-1" }}'>&laquo;</button>
+          <button class='btn disabled' disabled='disabled'>Page {{ page }}</button>
+          <button class='btn' type='submit' name='newpage' value='{{ page|add:"1" }}'>&raquo;</button>
+          </form>
+        </div>
       </div>
 
 
