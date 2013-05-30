@@ -222,6 +222,7 @@ def graphtest(request,method='votes'):
         points = [ [0,0,Tag.objects.get(id=point[0]).name,point[1]] for point in eval(graph.points) ]
         edges = eval(graph.edges)
 
+        n = len(points)
         for i,p in enumerate(points):
             p[0]=150+100*cos(2*pi*i/n)
             p[1]=150+100*sin(2*pi*i/n)
