@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from content.models import Entry, Dict, DataList
 from taggit.models import Tag
-from math import sin, cos, pi, ceil
+from math import sin, cos, pi
 import os
 
 class Command(BaseCommand):
@@ -22,16 +22,16 @@ class Command(BaseCommand):
                     rank1 = entry._get_ranking(tag1, method)
                     tagscores[tag1.name] += rank1
                     for tag2 in etags[i+1:]:
-                        edges.append([tag1.name,tag2.name,ceil(rank1+entry._get_ranking(tag2,method))])
+                        edges.append([tag1.id,tag2.id,round(rank1+entry._get_ranking(tag2,method))])
 
-            nztags = [ tag for tag in tagnames if round(tagscores[tag]) != 0 ] #nonzero tags
+            nztags = [ tag.id for tag in tags if round(tagscores[tag.name]) != 0 ] #nonzero tags
             edges2=[]
             for e in edges:
-                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags
-                    edges2.append([nztags.index(e[0]),nztags.index(e[1]),e[2]])
+                if e[0] in nztags and e[1] in nztags and e[2]>0: #only consider edges that were connected to two nonzero tags and have nonzero strength
+                    edges2.append(e)
             
             n = len(nztags)
-            points= [ [200+100*cos(2*pi*i/n),200+100*sin(2*pi*i/n),nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
+            points= [ [nztags[i],round(tagscores[nztags[i]])] for i in range(n) ]
 
             datalist.data = [points,edges2]
             datalist.save()
