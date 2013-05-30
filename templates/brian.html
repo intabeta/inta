@@ -658,6 +658,7 @@ $(document).ready(function(){
             {% csrf_token %}
             Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
+            <input type="hidden" name="page" value="{{ page }}" />
             <button class="btn" id="tag_button" type="submit" onClick="_gaq.push(['_trackEvent', 'personal', 'save tags', 'subnav', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'personal', 'save tags hover', 'subnav', {{ tag }}]);">
             Save to {{ user }}</button>
         </form>
@@ -668,6 +669,7 @@ $(document).ready(function(){
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
+                      <input type="hidden" name="page" value="{{ page }}" />
                       <button type="submit" class="close" style="opacity: 1.0; color: white">&times;</button></li>
                   </form>
                   {% endfor %}
@@ -680,6 +682,7 @@ $(document).ready(function(){
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
+                      <input type="hidden" name="page" value="{{ page }}" />
                       <button type="submit" class="close">&times;</button></li>
                   </form>
                   {% endfor %}
@@ -721,6 +724,7 @@ Click to add shortcut</a>
 -->
         <p></p>
         <input type="hidden" name="action" value="signup" />
+        <input type="hidden" name="page" value="{{ page }}" />
         <button type="submit" class="btn">{% trans "Sign Up" %}</button>
       </div>
     </form>
@@ -739,6 +743,7 @@ Click to add shortcut</a>
       Remember me: {{ signinform.remember_me}}</p>
       </p>
       <input type="hidden" name="action" value="signin" />
+      <input type="hidden" name="page" value="{{ page }}" />
       <button type="submit" class="btn">{% trans "Sign In" %}</button>
     </form>
     <br>
@@ -756,7 +761,7 @@ Click to add shortcut</a>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my favorites hover', 'user']);">My Favorites</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'personal', 'my shared hover', 'user']);">My Shared</a></li>
                  <li> <button class="btn btn-info" style="display:inline-block; margin-right:10px" onmouseover="_gaq.push(['_trackEvent', 'features', 'email alerts hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'email alerts click', '{{ user }}']);"> Request tag email alerts </button></li>
-                  <li><form action="" method="post"><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
+                  <li><form action="" method="post"><input type="hidden" name="page" value="{{ page }}" /><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
                   onmouseover="_gaq.push(['_trackEvent', 'personal', 'sign out hover', 'user']);" onclick="_gaq.push(['_trackEvent', 'personal', 'sign out click', '{{ user }}']);">
                   Sign Out</button></form></li>
           </ul>  
@@ -779,6 +784,7 @@ Click to add shortcut</a>
           <form action="" method="post">
             {% csrf_token %}    
             <br>
+            <input type="hidden" name="page" value="{{ page }}" />
             <input type="hidden" id="addtags_url" name="addtags_url" value=""/>
             <input type="hidden" name="action" value="addtags"/>
             <input type="text" name="addtags" style="margin-left: 20px;"/>
@@ -858,6 +864,7 @@ Click to add shortcut</a>
         <form action="" method="post" class="button-form" id="button--good">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                        <input type="hidden" name="page" value="{{ page }}" />
                         <input type="hidden" name="action" value="vote" />
                         <button class="btn btn-mini btn-info const-width {% if post.slug in voter %}btn-success{% endif %}" 
                         onClick="_gaq.push(['_trackEvent', 'curate', 'Good', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
@@ -868,6 +875,7 @@ Click to add shortcut</a>
             <form action="" method="post" class="button-form" id="button--great">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="page" value="{{ page }}" />
                 <input type="hidden" name="action" value="double_vote" />
                 <button class="btn btn-mini btn-info const-width {% if post.slug in double_voter %}btn-success{% endif %}" 
                 onClick="_gaq.push(['_trackEvent', 'curate', 'Great', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
@@ -933,6 +941,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
         <form action="" method="post" class="button-form" id="button--good">
               {% csrf_token %}
                         <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                        <input type="hidden" name="page" value="{{ page }}" />
                         <input type="hidden" name="action" value="vote" />
                         <button class="btn btn-mini btn-info const-width {% if post.slug in voter %}btn-success{% endif %}" 
                         onClick="_gaq.push(['_trackEvent', 'curate', 'Good', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
@@ -943,6 +952,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
             <form action="" method="post" class="button-form" id="button--great">
               {% csrf_token %}
                 <input type="hidden" name="post_slug" value="{{ post.slug }}" />
+                <input type="hidden" name="page" value="{{ page }}" />
                 <input type="hidden" name="action" value="double_vote" />
                 <button class="btn btn-mini btn-info const-width {% if post.slug in double_voter %}btn-success{% endif %}" 
                 onClick="_gaq.push(['_trackEvent', 'curate', 'Great', 'URL line']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', 'URL line']);"
@@ -994,9 +1004,9 @@ FB.Event.subscribe('message.send', function(targetUrl) {
           <form action="" method="post">
             {% csrf_token %}
           <input type="hidden" name="action" value="pageset" />
-          <button class='btn{% if page == 1 %} disabled{% endif %}' type='submit' name='newpage' value='{{ page|add:"-1" }}' {% if page == 1 %}disabled='disabled'{% endif %}>&laquo;</button>
+          <button class='btn{% if page == 1 %} disabled{% endif %}' type='submit' name='page' value='{{ page|add:"-1" }}' {% if page == 1 %}disabled='disabled'{% endif %}>&laquo;</button>
           <button class='btn disabled' disabled='disabled'>Page {{ page }}</button>
-          <button class='btn' type='submit' name='newpage' value='{{ page|add:"1" }}'>&raquo;</button>
+          <button class='btn' type='submit' name='page' value='{{ page|add:"1" }}'>&raquo;</button>
           </form>
         </div>
       </div>

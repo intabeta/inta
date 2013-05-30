@@ -269,7 +269,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     user = request.user
     tags = tags
 
-    page = int(request.POST.get('newpage', '1'))
+    page = int(request.POST.get('page', '1'))
     
     if tags == '':
         taglist = [ tag.name for tag in Tag.objects.all() ]
@@ -466,6 +466,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         else:
                             return redirect(reverse('userena_disabled',
                                                 kwargs={'username': user.username}))
+        mytags = []
                     
     entries = Entry.objects.all()
     if tags:
@@ -661,7 +662,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'toptags_1': nthslice(toptags,1,10),
         'toptags_2': nthslice(toptags,2,10),
         'toprelevant': toprelevant,
-        'mytags': [],
+        'mytags': mytags,
         'domain': domain,
         'breadcrumbdata': zip(taglist,['+'.join(taglist[:i]+taglist[i+1:]) for i in range(0,len(taglist))]),
         'signupform': signupform,
