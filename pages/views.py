@@ -558,6 +558,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                         break #only first matching
                             except:
                                 logo = None
+                else:
+                    return render_to_response('404.html')
                 
             else:
                 post_slug = request.POST.get('post_slug', '')
