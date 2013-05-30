@@ -566,34 +566,34 @@ $(document).ready(function(){
 
     <div class="nav_row pull-right" id="tag_nav">
       <p id="tag_title-collapse" class="brian_nav--collapsed" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse tag', '{{ user }}']);"> Tags: </p>
-        <p><a href="/graphtest/{{ method }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'expand time']);" onClick="_gaq.push(['_trackEvent', 'move', 'graph test', '{{ user }}']);" target="_blank" id="graphtest">Universe view</a></p>
+        <p><a href="/graphtest/{{ method }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'universe view', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'graph test', '{{ user }}']);" target="_blank" id="graphtest">Universe view</a></p>
         <p> | </p>
-        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags & Sites</p>
+        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags & Sites</p>
         <p> | </p>
-        <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
+        <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
         <p> | </p>
-        <p id="reltags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', '/{{ method }}/{{ tags }}']);">Related Tags</p>
+        <p id="reltags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', '/{{ method }}/{{ tags }}']);">Related Tags</p>
         <p> | </p>
-        <p id="topsites" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top sites hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites hover', '/{{ method }}/{{ tags }}']);">Top Sites</p>
+        <p id="topsites" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top sites hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites hover', '/{{ method }}/{{ tags }}']);">Top Sites</p>
         <p> | </p>
                 
         {% if user.id %}
-             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
+             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
         {% else %}
-          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
+          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
           <p> | </p>
-          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
+          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
         {% endif %}
     </div>
     
     <div class="nav_row--hide pull-right" id="tag_nav_collapsed">
-      <p id="tag_title-expand" class="brian_nav--collapsed" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'expand tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand tag', '{{ user }}']);"> Explore Tags </p>
+      <p id="tag_title-expand" class="brian_nav--collapsed" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'expand tag', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand tag', '{{ user }}']);"> Explore Tags </p>
         {% if user.id %}
-             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user collapsed hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user collapsed hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
+             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user collapsed hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
         {% else %}
-          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in collapsed hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
+          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
           <p> | </p>
-          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up collapsed hover']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
+          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
         {% endif %}
     </div>
 
@@ -657,7 +657,7 @@ $(document).ready(function(){
             Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <input type="hidden" name="page" value="{{ page }}" />
-            <button class="btn" id="tag_button" type="submit" onClick="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'save tags hover', '{{ tag }}']);">
+            <button class="btn" id="tag_button" type="submit" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'save tags hover', '{{ tag }}']);">
             Save to {{ user }}</button>
         </form>
     <ul class="nav nav-pills" style="margin-left: 20px; margin-top: 10px">
@@ -669,7 +669,7 @@ $(document).ready(function(){
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
                       <input type="hidden" name="action" value="delete_mytag" />
                       <input type="hidden" name="page" value="{{ page }}" />
-                      <button type="submit" class="close" style="opacity: 1.0; color: white">&times;</button></li>
+                      <button type="submit" class="close" style="opacity: 1.0; color: white" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'delete my tags click', '{{ tag }}']);">&times;</button></li>
                   </form>
                   {% endfor %}
     </ul>
@@ -756,12 +756,12 @@ Click to add shortcut</a>
       <h4> We're working on all parts of the site. Send me an email (<a href="mailto:bwloeb5@gmail.com?subject=My thoughts on Inta"> bwloeb5@gmail.com </a>) to talk about it </h4>
       <br/>
           <ul class="nav nav-pills">
-                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'settings hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'settings click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'settings click']);">Settings</a></li>
-                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my goods hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my goods click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my goods click']);">My Goods</a></li>
-                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my greats hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my greats click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my greats click']);">My Greats</a></li>
-                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my favorites hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my favorites click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my favorites click']);">My Favorites</a></li>
-                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my shared hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my shared click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my shared click']);">My Shared</a></li>
-                 <li> <button class="btn btn-info" style="display:inline-block; margin-right:10px" onmouseover="_gaq.push(['_trackEvent', 'features', 'email alerts hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'email alerts click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email alerts click']);"> Request tag email alerts </button></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'settings hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'settings click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'settings click', '/{{ method }}/{{ tags }}']);">Settings</a></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my goods hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my goods click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my goods click', '/{{ method }}/{{ tags }}']);">My Goods</a></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my greats hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my greats click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my greats click', '/{{ method }}/{{ tags }}']);">My Greats</a></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my favorites hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my favorites click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my favorites click', '/{{ method }}/{{ tags }}']);">My Favorites</a></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my shared hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my shared click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my shared click', '/{{ method }}/{{ tags }}']);">My Shared</a></li>
+                 <li> <button class="btn btn-info" style="display:inline-block; margin-right:10px" onmouseover="_gaq.push(['_trackEvent', 'features', 'email alerts hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'email alerts click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email alerts click', '/{{ method }}/{{ tags }}']);"> Request tag email alerts </button></li>
                   <li><form action="" method="post"><input type="hidden" name="page" value="{{ page }}" /><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
                   onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'sign out click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign out hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'move', 'sign out click', '/{{ method }}/{{ tags }}']);">
                   Sign Out</button></form></li>
@@ -818,7 +818,7 @@ Click to add shortcut</a>
        <center>
        <h2 style="border-bottom: solid grey;">
             Tags :{% for tag, slug in breadcrumbdata %} <a class="tag-breadcrumb" href="/{{ method }}/{{ slug }}/" style="color:inherit" 
-            onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'tag header click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag header', '', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag header hover', '{{ tag }}']);">
+            onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'tag header click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag header click', '', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag header hover', '{{ tag }}']);">
             {{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
         </h2>
       </center>
@@ -850,9 +850,8 @@ Click to add shortcut</a>
           <div>
           <center>
                       {% for tag in tagscores %}
-                    <span>
-                    <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff"
-                    onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'URL tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', 'URL line', {{ tag }}]);" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', 'URL line', {{ tag }}]);">
+                    <span style="border: 1px dashed red" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'URL tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', '{{ tag }}');" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', '{{ tag }}']);">
+                    <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff">
                       {{ tag.0 }} ({{ tag.1 }})</a></span>
                   {% endfor %}
                   <button class="btn btn--tag btn-mini btn-info" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add tag URL button click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]); document.getElementById('addtags_url').value='{{ post.url }}';"><i class="icon-tags add_tags"></i></button>
@@ -1018,10 +1017,10 @@ FB.Event.subscribe('message.send', function(targetUrl) {
 
 
 <footer style="text-align: center">
-   <div style="clear:both; font-weight:bold;"> <a href="/howto/" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'how to click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'how to click', '{{ user }}']);">How To</a>&nbsp;-&nbsp;
-   <a href="/mission/" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'mission click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'mission click', '{{ user }}']);">Mission</a>&nbsp;-&nbsp;
-   <a href="mailto:bwloeb5@gmail.com" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email suggestions click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'email suggestions click', '{{ user }}']);">Suggestions</a>&nbsp;-&nbsp;
-   <a href="//twitter.com/Inta_beta" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'twitter follow click', '{{ post.title }}']);"  onClick="_gaq.push(['_trackEvent', 'brand', 'Twitter click', '{{ user }}']);">@inta_beta</a><p>&copy; Inta 2013</p></div>
+   <div style="clear:both; font-weight:bold;"> <a href="/howto/" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'how to click', '/{{ method }}/{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'how to click', '{{ user }}']);">How To</a>&nbsp;-&nbsp;
+   <a href="/mission/" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'mission click', '/{{ method }}/{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'mission click', '{{ user }}']);">Mission</a>&nbsp;-&nbsp;
+   <a href="mailto:bwloeb5@gmail.com" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email suggestions click', '/{{ method }}/{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'brand', 'email suggestions click', '{{ user }}']);">Suggestions</a>&nbsp;-&nbsp;
+   <a href="//twitter.com/Inta_beta" target="_blank" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'twitter follow click', '/{{ method }}/{{ tag }}']);"  onClick="_gaq.push(['_trackEvent', 'brand', 'Twitter click', '{{ user }}']);">@inta_beta</a><p>&copy; Inta 2013</p></div>
 </footer>
 <script type="text/javascript">
 // NIKOS
@@ -1324,7 +1323,6 @@ $('.brian_subnav--reltag').find('{{ tag.0 }}').on('click', function() {
 </script>
 </body>
 </html>
-
 
 
 
