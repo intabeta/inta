@@ -21,7 +21,8 @@ from re import compile as re_compile
 import re
 from math import cos, sin, pi
 import tldextract
-from urllib import urlopen
+from bs4 import BeautifulSoup
+from urllib import urlopen, quote_plus
 import urllib2
 import json
 import urlparse
