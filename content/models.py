@@ -65,7 +65,7 @@ class IgProposalForm(ModelForm):
     class Meta:
         model = IgProposal
 
-class Graph(models.Model)
+class Graph(models.Model):
     name = models.CharField(max_length=20)
     edges = models.CharField(max_length=50000)
     points = models.CharField(max_length=50000)
