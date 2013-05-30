@@ -507,7 +507,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                 d.save()
                                 del d
 
-                            if '_post' in request.POST: #'good'
+                            post = request.session.get('post', '')
+                            if post == 'post': #'good'
                                 postsdict.tagval_set.create(tag=newtag, val=1)
                                 dcy1dict.tagval_set.create(tag=newtag, val=1)
                                 dcy2dict.tagval_set.create(tag=newtag, val=1)
