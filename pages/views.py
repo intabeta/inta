@@ -219,7 +219,7 @@ def splash(request):
 def graphtest(request,method='votes'):
     if method in ('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'):
         graph = Graph.objects.get(name=method)
-        points = [ [0,0,Tag.objects.get(id=point[0]).name,point[1]] for point in eval(graph.points) ]
+        points = [ [0,0,str(Tag.objects.get(id=point[0]).name),point[1]] for point in eval(graph.points) ]
         edges = eval(graph.edges)
 
         n = len(points)
