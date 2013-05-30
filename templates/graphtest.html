@@ -25,7 +25,8 @@ var maxy = 0;
 var xrange = 0;
 var yrange = 0;
 var r = 0;
-var damp = 30;
+var damp = 80;
+var stiffness = 3;
 
 function min(array) {
     return Math.min.apply(null,array);
@@ -209,7 +210,7 @@ function update() {
     var dx = p[0]-p1[0]; //update force due to springs
     var dy = p[1]-p1[1];
     var d = Math.pow(Math.pow(dx,2) + Math.pow(dy,2),0.5);
-    var s = 0.8*(1-10/(e[2]*d));
+    var s = stiffness*(1-10/(e[2]*d));
     f[0] -= s*dx;
     f[1] -= s*dy;
     f1[0] += s*dx;
