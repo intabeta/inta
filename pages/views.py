@@ -346,7 +346,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             elif action == 'pageset':
                 pass
             elif action == 'submit':
-                form = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
+                submitform = SubmitFormPlugin(user, request.POST.get('url', ''), request.POST.get('tags',''), request.POST)
                 if submitform.is_valid():
                     url = submitform.cleaned_data['url']
                     tags = submitform.cleaned_data['tags']
