@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList
+from content.models import InterestGroup, IgProposal, IgProposalForm, Entry, Dict, DataList, Graph
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
 from content.views import get_referer_view
@@ -15,7 +15,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from time import time
-from content.graphtools import Graph
 from re import compile as re_compile
 from math import cos, sin, pi
 
