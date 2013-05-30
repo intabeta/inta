@@ -776,6 +776,7 @@ Click to add shortcut</a>
   </div>
   
   <div class="brian_subnav--add_tags">
+    <div class="pull-left">
           <form action="" method="post">
             {% csrf_token %}    
             <br>
@@ -785,11 +786,26 @@ Click to add shortcut</a>
             <input type="text" name="addtags" style="margin-left: 20px;"/>
          <button type="submit" class="btn-info" style="margin-bottom: 8px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add tags submit click', '{{ post.title }}']);" onclick="_gaq.push(['_trackEvent', 'curate', 'submit added tags click', '{{ tags }}']);">{% trans "Add tag(s)" %}</button>
      </form>
+    </div>
+    
+    <div style="margin-left: 50px; margin-top: 20px; display: inline-block">
+      <p style="color: white; font-size: 16px; font-weight: strong">Or submit a new link</p>
+      <p style="display:inline; color: white; font-size: 14px">Link URL:</p>
+      <input type="text" name="site_submit_url" style="margin-left: 20px;"/>
+     <br/>
+     <p style="display:inline; color: white; font-size: 14px">Tags:</p>
+     <input type="text" name="site_submit_tags" style="margin-left: 20px;"/>
+     <br/>
+     <button type="submit" name="_post" value="post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Good" %}</button>
+     <button type="submit" name="_double_post" value="double_post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Great" %}</button>
+    </div>
      
+     <div class="pull-right" style="margin-right: 20px; margin-top: 20px">
          <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add bookmarklet install click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'install add hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'install add click', '{{ user }}']);"> 
 Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
          onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add bookmarklet drag click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'add hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'add click to drag', '/{{ method }}/{{ tags }}']);">INTA Shortcut</a></p>
+    </div>
   </div> 
   
   <div class="brian_subnav--top_sites">
@@ -1084,6 +1100,10 @@ $(document).ready(function(){
     $(".user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
+  $(".list_width").click(function(){
+    $(".brian_subnav--toptags").removeClass("show_subnav");
+    $("#toptags").removeClass("underline_title");
+  });
 });
 
 $(document).ready(function(){
@@ -1128,6 +1148,10 @@ $(document).ready(function(){
     $(".user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
   });
+  $(".list_width").click(function(){
+    $(".brian_subnav--signup").removeClass("show_subnav");
+    $(".signup").removeClass("underline_title");
+  });
 });
 
 $(document).ready(function(){
@@ -1147,6 +1171,10 @@ $(document).ready(function(){
     $(".brian_subnav--user").removeClass("show_subnav");
     $(".user_nav").removeClass("underline_title");
     $(".add_tags").removeClass("show_subnav");
+  });
+  $(".list_width").click(function(){
+    $(".brian_subnav--signin").removeClass("show_subnav");
+    $(".signin").removeClass("underline_title");
   });
 });
 
@@ -1234,5 +1262,6 @@ ga('send', 'pageview');
 
 </body>
 </html>
+
 
 
