@@ -42,8 +42,9 @@ class Command(BaseCommand):
             print('Changing tag '+str(taginput)+' to '+str(newtaginput)+'...')
             tagchange.name = newtaginput
             tagchange.save()
-            for name in ['top_'+newtaginput]+['top_d'+str(i)+'_'+newtaginput for i in range(1,9) ]: #set up new datalists for ranking
-                DataList.objects.create(name=name, data=[])
+            for dl in datalists:
+                dl.name = str(newtaginput)
+                dl.save()
         
         entries = Entry.objects.filter(tags__name__in=[taginput])
         doubles = entries.filter(tags__name__in=[newtaginput])
