@@ -25,7 +25,7 @@ class Voter(models.Model): #used to keep track of who has voted for which posts 
     slug = models.SlugField(max_length=200)
 
     def __unicode__(self):
-        return str(self.val)+' votes on '+str(self.slug)
+        return str(self.val)+' votes on '+str(self.slug)+', tag '+self.tag
 
 class InterestGroup(models.Model):
     title = models.CharField(max_length=200)
