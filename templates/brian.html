@@ -604,6 +604,9 @@ $(document).ready(function(){
 
   <div class="brian_subnav--reltags">
     <br>
+    {% if tags != '' %}
+    <p> Sorry, we don't show related tags for "All". Click a tag and then check related...</p>
+    {% endif %}
     <ul class="nav nav-pills" style="margin-left:20px" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags tag click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags tag hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'rel tags tag click', '{{ tag }}']);">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
                 <button class="btn" style="display:inline-block" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more rel tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button>
