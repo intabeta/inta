@@ -29,7 +29,7 @@ class Command(BaseCommand):
             decision = raw_input('This tag already exists. Would you like to merge '+str(taginput)+' and '+str(newtaginput)+'? (y/n)  ')
             if decision == 'y':
                 print('merging tags...')
-                if activetagids.__contains__(tagchange.id) #this tag is going to be deleted, so remove it from activetags
+                if activetagids.__contains__(tagchange.id): #this tag is going to be deleted, so remove it from activetags
                     activetagids.remove(tagchange.id)
                 activetagids.append(alreadyexists[0].id) #make the changed tag active
                 activetags.data=activetagids
