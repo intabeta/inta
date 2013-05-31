@@ -11,6 +11,7 @@ class Command(BaseCommand):
         taginput = raw_input('Which tag do you want to change?  ')
         if Tag.objects.filter(name = taginput):
             print('found '+str(taginput)+'.')
+            tagchange = Tag.objects.get(name=taginput)
         else:
             print('no tag with the name '+taginput+' exists.')
             maybe = [ tag.name for tag in Tag.objects.filter(name_iexact=taginput) ]
@@ -19,20 +20,28 @@ class Command(BaseCommand):
             return
         
         newtaginput = raw_input('What would you like to change it to?  ')
+        alreadyexists=0
         if Tag.objects.filter(name = newtaginput):
-            print('tag '+str(newtaginput)+' already exists.')
+            alreadyexists=1
+            decision = raw_input('This tag already exists. Would you like to merge '+str(taginput)+' and '+str(newtaginput)+'? (y/n)  ')
+            if decision == 'y':
+                print('merging tags...')
+            else:
+                return
+        else:
+            print('Changing tag '+str(taginput)+' to '+str(newtaginput)+'...')
+            tagchange.name = newtaginput
+            tagchange.save()
+        
+        entries = Entry.objects.filter(tags__name__in=[taginput])
+        doubles = entries.filter(tags__name__in=[newtaginput])
+        if not alreadyexists or not doubles:
+            for entry in entries:
+                entry.tags.remove(taginput)
+                entry.tags.add(newtaginput)
+        else:
+            print('Some Entries ('+str(doubles)+') have both tags you wanted to merge. There\'s probably a good way around this but I haven\'t worked it out yet. sorry')
             return
-
-        
-        print('Changing tag '+str(taginput)+' to '+str(newtaginput)+'...')
-        tagchange = Tag.objects.get(name=taginput)
-        tagchange.name = newtaginput
-        tagchange.save()
-        
-        entries = Entry.objects.filter(tags_name_in=[taginput])
-        for entry in entries:
-            entry.tags.remove(taginput)
-            entry.tags.add(newtaginput)
         print('changed tag on '+str(len(entries))+' Entries...')
         
         tvs = TagVal.objects.filter(tag=taginput)
@@ -56,6 +65,17 @@ class Command(BaseCommand):
             voter.tag = newtaginput
             voter.save()
         print('changed tag on '+str(len(voters))+' Voters...')
+
+        details = raw_input('Done! Details? (y/n)  ')
+        if details == 'n':
+            return
+        else:
+            print('Changed:')
+            print('Entries:  '+str(entries))
+            print('TagVals:  '+str(tvs))
+            print('FavTags:  '+str(favtags))
+            print('Voters:   '+str(voters))
+            return
 
         
             
