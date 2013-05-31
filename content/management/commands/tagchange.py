@@ -66,6 +66,9 @@ class Command(BaseCommand):
             voter.save()
         print('changed tag on '+str(len(voters))+' Voters...')
 
+        if alreadyexists:
+            tagchange.delete() #only delete tagchange if the new tag already existed because otherwise we just changed tagchange.name so we need to keep it
+
         details = raw_input('Done! Details? (y/n)  ')
         if details == 'n':
             return
