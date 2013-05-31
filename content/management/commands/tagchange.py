@@ -10,7 +10,7 @@ class Command(BaseCommand):
         print('Use this command to change the name of a tag. Everything here is case sensitive, so it can be used to change capitalization.')
         taginput = raw_input('Which tag do you want to change?  ')
         if Tag.objects.filter(name = taginput):
-            print('found '+str(tagchange)+'.')
+            print('found '+str(taginput)+'.')
         else:
             print('no tag with the name '+taginput+' exists.')
             maybe = [ tag.name for tag in Tag.objects.filter(name_iexact=taginput) ]
