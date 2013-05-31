@@ -15,7 +15,7 @@ class Command(BaseCommand):
             datalistnames = ['top_'+taginput]+['top_d'+str(i)+'_'+taginput for i in range(1,9) ]
             datalists = [ DataList.objects.get(name=name) for name in datalistnames ]
             activetags = DataList.objects.get(id=1)
-            activetagids = eval(activetagsdl.data)
+            activetagids = eval(activetags.data)
         else:
             print('no tag with the name '+taginput+' exists.')
             maybe = [ tag.name for tag in Tag.objects.filter(name__iexact=taginput) ]
