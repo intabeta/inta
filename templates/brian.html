@@ -168,10 +168,12 @@ function bookmark() {
  color:white;
 }
 .brian_nav .signup {
- color: red;
+ color: #F58E07;
+ font-size: 17px;
 }
 .brian_nav .signin {
- color: red 
+ color: #F58E07; 
+ font-size: 17px;
  }
 .add_tags {
  font-size:10px;
@@ -184,7 +186,7 @@ function bookmark() {
 }
 .brian_nav .user_nav {
  color: #ddf;
- margin-right:20px;
+ margin-right:5px;
  font-size: 18px;
 }
 #del_mytag {
@@ -203,7 +205,7 @@ function bookmark() {
  font-size:22px;
  margin: 10px 15px 0px 20px;
  margin-left: 20px;
- margin-right: 15px;
+ margin-right: 10px;
  border-bottom: 2px solid white;
 }
 .brian_subnav--signup form input {
@@ -390,7 +392,7 @@ URL_hovered:hover {
 }
 .brian_nav .user_nav {
  color: #ddf;
- margin-right:10px;
+ margin-right:-5px;
  font-size: 14px;
 }
 }
@@ -488,8 +490,62 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <body style="background:#ddf">
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
-  <div class="nav_row" id="time_nav">
-      <p class="inta_brand"><a href="/graphtest/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', ' Inta link click to graphtest', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'Inta link to graphtest', '/{{ method }}/{{ tags }}']);"> inta </a></p>
+    <div class="nav_row pull-left" id="tag_nav">
+          <p class="inta_brand"><a href="/graphtest/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', ' Inta link click to graphtest', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'Inta link to graphtest', '/{{ method }}/{{ tags }}']);"> inta </a></p>
+              <p style="color:white;font-size:16px"> | </p>
+          {% if user.id %}
+             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
+             <p> | </p>
+        {% else %}
+          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
+          <p> | </p>
+          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
+          <p> | </p>
+        {% endif %}    
+      <p id="tag_title-collapse" class="brian_nav--collapsed" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse tag', '{{ user }}']);"> Tags: </p>
+      
+        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags & Sites</p>
+        <p> | </p>
+        <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
+        <p> | </p>
+        <p id="reltags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', '/{{ method }}/{{ tags }}']);">Related Tags</p>
+        <p> | </p>
+        <p id="topsites" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top sites hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites hover', '/{{ method }}/{{ tags }}']);">Top Sites</p>
+        <p> | </p>
+        <p><a href="/graphtest/{{ method }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'universe view', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'graph test', '{{ user }}']);" target="_blank" id="graphtest">Universe view</a></p>
+        
+    </div>
+    
+    <div class="nav_row--hide pull-left" id="tag_nav_collapsed">
+      <p id="tag_title-expand" class="brian_nav--collapsed" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'expand tag', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand tag', '{{ user }}']);"> Explore Tags </p>
+        {% if user.id %}
+             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user collapsed hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
+        {% else %}
+          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
+          <p> | </p>
+          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
+        {% endif %}
+    </div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#tag_title-collapse").click(function(){
+    $("#tag_nav").addClass("hide_subnav");
+    $("#tag_nav_collapsed").addClass("show_subnav");
+    $("#tag_nav_collapsed").removeClass("nav_row--hide");
+  });
+  $("#tag_title-expand").click(function(){
+    $("#tag_nav").removeClass("hide_subnav");
+    $("#tag_nav_collapsed").removeClass("show_subnav");
+    $("#tag_nav_collapsed").addClass("nav_row--hide");
+  });
+});
+
+</script>
+
+<div class="nav_row pull-right" id="time_nav">
+
       <p class="brian_nav--collapsed" id="time-collapse" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse time']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse time', '{{ user }}']);"> Time: </p>
     {% if domain == '' %}
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '30m', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '30m', '/decay1/{{ tags }}']);">30m</a></p>
@@ -517,7 +573,6 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     </div>
     
     <div class="nav_row--hide" id="time-nav-small">
-      <p class="inta_brand"> inta </p>
       <p class="brian_nav--collapsed" id="time-expand" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'expand time']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand time', '{{ user }}']);"> Time: </p>
       <p {% if method == 'decay1' %}> 30m </p>{% endif %}
       <p {% if method == 'decay2' %}> 3h </p>{% endif %}
@@ -529,8 +584,9 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       <p {% if method == 'decay8' %}> yr </p>{% endif %}
       <p {% if method == 'votes' %}> All-time </p>{% endif %}
     </div>
-    
-  </div>
+        
+</div>
+</div>
     
     
     
@@ -550,65 +606,6 @@ $(document).ready(function(){
 });
 
 </script>
-
-<!--
-        <form style="display:inline-block; margin: 4px 0 0 0; padding-bottom: 0px; height:30px;">
-              {% csrf_token %}
-              <input type="text" class="search-query" placeholder="Search tags or text">
-        </form>
--->
-
-    <div class="nav_row pull-right" id="tag_nav">
-      <p id="tag_title-collapse" class="brian_nav--collapsed" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse tag', '{{ user }}']);"> Tags: </p>
-        <p><a href="/graphtest/{{ method }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'universe view', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'graph test', '{{ user }}']);" target="_blank" id="graphtest">Universe view</a></p>
-        <p> | </p>
-        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags & Sites</p>
-        <p> | </p>
-        <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
-        <p> | </p>
-        <p id="reltags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags hover', '/{{ method }}/{{ tags }}']);">Related Tags</p>
-        <p> | </p>
-        <p id="topsites" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top sites hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites hover', '/{{ method }}/{{ tags }}']);">Top Sites</p>
-        <p> | </p>
-                
-        {% if user.id %}
-             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
-        {% else %}
-          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
-          <p> | </p>
-          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
-        {% endif %}
-    </div>
-    
-    <div class="nav_row--hide pull-right" id="tag_nav_collapsed">
-      <p id="tag_title-expand" class="brian_nav--collapsed" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'expand tag', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand tag', '{{ user }}']);"> Explore Tags </p>
-        {% if user.id %}
-             <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user collapsed hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>
-        {% else %}
-          <p class="signin" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in collapsed hover', '/{{ method }}/{{ tags }}']);">Sign In</p>
-          <p> | </p>
-          <p class="signup" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up collapsed hover', '/{{ method }}/{{ tags }}']);">Sign Up</p>
-        {% endif %}
-    </div>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $("#tag_title-collapse").click(function(){
-    $("#tag_nav").addClass("hide_subnav");
-    $("#tag_nav_collapsed").addClass("show_subnav");
-    $("#tag_nav_collapsed").removeClass("nav_row--hide");
-  });
-  $("#tag_title-expand").click(function(){
-    $("#tag_nav").removeClass("hide_subnav");
-    $("#tag_nav_collapsed").removeClass("show_subnav");
-    $("#tag_nav_collapsed").addClass("nav_row--hide");
-  });
-});
-
-</script>
-</div>
-
   
 <!-- SUBNAV Divs-->
 
@@ -982,10 +979,9 @@ FB.Event.subscribe('message.send', function(targetUrl) {
     <a href="https://twitter.com/share" style="margin-top: 5px;" class="twitter-share-button" data-url="{{ post.url }}" data-text="@inta_beta"></a>
 <div id="fb-root"></div>
 </div>
-              
+   
 </div>
                   </center>
-
   
                </td>
        </tr>
