@@ -529,7 +529,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         {% endif %}
       <p id="tag_title-collapse" class="brian_nav--collapsed" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse tag', '{{ user }}']);"> Tags: </p>
       
-        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags & Sites</p>
+        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags</p>
         <p> | </p>
         <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
         <p> | </p>
@@ -643,7 +643,7 @@ $(document).ready(function(){
     {% endif %}
     <ul class="nav nav-pills" style="margin-left:20px" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'rel tags tag click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'rel tags tag hover', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'rel tags tag click', '{{ tag }}']);">
                 {% for tag in toprelevant %}<li><a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}">{{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
-                <button class="btn" style="display:inline-block" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more rel tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button>
+<!--                <button class="btn" style="display:inline-block" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more rel tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more rel tags click', '{{ user }}']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more rel tags hover', '{{ user }}']);"> Request more </button> -->
     </ul>
   </div>
   
@@ -657,7 +657,7 @@ $(document).ready(function(){
                 {% for tag in toptags_2 %}<li><a href="/{{ method }}/{{ tag.0 }}">
                 {{ tag.0 }} ({{ tag.1 }})</a></li>{% endfor %}
     </ul>
-    <button class="btn" id="more_top_tags" style="display:inline-block; margin-bottom: 10px; margin-left: 20px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more top tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover']);"> Request more </button>
+    <button class="btn" id="more_top_tags" style="margin-bottom: 10px; margin-left: 20px;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'more top tags click']);" onclick="_gaq.push(['_trackEvent', 'features', 'more top tags click']);" onmouseover="_gaq.push(['_trackEvent', 'features', 'more top tags hover']);"> Request more </button>
   </div>
   
 <script>
@@ -675,11 +675,11 @@ $(document).ready(function(){
     <div style="display:inline-block; margin-top: 14px; float:left;">
         <form action="" method="post" class="button-form subnav--active_tags">
             {% csrf_token %}
-            Active tags: {% for tag, slug in breadcrumbdata %} <a id="tag_saved" href="/{{ method }}/{{ slug }}/" style="color:inherit">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}<input type="hidden" name="tags" value="{{ tags }}" />
+      <input type="hidden" name="tags" value="{{ tags }}" />
             <input type="hidden" name="action" value="addfavtag" />
             <input type="hidden" name="page" value="{{ page }}" />
             <button class="btn" id="tag_button" type="submit" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', '{{ user }}', 'save tags click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', '{{ user }}', 'save tags hover', '{{ tag }}']);">
-            Save to {{ user }}</button>
+            Save {% for tag, slug in breadcrumbdata %} "{{ tag }}" {% if not forloop.last %} + {% endif %}{% endfor %}</button>
         </form>
     <ul class="nav nav-pills" style="margin-left: 20px; margin-top: 10px">
                   {% for tags, name in mytags %}<li style="border: 1px solid #ddf; margin-right: 10px; text-align: center"><a href="/{{ method }}/{{ tags }}" 
@@ -708,7 +708,7 @@ $(document).ready(function(){
                   {% endfor %}
     </ul>
     </div> 
-    <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
+    <div style="display:inline-block; margin-right: 30px; margin-top: 10px; border: 2px solid red" class="pull-right">
       <br>
          <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my bookmarklet install click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'my install hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'my install click', '{{ user }}']);"> 
 Click to add shortcut</a>
@@ -782,14 +782,15 @@ Click to add shortcut</a>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my greats hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my greats click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my greats click', '/{{ method }}/{{ tags }}']);">My Greats</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my favorites hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my favorites click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my favorites click', '/{{ method }}/{{ tags }}']);">My Favorites</a></li>
                   <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'my shared hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'my shared click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my shared click', '/{{ method }}/{{ tags }}']);">My Shared</a></li>
-                 <li> <button class="btn btn-info" style="display:inline-block; margin-right:10px" onmouseover="_gaq.push(['_trackEvent', 'features', 'email alerts hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'email alerts click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email alerts click', '/{{ method }}/{{ tags }}']);"> Request tag email alerts </button></li>
+                  <li><a href="#" onmouseover="_gaq.push(['_trackEvent', 'features', 'recent tags hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'recent tags click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'recent tags click', '/{{ method }}/{{ tags }}']);">My Recent Tags</a></li>
+<!--                 <li> <button class="btn btn-info" style="display:inline-block; margin-right:10px" onmouseover="_gaq.push(['_trackEvent', 'features', 'email alerts hover', '{{ user }}']);" onclick="_gaq.push(['_trackEvent', 'features', 'email alerts click', '{{ user }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'email alerts click', '/{{ method }}/{{ tags }}']);"> Request tag email alerts </button></li>  -->
                   <li><form action="" method="post"><input type="hidden" name="page" value="{{ page }}" /><input type="hidden" name="action" value="signout" />{% csrf_token %}<button type="submit" class="btn" 
                   onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'sign out click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign out hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'move', 'sign out click', '/{{ method }}/{{ tags }}']);">
                   Sign Out</button></form></li>
           </ul>  
         </div>
         
-   <div style="display:inline-block; margin-right: 30px; margin-top: 10px; background-color: #E65932" class="pull-right">
+   <div style="display:inline-block; margin-right: 30px; margin-top: 10px; border: 2px solid red" class="pull-right">
       <br>
          <a class="btn btn-large btn-info"  href="javascript:bookmark()" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'user bookmarklet install click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'install user hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'install user click', '{{ user }}']);"> 
 Click to add shortcut</a>
@@ -1324,6 +1325,12 @@ $(document).ready(function(){
     $(".user_nav").removeClass("underline_title");
     $(".brian_subnav--toptags").removeClass("show_subnav");
     $("#toptags").removeClass("underline_title");
+  });
+});
+
+$(document).ready(function(){
+  $("#more_top_tags").click(function(){
+    $("#more_top_tags").addClass("hide_subnav");
   });
 });
 
