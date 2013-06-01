@@ -17,7 +17,8 @@ class EntryAdmin(admin.ModelAdmin):
     list_filter = (
         ('date_added', DateFieldListFilter),
     )
-    fields = ('title', 'url', 'slug', 'domain', 'summary', 'photo', 'score', 'submitted_by', 'tags')
+    fields = ('title', 'url', 'slug', 'domain', 'summary', 'photo', 'score', 'tags')
+    readonly_fields = ('submitted_by',)
 
 class InterestEmailAdmin(admin.ModelAdmin):
 	list_display = ('id','email')
