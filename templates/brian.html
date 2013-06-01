@@ -502,7 +502,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 <div class="navsub_container">  <!-- Navbar and Sub_navbar -->
  <div class="brian_nav">
     <div class="nav_row pull-left" id="tag_nav">
-          <p class="inta_brand"><a href="/graphtest/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', ' Inta link click to graphtest', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'Inta link to graphtest', '/{{ method }}/{{ tags }}']);"> inta </a></p>
+          <p class="inta_brand"><a href="/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', ' Inta link click to graphtest', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'Inta link to graphtest', '/{{ method }}/{{ tags }}']);"> inta </a></p>
               <p style="color:white;font-size:16px"> | </p>
           {% if user.id %}
              <p class="user_nav" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'user hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'user hover', '/{{ method }}/{{ tags }}']);"> {{ user }} </p>

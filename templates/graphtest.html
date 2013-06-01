@@ -301,7 +301,7 @@ function on_up(e) {
 <body onload="draw(); update()" style="background-color: #ddf">
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p class="inta_brand"><a href="/{{ method }}/" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
+      <p class="inta_brand"><a href="/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
         <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/graphtest/decay1" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 30m']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '30m']);">30m</a></p>
         <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/graphtest/decay2" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3h']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3h']);">3h</a></p>
         <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/graphtest/decay3" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1d']);">1d</a></p>
