@@ -24,10 +24,10 @@ class InterestEmailAdmin(admin.ModelAdmin):
 	list_display = ('id','email')
 
 class GraphAdmin(admin.ModelAdmin):
-    list_display = ('name')
+    list_display = ('name',)
     fieldsets = (
         (None, {
-            'fields': ('name')
+            'fields': ('name',)
         }),
         ('Data', {
             'fields': ('edges', 'points')
