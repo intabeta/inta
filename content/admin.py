@@ -1,5 +1,5 @@
 from django.contrib import admin
-from content.models import InterestGroup, IgProposal, Entry, Logo, InterestEmail
+from content.models import InterestGroup, IgProposal, Entry, Logo, InterestEmail, Graph
 from django.contrib.admin import DateFieldListFilter
 
 class InterestGroupAdmin(admin.ModelAdmin):
