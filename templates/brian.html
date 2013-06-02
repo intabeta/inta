@@ -529,7 +529,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         {% endif %}
       <p id="tag_title-collapse" class="brian_nav--collapsed" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse tag']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse tag', '{{ user }}']);"> Tags: </p>
       
-        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">My Tags</p>
+        <p id="mytags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'my tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags hover', '/{{ method }}/{{ tags }}']);">Saved Tags</p>
         <p> | </p>
         <p id="toptags" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'top tags hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top tags hover', '/{{ method }}/{{ tags }}']);">Top Tags</p>
         <p> | </p>
@@ -685,6 +685,7 @@ $(document).ready(function(){
                   {% for tags, name in mytags %}<li style="border: 1px solid #ddf; margin-right: 10px; text-align: center"><a href="/{{ method }}/{{ tags }}" 
                   onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'my tags tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'my tags tag click', '{{ tag }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'my tags tag hover', '{{ tag }}']);">
                   {{ name }}</a>    
+                  <p> {% if name == '' %} You have no saved Tags {% endif %} </p>
                   <form action="" method="post" class="button-form" id="del_mytag">
                       {% csrf_token %}
                       <input type="hidden" name="mytag_x" value="{{ tags }}" />
@@ -912,7 +913,8 @@ Click to add shortcut</a>
                       {% for tag in tagscores %}
                     <span onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'URL tag click', '{{ tag }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'tag activate', '{{ tag }}');" onmouseover="_gaq.push(['_trackEvent', 'move', 'tag activate hover', '{{ tag }}']);">
                     <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}{{ tag.0 }}" class="label" style="color:#ffffff">
-                      {{ tag.0 }} ({{ tag.1 }})</a></span>
+                      {{ tag.0 }}</a></span>
+<!--  ({{ tag.1 }}) -->
                   {% endfor %}
                   <button class="btn btn--tag btn-mini btn-info" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add tag URL button click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'curate', 'add tags', '{{ tag }}', {{ score }}]); document.getElementById('addtags_url').value='{{ post.url }}';"><i class="icon-tags add_tags"></i></button>
 
