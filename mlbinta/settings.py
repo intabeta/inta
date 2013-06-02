@@ -2,12 +2,11 @@
 
 import os
 
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Nikos Delimpaltadakis', 'delinikos@gmail.com'),
     ('Brian Loeb', 'bwloeb5@gmail.com'),
     ('Alex Reinking', 'alex.reinking@gmail.com'),
     ('Christopher Shriver', 'christopher.shriver@yale.edu'),
