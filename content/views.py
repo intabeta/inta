@@ -569,12 +569,12 @@ def submit_plugin(request):
                                 messages.success(request, 'This link was already submitted in this Interest Group, but we kept your votes for it.', fail_silently=True)
                             action = request.session.get('action', '')
                             if '_post' in request.POST:
-                                tagval=entry[0].posts.tagval_set.get(tag__name_iexact=tag)
+                                tagval=entry[0].posts.tagval_set.get(tag__iexact=tag)
                                 tagval.val += 1
                                 tagval.save()
                                 entry[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=entry[0].slug)
                             else:
-                                tagval=entry[0].double_posts.tagval_set.get(tag__name_iexact=tag)
+                                tagval=entry[0].double_posts.tagval_set.get(tag__iexact=tag)
                                 tagval.val += 1
                                 tagval.save()
                                 entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
