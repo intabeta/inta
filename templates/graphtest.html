@@ -27,6 +27,7 @@ var yrange = 0;
 var r = 0;
 var damp = 80;
 var stiffness = 3;
+var iter = 0;
 
 function min(array) {
     return Math.min.apply(null,array);
@@ -43,6 +44,20 @@ function arrangepoints() {
     p[1] = height/2 + 20*Math.sin(2*Math.PI*i/l);
     points[i] = p;
   }
+}
+
+function initialize() {
+  canvas = document.getElementById("myCanvas");
+  ctx=canvas.getContext("2d");
+  //add mouse listeners
+    canvas.addEventListener("mousemove", on_mousemove, false);
+    canvas.addEventListener("mousedown", on_down, false);
+    canvas.addEventListener("mouseup", on_up, false);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#555555";
+    ctx.fillText("Loading",width/2,height/2);
+    ctx.fill();
+    update();
 }
 
 // draw the nodes and edges
@@ -72,7 +87,6 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //draw edges
-    
     for (i=0;i<edges.length;i++) {
       ctx.beginPath();
       ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/50)+')';
@@ -85,8 +99,9 @@ function draw() {
       ctx.stroke();
       ctx.closePath();
     }
+
+    //hilight hovered node
     if (inLink) {
-      //hilight hovered node
       ctx.fillStyle = "#ddddff";
       ctx.beginPath();
       X=drawpoints[link][0];
@@ -121,25 +136,31 @@ function draw() {
     }
     ctx.fill();
 
-    //add mouse listeners
-    canvas.addEventListener("mousemove", on_mousemove, false);
-    canvas.addEventListener("mousedown", on_down, false);
-    canvas.addEventListener("mouseup", on_up, false);
-
+    //make label
+    if (inLink) {
+      ctx.strokeStyle = "#444444";
+      ctx.beginPath();
+      X=drawpoints[link][0];
+      Y=drawpoints[link][1];
+      rad = 2*Math.log(points[link][3]+1)/4;
+      text = points[link][2];
+      ctx.textAlign = 'center';
+      textwidth = ctx.measureText(text).width;
+      ctx.clearRect(X-textwidth/2-2,Y-rad-17,textwidth+4,14);
+      ctx.strokeRect(X-textwidth/2-2,Y-rad-17,textwidth+4,14);
+      ctx.strokeText(text,X,Y-rad-7);
+      ctx.stroke();
+    }
   }
 }
 
-//check if the mouse is over the link and change cursor style
+//check if the mouse is over a node
 function on_mousemove (ev) {
   var x, y;
+  var canvrect = canvas.getBoundingClientRect();
+  x = ev.clientX - canvrect.left;
+  y = ev.clientY - canvrect.top;
 
-  // Get the mouse position relative to the canvas element.
-  if (ev.layerX || ev.layerX == 0) { //for firefox
-    x = ev.layerX;
-    y = ev.layerY;
-  }
-  // x-=canvas.offsetLeft;
-  // y-=canvas.offsetTop;
   if (selected != -1) {
     var dx = r*(x-oldpoint[0])/2000;
     var dy = r*(y-oldpoint[1])/2000;
@@ -150,7 +171,7 @@ function on_mousemove (ev) {
     draw();
   }
 
-  //is the mouse over the link?
+  //is the mouse over a node?
   if (selected == -1) {
     document.body.style.cursor = "";
     inLink=false;
@@ -219,15 +240,13 @@ function update() {
     forces[e[1]] = f1;
   }
 
-  draw();
-  setTimeout(update,5);
-}
-
-//if the link has been clicked, go to link
-function on_click(e) {
-  if (inLink)  {
-    console.log(link);
-  }
+  if (iter < 120) {
+    iter += 1;
+    setTimeout(update,1);
+   } else {
+    draw();
+    setTimeout(update,5);
+   }
 }
 
 function on_down(e) {
@@ -298,7 +317,7 @@ function on_up(e) {
 </style>
 
 </head>
-<body onload="draw(); update()" style="background-color: #ddf">
+<body onload="initialize();" style="background-color: #ddf">
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
       <p class="inta_brand"><a href="/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
