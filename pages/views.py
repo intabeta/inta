@@ -861,7 +861,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     voter = []
     double_voter = []
     if user.is_authenticated():
-        slugs = [ entry.slugs for entry in posts ]
+        slugs = [ entry.slug for entry in posts ]
         voters = user.voter_set.filter(slug__in=slugs)
         voter = voters.filter(val=1)
         double_voter = voters.filter(val=2)
