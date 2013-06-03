@@ -1070,7 +1070,7 @@ FB.Event.subscribe('message.send', function(targetUrl) {
             {% csrf_token %}
           <input type="hidden" name="action" value="pageset" />
           <button class='btn {% if page == 1 %} disabled{% endif %}' onClick="_gaq.push(['_trackEvent', 'move', 'page back', '/{{ method }}/{{ tag }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'page back click', '/{{ method }}/{{ tag }}']);" type='submit' name='page' value='{{ page|add:"-1" }}' {% if page == 1 %}disabled='disabled'{% endif %} >&laquo;</button>
-          <button class='btn disabled' onClick="_gaq.push(['_trackEvent', 'move', 'page disabled', '/{{ method }}/{{ tag }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'page disabled click', '/{{ method }}/{{ tag }}']);" disabled='disabled'>Page {{ page }}</button>
+          <button class='btn btn-info disabled' onClick="_gaq.push(['_trackEvent', 'move', 'page disabled', '/{{ method }}/{{ tag }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'page disabled click', '/{{ method }}/{{ tag }}']);" disabled='disabled'>Page {{ page }}</button>
           <button class='btn' type='submit' name='page' value='{{ page|add:"1" }}' onClick="_gaq.push(['_trackEvent', 'move', 'page forward', '/{{ method }}/{{ tag }}']);" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'page forward click', '/{{ method }}/{{ tag }}']);" >&raquo;</button>
           </form>
         </div>
