@@ -25,8 +25,9 @@ var maxy = 0;
 var xrange = 0;
 var yrange = 0;
 var r = 0;
-var damp = 80;
-var stiffness = 3;
+var damp = 95;
+var stiffness = 1.5;
+var k = 400000;
 var iter = 0;
 
 function min(array) {
@@ -207,7 +208,7 @@ function update() {
     var dx = p[0]-width/2; //attach each point to a weak, invisible spring connected to the center
     var dy = p[1]-height/2;
     var d = Math.pow(Math.pow(dx,2) + Math.pow(dy,2),0.5);
-    var s = 0.8*(1-10/(0.03*d));
+    var s = 1*(1-10/(0.03*d));
     f[0] -= s*dx;
     f[1] -= s*dy;
 
@@ -215,9 +216,9 @@ function update() {
     for (j=0; j<points.length; j++) {
       if (j != i) {
         p1 = points[j];
-        d=Math.pow(Math.pow(p[0]-p1[0],2) + Math.pow(p[1]-p1[1],2),1.5);
-        f[0]+=300000*(p[0]-p1[0])/d;
-        f[1]+=300000*(p[1]-p1[1])/d;
+        d=Math.max(Math.pow(Math.pow(p[0]-p1[0],2) + Math.pow(p[1]-p1[1],2),1.5),5);
+        f[0]+=k*(p[0]-p1[0])/d;
+        f[1]+=k*(p[1]-p1[1])/d;
       }
     }
     forces[i] = f;
@@ -240,13 +241,8 @@ function update() {
     forces[e[1]] = f1;
   }
 
-  if (iter < 120) {
-    iter += 1;
-    setTimeout(update,1);
-   } else {
-    draw();
-    setTimeout(update,5);
-   }
+  draw();
+  setTimeout(update,5);
 }
 
 function on_down(e) {
