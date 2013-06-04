@@ -650,7 +650,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         tval8.val += 2
                         tval8.save()
                 else:
-                    message += 'the user has already voted on this tag\n'
+                    message += 'the user has already voted on this post with the tag '+taglist[0]+'\n'
 
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
 
@@ -888,6 +888,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         voter.append(entry.slug)
                     else:
                         double_voter.append(entry.slug)
+    message += "voter: "+str(voter)+'\ndouble_voter: '+str(double_voter)+'\n'
     
     template_data = {
         'tags': tags,
