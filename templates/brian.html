@@ -1337,7 +1337,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  console.log({% autoescape off %}"{{ message }}"{% endautoescape %});
+  console.log({{ message|escapejs }});
 });
 
 </script type="text/javascript">
