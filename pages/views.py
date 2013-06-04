@@ -569,11 +569,11 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             else:
                 post_slug = request.POST.get('post_slug', '')
                 post_change = get_object_or_404(Entry, slug=post_slug)
-                voters = [ i.user for i in post_change.voted_by.voter_set.filter(tag__iexact=tag) ]
+                tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post_change.tags.all(), key=lambda t: -post_change._get_ranking(t))[0]
+                voters = [ i.user for i in post_change.voted_by.voter_set.filter(tag__iexact=tagnew.name) ]
                 message += 'post_change title: '+post_change.title+'\n'+'voters: '+str(voters)+'\n'
                 
                 if user not in voters:
-                    tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post_change.tags.all(), key=lambda t: -post_change._get_ranking(t))[0]
                     message += 'Voting on tag '+taglist[0]+'\n'
                     activetags = eval(DataList.objects.get(id=1).data)
                     if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
@@ -877,8 +877,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         if tags:
             slugs = [ entry.slug for entry in posts ]
             voters = user.voter_set.filter(slug__in=slugs)
-            voter = [ voter.slug for voter in voters.filter(val=1) if voter.tag == taglist[0] ]
-            double_voter = [ voter.slug for voter in voters.filter(val=2) if voter.tag == taglist[0] ]
+            voter = [ v.slug for v in voters.filter(val=1) if v.tag == taglist[0] ]
+            double_voter = [ v.slug for v in voters.filter(val=2) if v.tag == taglist[0] ]
         else:
             votetags = [ ts[0][0] for ts in tagscores ]
             for entry, tag in zip(posts, votetags):
