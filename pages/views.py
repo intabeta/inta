@@ -257,6 +257,8 @@ def nthslice(ls,n,l): #returns the nth slice of ls of length l (n starting with 
 site_re = re_compile(r'^site:')
 def taglist(request, tags='', method='decay3', domain='', page=1,
           signup_form=SignupForm, auth_form=AuthenticationForm):
+
+    message="" #use to track what the view function has done, this data is sent to the template and logged to javascript console
     
     signupform = signup_form()
     signinform = auth_form()
@@ -276,15 +278,17 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         domain = domainlist[0][5:] if domainlist else ''
     
     if user.is_authenticated():
-        
+        message += "Logged in as user "+user.username+'\n'
 
         if request.method == 'POST':
             action = request.POST.get('action', '')
             if action == 'addfavtag':
                 favtags = request.POST.get('tags','')
                 if user.favoritetag_set.filter(tags=favtags):
+                    message += 'User already had Favorite tag with tags='+favtags+'\n'
                     pass
                 else:
+                    message += 'added favorite tag\n'
                     if favtags == '':
                         user.favoritetag_set.create(tags=favtags,name='All Tags')
                     else:
@@ -566,8 +570,11 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 post_slug = request.POST.get('post_slug', '')
                 post_change = get_object_or_404(Entry, slug=post_slug)
                 voters = [ i.user for i in post_change.voted_by.voter_set.filter(tag__iexact=tag) ]
+                message += 'post_change title: '+post_change.title+'\n'+'voters: '+str(voters)+'\n'
+                
                 if user not in voters:
                     tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post_change.tags.all(), key=lambda t: -post_change._get_ranking(t))[0]
+                    message += 'Voting on tag '+taglist[0]+'\n'
                     activetags = eval(DataList.objects.get(id=1).data)
                     if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
                         activetags.append(tagnew.id)
@@ -576,6 +583,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         d.save()
                         del d
                     if action == 'vote':
+                        message += 'single vote\n'
                         post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
                         try:
                             p=post_change.posts.tagval_set.get(tag__iexact=tagnew.name)
@@ -609,6 +617,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         tval8.save()
 
                     if action == 'double_vote':
+                        message += 'double vote\n'
                         post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
                         try:
                             dbp=post_change.double_posts.tagval_set.get(tag__iexact=tagnew.name)
@@ -640,10 +649,13 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         tval8=post_change.decayed_score_8.tagval_set.get(tag__iexact=tagnew.name)
                         tval8.val += 2
                         tval8.save()
+                else:
+                    message += 'the user has already voted on this tag\n'
 
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
 
     else:
+        message += 'Unauthenticated user\n'
         if request.method == 'POST':
             action = request.POST.get('action', '')
             if action == 'signup':
@@ -895,6 +907,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'signupform': signupform,
         'signinform': signinform,
         'submitform': submitform,
+        'message': message,
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
 
