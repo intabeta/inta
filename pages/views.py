@@ -276,7 +276,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         domain = domainlist[0][5:] if domainlist else ''
     
     if user.is_authenticated():
-        
+        voted = user.voter_set.filter(tag__iexact=taglist[0]) #only dealing with votes on the primary tag
+        voter = [ i.slug for i in voted.filter(val=1) ]
+        double_voter = [ i.slug for i in voted.filter(val=2) ]
 
         if request.method == 'POST':
             action = request.POST.get('action', '')
@@ -564,9 +566,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                 
             else:
                 post_slug = request.POST.get('post_slug', '')
-                post_change = get_object_or_404(Entry, slug=post_slug)
-                voters = [ i.user for i in post_change.voted_by.voter_set.filter(tag__iexact=tag) ]
-                if user not in voters:
+                if post_slug not in voter and post_slug not in double_voter:
+                    post_change = get_object_or_404(Entry, slug=post_slug)
                     tagnew = Tag.objects.get(name=taglist[0]) if tags else sorted(post_change.tags.all(), key=lambda t: -post_change._get_ranking(t))[0]
                     activetags = eval(DataList.objects.get(id=1).data)
                     if tagnew.id not in activetags: #make tag active so that ranktags knows to look at it
@@ -576,6 +577,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         d.save()
                         del d
                     if action == 'vote':
+                        voter.append(post_slug)
                         post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
                         try:
                             p=post_change.posts.tagval_set.get(tag__iexact=tagnew.name)
@@ -609,6 +611,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         tval8.save()
 
                     if action == 'double_vote':
+                        double_voter.append(post_slug)
                         post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
                         try:
                             dbp=post_change.double_posts.tagval_set.get(tag__iexact=tagnew.name)
@@ -676,6 +679,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             return redirect(reverse('userena_disabled',
                                                 kwargs={'username': user.username}))
         mytags = []
+        voter = []
                     
     entries = Entry.objects.all()
     if tags:
@@ -858,13 +862,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             taglist += ['site:'+domain]
         else:
             taglist = ['site:'+domain]
-    voter = []
-    double_voter = []
-    if user.is_authenticated():
-        slugs = [ entry.slugs for entry in posts ]
-        voters = user.voter_set.filter(slug__in=slugs)
-        voter = voters.filter(val=1)
-        double_voter = voters.filter(val=2)
     
     template_data = {
         'tags': tags,
