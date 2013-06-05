@@ -487,15 +487,6 @@ if (document.documentElement.clientWidth < 900) {
 .bump {
   margin-top: 230px;
 }
-.btn-td {
-  padding: 2px 2px;
-  font-size: 10px;
-  line-height: 13px;
-  margin: 2px -2px 2px -1px;
-}
-#icon_big {
-  width: 92px;
-}
 </style>
 
 
@@ -899,40 +890,15 @@ Click to add shortcut</a>
               {% for post, score, tagscores in postdata %}
               <tr>
       <td id="icon_big">
-          <div style="display:inline-block;">
-       <span class="label label-important" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'vote label click']);" onClick="_gaq.push(['_trackEvent', 'features', 'vote value click', '{{ user }}', {{ score }}]);">{{ score }}</span>
-        <form action="" method="post" class="button-form" id="button--good">
-              {% csrf_token %}
-                        <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                        <input type="hidden" name="page" value="{{ page }}" />
-                        <input type="hidden" name="action" value="vote" />
-                        <button class="btn btn-td btn-info const-width {% if post.slug in voter %}btn-success{% endif %}" 
-                        onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'good click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'curate', 'Good click', '{{ post.title }}']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Good hover', '{{ post.title }}']);"
-                         {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                          Good
-                        </button>
-                    </form>                   
-            <form action="" method="post" class="button-form" id="button--great">
-              {% csrf_token %}
-                <input type="hidden" name="post_slug" value="{{ post.slug }}" />
-                <input type="hidden" name="page" value="{{ page }}" />
-                <input type="hidden" name="action" value="double_vote" />
-                <button class="btn btn-td btn-info const-width {% if post.slug in double_voter %}btn-success{% endif %}" 
-          onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'great click', '{{ post.title }}']);" onClick="_gaq.push(['_trackEvent', 'curate', 'Great click', '{{ post.title }}']);" onmouseover="_gaq.push(['_trackEvent', 'curate', 'Great hover', '{{ post.title }}']);"
-                 {% if post.slug in voter or post.slug in double_voter %}disabled="disabled"{% endif %} type="submit">
-                  Great    
-                  </button>
-              </form>
-              </div>
              <center>
-        <img class="site_image" style="max-width: 35px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+        <img class="site_image" style="max-width: 45px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                  onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 <br/>
-               <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:10px; font-weight:bold; display:inline-block; color:black;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'icon caption click', '{{ post.domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'icon caption click', '{{ post.domain }}', {{ user }}]);">{{ post.domain }}</a>
+               <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:8px; display:inline-block; color:grey;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'icon caption click', '{{ post.domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'icon caption click', '{{ post.domain }}', {{ user }}]);">{{ post.domain }}</a>
               </center>
                </td>
               <td id="vote_label_big--URL_title_big">
-
+               <span class="label label-important" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'vote label click']);" onClick="_gaq.push(['_trackEvent', 'features', 'vote value click', '{{ user }}', {{ score }}]);">{{ score }}</span>
                 <p style="display:inline; margin-right: 15px;">{{ post.date_added|date:"M j" }}</p>
                   <strong><a href="{{ post.url }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'link click', '{{ post.title }}', {{ score }}]);" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
                   onmouseover="_gaq.push(['_trackEvent', 'consume', 'Link hover', '{{ post.title }}', {{ score }}]);" target="_blank" class="URL_title">
