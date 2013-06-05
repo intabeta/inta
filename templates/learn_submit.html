@@ -583,67 +583,6 @@ $(document).ready(function(){
 
 <div class="nav_row pull-right" id="time_nav">
 
-      <p class="brian_nav--collapsed" id="time-collapse" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'collapse time']);" onClick="_gaq.push(['_trackEvent', 'move', 'collapse time', '{{ user }}']);"> Time: </p>
-    {% if domain == '' %}
-        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '30m', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '30m', '/decay1/{{ tags }}']);">30m</a></p>
-        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '3h', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '3h', '/decay2/{{ tags }}']);">3h</a></p>
-        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '1d', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '1d', '/decay3/{{ tags }}']);">1d</a></p>
-        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '3d', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '3d', '/decay4/{{ tags }}']);">3d</a></p>
-        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '1w', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '1w', '/decay5/{{ tags }}']);">1w</a></p>
-        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '4w', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '4w', '/decay6/{{ tags }}']);">4w</a></p>
-        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '12w', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', '12w', '/decay7/{{ tags }}']);">12w</a></p>
-        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'yr', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'yr', '/decay8/{{ tags }}']);">yr</a></p>
-        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/{{ tags }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'all-time', '/{{ method }}/{{ tags }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'all', '/votes/{{ tags }}']);">All-time</a></p>
-        <p></p>
-      {% endif %}
-      {% if domain != '' %}
-        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/decay1/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '30m', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '30m', '/decay1/site:{{ domain }}']);">30m</a></p>
-        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/decay2/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '3h', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '3h', '/decay2/site:{{ domain }}']);">3h</a></p>
-        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/decay3/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '1d', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '1d', '/decay3/site:{{ domain }}']);">1d</a></p>
-        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/decay4/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '3d', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '3d', '/decay4/site:{{ domain }}']);">3d</a></p>
-        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/decay5/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '1w', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '1w', '/decay5/site:{{ domain }}']);">1w</a></p>
-        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/decay6/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '4w', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '4w', '/decay6/site:{{ domain }}']);">4w</a></p>
-        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/decay7/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', '12w', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', '12w', '/decay7/site:{{ domain }}']);">12w</a></p>
-        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/decay8/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'yr', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'yr', '/decay8/site:{{ domain }}']);">yr</a></p>
-        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/votes/site:{{ domain }}" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'all-time', '/{{ method }}/site:{{ domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'all', '/votes/site:{{ domain }}']);">All-time</a></p>
-      {% endif %}
-</div>
-    
-    <div class="nav_row--hide pull-right" id="time-nav-small">
-      <p class="brian_nav--collapsed" id="time-expand" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'expand time']);" onClick="_gaq.push(['_trackEvent', 'move', 'expand time', '{{ user }}']);"> Time: </p>
-      <p {% if method == 'decay1' %}> 30m </p>{% endif %}
-      <p {% if method == 'decay2' %}> 3h </p>{% endif %}
-      <p {% if method == 'decay3' %}> 1d </p>{% endif %}
-      <p {% if method == 'decay4' %}> 3d </p>{% endif %}
-      <p {% if method == 'decay5' %}> 1w </p>{% endif %}
-      <p {% if method == 'decay6' %}> 4w </p>{% endif %}
-      <p {% if method == 'decay7' %}> 12w </p>{% endif %}
-      <p {% if method == 'decay8' %}> yr </p>{% endif %}
-      <p {% if method == 'votes' %}> All-time </p>{% endif %}
-    </div>
-        
-</div>
-</div>
-    
-    
-    
-<script type="text/javascript">
-
-$(document).ready(function(){
-  $("#time-collapse").click(function(){
-    $("#time_nav").addClass("hide_subnav");
-    $("#time-nav-small").removeClass("nav_row--hide");
-    $("#time-nav-small").addClass("show_collapse");
-  });
-  $("#time-expand").click(function(){
-    $("#time_nav").removeClass("hide_subnav");
-    $("#time-nav-small").removeClass("show_collapse");
-    $("#time-nav-small").addClass("nav_row--hide");
-  });
-});
-
-</script>
-  
 <!-- SUBNAV Divs-->
   
   <div class="brian_subnav--add_tags">
@@ -681,14 +620,6 @@ Click to add shortcut</a>
          <a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
          onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add bookmarklet drag click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'add hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'add click to drag', '/{{ method }}/{{ tags }}']);">INTA Shortcut</a></p>
     </div>
-  </div> 
-  
-  <div class="brian_subnav--top_sites">
-      <br>
-        <ul class="nav nav-pills" style="margin-left:20px" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'top sites site click', '{{ site.0 }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'top sites site hover', '{{ site.0 }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'top sites site click', '{{ site.0 }}']);">
-            {% for site in topsites %}<li><a href="/{{ method }}/site:{{ site.0}}">{{ site.0 }}</a></li>{% endfor %}
-
-        </ul>
   </div>  
   
 </div>
@@ -697,22 +628,57 @@ Click to add shortcut</a>
 <!-- END NAVBAR and SUB-NAVBAR -->
 
     {% if user.id %}
-    {% else %} 
 <div class="list_width well center sip" id="sign_in-up">
   <div class="pull-left" style="display:inline-block; margin-top: 20px">
     <div>
-        <p style="font-weight:bold; font-size: 18px; color: black; margin-left: 45px">Inta - Find the Best</p>
-        </div>
-        <button class="signin_btn btn btn-info btn-large" style="margin-right: 50px; margin-left: 30px; margin-top: 25px; margin-bottom: 25px" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign in hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign in hover', '/{{ method }}/{{ tags }}']);">Sign In</button>
-        <button class="signup_btn btn btn-info btn-large" style="margin-top: 25px; margin-bottom: 25px" onmouseout="_gaq.push(['_trackEvent', '{{ user }}', 'sign up hover', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'move', 'sign up hover', '/{{ method }}/{{ tags }}']);">Sign Up</button>
-        </div>
-        <div class="pull-right" style="display:inline; margin-bottom: 50px;">
-          <iframe width="380" height="250" src="http://www.youtube.com/embed/ZgY_URLyyXM" frameborder="0" allowfullscreen></iframe>  
-        </div>
-        <div style="margin-top: 150px;">
-        <p style="font-weight:bold; font-size: 14px; color: black">Or explore the list below and options above</p>
-        </div>
+        <h3> Thanks, {{ user }} for signing up! </h3>
+        <h5> We hope you enjoy all the great content on Inta, but to ensure it's great by human standards (not computer), every link is user submitted before votes give it legitimacy. <h5>
+        <h4> That's why we want you to submit, add tags, and vote as well! Think of Twitter without Tweets, Instagram without photos, Facebook without posts - it doesn't work </h4>
+        <h4> Here's how it works on Inta: </h4>
+        <div>
+        <div class="pull-left" style="margin-left: 50px; margin-top: 20px; display: inline-block">
+          <form action="" method="post">
+          <p style="display:inline; color: white; font-size: 14px">Copy-paste any link:</p>
+          <br/>
+          <p style="display:inline; color: white; font-size: 14px">Add descriptive tags like Politics, Tiger Woods, 2050, Funny, Blog, breaking news</p>
+          <br/>
+          <p style="display:inline; color: white; font-size: 14px">Then vote Good (+1) or Great (+2). Good is probably worth reading, while Great might cause you to pause to laugh, think, share - to appreciate the great content we wish we had more of</p>
+        </form>
+      </div>
+      <div class="pull-right" style="margin-left: 50px; margin-top: 20px; display: inline-block">
+          <form action="" method="post">
+          {% csrf_token %}
+          <p style="display:inline; color: white; font-size: 14px">Link:</p>
+          {{ submitform.url }}
+          <br/>
+          <p style="display:inline; color: white; font-size: 14px">Tags</p>
+          {{ submitform.tags }}
+          <br/>
+          <input type="hidden" name="action" value="submit" />
+          <button type="submit" name="post" value="post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Good" %}</button>
+          <button type="submit" name="post" value="double_post" class="btn btn-mini btn-info" style="margin-bottom: 20px">{% trans "Great" %}</button>
+        </form>
+      </div>
+    </div>
+    <div>
+      <p style="display:inline; color: white; font-size: 14px">You should now see the link below. We turn it into the icon and title, but you gave the votes and tags! Remember, those will both order the lists and help you find the list you want, or discover the best of new things</p>
+      <h3> But there's an even easier way! </h3>
+      <h5> We've streamlined the process with the "Inta Shortcut". Add it to your bookmarks, then you can click it directly from any link and it will already have the link copy-pasted. Just add tags and vote, and you'll have contributed! Remember, we and everyone else love when you do that <h5>
+         <p style="display:inline; color: white; font-size: 14px"> For Firefox and Internet Explorer: </p>
+   <a class="btn btn-large btn-info" style="margin-left: 20px;" href="javascript:bookmark()" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add bookmarklet install click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'install add hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'install add click', '{{ user }}']);"> 
+Click to add</a>
+        <p style="display:inline; color: white; font-size: 14px"> For Chrome and Safari: </p>
+<a class="btn btn-large btn-info" id="button--shortcut" href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://intabeta.com/content/submit_plugin/?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=200px,width=500px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"
+         onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'add bookmarklet drag click', '/{{ method }}/{{ tags }}']);" onmouseover="_gaq.push(['_trackEvent', 'bookmarklet', 'add hover', '/{{ method }}/{{ tags }}']);" onclick="_gaq.push(['_trackEvent', 'bookmarklet', 'add click to drag', '/{{ method }}/{{ tags }}']);">Drag into your bookmark bar to add</a>
+        <p style="display:inline; color: white; font-size: 14px"> We're also working on letting you email links to Inta from your phone. </p>
+        <h2 style="display:inline; color: white; font-size: 14px"> Submitting helps you, and Inta, Find the Best. Enjoy {{ user }}!</h2>
+        <button><a href="intabeta.com/decay4">Go to Inta</a>
+    </div>
 </div>
+
+
+    {% else %} 
+    <a href="intabeta.com/decay4">Go to main site </a>
     {% endif %} 
     
 <!-- LIST -->
@@ -792,7 +758,7 @@ Click to add shortcut</a>
        </td>
        <td id="mobile">
                <span class="label label-important" onClick="_gaq.push(['_trackEvent', 'features', 'mobile vote label click', '{{ post.title }}', {{ score }}]);"
-               onmouseover="_gaq.push(['_trackEvent', 'features', 'mobile vote label hover', '{{ post.title }}', {{ score }}]);">Vote count: {{ score }}</span>
+               onmouseover="_gaq.push(['_trackEvent', 'features', 'mobile vote label hover', '{{ post.title }}', {{ score }}]);">Votes: {{ score }}</span>
                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:10px; font-weight: bold; display:inline-block; color:black;">{{ post.domain }}</a>
               <br/>
               <strong><a href="{{ post.url }}" onClick="_gaq.push(['_trackEvent', 'consume', 'Link click', '{{ post.title }}', {{ score }}]);" 
