@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     (r'^content/', include('content.urls')),
     (r'^(?P<method>[-\w]+)/(?P<tags>[- :.+|\w]+)/$', 'pages.views.taglist'),
     (r'^(?P<method>[-\w]+)/$', 'pages.views.taglist'),
+    (r'^learn_submitting/$', 'pages.views.taglist'),
 #     url(r'^search/',  
 #        SearchView(  
 #            searchqueryset=sqs,  

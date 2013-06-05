@@ -911,6 +911,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'message': message,
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
+    return render_to_response('learn_submit.html', template_data, context_instance=RequestContext(request))
+
 
 def linter(url):
     encurl = quote_plus(url)
