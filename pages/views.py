@@ -830,7 +830,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         return render_to_response('404.html')
 
     tagscores = [ sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1]) for post in posts]
-    if tags != '':
+    if tags or domain:
         relevanttags = listsum([ post.tags.all() for post in posts ])
         toprelevant = sorted([[tag.name,int(sum([a._get_ranking(tag, method) for a in posts]))] for tag in set(relevanttags)], key=lambda a: -a[1])[:10]
     else:
