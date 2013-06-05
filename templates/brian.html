@@ -900,7 +900,7 @@ Click to add shortcut</a>
               <tr>
       <td id="icon_big">
              <center>
-        <img class="site_image" style="max-width: 35px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
+        <img class="site_image" style="max-width: 45px; border: 1px solid black" src="{{ MEDIA_URL }}{{ post.logo|default:"site_logos/default.png" }}" width="60" title="{{ post.domain }}" alt="{{ post.title }}"
                  onClick="_gaq.push(['_trackEvent', 'move', 'icon', '{{ post.domain }}', {{ score }}]);" />
                 <br/>
                <a href="/{{ method }}/{% if tags != '' %}{{ tags }}+{% endif %}site:{{ post.domain }}" style="font-size:10px; font-weight:bold; display:inline-block; color:black;" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'icon caption click', '{{ post.domain }}']);" onClick="_gaq.push(['_trackEvent', 'move', 'icon caption click', '{{ post.domain }}', {{ user }}]);">{{ post.domain }}</a>
