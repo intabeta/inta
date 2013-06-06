@@ -32,14 +32,14 @@ class Command(BaseCommand):
             d7 = base ** (lapsed.total_seconds()/7776000)
             d8 = base ** (lapsed.total_seconds()/31536000)
 
-            entry.d1 = d1
-            entry.d2 = d2
-            entry.d3 = d3
-            entry.d4 = d4
-            entry.d5 = d5
-            entry.d6 = d6
-            entry.d7 = d7
-            entry.d8 = d8
+            entry.d1 = round(d1,4)
+            entry.d2 = round(d2,4)
+            entry.d3 = round(d3,4)
+            entry.d4 = round(d4,4)
+            entry.d5 = round(d5,4)
+            entry.d6 = round(d6,4)
+            entry.d7 = round(d7,4)
+            entry.d8 = round(d8,4)
             
             for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
