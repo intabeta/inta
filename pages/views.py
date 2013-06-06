@@ -715,7 +715,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay1':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
-            votecounts = [ entry.score * entry.d[0] for entry in posts ]
+            votecounts = [ entry.score * entry.d1 for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d1_'+taglist[0]).data),page,8) ]
@@ -728,7 +728,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay2':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
-            votecounts = [ entry.score * entry.d[1] for entry in posts ]
+            votecounts = [ entry.score * entry.d2 for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d2_'+taglist[0]).data),page,8) ]
@@ -741,7 +741,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay3':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
-            votecounts = [ entry.score * entry.d[2] for entry in posts ]
+            votecounts = [ entry.score * entry.d3 for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d3_'+taglist[0]).data),page,8) ]
@@ -754,7 +754,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay4':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
-            votecounts = [ entry.score * entry.d[3] for entry in posts ]
+            votecounts = [ entry.score * entry.d4 for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d4_'+taglist[0]).data),page,8) ]
