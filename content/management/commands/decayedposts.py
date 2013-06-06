@@ -32,7 +32,14 @@ class Command(BaseCommand):
             d7 = base ** (lapsed.total_seconds()/7776000)
             d8 = base ** (lapsed.total_seconds()/31536000)
 
-            entry.decay_scalars = [ round(d,4) for d in (d1,d2,d3,d4,d5,d6,d7,d8) ]
+            entry.d1 = d1
+            entry.d2 = d2
+            entry.d3 = d3
+            entry.d4 = d4
+            entry.d5 = d5
+            entry.d6 = d6
+            entry.d7 = d7
+            entry.d8 = d8
             
             for tagnew in entry.tags.all():
                 total = entry._get_ranking(tagnew) #posts + 2*double_posts
