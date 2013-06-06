@@ -92,6 +92,7 @@ class Entry(models.Model):
     domain = models.CharField(max_length=200)
     summary = models.TextField(blank=True, null=True)
     score = models.IntegerField(default=0)
+    decay_scalars = models.CharField(max_length = 75, default=0)
     score_d1 = models.IntegerField(default=0)
     score_d2 = models.IntegerField(default=0)
     score_d3 = models.IntegerField(default=0)
