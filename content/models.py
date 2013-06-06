@@ -160,7 +160,8 @@ class Entry(models.Model):
             return posts + 2*dbposts
         if method=='decay1':
             try:
-                return self.decayed_score_1.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d1
+##                return self.decayed_score_1.tagval_set.get(tag=tag).val
             except:
                 return 0
         if method=='decay2':
@@ -175,7 +176,8 @@ class Entry(models.Model):
                 return 0
         if method=='decay4':
             try:
-                return self.decayed_score_4.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d4
+##                return self.decayed_score_4.tagval_set.get(tag=tag).val
             except:
                 return 0
         if method=='decay5':
