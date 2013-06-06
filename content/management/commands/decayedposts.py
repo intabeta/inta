@@ -9,14 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         entries = Entry.objects.all()
         base = 0.5
-        d1base = base ** (1/1800)
-        d2base = base ** (1/10800)
-        d3base = base ** (1/86400)
-        d4base = base ** (1/259200)
-        d5base = base ** (1/604800)
-        d6base = base ** (1/2592000)
-        d7base = base ** (1/7776000)
-        d8base = base ** (1/31536000)
         for entry in entries:
             now = datetime.utcnow()
             then = entry.date_added.replace(tzinfo=None)
@@ -31,14 +23,14 @@ class Command(BaseCommand):
             entry.score_d7 = 0
             entry.score_d8 = 0
 
-            d1 = d1base ** lapsed.total_seconds()
-            d2 = d2base ** lapsed.total_seconds()
-            d3 = d3base ** lapsed.total_seconds()
-            d4 = d4base ** lapsed.total_seconds()
-            d5 = d5base ** lapsed.total_seconds()
-            d6 = d6base ** lapsed.total_seconds()
-            d7 = d7base ** lapsed.total_seconds()
-            d8 = d8base ** lapsed.total_seconds()
+            d1 = base ** (lapsed.total_seconds()/1800)
+            d2 = base ** (lapsed.total_seconds()/10800)
+            d3 = base ** (lapsed.total_seconds()/86400)
+            d4 = base ** (lapsed.total_seconds()/259200)
+            d5 = base ** (lapsed.total_seconds()/604800)
+            d6 = base ** (lapsed.total_seconds()/2592000)
+            d7 = base ** (lapsed.total_seconds()/7776000)
+            d8 = base ** (lapsed.total_seconds()/31536000)
 
             entry.decay_scalars = [d1,d2,d3,d4,d5,d6,d7,d8]
             
