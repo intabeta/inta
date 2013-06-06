@@ -715,7 +715,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay1':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=3).data),page,8) ]
-            votecounts = [ entry.score_d1 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[0] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d1_'+taglist[0]).data),page,8) ]
@@ -728,7 +728,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay2':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=4).data),page,8) ]
-            votecounts = [ entry.score_d2 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[1] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d2_'+taglist[0]).data),page,8) ]
@@ -741,7 +741,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay3':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=5).data),page,8) ]
-            votecounts = [ entry.score_d3 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[2] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d3_'+taglist[0]).data),page,8) ]
@@ -754,7 +754,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay4':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=6).data),page,8) ]
-            votecounts = [ entry.score_d4 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[3] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d4_'+taglist[0]).data),page,8) ]
@@ -767,7 +767,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay5':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=7).data),page,8) ]
-            votecounts = [ entry.score_d5 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[4] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d5_'+taglist[0]).data),page,8) ]
@@ -780,7 +780,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay6':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=8).data),page,8) ]
-            votecounts = [ entry.score_d6 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[5] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d6_'+taglist[0]).data),page,8) ]
@@ -793,7 +793,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay7':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=9).data),page,8) ]
-            votecounts = [ entry.score_d7 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[6] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d7_'+taglist[0]).data),page,8) ]
@@ -806,7 +806,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
     elif method == 'decay8':
         if not tags and not domain:
             posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(id=10).data),page,8) ]
-            votecounts = [ entry.score_d8 for entry in posts ]
+            votecounts = [ entry.score * entry.decay_scalars[7] for entry in posts ]
         elif len(taglist)==1 and not domain:
             try:
                 posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_d8_'+taglist[0]).data),page,8) ]
@@ -911,8 +911,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         'message': message,
         }
     return render_to_response('brian.html', template_data, context_instance=RequestContext(request))
-    return render_to_response('learn_submit.html', template_data, context_instance=RequestContext(request))
-
 
 def linter(url):
     encurl = quote_plus(url)

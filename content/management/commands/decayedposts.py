@@ -14,14 +14,14 @@ class Command(BaseCommand):
             then = entry.date_added.replace(tzinfo=None)
             lapsed = now - then
             entry.score = 0
-            entry.score_d1 = 0
-            entry.score_d2 = 0
-            entry.score_d3 = 0
-            entry.score_d4 = 0
-            entry.score_d5 = 0
-            entry.score_d6 = 0
-            entry.score_d7 = 0
-            entry.score_d8 = 0
+##            entry.score_d1 = 0
+##            entry.score_d2 = 0
+##            entry.score_d3 = 0
+##            entry.score_d4 = 0
+##            entry.score_d5 = 0
+##            entry.score_d6 = 0
+##            entry.score_d7 = 0
+##            entry.score_d8 = 0
 
             d1 = base ** (lapsed.total_seconds()/1800)
             d2 = base ** (lapsed.total_seconds()/10800)
