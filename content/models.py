@@ -166,12 +166,12 @@ class Entry(models.Model):
                 return 0
         if method=='decay2':
             try:
-                return self.decayed_score_2.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d2
             except:
                 return 0
         if method=='decay3':
             try:
-                return self.decayed_score_3.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d3
             except:
                 return 0
         if method=='decay4':
@@ -182,22 +182,22 @@ class Entry(models.Model):
                 return 0
         if method=='decay5':
             try:
-                return self.decayed_score_5.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d5
             except:
                 return 0
         if method=='decay6':
             try:
-                return self.decayed_score_6.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d6
             except:
                 return 0
         if method=='decay7':
             try:
-                return self.decayed_score_7.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d7
             except:
                 return 0
         if method=='decay8':
             try:
-                return self.decayed_score_8.tagval_set.get(tag=tag).val
+                return self._get_ranking(tag,'votes') * self.d8
             except:
                 return 0
         
