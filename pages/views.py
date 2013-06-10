@@ -335,14 +335,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         addtags_entry.tags.add(newtag)
 
                         addtags_entry.posts.tagval_set.create(tag=newtag, val=1)
-                        addtags_entry.decayed_score_1.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_2.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_3.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_4.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_5.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_6.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_7.tagval_set.create(tag=tag, val=1)
-                        addtags_entry.decayed_score_8.tagval_set.create(tag=tag, val=1)
                         addtags_entry.voted_by.voter_set.create(tag=tag, user=user, val=1, slug=addtags_entry.slug)
 
                         addtags_entry.save()
@@ -398,25 +390,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                 withurl[0].tags.add(newtag)
                                 if post == 'post':
                                     withurl[0].posts.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=1)
                                     withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
                                 else:
                                     withurl[0].double_posts.tagval_set.create(tag=newtag, val=1)
-                                    withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=2)
-                                    withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=2)
                                     withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=withurl[0].slug)
 
                                 withurl[0].save()
@@ -455,38 +431,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                         voterdict.save()
                         entry.voted_by = voterdict
 
-                        dcy1dict = Dict(name=entry.url)
-                        dcy1dict.save()
-                        entry.decayed_score_1 = dcy1dict
-
-                        dcy2dict = Dict(name=entry.url)
-                        dcy2dict.save()
-                        entry.decayed_score_2 = dcy2dict
-
-                        dcy3dict = Dict(name=entry.url)
-                        dcy3dict.save()
-                        entry.decayed_score_3 = dcy3dict
-
-                        dcy4dict = Dict(name=entry.url)
-                        dcy4dict.save()
-                        entry.decayed_score_4 = dcy4dict
-
-                        dcy5dict = Dict(name=entry.url)
-                        dcy5dict.save()
-                        entry.decayed_score_5 = dcy5dict
-
-                        dcy6dict = Dict(name=entry.url)
-                        dcy6dict.save()
-                        entry.decayed_score_6 = dcy6dict
-
-                        dcy7dict = Dict(name=entry.url)
-                        dcy7dict.save()
-                        entry.decayed_score_7 = dcy7dict
-
-                        dcy8dict = Dict(name=entry.url)
-                        dcy8dict.save()
-                        entry.decayed_score_8 = dcy8dict
-
                         #slugify
                         entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                         entry.save()
@@ -512,25 +456,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             post = request.session.get('post', '')
                             if post == 'post': #'good'
                                 postsdict.tagval_set.create(tag=newtag, val=1)
-                                dcy1dict.tagval_set.create(tag=newtag, val=1)
-                                dcy2dict.tagval_set.create(tag=newtag, val=1)
-                                dcy3dict.tagval_set.create(tag=newtag, val=1)
-                                dcy4dict.tagval_set.create(tag=newtag, val=1)
-                                dcy5dict.tagval_set.create(tag=newtag, val=1)
-                                dcy6dict.tagval_set.create(tag=newtag, val=1)
-                                dcy7dict.tagval_set.create(tag=newtag, val=1)
-                                dcy8dict.tagval_set.create(tag=newtag, val=1)
                                 voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
                             else: #'great'
                                 dblpostsdict.tagval_set.create(tag=newtag, val=1)
-                                dcy1dict.tagval_set.create(tag=newtag, val=2)
-                                dcy2dict.tagval_set.create(tag=newtag, val=2)
-                                dcy3dict.tagval_set.create(tag=newtag, val=2)
-                                dcy4dict.tagval_set.create(tag=newtag, val=2)
-                                dcy5dict.tagval_set.create(tag=newtag, val=2)
-                                dcy6dict.tagval_set.create(tag=newtag, val=2)
-                                dcy7dict.tagval_set.create(tag=newtag, val=2)
-                                dcy8dict.tagval_set.create(tag=newtag, val=2)
                                 voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
                             entry.tags.add(newtag)
                             entry.save()
@@ -591,30 +519,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             p.save()
                         except:
                             post_change.posts.tagval_set.create(tag=tagnew,val=1)
-                        tval1=post_change.decayed_score_1.tagval_set.get(tag__iexact=tagnew.name)
-                        tval1.val += 1
-                        tval1.save()
-                        tval2=post_change.decayed_score_2.tagval_set.get(tag__iexact=tagnew.name)
-                        tval2.val += 1
-                        tval2.save()
-                        tval3=post_change.decayed_score_3.tagval_set.get(tag__iexact=tagnew.name)
-                        tval3.val += 1
-                        tval3.save()
-                        tval4=post_change.decayed_score_4.tagval_set.get(tag__iexact=tagnew.name)
-                        tval4.val += 1
-                        tval4.save()
-                        tval5=post_change.decayed_score_5.tagval_set.get(tag__iexact=tagnew.name)
-                        tval5.val += 1
-                        tval5.save()
-                        tval6=post_change.decayed_score_6.tagval_set.get(tag__iexact=tagnew.name)
-                        tval6.val += 1
-                        tval6.save()
-                        tval7=post_change.decayed_score_7.tagval_set.get(tag__iexact=tagnew.name)
-                        tval7.val += 1
-                        tval7.save()
-                        tval8=post_change.decayed_score_8.tagval_set.get(tag__iexact=tagnew.name)
-                        tval8.val += 1
-                        tval8.save()
 
                     if action == 'double_vote':
                         message += 'double vote\n'
@@ -625,30 +529,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             dbp.save()
                         except:
                             post_change.double_posts.tagval_set.create(tag=tagnew,val=1)
-                        tval1=post_change.decayed_score_1.tagval_set.get(tag__iexact=tagnew.name)
-                        tval1.val += 2
-                        tval1.save()
-                        tval2=post_change.decayed_score_2.tagval_set.get(tag__iexact=tagnew.name)
-                        tval2.val += 2
-                        tval2.save()
-                        tval3=post_change.decayed_score_3.tagval_set.get(tag__iexact=tagnew.name)
-                        tval3.val += 2
-                        tval3.save()
-                        tval4=post_change.decayed_score_4.tagval_set.get(tag__iexact=tagnew.name)
-                        tval4.val += 2
-                        tval4.save()
-                        tval5=post_change.decayed_score_5.tagval_set.get(tag__iexact=tagnew.name)
-                        tval5.val += 2
-                        tval5.save()
-                        tval6=post_change.decayed_score_6.tagval_set.get(tag__iexact=tagnew.name)
-                        tval6.val += 2
-                        tval6.save()
-                        tval7=post_change.decayed_score_7.tagval_set.get(tag__iexact=tagnew.name)
-                        tval7.val += 2
-                        tval7.save()
-                        tval8=post_change.decayed_score_8.tagval_set.get(tag__iexact=tagnew.name)
-                        tval8.val += 2
-                        tval8.save()
                 else:
                     message += 'the user has already voted on this post with the tag '+taglist[0]+'\n'
 
