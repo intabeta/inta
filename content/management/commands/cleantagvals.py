@@ -17,27 +17,3 @@ class Command(BaseCommand):
                 d = entry.double_posts.tagval_set.filter(tag=tag.name)
                 if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
                     sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_1.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_2.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_3.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_4.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_5.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_6.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_7.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
-                d = entry.decayed_score_8.tagval_set.filter(tag=tag.name)
-                if len(d) > 1: #if there is more than one TagVal with a specific tag, delete the one with the lesser val
-                    sorted(d, key=lambda a: a.val)[0].delete()
