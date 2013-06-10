@@ -587,25 +587,9 @@ def submit_plugin(request):
                         withurl[0].tags.add(newtag)
                         if '_post' in request.POST:
                             withurl[0].posts.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=1)
                             withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=1, slug=withurl[0].slug)
                         else:
                             withurl[0].double_posts.tagval_set.create(tag=newtag, val=1)
-                            withurl[0].decayed_score_1.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_2.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_3.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_4.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_5.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_6.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_7.tagval_set.create(tag=newtag, val=2)
-                            withurl[0].decayed_score_8.tagval_set.create(tag=newtag, val=2)
                             withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=withurl[0].slug)
 
                         withurl[0].save()
@@ -644,38 +628,6 @@ def submit_plugin(request):
                 voterdict.save()
                 entry.voted_by = voterdict
 
-                dcy1dict = Dict(name=entry.url)
-                dcy1dict.save()
-                entry.decayed_score_1 = dcy1dict
-
-                dcy2dict = Dict(name=entry.url)
-                dcy2dict.save()
-                entry.decayed_score_2 = dcy2dict
-
-                dcy3dict = Dict(name=entry.url)
-                dcy3dict.save()
-                entry.decayed_score_3 = dcy3dict
-
-                dcy4dict = Dict(name=entry.url)
-                dcy4dict.save()
-                entry.decayed_score_4 = dcy4dict
-
-                dcy5dict = Dict(name=entry.url)
-                dcy5dict.save()
-                entry.decayed_score_5 = dcy5dict
-
-                dcy6dict = Dict(name=entry.url)
-                dcy6dict.save()
-                entry.decayed_score_6 = dcy6dict
-
-                dcy7dict = Dict(name=entry.url)
-                dcy7dict.save()
-                entry.decayed_score_7 = dcy7dict
-
-                dcy8dict = Dict(name=entry.url)
-                dcy8dict.save()
-                entry.decayed_score_8 = dcy8dict
-
                 #slugify
                 entry.slug = '%s-%s' % (slugify(entry.title), str(entry.id))
                 entry.save()
@@ -700,25 +652,9 @@ def submit_plugin(request):
 
                     if '_post' in request.POST: #'good'
                         postsdict.tagval_set.create(tag=newtag, val=1)
-                        dcy1dict.tagval_set.create(tag=newtag, val=1)
-                        dcy2dict.tagval_set.create(tag=newtag, val=1)
-                        dcy3dict.tagval_set.create(tag=newtag, val=1)
-                        dcy4dict.tagval_set.create(tag=newtag, val=1)
-                        dcy5dict.tagval_set.create(tag=newtag, val=1)
-                        dcy6dict.tagval_set.create(tag=newtag, val=1)
-                        dcy7dict.tagval_set.create(tag=newtag, val=1)
-                        dcy8dict.tagval_set.create(tag=newtag, val=1)
                         voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
                     else: #'great'
                         dblpostsdict.tagval_set.create(tag=newtag, val=1)
-                        dcy1dict.tagval_set.create(tag=newtag, val=2)
-                        dcy2dict.tagval_set.create(tag=newtag, val=2)
-                        dcy3dict.tagval_set.create(tag=newtag, val=2)
-                        dcy4dict.tagval_set.create(tag=newtag, val=2)
-                        dcy5dict.tagval_set.create(tag=newtag, val=2)
-                        dcy6dict.tagval_set.create(tag=newtag, val=2)
-                        dcy7dict.tagval_set.create(tag=newtag, val=2)
-                        dcy8dict.tagval_set.create(tag=newtag, val=2)
                         voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
                     entry.tags.add(newtag)
                     entry.save()
@@ -763,9 +699,20 @@ def submit_plugin(request):
         extra += ' First open.'
         bkmk = request.GET.get('bkmk', '')
         tags = request.GET.get('tags', '')
+        post = Entry.objects.filter(url=bkmk)
+        if post:
+            entry=post[0]
+            title = entry.title
+            votes = entry.score
+            tagscores = sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1])
+        else:
+            title = linter(url).get('title','Untitled')
+            votes = 0
+            tagscores = []
+            
         form = SubmitFormPlugin(user, bkmk, tags)
         mytags = zip([ favtag.tags for favtag in user.favoritetag_set.all() ],[ favtag.name for favtag in user.favoritetag_set.all() ])
-    template_data = {'form': form, 'extra': extra, 'tags':tags, 'mytags':mytags,}
+    template_data = {'form': form, 'extra': extra, 'tags':tags, 'mytags':mytags, 'title':title, 'votes':votes, 'tagscores':tagscores,}
     return render_to_response('content/submit_plugin.html', template_data, context_instance=RequestContext(request))
 
 

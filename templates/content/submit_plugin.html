@@ -45,6 +45,9 @@
   <div>
   <form action="" method="post" class="well">
   {% csrf_token %}
+   <h5>{{ title }}</h5> <br/>
+   {{ votes }} votes<br/>
+   Current tags: {% for ts in tagscores %}{{ ts.0 }}, {% endfor %}<br/>
    {{ form.url }}
    <br />
 
