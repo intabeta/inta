@@ -513,6 +513,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                     if action == 'vote':
                         message += 'single vote\n'
                         post_change.voted_by.voter_set.create(tag=tagnew, user=user, val=1, slug=post_slug)
+                        post_change.score += 1
                         try:
                             p=post_change.posts.tagval_set.get(tag__iexact=tagnew.name)
                             p.val += 1
@@ -523,6 +524,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                     if action == 'double_vote':
                         message += 'double vote\n'
                         post_change.voted_by.voter_set.create(tag=taglist[0], user=user, val=2, slug=post_slug)
+                        post_change.score += 2
                         try:
                             dbp=post_change.double_posts.tagval_set.get(tag__iexact=tagnew.name)
                             dbp.val += 1
