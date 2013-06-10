@@ -11,8 +11,7 @@ class Command(BaseCommand):
         activetagids = eval(activetaglist.data)
         activetaglist.data = []
         activetaglist.save()
-##        activetags = [ Tag.objects.get(id=val).name for val in activetagids ]
-        activetags = [ t.name for t in Tag.objects.all() ]
+        activetags = [ Tag.objects.get(id=val).name for val in activetagids ]
 
         for tag in activetags:
             relevantposts = Entry.objects.filter(tags__name__in=[tag])
