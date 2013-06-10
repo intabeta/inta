@@ -100,14 +100,6 @@ class Entry(models.Model):
     d6 = models.FloatField(default=0)
     d7 = models.FloatField(default=0)
     d8 = models.FloatField(default=0)
-    score_d1 = models.IntegerField(default=0)
-    score_d2 = models.IntegerField(default=0)
-    score_d3 = models.IntegerField(default=0)
-    score_d4 = models.IntegerField(default=0)
-    score_d5 = models.IntegerField(default=0)
-    score_d6 = models.IntegerField(default=0)
-    score_d7 = models.IntegerField(default=0)
-    score_d8 = models.IntegerField(default=0)
 
     # user related fields
     submitted_by = models.ForeignKey(User, related_name='submitter', editable=False)
@@ -127,18 +119,6 @@ class Entry(models.Model):
     #Growth
     last_score = models.IntegerField(editable=False, default=1) #still need to be updated for tags
     last_growth = models.DecimalField(max_digits=12, decimal_places=6, editable=False,  default=0.0)
-    
-    # Decay
-    decayed_score_1 = models.ForeignKey(Dict, related_name='+') #each of these references a Dict which keeps track of decayed scores for each tag
-    decayed_score_2 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_3 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_4 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_5 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_6 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_7 = models.ForeignKey(Dict, related_name='+')
-    decayed_score_8 = models.ForeignKey(Dict, related_name='+')
-
-
     
     class Meta:
         ordering = ['date_added']
