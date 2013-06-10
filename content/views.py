@@ -704,9 +704,9 @@ def submit_plugin(request):
             entry=post[0]
             title = entry.title
             votes = entry.score
-            tagscores = sorted([ [tag.name, round(post._get_ranking(tag, method),1)] for tag in post.tags.all()], key=lambda a: -a[1])
+            tagscores = sorted([ [tag.name, round(entry._get_ranking(tag, method),1)] for tag in entry.tags.all()], key=lambda a: -a[1])
         else:
-            title = linter(url).get('title','Untitled')
+            title = linter(bkmk).get('title','Untitled')
             votes = 0
             tagscores = []
             
