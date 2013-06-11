@@ -155,8 +155,8 @@ var framer = 0;
 var vieww = 600;
 var viewc = [300,300];
 
-var damp = 95;
-var stiffness = 8;
+var damp = 0.6;
+var stiffness = 10;
 var spread = 40;
 var k = 300000;
 var maxv = 0;
@@ -429,14 +429,16 @@ function update() {
     if ( selected == -1 || i != link ) {
       v[0] += f[0]/100;
       v[1] += f[1]/100;
+      v[0] -= v[0]*damp;
+      v[1] -= v[1]*damp;
       p[0] += v[0];
       p[1] += v[1];
     }
     V = Math.pow(Math.pow(v[0],2) + Math.pow(v[1],2),1.5);
     maxv = Math.max(V,maxv);
 
-    f[0] = -v[0]*damp; //resets forces and adds damping force
-    f[1] = -v[1]*damp;
+    f[0] = 0; //resets forces
+    f[1] = 0;
 
     var dx = p[0]-width/2; //attach each point to a weak, invisible spring connected to the center
     var dy = p[1]-height/2;

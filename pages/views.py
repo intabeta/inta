@@ -233,9 +233,10 @@ def graphtest(request,method='votes'):
         edges = [ [pointids.index(e[0]),pointids.index(e[1]), e[2]] for e in eval(graph.edges) ]
 
         n = len(points)
+        r = 15*n/pi
         for i,p in enumerate(points):
-            p[0]=150+100*cos(2*pi*i/n)
-            p[1]=150+100*sin(2*pi*i/n)
+            p[0]=150+r*cos(2*pi*i/n)
+            p[1]=150+r*sin(2*pi*i/n)
     else:
         return render_to_response('404.html')
 
