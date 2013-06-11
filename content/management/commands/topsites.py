@@ -27,7 +27,7 @@ class Command(BaseCommand):
         domains = scores.keys()
         for domain in domains:
             for i, method in enumerate(('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8')):
-                posts = sorted([ [e.id, entry.score * (1,entry.d1,entry.d2,entry.d3,entry.d4,entry.d5,entry.d6,entry.d7,entry.d8)[i]] for e in Entry.objects.filter(domain=domain) ], key=lambda a: -a[1])
+                posts = sorted([ [entry.id, entry.score * (1,entry.d1,entry.d2,entry.d3,entry.d4,entry.d5,entry.d6,entry.d7,entry.d8)[i]] for entry in Entry.objects.filter(domain=domain) ], key=lambda a: -a[1])
                 postsdatalist, c = DataList.objects.get_or_create(name='top_'+method+'_site:'+domain)
                 postsdatalist.data = [ p[0] for p in posts ]
                 postsdatalist.save()
