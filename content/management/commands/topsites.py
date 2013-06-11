@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from content.models import Entry, Dict
+from content.models import Entry, Dict, DataList
 from taggit.models import Tag
 import os
 
@@ -23,5 +23,14 @@ class Command(BaseCommand):
                 tv.delete()
             for td in topdomains:
                 topsites.tagval_set.create(tag=td,val=scores[td][i])
+
+        domains = scores.keys()
+        for domain in domains:
+            for method in ('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'):
+                posts = sorted([[e.id, sum([e._get_ranking(tag, method) for tag in e.tags.all()])] for e in Entry.objects.filter(domain=domain)], key=lambda a: -a[1])
+                postsdatalist, c = DataList.objects.get_or_create(name='top_'+method+'_site:'+domain)
+                postsdatalist.data = [ p[0] for p in posts ]
+                postsdatalist.save()
+                
                 
         
