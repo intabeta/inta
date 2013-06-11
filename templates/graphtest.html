@@ -222,13 +222,13 @@ function draw() {
       ctx.beginPath();
       X=drawpoints[link][0];
       Y=drawpoints[link][1];
-      rad = radii[link]+2;
+      rad = radii[link]*1.2;
       ctx.moveTo(X+rad,Y);
       ctx.arc(X,Y,rad,0,Math.PI*2,true);
       ctx.fill();
       ctx.fillStyle = "#aaaaff";
       ctx.beginPath();
-      rad -= 1;
+      rad *= 0.9;
       ctx.moveTo(X+rad,Y);
       ctx.arc(X,Y,rad,0,Math.PI*2,true);
       ctx.fill();
@@ -248,7 +248,7 @@ function draw() {
       if ( X>-rad&&X<width+rad && Y>-rad&&Y<height+rad) {
         ctx.moveTo(X+rad,Y);
         if (i==link && selected != -1) {
-          ctx.arc(X,Y,rad+1,0,Math.PI*2,true);
+          ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
         } else {
           ctx.arc(X,Y,rad,0,Math.PI*2,true);
         }
