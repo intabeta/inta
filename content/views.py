@@ -651,11 +651,11 @@ def submit_plugin(request):
                         del d
 
                     if '_post' in request.POST: #'good'
-                        postsdict.tagval_set.create(tag=newtag, val=1)
-                        voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
+                        entry.posts.tagval_set.create(tag=newtag, val=1)
+                        entry.voted_by.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
                     else: #'great'
-                        dblpostsdict.tagval_set.create(tag=newtag, val=1)
-                        voterdict.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
+                        entry.double_posts.tagval_set.create(tag=newtag, val=1)
+                        entry.voted_by.voter_set.create(tag=tagname, user=user, val=2, slug=entry.slug)
                     entry.tags.add(newtag)
                     entry.save()
 
