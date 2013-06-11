@@ -584,7 +584,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             votecounts = [ entry.score for entry in posts ]
         elif len(taglist)==1:
             try:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+taglist[0]).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+taglist[0]).data),page,8) ]
             except:
                 posts = []
             if domain:
@@ -592,7 +592,7 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
         elif domain:
             try:
-                posts = [ Entry.objects.get(id=id) for id in eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data) ]
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
             except:
                 posts = []
             if tags:
