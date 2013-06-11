@@ -759,8 +759,9 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
         if tags:
             slugs = [ entry.slug for entry in posts ]
             voters = user.voter_set.filter(slug__in=slugs)
-            voter = [ v.slug for v in voters.filter(val=1) if v.tag == taglist[0] ]
-            double_voter = [ v.slug for v in voters.filter(val=2) if v.tag == taglist[0] ]
+            voters = voters.filter(tag__iexact=taglist[0])
+            voter = [ v.slug for v in voters.filter(val=1) ]
+            double_voter = [ v.slug for v in voters.filter(val=2) ]
         else:
             votetags = [ ts[0][0] for ts in tagscores ]
             for entry, tag in zip(posts, votetags):
