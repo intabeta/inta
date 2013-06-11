@@ -617,6 +617,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d1 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay1') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay1') for tag in taglist])) for a in posts ]
@@ -632,6 +641,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d2 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay2') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay2') for tag in taglist])) for a in posts ]
@@ -647,6 +665,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d3 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay3') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay3') for tag in taglist])) for a in posts ]
@@ -662,6 +689,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d4 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay4') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay4') for tag in taglist])) for a in posts ]
@@ -677,6 +713,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d5 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay5') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay5') for tag in taglist])) for a in posts ]
@@ -692,6 +737,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d6 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay6') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay6') for tag in taglist])) for a in posts ]
@@ -707,6 +761,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d7 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay7') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay7') for tag in taglist])) for a in posts ]
@@ -722,6 +785,15 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             if domain:
                 posts = [ entry for entry in posts if entry.domain == domain ]
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist])) for a in posts ]
+        elif domain:
+            try:
+                posts = [ Entry.objects.get(id=id) for id in nthslice(eval(DataList.objects.get(name='top_'+method+'_site:'+domain).data),page,8) ]
+            except:
+                posts = []
+            if tags:
+                votecounts = [sum([ a._get_ranking(tag) for tag in taglist]) for a in posts]
+            else:
+                votecounts = [ entry.score * entry.d8 for entry in posts ]
         else:
             posts = nthslice(sorted(entries, key=lambda a: -sum([ a._get_ranking(tag, 'decay8') for tag in taglist])),page,8)
             votecounts = [ round(sum([ a._get_ranking(tag, 'decay8') for tag in taglist])) for a in posts ]
