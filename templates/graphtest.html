@@ -189,6 +189,11 @@ function initialize() {
     mapcanvas.addEventListener("mousedown", on_down_map, false);
     canvas.addEventListener("mouseup", on_up, false);
     mapcanvas.addEventListener("mouseup", on_up, false);
+    canvas.addEventListener("mousewheel",function(ev){
+      scroll(ev);
+      ev.preventDefault();
+      return false;
+    },false);
     update();
     updateframe();
     loading = 1;
@@ -544,6 +549,20 @@ function on_up(e) {
   selected = -1;
   panning = 0;
   zooming = 0;
+}
+
+function scroll(ev) {
+  var x, y;
+  var canvrect = canvas.getBoundingClientRect();
+  x = ev.clientX - canvrect.left;
+  y = ev.clientY - canvrect.top;
+  viewc[0] += ev.wheelDelta*(x/width-0.5)/10;
+  viewc[1] += ev.wheelDelta*(y/height-0.5)/10;
+  // (point[0]-viewc[0]+vieww/2)*width/vieww
+  vieww -= ev.wheelDelta/10;
+  if (vieww<50) {
+    vieww = 50;
+  }
 }
 
 </script>
