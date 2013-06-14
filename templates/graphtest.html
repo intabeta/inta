@@ -195,6 +195,7 @@ function initialize() {
     return false;
   },false);
   window.addEventListener("resize", resize, false);
+  searchinput.onkeydown = function(ev) {if (ev.keyCode==13) {findtag(searchinput.value);}};
   //size things to fit the window
   var w = window.innerWidth;
   var h = window.innerHeight;
