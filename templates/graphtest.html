@@ -96,6 +96,7 @@
       <canvas id="viewpane" width="600" height="600" style="border: 1px solid black; background-color:rgb(250,250,245); margin-top:0px; margin-bottom: 30px; position: absolute; left: 0; top: 0; z-index: 0">Canvas not supported.</canvas>
       <canvas id="map" width="100" height="100" style="border: 1px solid black; background-color:rgba(255,255,255,0.7); position: absolute; left: 10; top: 10; z-index: 1"></canvas>
       <canvas id="sidebar" width="200" height="100" style="border: 1px solid black; background-color:rgba(255,255,255,0.5); position: absolute; left:0; top: 0; z-index: 1"></canvas>
+      <input id='search' type='text' size='30' value="Find tag" style="position:absolute; left:100; top:100; z-index:2; width:150px; height:19px;">
   </div>
   
 <!--
@@ -114,6 +115,7 @@ ga('send', 'pageview');
 var canvas = document.getElementById("viewpane");
 var mapcanvas = document.getElementById("map");
 var sidebar = document.getElementById("sidebar");
+var searchinput = document.getElementById("search");
 
 var width = 600;
 var height = 600;
@@ -202,6 +204,9 @@ function initialize() {
   canvas.height = h;
   sidebar.style.left = w-sidebarw;
   sidebar.height = h;
+  searchinput.style.left = w-sidebarw+10;
+  searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
+  searchinput.style.width = sidebarw-20;
   //start everything
   update();
   updateframe();
@@ -682,6 +687,8 @@ function resize() {
   canvas.width = w;
   canvas.height = h;
   sidebar.height = h;
+  searchinput.style.left = w-sidebarw+10;
+  searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
 }
 
 //not used yet in the interface, but if you type in findtag('Health') for example in the console it will center the view on the 'Health' node
@@ -689,6 +696,8 @@ function findtag(tagname) {
   search = points.filter(function(p) { return p[2]==tagname; });
   if (search.length) {
     viewc = [search[0][0],search[0][1]];
+    link = points.indexOf(search[0]);
+    inLink=1;
   }
 }
 
