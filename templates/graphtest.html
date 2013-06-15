@@ -598,16 +598,16 @@ function update() {
     mapctx.textAlign = "center";
     mapctx.strokeText('Loading',50,50);
     mapctx.stroke();
-    setTimeout(update,5);
+    setTimeout(update,30);
   } else if (loading) {
     loading = 0;
     updateframe();
     draw();
-    setTimeout(update,5);
+    setTimeout(update,30);
   } else {
     updateframe();
     draw();
-    setTimeout(update,5);
+    setTimeout(update,30);
   }
 }
 
