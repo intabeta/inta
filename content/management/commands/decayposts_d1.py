@@ -43,7 +43,8 @@ class Command(BaseCommand):
                     tagscores_d1[tag] += score*d1
                 entry.save()
 
-        toptags = topn(list(tagscores_d1.items()), 20, lambda i: i[1])
+        ls = list(tagscores_d1.items())
+        toptags = topn(ls, min(20,len(ls)), lambda i: i[1])
         dl = Dict.objects.get(id=194)
         for tv in dl.tagval_set.all():
             tv.delete()
