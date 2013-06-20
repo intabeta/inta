@@ -25,26 +25,27 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         entries = Entry.objects.all()
         base = 0.5
-        tagscores_d2 = defaultdict(int)
+        tagscores_d3 = defaultdict(int)
         now = datetime.utcnow()
         for entry in entries:
             then = entry.date_added.replace(tzinfo=None)
             lapsed = now - then
-            if lapsed.total_seconds() < 43200: #consider only posts less than 12 hours old
-                d2 = base ** (lapsed.total_seconds()/10800)
 
-                entry.d2 = round(d2,4)
+            if lapsed.total_seconds() < 259200: #restrict decay3 to looking at posts under 3 days old
+                d3 = base ** (lapsed.total_seconds()/86400)
+
                 entry.score = 0
-
+                entry.d3 = round(d3,4)
+                
                 for tag in entry.tags.all():
-                    total = entry._get_ranking(tag) #posts + 2*double_posts
-                    entry.score += total
-                    tagscores_d2[tag] += total*d2
+                    score = entry._get_ranking(tag) #posts + 2*double_posts
+                    entry.score += score
+                    tagscores_d3[tag] += score*d3
                 entry.save()
 
-        ls = list(tagscores_d2.items())
+        ls = list(tagscores_d3.items())
         toptags = topn(ls, min(20,len(ls)), lambda i: i[1])
-        dl = Dict.objects.get(id=195)
+        dl = Dict.objects.get(id=196)
         for tv in dl.tagval_set.all():
             tv.delete()
         for tv in toptags:

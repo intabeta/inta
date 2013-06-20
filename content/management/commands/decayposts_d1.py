@@ -31,7 +31,7 @@ class Command(BaseCommand):
             then = entry.date_added.replace(tzinfo=None)
             lapsed = now - then
 
-            if lapsed.total_seconds < 7200: #restrict decay1 to looking at posts under 2 hours old
+            if lapsed.total_seconds() < 7200: #restrict decay1 to looking at posts under 2 hours old
                 d1 = base ** (lapsed.total_seconds()/1800)
 
                 entry.score = 0
@@ -49,5 +49,5 @@ class Command(BaseCommand):
         for tv in dl.tagval_set.all():
             tv.delete()
         for tv in toptags:
-            dl.tagval_set.create(tag=tv[0],val=tv[1])
+            dl.tagval_set.create(tag=tv[0],val=round(tv[1]))
         self.stdout.write('Success\n')
