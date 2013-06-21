@@ -125,26 +125,24 @@ var ctx=canvas.getContext("2d");
 var mapctx=mapcanvas.getContext("2d");
 var sidectx=sidebar.getContext("2d");
 
-var X;
-var Y;
-
 var points={% autoescape off %}{{ points }}{% endautoescape %};
 var edges={{ edges }};
 var forces=points.map(function(p) { return [0,0]; });
 var velocities=points.map(function(p) { return [0,0]; });
 var radii=points.map(function(p) { return 2*Math.log(p[3]+1); });
-var rad = 3;
+var pointslen = points.length;
+var inLink = false;
+var link=0;
 var drawpoints = points;
 var mappoints = points;
 
+var sidebarupdate = 1;
+
 var selected = -1;
-var inLink = false;
-var link=0;
 var links = [];
 var linkhover = -1;
 
 var loading = 1;
-var maxv = 0;
 var info = 1;
 var infoclosehover = 0;
 
@@ -155,7 +153,7 @@ var zoomdisp = 1;
 var zooming = 0;
 var zoomhilight = 0;
 
-var minx = 0; //these seven variables are used in updateframe()
+var minx = 0;
 var maxx = 0;
 var miny = 0;
 var maxy = 0;
@@ -163,12 +161,17 @@ var xrange = 0;
 var yrange = 0;
 var framer = 0;
 var zoom = 2; //equal to canvas width divided by view width
-var viewc = [300,300]; //center of view
+var viewc = [300,300];
 
-var damp = 0.5; //how much to damp motion to prevent things from oscillating indefinitely and/or getting out of control
-var stiffness = 10; //stiffness of springs
-var spread = 40; //ideal length of springs
-var k = 300000; //like the constant in coulomb's law
+var damp = 0.5;
+var stiffness = 10;
+var spread = 40;
+var k = 300000;
+var maxv = 0;
+
+var times = 0;
+var timesum = 0;
+var timelist = [];
 
 
 function min(array) {
@@ -180,38 +183,47 @@ function max(array) {
 
 var maxedge = max(edges.map(function(e) { return e[2]; }));
 
+function arrangepoints() {
+  var l = points.length;
+  for (i=0; i<l; i++) {
+    var p = points[i];
+    p[0] = width/2 + 20*Math.cos(2*Math.PI*i/l);
+    p[1] = height/2 + 20*Math.sin(2*Math.PI*i/l);
+    points[i] = p;
+  }
+}
+
 function initialize() {
-  canvas.addEventListener("mousemove", on_mousemove, false);
-  mapcanvas.addEventListener("mousemove", on_mousemove_map, false);
-  sidebar.addEventListener("mousemove", on_mousemove_sidebar, false);
-  canvas.addEventListener("mousedown", on_down, false);
-  mapcanvas.addEventListener("mousedown", on_down_map, false);
-  sidebar.addEventListener("mousedown", on_down_sidebar, false);
-  canvas.addEventListener("mouseup", on_up, false);
-  mapcanvas.addEventListener("mouseup", on_up, false);
-  canvas.addEventListener("mousewheel",function(ev){
-    scroll(ev);
-    ev.preventDefault();
-    return false;
-  },false);
-  window.addEventListener("resize", resize, false);
-  searchinput.onkeydown = function(ev) {if (ev.keyCode==13) {findtag(searchinput.value);}};
-  //size things to fit the window
-  var w = window.innerWidth;
-  var h = window.innerHeight;
-  width = w-sidebarw;
-  height = h;
-  canvas.width = w;
-  canvas.height = h;
-  sidebar.style.left = w-sidebarw;
-  sidebar.height = h;
-  searchinput.style.left = w-sidebarw+10;
-  searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
-  searchinput.style.width = sidebarw-20;
-  //start everything
-  update();
-  updateframe();
-  loading = 1; //set loading to 1 after running update() once, otherwise all the velocities will be zero and update will set loading back to 0
+  //add mouse listeners
+    canvas.addEventListener("mousemove", on_mousemove, false);
+    mapcanvas.addEventListener("mousemove", on_mousemove_map, false);
+    sidebar.addEventListener("mousemove", on_mousemove_sidebar, false);
+    canvas.addEventListener("mousedown", on_down, false);
+    mapcanvas.addEventListener("mousedown", on_down_map, false);
+    sidebar.addEventListener("mousedown", on_down_sidebar, false);
+    canvas.addEventListener("mouseup", on_up, false);
+    mapcanvas.addEventListener("mouseup", on_up, false);
+    canvas.addEventListener("mousewheel",function(ev){
+      scroll(ev);
+      ev.preventDefault();
+      return false;
+    },false);
+    window.addEventListener("resize", resize, false);
+    searchinput.onkeydown = function(ev) {if (ev.keyCode==13) {findtag(searchinput.value);}};
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    width = w-sidebarw;
+    height = h-40;
+    canvas.width = w;
+    canvas.height = h-40;
+    sidebar.style.left = w-sidebarw;
+    sidebar.height = h-40;
+    searchinput.style.left = w-sidebarw+10;
+    searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
+    searchinput.style.width = sidebarw-20;
+    update();
+    updateframe();
+    loading = 1;
 }
 
 // draw things
@@ -222,26 +234,27 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //draw edges
+    ctx.strokeStyle='rgba(0,0,0,0.05)';
+    ctx.beginPath();
     for (i=0;i<edges.length;i++) {
-      ctx.beginPath();
-      ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/50)+')';
-      X1=drawpoints[edges[i][0]][0];
-      Y1=drawpoints[edges[i][0]][1];
-      X2=drawpoints[edges[i][1]][0];
-      Y2=drawpoints[edges[i][1]][1];
-      ctx.moveTo(X1,Y1);
-      ctx.lineTo(X2,Y2);
-      ctx.stroke();
-      ctx.closePath();
+      // ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/50)+')';
+      var edge = edges[i];
+      var P1=drawpoints[edge[0]];
+      var P2=drawpoints[edge[1]];
+      ctx.moveTo(P1[0],P1[1]);
+      ctx.lineTo(P2[0],P2[1]);
     }
+    ctx.stroke();
+    ctx.closePath();
 
     //hilight hovered node
     if (inLink) {
       ctx.fillStyle = "#ddddff";
       ctx.beginPath();
-      X=drawpoints[link][0];
-      Y=drawpoints[link][1];
-      rad = radii[link]*1.2*zoom;
+      var point = drawpoints[link];
+      var X=point[0];
+      var Y=point[1];
+      var rad = radii[link]*1.2*zoom;
       ctx.moveTo(X+rad,Y);
       ctx.arc(X,Y,rad,0,Math.PI*2,true);
       ctx.fill();
@@ -257,11 +270,12 @@ function draw() {
     //draw the nodes if they are in the view pane
     ctx.beginPath();
     ctx.fillStyle = "#7777ff";
-    for (i=0;i<points.length;i++) {
-      X=drawpoints[i][0];
-      Y=drawpoints[i][1];
-      rad = radii[i]*zoom;
-      if ( X>-rad&&X<width && Y>-rad&&Y<height+rad) {
+    for (i=0;i<pointslen;i++) {
+      var point = drawpoints[i];
+      var X=point[0];
+      var Y=point[1];
+      var rad = radii[i]*zoom;
+      if ( X>-rad&&X<width && Y>-rad&&Y<(height+rad)) {
         ctx.moveTo(X+rad,Y);
         if (i==link && selected != -1) {
           ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
@@ -298,12 +312,10 @@ function draw() {
       ctx.beginPath();
       ctx.strokeRect(50.5,120.5,20,20);
       ctx.strokeRect(50.5,140.5,20,20);
-      //draw a plus
       ctx.moveTo(60.5,125.5);
       ctx.lineTo(60.5,135.5);
       ctx.moveTo(55.5,130.5);
       ctx.lineTo(65.5,130.5);
-      //draw a minus
       ctx.moveTo(55.5,150.5);
       ctx.lineTo(65.5,150.5);
       ctx.closePath();
@@ -312,18 +324,20 @@ function draw() {
 
     //make label over hovered node
     if (inLink) {
-      ctx.strokeStyle = "#444444";
+      ctx.strokeStyle = "#747474";
       ctx.font = "10px sans-serif";
       ctx.beginPath();
-      X=drawpoints[link][0];
-      Y=drawpoints[link][1];
-      rad = radii[link]*zoom+2
+      var point = drawpoints[link];
+      var X=point[0];
+      var Y=point[1];
+      var rad = radii[link]*zoom+2;
       text = points[link][2]+' ('+String(points[link][3])+')';
       ctx.textAlign = 'center';
       textwidth = ctx.measureText(text).width;
       ctx.clearRect(X-textwidth/2-2,Y-rad-16,textwidth+4,13);
-      ctx.strokeRect(X-textwidth/2-2,Y-rad-16,textwidth+4,13);
-      ctx.strokeText(text,X,Y-rad-7);
+      ctx.strokeRect(Math.round(X)-textwidth/2-2,Math.round(Y-rad)-16.5,textwidth+4,13);
+      ctx.fillStyle = "#343434";
+      ctx.fillText(text,Math.round(X),Math.round(Y-rad)-7);
       ctx.closePath();
       ctx.stroke();
     }
@@ -360,53 +374,68 @@ function draw() {
       ctx.stroke();
     }
 
+    if (sidebarupdate) {
+      //draw sidebar
+      sidectx.clearRect(0,0,400,sidebarw);
+      sidectx.fillStyle = "#000";
+      sidectx.font = "13px sans-serif"
+      var i = links.length-1;
+      do {
+        if (linkhover == i) {
+          sidectx.fillStyle = "rgba(200,200,200,0.2)";
+          sidectx.fillRect(0,7+15*i,sidebarw,15);
+          sidectx.fillStyle = "#000";
+        }
+        sidectx.fillText(points[links[i]][2],10,20+15*i);
+      } while ( i-- );
+      sidebarupdate = 0;
+    }
+  }
+}
 
-    //clear map area
+function drawmap() {
+  //clear map area
+  mapctx.clearRect(0,0,100,100);
+
+  //draw edges in map
+  mapctx.beginPath();
+  mapctx.strokeStyle='rgba(0,0,0,0.03)';
+  for (i=0;i<edges.length;i++) {
+    //mapctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/100)+')';
+    var edge = edges[i];
+    var P1 = mappoints[edge[0]];
+    var P2 = mappoints[edge[1]];
+    mapctx.moveTo(P1[0],P1[1]);
+    mapctx.lineTo(P2[0],P2[1]);
+  }
+  mapctx.stroke();
+  mapctx.closePath();
+
+  //draw nodes in map
+  mapctx.beginPath();
+  mapctx.fillStyle = "#7777ff";
+  for (i=0;i<pointslen;i++) {
+    var rad = radii[i]/6;
+    var P = mappoints[i];
+    var X=P[0];
+    var Y=P[1];
+    mapctx.moveTo(X+rad,Y);
+    mapctx.arc(X,Y,rad,0,Math.PI*2,true);
+  }
+  mapctx.fill();
+
+  //show view region in map
+  mapctx.beginPath();
+  mapctx.strokeStyle="#555555";
+  mapctx.strokeRect((viewc[0]-minx+0.5*(framer-xrange-width/zoom))*100/framer,(viewc[1]-miny+0.5*(framer-yrange-height/zoom))*100/framer,width*100/(framer*zoom),height*100/(framer*zoom));
+  mapctx.stroke();
+  setTimeout(drawmap, 200);
+
+  if (loading) {
+    mapctx.fillStyle = '#000000';
     mapctx.clearRect(0,0,100,100);
-
-    //draw edges in map
-    for (i=0;i<edges.length;i++) {
-      mapctx.beginPath();
-      mapctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/100)+')';
-      X1=mappoints[edges[i][0]][0];
-      Y1=mappoints[edges[i][0]][1];
-      X2=mappoints[edges[i][1]][0];
-      Y2=mappoints[edges[i][1]][1];
-      mapctx.moveTo(X1,Y1);
-      mapctx.lineTo(X2,Y2);
-      mapctx.stroke();
-      mapctx.closePath();
-    }
-
-    //draw nodes in map
-    mapctx.beginPath();
-    mapctx.fillStyle = "#7777ff";
-    for (i=0;i<points.length;i++) {
-      X=mappoints[i][0];
-      Y=mappoints[i][1];
-      rad = radii[i]/6;
-      mapctx.arc(X,Y,rad,0,Math.PI*2,true);
-    }
-    mapctx.fill();
-
-    //show view region in map
-    mapctx.beginPath();
-    mapctx.strokeStyle="#555555";
-    mapctx.strokeRect((viewc[0]-minx+0.5*(framer-xrange-width/zoom))*100/framer,(viewc[1]-miny+0.5*(framer-yrange-height/zoom))*100/framer,width*100/(framer*zoom),height*100/(framer*zoom));
-    mapctx.stroke();
-
-    //draw sidebar
-    sidectx.clearRect(0,0,400,sidebarw);
-    sidectx.fillStyle = "#000";
-    sidectx.font = "13px sans-serif"
-    for (i=0; i<links.length; i++) {
-      if (linkhover == i) {
-        sidectx.fillStyle = "rgba(200,200,200,0.2)";
-        sidectx.fillRect(0,7+15*i,sidebarw,15);
-        sidectx.fillStyle = "#000";
-      }
-      sidectx.fillText(points[links[i]][2],10,20+15*i);
-    }
+    mapctx.textAlign = "center";
+    mapctx.fillText('Loading',50,50);
   }
 }
 
@@ -415,6 +444,8 @@ function on_mousemove (ev) {
   var canvrect = canvas.getBoundingClientRect();
   x = ev.clientX - canvrect.left;
   y = ev.clientY - canvrect.top;
+
+  linkhover = -1;
 
   if (panning == 1) {
     var dx = (panpoint[0] - x)/zoom;
@@ -425,8 +456,6 @@ function on_mousemove (ev) {
     viewc[1] += dy;
   }
   
-  linkhover = -1;
-
   if (selected != -1) {
     points[link][0] = (x-0.5*width)/zoom+viewc[0];
     points[link][1] = (y-0.5*height)/zoom+viewc[1];
@@ -444,19 +473,19 @@ function on_mousemove (ev) {
   } else {
     zoomdisp = 0;
   }
-  //check if the mouse is over the info pane close button
+  //is the mouse over a node?
   if (x>(width/2+197)&&x<(width/2+213) && y<(height/2-142)&&y>(height/2-158)) {
     infoclosehover = 1;
   } else {
     infoclosehover = 0;
   }
-  //check if the mouse is over a node
   inLink=false;
   if (selected == -1 && zoomhilight==0) {
-    for (i=0;i<drawpoints.length;i++) {
-      X=drawpoints[i][0];
-      Y=drawpoints[i][1];
-      rad = (radii[i]+2)*zoom; // the +2 gives a bit of leeway
+    for (i=0;i<pointslen;i++) {
+      var P = drawpoints[i];
+      var X=P[0];
+      var Y=P[1];
+      var rad = (radii[i]+2)*zoom; // the +2 gives a bit of leeway
       if (x >= (X - rad) && x <= (X + rad) && y<=(Y+rad) && y>= (Y-rad)){
           inLink=true;
           link=i;
@@ -471,7 +500,6 @@ function on_mousemove_map(ev) {
   var canvrect = mapcanvas.getBoundingClientRect();
   x = ev.clientX - canvrect.left;
   y = ev.clientY - canvrect.top;
-  //move the center of the view to the mouse pointer's location on the map
   if (panning == 1) {
     viewc = [x*framer/100+minx-0.5*(framer-xrange),y*framer/100+miny-0.5*(framer-yrange)];
   }
@@ -482,16 +510,16 @@ function on_mousemove_sidebar(ev) {
   var canvrect = mapcanvas.getBoundingClientRect();
   y = ev.clientY - canvrect.top;
   linkhover = Math.floor(y/15);
+  sidebarupdate = 1;
 }
 
-//this updates a bounding box which is used to ensure that the whole graph is displayed on the map
 function updateframe() {
   if (selected >= -1) {
     minx = min(points.map(function(point) {return point[0];}));
     maxx = max(points.map(function(point) {return point[0];}));
     miny = min(points.map(function(point) {return point[1];}));
     maxy = max(points.map(function(point) {return point[1];}));
-    minx -= 0.1*Math.abs(minx); //adding the factor of 0.1 gives a margin around the outside
+    minx -= 0.1*Math.abs(minx);
     maxx += 0.1*Math.abs(maxx);
     miny -= 0.1*Math.abs(miny);
     maxy += 0.1*Math.abs(maxy);
@@ -502,7 +530,7 @@ function updateframe() {
 }
 
 function update() {
-  //zoom in/out if one of the buttons is held down
+  var t0 = Date.now();
   switch (zooming) {
     case 0:
      break;
@@ -518,11 +546,11 @@ function update() {
      break;
   }
   
-  //these variables are used to calculate the maximum velocity. 'Loading' will appear in the place of the map until the max velocity drops below a certain point
   var V;
+  collide = [];
   maxv=0;
 
-  for ( i=0; i<points.length; i++ ) {
+  for ( i=0; i<pointslen; i++ ) {
     var p = points[i];
     var v = velocities[i];
     var f = forces[i];
@@ -534,33 +562,31 @@ function update() {
       p[0] += v[0];
       p[1] += v[1];
     }
-    V = Math.pow(Math.pow(v[0],2) + Math.pow(v[1],2),1.5);
+    V = Math.pow(v[0]*v[0] + v[1]*v[1],1.5);
     maxv = Math.max(V,maxv);
 
-    f[0] = 0; //resets forces. this has to be done one coordinate at a time to be sure we're resetting forces[i] and not just the temporary variable f
+    f[0] = 0; //resets forces
     f[1] = 0;
     
-    var dx = p[0]; //attach each point to a weak, invisible spring connected to (0,0). this keeps disconnected pieces from flying away from eachother forever
+    var dx = p[0]; //attach each point to a weak, invisible spring connected to (0,0)
     var dy = p[1];
-    var d = Math.pow(Math.pow(dx,2) + Math.pow(dy,2),0.5);
-    var s = 2*(1-10/(0.03*d));
+    var d = Math.sqrt(dx*dx + dy*dy);
+    var s = 2-1/(0.0015*d);
     f[0] -= s*dx;
     f[1] -= s*dy;
   }
-  //repel the points from eachother. even though this loops over the same indices as the previous loop, i broke it up so that all the forces would be reset before doing the nested for loop
-  for ( i=0; i<points.length; i++ ) {
+  //repel the points from eachother (if they're close enough)
+  for ( i=0; i<pointslen; i++ ) {
     var p = points[i];
     var f = forces[i];
-    var p1 = [0,0];
-    var r1=0;
-    for ( j=i+1; j<points.length; j++ ) { //here we update points as pairs rather than looking at each individually. this is why we needed all forces to be reset first (otherwise some forces would be updated as part of a pair and then reset later)
-      p1 = points[j];
-      f1 = forces[j];
-      dx = p[0]-p1[0];
-      dy = p[1]-p1[1];
-      d2 = dx*dx + dy*dy;
-      if (d2<20000) {
-        d=Math.pow(d2,1.5);
+    for ( j=i+1; j<pointslen; j++ ) {
+      var p1 = points[j];
+      var dx = p[0]-p1[0];
+      var dy = p[1]-p1[1];
+      var d2 = dx*dx + dy*dy;
+      if (d2<30000) {
+        var f1 = forces[j];
+        var d=Math.pow(d2,1.5);
         f[0] += k*dx/d;
         f[1] += k*dy/d;
         f1[0] -= k*dx/d;
@@ -569,16 +595,15 @@ function update() {
     }
   }
 
-  //update forces due to springs
   for (i=0; i<edges.length; i++) {
     var e = edges[i];
     var p = points[e[0]];
     var p1 = points[e[1]];
     var f = forces[e[0]];
     var f1 = forces[e[1]];
-    var dx = p[0]-p1[0];
+    var dx = p[0]-p1[0]; //update force due to springs
     var dy = p[1]-p1[1];
-    var d = Math.pow(Math.pow(dx,2) + Math.pow(dy,2),0.5);
+    var d = Math.sqrt(dx*dx + dy*dy);
     var s = e[2]*stiffness*(1-spread/d)/maxedge;
     f[0] -= s*dx;
     f[1] -= s*dy;
@@ -588,33 +613,33 @@ function update() {
     forces[e[1]] = f1;
   }
 
-  //convert each node's coordinates into points to be drawn in the view and on the map
   drawpoints = points.map(function(point) { return [(point[0]-viewc[0])*zoom+width/2,(point[1]-viewc[1])*zoom+height/2]; });
   mappoints = points.map(function(point) { return [(point[0]-minx+0.5*(framer-xrange))*100/framer,(point[1]-miny+0.5*(framer-yrange))*100/framer]; });
 
   if (maxv > 200 && loading) {
     draw();
-    mapctx.clearRect(0,0,100,100);
-    mapctx.textAlign = "center";
-    mapctx.strokeText('Loading',50,50);
-    mapctx.stroke();
-    setTimeout(update,30);
+    setTimeout(update,50);
   } else if (loading) {
     loading = 0;
     updateframe();
     draw();
-    setTimeout(update,30);
+    drawmap();
+    setTimeout(update,50);
   } else {
     updateframe();
     draw();
-    setTimeout(update,30);
+    setTimeout(update,50);
   }
+  t = Date.now()-t0;
+  timelist.push(t);
+  times++;
+  timesum += t;
 }
 
 function on_down(ev) {
   if (inLink) {
     selected = link;
-    links.push(link);
+    if ( links.indexOf(link) == -1 ) { links.push(link); sidebarupdate = 1; }
   } else {
     var x, y;
     var canvrect = canvas.getBoundingClientRect();
@@ -660,12 +685,11 @@ function scroll(ev) {
     var canvrect = canvas.getBoundingClientRect();
     x = ev.clientX - canvrect.left;
     y = ev.clientY - canvrect.top;
-    var dz = ev.wheelDelta*zoom/1000; //making dz proportional to zoom makes zooming feel more steady
-    //adjust the center of the view so that the mouse stays over the same point while zooming. this makes it possible to zoom in on a specific point
+    var dz = ev.wheelDelta*zoom/1000;
     viewc[0] += dz*(x-0.5*width)/(zoom*zoom+zoom*dz);
     viewc[1] += dz*(y-0.5*height)/(zoom*zoom+zoom*dz);
+    // (point[0]-viewc[0]+vieww/2)*width/vieww
     zoom += dz;
-    //put bounds on how zoomed in/out you can be. also reset the center if the zoom isn't reset, otherwise if you keep scrolling after the zoom limit it will keep moving the view pane
     if (zoom>50) {
       zoom = 50;
       viewc[0] -= dz*(x-0.5*width)/(zoom*zoom+zoom*dz);
@@ -678,7 +702,6 @@ function scroll(ev) {
   }
 }
 
-//adjust the size and placement of canvases when the window is resized
 function resize() {
   var w = window.innerWidth;
   var h = window.innerHeight;
@@ -692,7 +715,6 @@ function resize() {
   searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
 }
 
-//not used yet in the interface, but if you type in findtag('Health') for example in the console it will center the view on the 'Health' node
 function findtag(tagname) {
   search = points.filter(function(p) { return p[2]==tagname; });
   if (search.length) {
