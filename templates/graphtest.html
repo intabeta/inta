@@ -379,15 +379,14 @@ function draw() {
       sidectx.clearRect(0,0,400,sidebarw);
       sidectx.fillStyle = "#000";
       sidectx.font = "13px sans-serif"
-      var i = links.length-1;
-      do {
+      for (i=0; i<links.length; i++) {
         if (linkhover == i) {
           sidectx.fillStyle = "rgba(200,200,200,0.2)";
           sidectx.fillRect(0,7+15*i,sidebarw,15);
           sidectx.fillStyle = "#000";
         }
         sidectx.fillText(points[links[i]][2],10,20+15*i);
-      } while ( i-- );
+      }
       sidebarupdate = 0;
     }
   }
