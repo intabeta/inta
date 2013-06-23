@@ -863,8 +863,8 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
             voter = [ v.slug for v in voters.filter(val=1) ]
             double_voter = [ v.slug for v in voters.filter(val=2) ]
         else:
-            votetags = [ ts[0][0] for ts in tagscores ]
-            for entry, tag in zip(posts, votetags):
+            votedata = [ (post, ts[0][0]) for post,ts in zip(posts,tagscores) if len(ts)>0 ]
+            for entry, tag in votedata:
                 voted = filter(lambda v: v.tag == tag and v.slug == entry.slug, user.voter_set.all())
                 if voted:
                     if voted[0].val==1:
