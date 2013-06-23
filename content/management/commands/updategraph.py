@@ -23,7 +23,7 @@ class Command(BaseCommand):
                     for tag2 in etags[i+1:]:
                         edges.append([tag1.id,tag2.id,int(round(rank1+entry._get_ranking(tag2,method)))])
 
-            nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) != 0 ] #nonzero tags
+            nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #nonzero tags (also excludes tags with a score of only 1)
             edges2=[]
             for e in edges:
                 if e[0] in nztags and e[1] in nztags and e[2]>0: #only consider edges that were connected to two nonzero tags and have nonzero strength
