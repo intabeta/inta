@@ -35,6 +35,6 @@ class Command(BaseCommand):
             graph = Graph.objects.get(name = method)
             graph.points = points
             graph.edges = edges2
-            self.stdout.write(method+': '+len(str(points))+', '+len(str(edges2))+'\n')
+            self.stdout.write(method+': '+str(len(str(points)))+', '+str(len(str(edges2)))+'\n')
             graph.save()
             
