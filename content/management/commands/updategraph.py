@@ -25,16 +25,16 @@ class Command(BaseCommand):
                             edges.append([tag1.id,tag2.id,s])
 
             nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #nonzero tags (also excludes tags with a score of only 1)
-            edges2=[]
-            for e in edges:
-                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
-                    edges2.append(e)
+            edges2=[ e for e in edges if e[0] in nztags and e[1] in nztags]
+##            for e in edges:
+##                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
+##                    edges2.append(e)
             
-            n = len(nztags)
-            points= [ [nztags[i],int(round(tagscores[nztags[i]]))] for i in range(n) ]
+            points= [ [tag,int(round(tagscores[tag]))] for tag in nztags ]
 
             graph = Graph.objects.get(name = method)
             graph.points = points
             graph.edges = edges2
+            self.stdout.write(method+': '+len(str(points))+', '+len(str(edges2))+'\n')
             graph.save()
             
