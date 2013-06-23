@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
-from content.models import Entry, Dict, Graph
+from content.models import Entry, Graph
 from taggit.models import Tag
-from math import sin, cos, pi
+from collections import defaultdict
 import os
 
 class Command(BaseCommand):
