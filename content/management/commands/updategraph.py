@@ -10,23 +10,24 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         tags = Tag.objects.all()
         entries = Entry.objects.all()
-        tagscores = dict()
+        tagscores = defaultdict(int)
         for method in ('votes','decay1','decay2','decay3','decay4','decay5','decay6','decay7','decay8'):
             edges=[]
-            for tag in tags:
-                tagscores[tag.id] = 0
             for entry in entries:
                 etags = entry.tags.all()
+                ranks = [ entry._get_ranking(tag,method) for tag in etags ]
                 for i, tag1 in enumerate(etags):
-                    rank1 = entry._get_ranking(tag1, method)
+                    rank1 = ranks[i]
                     tagscores[tag1.id] += rank1
-                    for tag2 in etags[i+1:]:
-                        edges.append([tag1.id,tag2.id,int(round(rank1+entry._get_ranking(tag2,method)))])
+                    for j, tag2 in enumerate(etags[i+1:],i+1):
+                        s = int(round(rank1+ranks[j]))
+                        if s>0:
+                            edges.append([tag1.id,tag2.id,s])
 
             nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #nonzero tags (also excludes tags with a score of only 1)
             edges2=[]
             for e in edges:
-                if e[0] in nztags and e[1] in nztags and e[2]>0: #only consider edges that were connected to two nonzero tags and have nonzero strength
+                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
                     edges2.append(e)
             
             n = len(nztags)
