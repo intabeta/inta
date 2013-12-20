@@ -1,0 +1,83 @@
+<html>
+<head>
+<style>
+.brian_nav .inta_brand {
+ color: #ddf;
+ display: inline;
+ float:left;
+ font-size:26px;
+ margin: 5px 15px 0px 20px;
+ /*border-bottom: 2px solid white;*/
+}
+.brian_nav {
+  position: fixed;
+  top:0%;
+  right:0%;
+  left:0%;
+  z-index: 20000;
+  overflow: hidden;
+  background-color: black;
+  border-bottom: 1px solid #000;
+  height: 40px;
+}
+.nav_row {
+  display:inline-block;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.brian_nav p {
+  display:inline-block;
+  padding-bottom: 2px;
+  margin: 12px 5px 12px 0px;
+  font-weight:bold;
+  font-size: 15px;
+}
+.brian_nav p a {
+  color: white;
+  text-decoration: none;
+}
+.nav_row--hide p {
+  color: white;
+}
+.brian_nav p a:hover {
+  text-decoration: none;
+  color: #ddf;
+}
+.brian_nav .active > a {
+  border-bottom: 2px solid white;
+  color: #ddf;
+}
+.underline_title {
+ border-bottom: 2px solid white;
+}
+</style>
+
+</head>
+<body onload="initialize();" style="background-color: #ddf">
+ <div class="brian_nav">
+  <div class="nav_row" id="time_nav">
+      <p class="inta_brand"><a href="/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
+        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/graphtest/decay1" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 30m']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '30m']);">30m</a></p>
+        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/graphtest/decay2" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3h']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3h']);">3h</a></p>
+        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/graphtest/decay3" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1d']);">1d</a></p>
+        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/graphtest/decay4" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3d']);">3d</a></p>
+        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/graphtest/decay5" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1w']);">1w</a></p>
+        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/graphtest/decay6" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 4w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '4w']);">4w</a></p>
+        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/graphtest/decay7" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 12w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '12w']);">12w</a></p>
+        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/graphtest/decay8" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest yr']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'yr']);">yr</a></p>
+        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/graphtest/votes" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest all']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'all']);">All-time</a></p>
+    </div>
+</div>
+  <div style="margin-left: 0px; -moz-user-select: none; -webkit-user-select: none; position: absolute; top: 40px; left:0px;" onselectstart='return false;'>
+      <div style="top: 100px; left:20px; position: absolute; background-color:#AAAAEE; border:2px solid grey; border-radius:2px; width: 500">
+        Hello
+        <form action="" method="post">
+          {% csrf_token %}
+          URL: <input type="text" name="url" /><br/>
+          <button type="submit" class="btn-info" style="margin-bottom: 8px;">{% trans "Get Keywords" %}</button>
+        </form>
+        keywords: {{ keywords }}
+      </div>
+  </div>
+</body>
+</html>
