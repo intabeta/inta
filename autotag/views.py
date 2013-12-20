@@ -1,4 +1,5 @@
 from autotag.keywords import getkeywords
+from django.shortcuts import render_to_response
 
 def autotag(request):
     "Demo autotag functionality"
