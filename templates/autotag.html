@@ -70,10 +70,11 @@
 </div>
   <div style="margin-left: 0px; -moz-user-select: none; -webkit-user-select: none; position: absolute; top: 40px; left:0px;" onselectstart='return false;'>
       <div style="top: 100px; left:20px; position: absolute; background-color:#AAAAEE; border:2px solid grey; border-radius:2px; width: 500">
-        Hello
+        Enter URL of article to get keywords from:
         <form action="" method="post">
           {% csrf_token %}
-          URL: <input type="text" name="url" /><br/>
+          URL: <input type="text" name="url" style="width:200px"/><br/>
+          Grab <input type="text" name="num" style="width:20px"/> keywords<br/> 
           <button type="submit" class="btn-info" style="margin-bottom: 8px;">Get Keywords</button>
         </form>
         keywords: {{ keywords }}

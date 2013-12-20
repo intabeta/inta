@@ -9,7 +9,8 @@ def autotag(request):
     
     if request.method == 'POST':
         url = request.POST.get('url','')
-        keywords = getkeywords(url)
+        n = request.POST.get('num','3')
+        keywords = getkeywords(url, int(n))
 
         template_data = {'keywords':str(keywords)}
         return render_to_response('autotag.html', template_data, context_instance=RequestContext(request))

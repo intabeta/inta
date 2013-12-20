@@ -40,7 +40,7 @@ def filtersent(taggedtext):
                                 break
         return result
 
-def getkeywords(url):
+def getkeywords(url, n=3):
         url = urllib2.urlopen(url)
         html = ''.join(url.readlines())
         soup = BeautifulSoup(html)
@@ -58,6 +58,6 @@ def getkeywords(url):
                 data[noun]+=1
 
         topnouns = sorted([datum for datum in data.items() if datum[1]>1], key=lambda d: d[1])
-        return topnouns[-3:]
+        return topnouns[-n:]
 
 print(getkeywords('http://www.cnn.com/2013/12/19/showbiz/duck-dynasty-suspension/index.html?hpt=hp_t3'))
