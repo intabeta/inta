@@ -19,16 +19,16 @@ def stanfordTag(text):
         data.close()
         file=Popen("cd "+STANFORD_PATH+"; ./stanford-postagger.sh models/wsj-0-18-bidirectional-nodistsim.tagger "+directory+"data.txt", shell=True, stdout=PIPE).stdout
         sentences=file.readlines()
-        postagged = [[tuple(word.split('_')) for word in words] for words in [sent.split(' ') for sent in sentences]]
+        postagged = [[tuple(word.split('_')) for word in sentence] for sentence in [sent.split(' ') for sent in sentences]]
         return postagged
 
 def getnouns(taggedtext):
         taggedwords = [word for sentence in taggedtext for word in sentence]
-        return [a[0] for a in taggedwords if a[1][0]=='N']
+        return [a[0] for a in taggedwords if a[-1][0]=='N']
 
 def getverbs(taggedtext):
         taggedwords = [word for sentence in taggedtext for word in sentence]
-        return [a[0] for a in taggedwords if a[1][0]=='V']
+        return [a[0] for a in taggedwords if a[-1][0]=='V']
 
 def filtersent(taggedtext):
         #filter out 'sentences' with no verbs
