@@ -35,7 +35,7 @@ def filtersent(taggedtext):
         result = []
         for sentence in taggedtext:
                 for word in sentence:
-                        if word[1][0]=='V':
+                        if word[-1][0]=='V':
                                 result.append(sentence)
                                 break
         return result
