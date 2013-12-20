@@ -8,16 +8,16 @@ from collections import defaultdict
 from subprocess import Popen, PIPE
 from os.path import abspath,dirname
 
-STANFORD_PATH='/home/bwloeb/webapps/mlbinta_django/mlbinta/autotag/stanford-postagger'
-directory=dirname(abspath(__file__))
+STANFORD_PATH='/home/bwloeb/webapps/mlbinta_django/mlbinta/autotag/stanford-postagger/'
+directory='/home/bwloeb/webapps/mlbinta_django/mlbinta/autotag/'
 
 def stanfordTag(text):
         text = text.replace('\n','. ')
         text = text.encode('ascii','ignore')
-        data=open('data.txt','w')
+        data=open(directory+'data.txt','w')
         print(text,end='',file=data)
         data.close()
-        file=Popen("cd "+STANFORD_PATH+"; ./stanford-postagger.sh models/wsj-0-18-bidirectional-nodistsim.tagger "+directory+"/data.txt", shell=True, stdout=PIPE).stdout
+        file=Popen("cd "+STANFORD_PATH+"; ./stanford-postagger.sh models/wsj-0-18-bidirectional-nodistsim.tagger "+directory+"data.txt", shell=True, stdout=PIPE).stdout
         sentences=file.readlines()
         postagged = [[tuple(word.split('_')) for word in words] for words in [sent.split(' ') for sent in sentences]]
         return postagged
