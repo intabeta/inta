@@ -543,7 +543,7 @@ def submit_plugin(request):
             withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
             entry = None
             if withurl:
-                for tag in form.cleaned_data['tags'].split(', '): #consider each of the specified tags individually
+                for tag in tags.split(', '): #consider each of the specified tags individually
                     #load or create the tag
                     tagcheck = Tag.objects.filter(name__iexact=tag)
                     if tagcheck:

@@ -30,6 +30,13 @@ def getverbs(taggedtext):
         taggedwords = [word for sentence in taggedtext for word in sentence]
         return [a[0] for a in taggedwords if a[-1][0]=='V']
 
+def collocations(taggedtext):
+        bigrams = []
+        for sentence in taggedtext:
+                for i in range(len(sentence))-1:
+                        bigrams.append((sentence[i],sentence[i+1]))
+        return bigrams
+
 def filtersent(taggedtext):
         #filter out 'sentences' with no verbs
         result = []
@@ -40,7 +47,7 @@ def filtersent(taggedtext):
                                 break
         return result
 
-def getkeywords(url, n=3):
+def grabtext(url):
         url = urllib2.urlopen(url)
         html = ''.join(url.readlines())
         soup = BeautifulSoup(html)
@@ -48,16 +55,16 @@ def getkeywords(url, n=3):
         text=''
         for par in soup.body.find_all('p'):
                 text += '\n'+par.get_text()
+        return text
 
-        #print(text)
-        #stopwords = nltk.corpus.stopwords.words('english')
+def getkeywords(url,n):
+        text = grabtext(url)
+  #      stopwords = nltk.corpus.stopwords.words('english')
         nouns = getnouns(filtersent(stanfordTag(text)))
-        #nouns = [noun.lower() for noun in nouns if noun.lower() not in stopwords]
+ #       nouns = [noun.lower() for noun in nouns if noun.lower() not in stopwords]
         data = defaultdict(int)
         for noun in nouns:
                 data[noun]+=1
 
         topnouns = sorted([datum for datum in data.items() if datum[1]>1], key=lambda d: d[1])
         return topnouns[-n:]
-
-print(getkeywords('http://www.cnn.com/2013/12/19/showbiz/duck-dynasty-suspension/index.html?hpt=hp_t3'))
