@@ -48,7 +48,8 @@ def filtersent(taggedtext):
         return result
 
 def grabtext(url):
-        url = urllib2.urlopen(url)
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor()) #opener than can handle cookies
+        url = opener.open(url)
         html = ''.join(url.readlines())
         soup = BeautifulSoup(html)
 
