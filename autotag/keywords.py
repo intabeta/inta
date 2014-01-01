@@ -57,7 +57,7 @@ def grabtext(url):
                 text += '\n'+par.get_text()
         return text
 
-def getkeywords(url,n):
+def getkeywords(url,n=3):
         text = grabtext(url)
   #      stopwords = nltk.corpus.stopwords.words('english')
         nouns = getnouns(filtersent(stanfordTag(text)))

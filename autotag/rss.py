@@ -19,14 +19,15 @@ def getlinks(url): #url should be link to rss feed
     soup = BeautifulSoup(html)
 
     links = [link.text for link in soup.find_all('link')] #get text from all 'link' tags
-    return links
+    cleaned = [link.split('?')[0] for link in links] #strip off query strings
+    return cleaned
 
 def submit(url):
     try:
         post = Entry.objects.get(url=url)
     except Entry.DoesNotExist:
         withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
-        tags = getkeywords(url)
+        tags = getkeywords(url,3)
         entry = None
         user = None
         if withurl:
