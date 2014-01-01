@@ -9,6 +9,7 @@ import urlparse
 
 from content.models import Entry, DataList, Dict, Logo
 from content.views import linter
+from django.contrib.auth.models import User
 from taggit.models import Tag
 from autotag.keywords import getkeywords
 
@@ -29,7 +30,7 @@ def submit(url):
         withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
         tags = getkeywords(url,3)
         entry = None
-        user = None
+        user = User.objects.get(id=43) #submitbot user
         if withurl:
             for tag in tags: #consider each of the specified tags individually
                 #load or create the tag
