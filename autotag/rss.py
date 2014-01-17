@@ -28,7 +28,7 @@ def submit(url):
         post = Entry.objects.get(url=url)
     except Entry.DoesNotExist:
         withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
-        tags = getkeywords(url,3)
+        tags = getkeywords(url)
         entry = None
         user = User.objects.get(id=43) #submitbot user
         if withurl:
@@ -119,8 +119,9 @@ def submit(url):
                     del d
 
                 #add 'good' vote
-                postsdict.tagval_set.create(tag=newtag, val=1)
-                voterdict.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
+                entry.posts.tagval_set.create(tag=newtag, val=1)
+                entry.voted_by.voter_set.create(tag=tagname, user=user, val=1, slug=entry.slug)
+                entry.tags.add(newtag)
                 entry.save()
 
             #try to pull in image from twitter, if it exists.
