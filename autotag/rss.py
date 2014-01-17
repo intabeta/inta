@@ -103,6 +103,7 @@ def submit(url):
             for tagname in tags:
                 #if the tag already exists grab it, otherwise create a new one
                 tagcheck = Tag.objects.filter(name__iexact=tagname)
+                print(tagname)
                 if tagcheck:
                     newtag = tagcheck[0]
                 else:
