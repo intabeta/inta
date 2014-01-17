@@ -368,7 +368,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                             entry = withurl.filter(tags__name__in=[tag]) #find out if it already has the given tag
                             if entry: #update the posts/double_posts
                                 submitform.errors['url'] = ['This link has already been submitted in this Interest Group, and you have voted for it.']
-                                extra += ' Entry exists.'
                                 voters = [ i.user for i in entry[0].voted_by.voter_set.filter(tag__iexact=tag) ] #check to see if the user has already voted under this tag. change to __exact if we want case sensitive
                                 if user not in voters:
                                     post = request.session.get('post', '')
@@ -384,8 +383,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                         entry[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=entry[0].slug)
 
                                     entry[0].save()
-
-                                    extra += ' Entry has been updated.'
                             else: #add tag
                                 post = request.session.get('post', '')
                                 withurl[0].tags.add(newtag)
@@ -397,8 +394,6 @@ def taglist(request, tags='', method='decay3', domain='', page=1,
                                     withurl[0].voted_by.voter_set.create(tag=tag, user=user, val=2, slug=withurl[0].slug)
 
                                 withurl[0].save()
-
-                                extra += ' Added tag'+tag
 
                     else: #add entry and tags
                         results = linter(url)
