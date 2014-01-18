@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from taggit.models import Tag
 from autotag.keywords import getkeywords
 
+urls = [('http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',[])]
 
 def getlinks(url): #url should be link to rss feed
     url = urllib2.urlopen(url)
@@ -23,12 +24,23 @@ def getlinks(url): #url should be link to rss feed
     cleaned = [link.split('?')[0] for link in links] #strip off query strings
     return cleaned
 
-def submit(url):
+def submit_rss(urls=urls):
+    for site in urls:
+        url = site[0]
+        tags = site[1]
+        links = getlinks(url)
+        print(site,tags)
+        for link in links:
+            print(link)
+            submit(link,tags)
+        
+
+def submit(url,tags=[]): #submit url with auto-generated tags and possibly pre-specified ones
     try:
         post = Entry.objects.get(url=url)
     except Entry.DoesNotExist:
         withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
-        tags = [tup[0] for tup in getkeywords(url)] #getkeywords actually returns tuples of (keyword, n); we only want the keywords here
+        tags.extend([tup[0] for tup in getkeywords(url)]) #getkeywords actually returns tuples of (keyword, n); we only want the keywords here
         entry = None
         user = User.objects.get(id=43) #submitbot user
         if withurl:
