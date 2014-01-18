@@ -24,13 +24,14 @@ class Command(BaseCommand):
                         if s>0:
                             edges.append([tag1.id,tag2.id,s])
 
-            nztags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #nonzero tags (also excludes tags with a score of only 1)
-            edges2=[ e for e in edges if e[0] in nztags and e[1] in nztags]
+            reltags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #relevant tags
+            reltags = sorted(reltags, key = tagscores[tag])[-100:] #take top 100
+            edges2=[ e for e in edges if e[0] in reltags and e[1] in reltags]
 ##            for e in edges:
 ##                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
 ##                    edges2.append(e)
             
-            points= [ [tag,int(round(tagscores[tag]))] for tag in nztags ]
+            points= [ [tag,int(round(tagscores[tag]))] for tag in reltags ]
 
             graph = Graph.objects.get(name = method)
             graph.points = points
