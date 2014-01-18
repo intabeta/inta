@@ -35,11 +35,12 @@ def submit_rss(urls=urls):
             submit(link,tags)
         
 
-def submit(url,tags=[]): #submit url with auto-generated tags and possibly pre-specified ones
+def submit(url,tags2=[]): #submit url with auto-generated tags and possibly pre-specified ones (tags2)
     try:
         post = Entry.objects.get(url=url)
     except Entry.DoesNotExist:
         withurl=Entry.objects.filter(url__iexact=url) #collect all posts with the submitted url (should be only 1)
+        tags = [tag for tag in tags2] #make a shallow copy
         tags.extend([tup[0] for tup in getkeywords(url)]) #getkeywords actually returns tuples of (keyword, n); we only want the keywords here
         entry = None
         user = User.objects.get(id=43) #submitbot user
