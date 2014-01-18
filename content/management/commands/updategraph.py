@@ -25,7 +25,7 @@ class Command(BaseCommand):
                             edges.append([tag1.id,tag2.id,s])
 
             reltags = [ tag.id for tag in tags if round(tagscores[tag.id]) > 1 ] #relevant tags
-            reltags = sorted(reltags, key = tagscores[tag])[-100:] #take top 100
+            reltags = sorted(reltags, key = lambda t: tagscores[t])[-100:] #take top 100
             edges2=[ e for e in edges if e[0] in reltags and e[1] in reltags]
 ##            for e in edges:
 ##                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
