@@ -847,21 +847,22 @@ def get_text(soup):
 
 
 def linter(url):
-    newurl = urlopen(url).geturl() #deal with redirects
-    encurl = quote_plus(newurl)
-    html5 = urlopen('http://developers.facebook.com/tools/debug/og/object?q=' + encurl).read()
+    #newurl = urlopen(url).geturl() #deal with redirects
+    #encurl = quote_plus(newurl)
+    html5 = urlopen(url)#'http://developers.facebook.com/tools/debug/og/object?q=' + encurl).read()
 
     # html5 = urlopen("https://developers.facebook.com/tools/lint/?url=" + encurl + "&format=json").read()
 
     soup = BeautifulSoup(html5)
-    data = soup.find_all('td')
-    results = {}
-    for cell in data:
-        if cell.previous_element == u'og:title':
-            results['title'] = cell.string
-        if cell.previous_element == u'og:description:':
-            results['description'] = cell.string
-        if cell.previous_element == u'og:image:':
-            href = cell.span.img['src']
-            results['image'] = href
+    data = soup.find_all('title')
+    if data:
+        results = {'title':data[0].string}
+##    for cell in data:
+##        if cell.previous_element.string == u'og:title':
+##            results['title'] = cell.string
+##        if cell.previous_element == u'og:description:':
+##            results['description'] = cell.string
+##        if cell.previous_element == u'og:image:':
+##            href = cell.span.img['src']
+##            results['image'] = href
     return results
