@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from taggit.models import Tag
 from autotag.keywords import getkeywords
 
-urls = [('http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',[])]
+urls = [('http://rss.cnn.com/rss/cnn_topstories.rss',['CNN']),('http://sports.espn.go.com/espn/rss/news',['Sports','ESPN']),('http://feeds.washingtonpost.com/rss/rss_the-fix',['Politics','WP']),('http://online.wsj.com/xml/rss/3_7085.xml',['World News','WSJ'])]
 
 def getlinks(url): #url should be link to rss feed
     url = urllib2.urlopen(url)
@@ -33,7 +33,6 @@ def submit_rss(urls=urls):
         for link in links:
             print(link)
             submit(link,tags)
-        
 
 def submit(url,tags2=[]): #submit url with auto-generated tags and possibly pre-specified ones (tags2)
     try:
