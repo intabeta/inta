@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'bootstrapform',
     'taggit',
+    'autotag',
 )
 
 # A sample logging configuration. The only tangible logging
