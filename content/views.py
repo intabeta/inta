@@ -855,10 +855,9 @@ def linter(url):
 
     soup = BeautifulSoup(html5)
     data = soup.find_all('td')
-    prev = [x.previous_element for x in data]
     results = {}
     for cell in data:
-        if cell.previous_element == u'og:title:':
+        if cell.previous_element == u'og:title':
             results['title'] = cell.string
         if cell.previous_element == u'og:description:':
             results['description'] = cell.string
