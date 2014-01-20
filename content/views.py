@@ -250,8 +250,6 @@ def ig_proposal(request):
         form = IgProposalForm(request.POST)
         if form.is_valid():
             form.save()
-            redirect_to = reverse('content_ig_proposal_done')
-            return redirect(redirect_to)
     else:
         form = IgProposalForm()
 
@@ -849,7 +847,8 @@ def get_text(soup):
 
 
 def linter(url):
-    encurl = quote_plus(url)
+    newurl = urlopen(url).geturl() #deal with redirects
+    encurl = quote_plus(newurl)
     html5 = urlopen('http://developers.facebook.com/tools/debug/og/object?q=' + encurl).read()
 
     # html5 = urlopen("https://developers.facebook.com/tools/lint/?url=" + encurl + "&format=json").read()
