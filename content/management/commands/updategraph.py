@@ -31,7 +31,7 @@ class Command(BaseCommand):
 ##                if e[0] in nztags and e[1] in nztags: #only consider edges that were connected to two nonzero tags and have nonzero strength
 ##                    edges2.append(e)
             
-            points= [ [tag,int(round(tagscores[tag]))] for tag in reltags ]
+            points= [ [tag,min(int(round(tagscores[tag])),500)] for tag in reltags ]
 
             graph = Graph.objects.get(name = method)
             graph.points = points

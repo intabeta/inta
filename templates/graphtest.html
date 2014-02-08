@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <style>
@@ -50,22 +51,61 @@
 .underline_title {
  border-bottom: 2px solid white;
 }
-</style>
 
+.deleter:hover {
+  color:white;
+  cursor:default;
+}
+
+ul.search {
+  margin:0px;
+  padding:0px;
+}
+
+ul.search li {
+  display: inline-block;
+  margin:2px 2px;
+  padding:2px 2px;
+  height:19px;
+  border:0px transparent;
+  border-style:inset;
+  background:#ff7777;
+  border-radius: 5px;
+  font-family:Arial;
+  font-size:15px;
+}
+
+#search {
+  margin:0px;
+}
+
+#results {
+  border:1px solid black;
+  background-color:rgba(0,0,100,0.1);
+}
+
+#resultsul {
+  list-style-type:none;
+  display:block;
+  margin:0px;
+  padding:2px;
+  font-family:Arial;
+}
+</style>
 </head>
 <body onload="initialize();" style="background-color: #ddf">
  <div class="brian_nav">
   <div class="nav_row" id="time_nav">
-      <p class="inta_brand"><a href="/{{ method }}" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
-        <p {% if method == 'decay1' %}class="active"{% endif %}><a href="/graphtest/decay1" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 30m']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '30m']);">30m</a></p>
-        <p {% if method == 'decay2' %}class="active"{% endif %}><a href="/graphtest/decay2" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3h']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3h']);">3h</a></p>
-        <p {% if method == 'decay3' %}class="active"{% endif %}><a href="/graphtest/decay3" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1d']);">1d</a></p>
-        <p {% if method == 'decay4' %}class="active"{% endif %}><a href="/graphtest/decay4" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 3d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3d']);">3d</a></p>
-        <p {% if method == 'decay5' %}class="active"{% endif %}><a href="/graphtest/decay5" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 1w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1w']);">1w</a></p>
-        <p {% if method == 'decay6' %}class="active"{% endif %}><a href="/graphtest/decay6" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 4w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '4w']);">4w</a></p>
-        <p {% if method == 'decay7' %}class="active"{% endif %}><a href="/graphtest/decay7" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest 12w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '12w']);">12w</a></p>
-        <p {% if method == 'decay8' %}class="active"{% endif %}><a href="/graphtest/decay8" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest yr']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'yr']);">yr</a></p>
-        <p {% if method == 'votes' %}class="active"{% endif %}><a href="/graphtest/votes" onmousedown="_gaq.push(['_trackEvent', '{{ user }}', 'graphtest all']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'all']);">All-time</a></p>
+      <p class="inta_brand"><a href="/votes" style="color:#ddf" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest Inta link']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'Inta link']);"> inta </a></p>
+        <p ><a href="/graphtest/decay1" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 30m']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '30m']);">30m</a></p>
+        <p ><a href="/graphtest/decay2" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 3h']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3h']);">3h</a></p>
+        <p ><a href="/graphtest/decay3" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 1d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1d']);">1d</a></p>
+        <p ><a href="/graphtest/decay4" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 3d']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '3d']);">3d</a></p>
+        <p ><a href="/graphtest/decay5" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 1w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '1w']);">1w</a></p>
+        <p ><a href="/graphtest/decay6" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 4w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '4w']);">4w</a></p>
+        <p ><a href="/graphtest/decay7" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest 12w']);" onClick="_gaq.push(['_trackEvent', 'graphtest', '12w']);">12w</a></p>
+        <p ><a href="/graphtest/decay8" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest yr']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'yr']);">yr</a></p>
+        <p class="active"><a href="/graphtest/votes" onmousedown="_gaq.push(['_trackEvent', '', 'graphtest all']);" onClick="_gaq.push(['_trackEvent', 'graphtest', 'all']);">All-time</a></p>
     </div>
 </div>
 
@@ -93,10 +133,21 @@
   </ul>
   </div> -->
   <div style="margin-left: 0px; -moz-user-select: none; -webkit-user-select: none; position: absolute; top: 40px; left:0px;" onselectstart='return false;'>
-      <canvas id="viewpane" width="600" height="600" style="border: 1px solid black; background-color:rgb(250,250,245); margin-top:0px; margin-bottom: 30px; position: absolute; left: 0; top: 0; z-index: 0">Canvas not supported.</canvas>
-      <canvas id="map" width="100" height="100" style="border: 1px solid black; background-color:rgba(255,255,255,0.7); position: absolute; left: 10; top: 10; z-index: 1"></canvas>
-      <canvas id="sidebar" width="200" height="100" style="border: 1px solid black; background-color:rgba(255,255,255,0.5); position: absolute; left:0; top: 0; z-index: 1"></canvas>
-      <input id='search' type='text' size='30' value="Find tag" style="position:absolute; left:100; top:100; z-index:2; width:150px; height:19px;">
+      <canvas id="viewpane" width="600" height="600" style="border-top: 1px solid black; background-color:rgb(250,250,245); position: absolute; left: 0; top: 29; z-index: 0">Canvas not supported.</canvas>
+      <div id="searchbar" style="width:600px; height:29px; background-color:rgb(255,255,250); position:absolute; left:0; top:0; z-index:2; padding:0px">
+        <ul id='tagsul' class="search" style="position:absolute; left:2; top:2; z-index:2">
+          <li id="searchli">
+            <input id='search' type='text' size='50' placeholder="Find tags" style="width:150px; height:19px;" />
+          </li>
+        </ul>
+      </div>
+      <canvas id="map" width="100" height="100" style="border: 1px solid black; background-color:rgba(255,255,255,0.7); position: absolute; left: 10; top: 39; z-index: 1"></canvas>
+      <div id="results" style="width:300px; height:600px; position:absolute; left:0; top:29; z-index:1">
+        <ul id="resultsul">
+          <li>Result 1</li>
+          <li>Result 2</li>
+        </ul>
+      </div>
   </div>
   
 <!--
@@ -114,16 +165,17 @@ ga('send', 'pageview');
 <script type="text/javascript">
 var canvas = document.getElementById("viewpane");
 var mapcanvas = document.getElementById("map");
-var sidebar = document.getElementById("sidebar");
+var resultsdiv = document.getElementById("results");
 var searchinput = document.getElementById("search");
+var searchbar = document.getElementById("searchbar");
+var tagsul = document.getElementById("tagsul");
+var searchli = document.getElementById("searchli");
 
 var width = 600;
 var height = 600;
-var sidebarw = 200;
 
 var ctx=canvas.getContext("2d");
 var mapctx=mapcanvas.getContext("2d");
-var sidectx=sidebar.getContext("2d");
 
 var points={% autoescape off %}{{ points }}{% endautoescape %};
 var edges={{ edges }};
@@ -136,14 +188,15 @@ var link=0;
 var drawpoints = points;
 var mappoints = points;
 
-var sidebarupdate = 1;
-
 var selected = -1;
 var links = [];
 var linkhover = -1;
+var activetags = [];
+var connectedtags = [];
+var activeedges = [];
 
 var loading = 1;
-var info = 1;
+var info = 0;
 var infoclosehover = 0;
 
 var panpoint = [0,0];
@@ -197,10 +250,8 @@ function initialize() {
   //add mouse listeners
     canvas.addEventListener("mousemove", on_mousemove, false);
     mapcanvas.addEventListener("mousemove", on_mousemove_map, false);
-    sidebar.addEventListener("mousemove", on_mousemove_sidebar, false);
     canvas.addEventListener("mousedown", on_down, false);
     mapcanvas.addEventListener("mousedown", on_down_map, false);
-    sidebar.addEventListener("mousedown", on_down_sidebar, false);
     canvas.addEventListener("mouseup", on_up, false);
     mapcanvas.addEventListener("mouseup", on_up, false);
     canvas.addEventListener("mousewheel",function(ev){
@@ -208,19 +259,21 @@ function initialize() {
       ev.preventDefault();
       return false;
     },false);
+    searchbar.addEventListener('mousedown', on_down_searchbar, false);
     window.addEventListener("resize", resize, false);
-    searchinput.onkeydown = function(ev) {if (ev.keyCode==13) {findtag(searchinput.value);}};
+    searchinput.onkeydown = function(ev) {if (ev.keyCode==13) {search(searchinput.value);}};
     var w = window.innerWidth;
     var h = window.innerHeight;
-    width = w-sidebarw;
+    width = w;
     height = h-40;
     canvas.width = w;
-    canvas.height = h-40;
-    sidebar.style.left = w-sidebarw;
-    sidebar.height = h-40;
-    searchinput.style.left = w-sidebarw+10;
-    searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
-    searchinput.style.width = sidebarw-20;
+    canvas.height = h-canvas.getBoundingClientRect().top;
+    searchbar.style.width = w;
+    results.style.left = w-results.getBoundingClientRect().width;
+    results.style.height = h-canvas.getBoundingClientRect().top;
+    // searchinput.style.left = w-sidebarw+10;
+    // searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
+    // searchinput.style.width = sidebarw-20;
     update();
     updateframe();
     loading = 1;
@@ -234,7 +287,11 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //draw edges
-    ctx.strokeStyle='rgba(0,0,0,0.05)';
+    if (activetags.length>0) {
+      ctx.strokeStyle='rgba(0,0,0,0.02)';
+    } else {
+      ctx.strokeStyle='rgba(0,0,0,0.05)';
+    }
     ctx.beginPath();
     for (i=0;i<edges.length;i++) {
       // ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/50)+')';
@@ -247,9 +304,27 @@ function draw() {
     ctx.stroke();
     ctx.closePath();
 
+    //draw active edges
+    ctx.strokeStyle='rgba(100,0,200,0.05)';
+    ctx.beginPath();
+    for (i=0;i<activeedges.length;i++) {
+      // ctx.strokeStyle='rgba(0,0,0,'+String(edges[i][2]/50)+')';
+      var edge = activeedges[i];
+      var P1=drawpoints[edge[0]];
+      var P2=drawpoints[edge[1]];
+      ctx.moveTo(P1[0],P1[1]);
+      ctx.lineTo(P2[0],P2[1]);
+    }
+    ctx.stroke();
+    ctx.closePath();
+
     //hilight hovered node
     if (inLink) {
-      ctx.fillStyle = "#ddddff";
+      if (activetags.indexOf(link)>-1) {
+        ctx.fillStyle = "#ffdddd";
+      } else {
+        ctx.fillStyle = "#ddddff";
+      }
       ctx.beginPath();
       var point = drawpoints[link];
       var X=point[0];
@@ -259,7 +334,11 @@ function draw() {
       ctx.arc(X,Y,rad,0,Math.PI*2,true);
       ctx.fill();
       ctx.closePath();
-      ctx.fillStyle = "#aaaaff";
+      if (activetags.indexOf(link)>-1) {
+        ctx.fillStyle = "#ffaaaa";
+      } else {
+        ctx.fillStyle = "#aaaaff";
+      }
       ctx.beginPath();
       rad *= 0.9;
       ctx.moveTo(X+rad,Y);
@@ -269,7 +348,11 @@ function draw() {
 
     //draw the nodes if they are in the view pane
     ctx.beginPath();
-    ctx.fillStyle = "#7777ff";
+    if (activetags.length>0) {
+      ctx.fillStyle = "rgba(112,112,255,0.1)";
+    } else {
+      ctx.fillStyle = "#7777ff";
+    }
     for (i=0;i<pointslen;i++) {
       var point = drawpoints[i];
       var X=point[0];
@@ -277,11 +360,53 @@ function draw() {
       var rad = radii[i]*zoom;
       if ( X>-rad&&X<width && Y>-rad&&Y<(height+rad)) {
         ctx.moveTo(X+rad,Y);
-        if (i==link && selected != -1) {
-          ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
-        } else {
-          ctx.arc(X,Y,rad,0,Math.PI*2,true);
-        }
+          if (i==link && selected != -1) {
+            ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
+          } else {
+            ctx.arc(X,Y,rad,0,Math.PI*2,true);
+          }
+      }
+    }
+    ctx.fill();
+    ctx.closePath();
+
+    //draw nodes for connected tags
+    ctx.beginPath();
+    ctx.fillStyle = "#7777ff";
+    for (j=0;j<connectedtags.length;j++) {
+      var i = connectedtags[j];
+      var point = drawpoints[i];
+      var X=point[0];
+      var Y=point[1];
+      var rad = radii[i]*zoom;
+      if ( X>-rad&&X<width && Y>-rad&&Y<(height+rad)) {
+        ctx.moveTo(X+rad,Y);
+          if (i==link && selected != -1) {
+            ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
+          } else {
+            ctx.arc(X,Y,rad,0,Math.PI*2,true);
+          }
+      }
+    }
+    ctx.fill();
+    ctx.closePath();
+
+    //draw nodes for active tags
+    ctx.beginPath();
+    ctx.fillStyle = "#ff7777";
+    for (j=0;j<activetags.length;j++) {
+      var i = activetags[j];
+      var point = drawpoints[i];
+      var X=point[0];
+      var Y=point[1];
+      var rad = radii[i]*zoom;
+      if ( X>-rad&&X<width && Y>-rad&&Y<(height+rad)) {
+        ctx.moveTo(X+rad,Y);
+          if (i==link && selected != -1) {
+            ctx.arc(X,Y,rad*1.2,0,Math.PI*2,true);
+          } else {
+            ctx.arc(X,Y,rad,0,Math.PI*2,true);
+          }
       }
     }
     ctx.fill();
@@ -372,22 +497,6 @@ function draw() {
       ctx.lineCap = "round";
       ctx.lineWidth = "5px";
       ctx.stroke();
-    }
-
-    if (sidebarupdate) {
-      //draw sidebar
-      sidectx.clearRect(0,0,400,sidebarw);
-      sidectx.fillStyle = "#000";
-      sidectx.font = "13px sans-serif"
-      for (i=0; i<links.length; i++) {
-        if (linkhover == i) {
-          sidectx.fillStyle = "rgba(200,200,200,0.2)";
-          sidectx.fillRect(0,7+15*i,sidebarw,15);
-          sidectx.fillStyle = "#000";
-        }
-        sidectx.fillText(points[links[i]][2],10,20+15*i);
-      }
-      sidebarupdate = 0;
     }
   }
 }
@@ -502,14 +611,6 @@ function on_mousemove_map(ev) {
   if (panning == 1) {
     viewc = [x*framer/100+minx-0.5*(framer-xrange),y*framer/100+miny-0.5*(framer-yrange)];
   }
-}
-
-function on_mousemove_sidebar(ev) {
-  var y;
-  var canvrect = mapcanvas.getBoundingClientRect();
-  y = ev.clientY - canvrect.top;
-  linkhover = Math.floor(y/15);
-  sidebarupdate = 1;
 }
 
 function updateframe() {
@@ -638,7 +739,15 @@ function update() {
 function on_down(ev) {
   if (inLink) {
     selected = link;
-    if ( links.indexOf(link) == -1 ) { links.push(link); sidebarupdate = 1; }
+    activeindex = activetags.indexOf(link);
+    if (activeindex>-1) {
+      activetags.splice(activeindex,1);
+      tagsul.removeChild(tagsul.children[activeindex]);
+    } else {
+      activetags.push(link);
+      addTagLi(points[link][2]);
+    }
+    calcConnected();
   } else {
     var x, y;
     var canvrect = canvas.getBoundingClientRect();
@@ -666,9 +775,15 @@ function on_down_map(ev) {
   panning = 1;
 }
 
-function on_down_sidebar(ev) {
-  if (links.length>linkhover) {
-    window.open('/{{ method }}/'+points[links[linkhover]][2]);
+function on_down_searchbar(ev) {
+  var t = ev.target;
+  if (t.classList.contains('deleter')) {
+    tag = points.filter(function(p) { return p[2]==t.parentElement.firstChild.data.slice(0,-2) })[0];
+    link = points.indexOf(tag);
+    activeindex = activetags.indexOf(link);
+    activetags.splice(activeindex,1);
+    calcConnected();
+    t.parentElement.parentElement.removeChild(t.parentElement);
   }
 }
 
@@ -704,23 +819,107 @@ function scroll(ev) {
 function resize() {
   var w = window.innerWidth;
   var h = window.innerHeight;
-  width = w-sidebarw;
-  sidebar.style.left = w-sidebarw;
+  width = w;
   height = h;
   canvas.width = w;
   canvas.height = h;
-  sidebar.height = h;
-  searchinput.style.left = w-sidebarw+10;
-  searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
+  results.style.left = w-results.getBoundingClientRect().width;
+  results.style.height = h-canvas.getBoundingClientRect().top;
+  // searchinput.style.left = w-sidebarw+10;
+  // searchinput.style.top = h-searchinput.style.height.slice(0,-2)-10-40;
+  searchbar.style.width = w;
 }
 
-function findtag(tagname) {
-  search = points.filter(function(p) { return p[2]==tagname; });
-  if (search.length) {
-    viewc = [search[0][0],search[0][1]];
-    link = points.indexOf(search[0]);
-    inLink=1;
+function areconnected(tag1,tag2) {
+  search = edges.filter(function(e) { return e[0]==tag1 && e[1]==tag2; });
+  if (search) {
+    return 1;
+  } else {
+    return -1;
   }
+}
+
+function connectedto(tag) {
+  var search = edges.filter(function(e) { return e[0]==tag || e[1] == tag; });
+  var result = [];
+  search.map(function(e) { result.push(e[0],e[1]); });
+  return result.filter(function(t) { return t != tag; });
+}
+
+function calcConnected() {
+  // connectedtags = []; //use top three lines for 'or' logic
+  // activetags.map(function(tag) { connectedtags.push.apply(connectedtags,connectedto(tag)); }); //add all tags connected to active tags
+  // connectedtags = connectedtags.filter(function(tag, pos) { return connectedtags.indexOf(tag) == pos; }); //filter out duplicates
+  connectedtags = connectedto(activetags[0]); //start with all tags connected to first active tag
+  activetags.map(function(tag1) { //filter out tags not connected to all of the active tags
+    connectedtags = connectedtags.filter(function(tag2) { return connectedto(tag1).indexOf(tag2) > -1; });
+  });
+  var tagslist = activetags.concat(connectedtags); //list of all active and connected tags
+  activeedges = edges.filter(function(e) { //figure out which edges are active
+    return (tagslist.indexOf(e[0])>-1)&&(tagslist.indexOf(e[1])>-1);
+  });
+  // for (var i=0; i<activetags.length; i++) {
+  //   for (var j=0; j<connectedtags.length; j++) {
+  //     activeedges.push([activetags[i],connectedtags[j]],[connectedtags[j],activetags[i]]);
+  //   }
+  // }
+  // console.log(activeedges);
+  // activeedges = edges.map(function(e, pos) {
+  //   if (activeedges.indexOf([e[0],e[1]])>-1) {
+  //     return pos;
+  //   } else {
+  //     return -1;
+  //   }
+  // });
+  // console.log(activeedges);
+  // activeedges = activeedges.filter(function(e) { return e>-1; });
+}
+
+function search(tagnames) {
+  var tags = tagnames.split(', ');
+  var newactivetags = tags.map(function(tag) { return points.filter(function(p) { return p[2]==tag; }); });
+  newactivetags = newactivetags.filter(function(tag) {return tag.length>0; });
+  var length = newactivetags.length;
+  if (length>0) {
+    var sum = [0,0];
+    var xrange = [0,0];
+    var yrange = [0,0];
+    newactivetags.map(function(tag) {
+      sum[0]+=tag[0][0];
+      sum[1]+=tag[0][1];
+      xrange[0] = Math.min(xrange[0],tag[0][0]);
+      xrange[1] = Math.max(xrange[1],tag[0][0]);
+      yrange[0] = Math.min(yrange[0],tag[0][1]);
+      yrange[1] = Math.max(yrange[1],tag[0][1]);
+    });
+    viewc = [sum[0]/length,sum[1]/length];
+    xrange = 2*Math.max(Math.abs(xrange[1]-viewc[0]),Math.abs(xrange[0]-viewc[0]));
+    yrange = 2*Math.max(Math.abs(yrange[1]-viewc[1]),Math.abs(yrange[0]-viewc[1]));
+    if (length>1) { zoom = Math.min(width/xrange,height/yrange); }
+    newactivetags = newactivetags.map(function(tag) { return points.indexOf(tag[0]); });
+    newactivetags = newactivetags.filter(function(tag) { return activetags.indexOf(tag)==-1; });
+    newactivetags.map(function(link) {
+      var tag = points[link];
+      addTagLi(tag[2]);
+    });
+    activetags = activetags.concat(newactivetags);
+    searchinput.value="";
+    calcConnected();
+  }
+}
+
+function addTagLi(tagname) {
+  var newli = document.createElement('li');
+  var txt = document.createTextNode(tagname+' [');
+  var newspan = document.createElement('span');
+  newspan.setAttribute('class','deleter');
+  var x = document.createTextNode('x');
+  var txt2 = document.createTextNode(']');
+  newspan.appendChild(x);
+  newli.appendChild(txt);
+  newli.appendChild(newspan);
+  newli.appendChild(txt2);
+  tagsul.insertBefore(newli,searchli);
 }
 
 </script>
